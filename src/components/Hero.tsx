@@ -6,24 +6,56 @@ export default function Hero() {
         <div className="absolute inset-0 opacity-[0.04] dots-bg" />
         <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-ocean-400/15 rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-ocean-300/10 rounded-full blur-[100px]" />
-        {/* Lighthouse silhouette */}
+        {/* Faro Punta Mogotes silhouette */}
         <svg
-          className="absolute right-0 bottom-0 h-full opacity-[0.06] hidden lg:block"
-          viewBox="0 0 200 600"
+          className="absolute right-0 bottom-0 h-full opacity-[0.07] hidden lg:block"
+          viewBox="0 0 200 700"
           fill="white"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <polygon points="85,120 115,120 125,480 75,480" />
-          <rect x="73" y="475" width="54" height="14" rx="3" />
-          <rect x="73" y="110" width="54" height="14" rx="3" />
-          <rect x="80" y="78" width="40" height="36" rx="3" />
-          <rect x="88" y="56" width="24" height="26" />
-          <rect x="76" y="51" width="48" height="8" rx="2" />
-          <rect x="78" y="200" width="44" height="26" fill="#020030" opacity="0.6" />
-          <rect x="78" y="300" width="44" height="26" fill="#020030" opacity="0.6" />
-          <rect x="78" y="400" width="44" height="26" fill="#020030" opacity="0.6" />
-          <rect x="85" y="490" width="30" height="110" />
-          <polygon points="100,66 30,260 50,268" />
+          {/* Service building at base */}
+          <rect x="55" y="590" width="90" height="75" rx="4" />
+          <rect x="85" y="575" width="30" height="18" rx="3" />
+          {/* Door arch */}
+          <rect x="91" y="615" width="18" height="28" rx="9" fill="#020030" opacity="0.4" />
+
+          {/* Tower platform / base ring */}
+          <rect x="70" y="560" width="60" height="14" rx="3" />
+
+          {/* Main tower body — cylindrical, uniform width */}
+          <rect x="80" y="165" width="40" height="398" />
+
+          {/* Horizontal band pattern (alternating dark = red in reality) */}
+          <rect x="79" y="245" width="42" height="55" fill="#020030" opacity="0.55" />
+          <rect x="79" y="350" width="42" height="55" fill="#020030" opacity="0.55" />
+          <rect x="79" y="455" width="42" height="55" fill="#020030" opacity="0.55" />
+
+          {/* Gallery / balcony at top of tower */}
+          <rect x="66" y="156" width="68" height="13" rx="2" />
+          {/* Railing */}
+          <rect x="68" y="143" width="64" height="16" rx="2" />
+          {/* Railing spindles */}
+          {[72, 80, 88, 96, 104, 112, 120].map((x) => (
+            <rect key={x} x={x} y={143} width="3" height="16" rx="1" fill="#020030" opacity="0.3" />
+          ))}
+
+          {/* Lantern room body */}
+          <rect x="78" y="92" width="44" height="56" rx="3" />
+          {/* Lantern room glass panels (slightly inset) */}
+          <rect x="82" y="96" width="36" height="46" rx="2" fill="#020030" opacity="0.25" />
+
+          {/* Lantern room gallery */}
+          <rect x="68" y="84" width="64" height="11" rx="2" />
+
+          {/* Dome */}
+          <path d="M78,92 Q100,44 122,92 Z" />
+          {/* Dome finial rod */}
+          <rect x="97" y="28" width="6" height="18" rx="2" />
+          {/* Finial ball */}
+          <circle cx="100" cy="26" r="6" />
+
+          {/* Light beam */}
+          <polygon points="100,72 8,300 34,312" opacity="0.3" />
         </svg>
       </div>
 
@@ -71,30 +103,6 @@ export default function Hero() {
               </svg>
               Ver Eventos
             </a>
-          </div>
-
-          {/* Member avatars */}
-          <div className="flex items-center justify-center gap-4 mb-16">
-            <div className="flex -space-x-3">
-              {[
-                { initials: "MA", from: "from-cyan-400",   to: "to-blue-600"   },
-                { initials: "JP", from: "from-teal-400",   to: "to-cyan-600"   },
-                { initials: "LG", from: "from-blue-400",   to: "to-indigo-600" },
-                { initials: "SR", from: "from-sky-400",    to: "to-blue-600"   },
-                { initials: "+",  from: "from-ocean-400",  to: "to-ocean-700"  },
-              ].map((a) => (
-                <div
-                  key={a.initials}
-                  className={`w-11 h-11 rounded-full border-2 border-ocean-900 bg-linear-to-br ${a.from} ${a.to} flex items-center justify-center text-white text-xs font-bold shadow-lg`}
-                >
-                  {a.initials}
-                </div>
-              ))}
-            </div>
-            <div className="text-left">
-              <p className="text-white font-bold text-xl leading-tight">+500 miembros</p>
-              <p className="text-ocean-300 text-sm">devs en Mar del Plata</p>
-            </div>
           </div>
 
           {/* Feature cards */}

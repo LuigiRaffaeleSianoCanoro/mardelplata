@@ -13,7 +13,7 @@ export default function CodeOfConduct() {
           comunidad se basa en el respeto mutuo, la colaboración y el aprendizaje compartido.
         </p>
         <a
-          href="#"
+          href="/reglamento"
           className="inline-flex items-center gap-2 bg-ocean-800 hover:bg-ocean-700 text-white px-8 py-3.5 rounded-full font-semibold transition-all hover:shadow-xl hover:shadow-ocean-800/30"
         >
           Leer código de conducta completo →

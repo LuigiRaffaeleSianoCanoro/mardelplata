@@ -5,7 +5,6 @@ import CommunityPlatforms from "@/components/CommunityPlatforms";
 import Events from "@/components/Events";
 import Team from "@/components/Team";
 import CodeOfConduct from "@/components/CodeOfConduct";
-import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
 // Wave dividers as inline SVG helpers
@@ -43,10 +42,6 @@ export default function Home() {
         <WaveDown from="[background:linear-gradient(180deg,#f0f9ff_0%,#e0f4fb_100%)]" to="fill-white" d="M0,20 C720,55 1080,5 1440,35 L1440,60 L0,60 Z" />
 
         <CodeOfConduct />
-
-        <WaveDown from="bg-white" to="fill-[#03045E]" d="M0,15 C360,50 1080,5 1440,30 L1440,60 L0,60 Z" />
-
-        <ContactForm />
       </main>
       <Footer />
     </>
