@@ -5,12 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout source
@@ -30,14 +28,30 @@ jobs:
         # Produces ./out/ thanks to output: 'export' in next.config.ts
 
       - name: Deploy to mardelplata/mardelplata.github.io
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          # SSH deploy key: private key stored as secret MARDELPLATA_DEPLOY_KEY,
-          # public key added as a Deploy Key (with write access) on
-          # mardelplata/mardelplata.github.io via Settings → Deploy keys.
-          deploy_key: ${{ secrets.MARDELPLATA_DEPLOY_KEY }}
-          external_repository: mardelplata/mardelplata.github.io
-          publish_branch: master
-          publish_dir: ./out
-          # The CNAME file is already inside ./out (copied from public/CNAME)
-          # so the custom domain mardelplata.dev.ar is preserved automatically.
+        env:
+          DEPLOY_KEY: ${{ secrets.MARDELPLATA_DEPLOY_KEY }}
+        run: |
+          # Configure SSH
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+
+          # Clone the target repo (shallow, only master branch)
+          git clone --depth=1 --branch=master \
+            git@github.com:mardelplata/mardelplata.github.io.git \
+            /tmp/target
+
+          # Replace content with the new build
+          find /tmp/target -mindepth 1 -not -path '/tmp/target/.git*' -delete
+          cp -r out/. /tmp/target/
+
+          # Commit and push
+          cd /tmp/target
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "Nothing to deploy" && exit 0
+          git commit -m "deploy: ${{ github.sha }}"
+          git push origin master
