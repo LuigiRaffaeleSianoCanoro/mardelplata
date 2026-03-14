@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Deploy to mardelplata/mardelplata.github.io
+        env:
+          TOKEN: ${{ secrets.MARDELPLATA_DEPLOY_TOKEN }}
+        run: |
+          # Clone via HTTPS using the PAT (no SSH keys, no line-ending issues)
+          git clone --depth=1 --branch=master \
+            https://x-access-token:${TOKEN}@github.com/mardelplata/mardelplata.github.io.git \
+            /tmp/target
+
+          # Replace the files
+          cp index.html      /tmp/target/index.html
+          cp reglamento.html /tmp/target/reglamento.html
+          cp public/CNAME    /tmp/target/CNAME
+
+          # Commit and push
+          cd /tmp/target
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html reglamento.html CNAME
+          git diff --cached --quiet && echo "Nothing changed." && exit 0
+          git commit -m "deploy: ${{ github.sha }}"
+          git push origin master
