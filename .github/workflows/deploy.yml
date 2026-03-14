@@ -3,10 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  # Allow manual trigger from the Actions tab
   workflow_dispatch:
 
-# Sets permissions so the workflow can push to the gh-pages branch
 permissions:
   contents: write
 
@@ -15,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -27,14 +25,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (static export)
+      - name: Build static export
         run: npm run build
-        # next.config.ts has output: 'export', so this generates ./out/
+        # Produces ./out/ thanks to output: 'export' in next.config.ts
 
-      - name: Deploy to gh-pages branch
+      - name: Deploy to mardelplata/mardelplata.github.io
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # PAT with write access to the mardelplata account.
+          # Create it at https://github.com/settings/tokens and add it
+          # as secret MARDELPLATA_DEPLOY_TOKEN in this repo's settings.
+          personal_token: ${{ secrets.MARDELPLATA_DEPLOY_TOKEN }}
+          external_repository: mardelplata/mardelplata.github.io
+          publish_branch: master
           publish_dir: ./out
-          # Preserve the custom domain on every deploy
-          cname: mardelplata.dev.ar
+          # The CNAME file is already inside ./out (copied from public/CNAME)
+          # so the custom domain mardelplata.dev.ar is preserved automatically.
