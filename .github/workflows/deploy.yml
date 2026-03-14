@@ -6,26 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build static export
-        run: npm run build
-        # Produces ./out/ thanks to output: 'export' in next.config.ts
 
       - name: Deploy to mardelplata/mardelplata.github.io
         env:
@@ -33,25 +20,26 @@ jobs:
         run: |
           # Configure SSH
           mkdir -p ~/.ssh
-          echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-          export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes"
 
-          # Clone the target repo (shallow, only master branch)
+          # Clone target repo (shallow)
           git clone --depth=1 --branch=master \
             git@github.com:mardelplata/mardelplata.github.io.git \
             /tmp/target
 
-          # Replace content with the new build
-          find /tmp/target -mindepth 1 -not -path '/tmp/target/.git*' -delete
-          cp -r out/. /tmp/target/
+          # Replace only the HTML files — preserve .git
+          cp index.html      /tmp/target/index.html
+          cp reglamento.html /tmp/target/reglamento.html
+          cp public/CNAME    /tmp/target/CNAME
 
           # Commit and push
           cd /tmp/target
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --cached --quiet && echo "Nothing to deploy" && exit 0
+          git add index.html reglamento.html CNAME
+          git diff --cached --quiet && echo "Nothing changed, skipping push." && exit 0
           git commit -m "deploy: ${{ github.sha }}"
           git push origin master

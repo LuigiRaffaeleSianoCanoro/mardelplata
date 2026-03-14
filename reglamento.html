@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Código de Conducta — MdPDev</title>
+  <meta name="description" content="Reglamento y código de conducta de la comunidad de desarrolladores de Mar del Plata." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #0f172a; background: #fff; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; }
+
+    :root {
+      --ocean-50:  #CAF0F8;
+      --ocean-100: #ADE8F4;
+      --ocean-200: #90E0EF;
+      --ocean-300: #48CAE4;
+      --ocean-400: #00B4D8;
+      --ocean-500: #0096C7;
+      --ocean-600: #0077B6;
+      --ocean-700: #023E8A;
+      --ocean-800: #03045E;
+      --ocean-900: #020030;
+    }
+
+    .font-display { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
+
+    .hero-bg {
+      background: linear-gradient(145deg, #020030 0%, #03045E 40%, #023E8A 75%, #0077B6 100%);
+    }
+    .dots-bg {
+      background-image: radial-gradient(circle, rgba(72,202,228,0.35) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #48CAE4, #0096C7, #023E8A);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(0,180,216,0.5); }
+      70%  { box-shadow: 0 0 0 12px rgba(0,180,216,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,180,216,0); }
+    }
+    .pulse-dot { animation: pulse-ring 2.2s ease-in-out infinite; border-radius: 50%; }
+
+    ::-webkit-scrollbar       { width: 7px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #0077B6; border-radius: 4px; }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      padding: 1rem 1.5rem;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    #navbar.scrolled {
+      background: rgba(3,4,94,0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.35);
+    }
+    .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 0.625rem; }
+    .nav-logo:hover .logo-box { transform: scale(1.05); }
+    .logo-box {
+      width: 40px; height: 40px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--ocean-300), var(--ocean-700));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(3,4,94,0.4); transition: transform 0.2s; flex-shrink: 0;
+    }
+    .nav-brand { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: -0.025em; }
+    .nav-links { display: none; align-items: center; gap: 1.75rem; font-size: 0.875rem; font-weight: 500; }
+    .nav-links a { color: var(--ocean-200); transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      display: none; align-items: center; gap: 0.5rem;
+      background: var(--ocean-400); color: #fff;
+      padding: 0.625rem 1.25rem; border-radius: 9999px;
+      font-size: 0.875rem; font-weight: 600;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { background: var(--ocean-300); box-shadow: 0 4px 20px rgba(0,180,216,0.4); }
+    .hamburger { background: none; border: none; cursor: pointer; color: #fff; padding: 0.5rem; border-radius: 0.5rem; transition: background 0.2s; }
+    .hamburger:hover { background: rgba(3,4,94,0.5); }
+    .mobile-menu {
+      display: none; margin-top: 0.75rem;
+      background: rgba(2,0,48,0.97); backdrop-filter: blur(20px);
+      border-radius: 1rem; padding: 1rem;
+      border: 1px solid rgba(0,119,182,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; color: var(--ocean-200); padding: 0.625rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; transition: color 0.2s, background 0.2s; }
+    .mobile-menu a:hover { color: #fff; background: rgba(3,4,94,0.6); }
+    .mobile-cta { margin-top: 0.5rem; display: flex !important; align-items: center; justify-content: center; background: var(--ocean-400); color: #fff !important; padding: 0.75rem 1.25rem; border-radius: 0.75rem; font-weight: 600; }
+    .mobile-cta:hover { background: var(--ocean-300) !important; }
+    @media (min-width: 768px) { .nav-links { display: flex; } .nav-cta { display: flex; } .hamburger { display: none; } }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative; overflow: hidden;
+      padding: 5rem 1.5rem 3rem;
+    }
+    .page-header-deco { position: absolute; inset: 0; opacity: 0.04; pointer-events: none; }
+    .page-header-content { max-width: 48rem; margin: 0 auto; text-align: center; position: relative; z-index: 10; }
+    .page-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(3,4,94,0.7); border: 1px solid rgba(0,150,199,0.3);
+      backdrop-filter: blur(8px); border-radius: 9999px;
+      padding: 0.5rem 1.25rem; color: var(--ocean-200);
+      font-size: 0.875rem; font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .page-header h1 {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3rem); color: #fff; margin-bottom: 1rem;
+    }
+    .page-header p { color: var(--ocean-200); font-size: 1.125rem; line-height: 1.7; }
+
+    /* wave bottom of header */
+    .header-wave { position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; height: 40px; }
+
+    /* ── MAIN CONTENT ── */
+    main { background: #fff; padding-bottom: 5rem; }
+    .sections-wrap { max-width: 48rem; margin: 0 auto; padding: 3rem 1.5rem 0; }
+    .conduct-card {
+      background: #fff; border: 1px solid #f1f5f9;
+      border-radius: 1rem; padding: 1.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      margin-bottom: 1.5rem;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .conduct-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: var(--ocean-100); }
+    .conduct-emoji { font-size: 2rem; flex-shrink: 0; margin-top: 0.125rem; }
+    .conduct-card h2 {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      font-size: 1.25rem; color: var(--ocean-900); margin-bottom: 0.5rem;
+    }
+    .conduct-card p { color: #475569; line-height: 1.7; }
+
+    .contact-box {
+      background: var(--ocean-800); border-radius: 1rem;
+      padding: 1.75rem; text-align: center; margin-bottom: 1.5rem;
+    }
+    .contact-box p { color: var(--ocean-200); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem; }
+    .btn-contact {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--ocean-400); color: #fff;
+      padding: 0.75rem 1.5rem; border-radius: 9999px;
+      font-size: 0.875rem; font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-contact:hover { background: var(--ocean-300); }
+    .update-note { text-align: center; color: #94a3b8; font-size: 0.875rem; padding-top: 1rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ocean-900); border-top: 1px solid rgba(3,4,94,0.7); padding: 3.5rem 1.5rem; }
+    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+    @media (min-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .footer-brand p { color: rgba(0,180,216,0.6); font-size: 0.875rem; line-height: 1.6; max-width: 18rem; }
+    .footer-logo { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1rem; }
+    .footer-logo span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.25rem; color: #fff; }
+    .footer-col h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.625rem; }
+    .footer-col a { color: rgba(0,180,216,0.6); font-size: 0.875rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--ocean-200); }
+    .footer-bottom { border-top: 1px solid rgba(3,4,94,0.7); padding-top: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+    .footer-copy { color: rgba(0,150,199,0.5); font-size: 0.875rem; }
+    .back-top { display: inline-flex; align-items: center; gap: 0.5rem; color: rgba(0,150,199,0.5); font-size: 0.875rem; transition: color 0.2s; }
+    .back-top:hover { color: var(--ocean-300); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <ellipse cx="8" cy="7.5" rx="4" ry="3.5" stroke="white" stroke-width="1.8"/>
+          <circle cx="7" cy="6.5" r="0.8" fill="white"/>
+          <path d="M11.5 8.5 C13 8 14 8.5 13.5 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M11.5 8 L14.5 7" stroke="white" stroke-width="0.9" stroke-linecap="round"/>
+          <path d="M11.5 9 L14.5 9.5" stroke="white" stroke-width="0.9" stroke-linecap="round"/>
+          <path d="M6 11 C5.5 13 6 15 7 16" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M7 16 C9 17.5 13 18 17 16.5 C19 15.5 20 13.5 18.5 12 C17 10.5 14 10.5 11 11" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.5 14.5 C3.5 15.5 3 17.5 5 18.5" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M17.5 17 C19.5 16 21 17.5 19.5 19" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M16 17.5 C17 19.5 19 20.5 18 21.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand">MdPDev</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#inicio">Inicio</a>
+      <a href="index.html#colaboradores">Colaboradores</a>
+      <a href="index.html#staff">Staff</a>
+      <a href="index.html#comunidad">Comunidad</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="reglamento.html" style="color:#fff;">Reglamento</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <a href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs" target="_blank" rel="noopener noreferrer" class="nav-cta">
+        Unirse a la comunidad
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+        <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html#inicio" class="mobile-link">Inicio</a>
+    <a href="index.html#colaboradores" class="mobile-link">Colaboradores</a>
+    <a href="index.html#staff" class="mobile-link">Staff</a>
+    <a href="index.html#comunidad" class="mobile-link">Comunidad</a>
+    <a href="index.html#eventos" class="mobile-link">Eventos</a>
+    <a href="reglamento.html" class="mobile-link">Reglamento</a>
+    <a href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs" target="_blank" rel="noopener noreferrer" class="mobile-cta mobile-link">
+      Unirse a la comunidad →
+    </a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header hero-bg" style="padding-top:6rem;">
+  <div class="page-header-deco dots-bg"></div>
+  <div class="page-header-content">
+    <div class="page-badge">📋 Código de Conducta</div>
+    <h1 class="font-display">Reglamento de la Comunidad</h1>
+    <p>
+      En MdPDev creemos que la comunidad crece cuando sus miembros se sienten seguros,
+      respetados e incluidos. Este código define las expectativas de conducta para todos.
+    </p>
+  </div>
+  <div class="header-wave">
+    <svg viewBox="0 0 1440 40" preserveAspectRatio="none" style="width:100%;height:40px;">
+      <path d="M0,20 C360,38 1080,5 1440,20 L1440,40 L0,40 Z" fill="white"/>
+    </svg>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div class="sections-wrap">
+
+    <div class="conduct-card">
+      <span class="conduct-emoji">🤝</span>
+      <div>
+        <h2 class="font-display">Respeto mutuo</h2>
+        <p>Tratá a todos los integrantes de la comunidad con respeto y consideración, independientemente de su nivel de experiencia, género, edad, nacionalidad, religión u orientación sexual. Las críticas constructivas son bienvenidas; los ataques personales, no.</p>
+      </div>
+    </div>
+
+    <div class="conduct-card">
+      <span class="conduct-emoji">🌊</span>
+      <div>
+        <h2 class="font-display">Inclusión y diversidad</h2>
+        <p>MdPDev es un espacio abierto para toda persona interesada en tecnología. Valoramos la diversidad de perspectivas y experiencias. Cualquier forma de discriminación o exclusión está prohibida.</p>
+      </div>
+    </div>
+
+    <div class="conduct-card">
+      <span class="conduct-emoji">💬</span>
+      <div>
+        <h2 class="font-display">Comunicación constructiva</h2>
+        <p>Expresá tus ideas con claridad y buena fe. Escuchá activamente antes de responder. El desacuerdo técnico es natural y enriquecedor; la hostilidad y los insultos no tienen lugar aquí.</p>
+      </div>
+    </div>
+
+    <div class="conduct-card">
+      <span class="conduct-emoji">🚫</span>
+      <div>
+        <h2 class="font-display">Sin acoso</h2>
+        <p>No se tolerará ningún tipo de acoso, ya sea en eventos presenciales, en los grupos de mensajería o en cualquier canal oficial de la comunidad. Esto incluye comentarios ofensivos, persecución, contacto no deseado y cualquier otra conducta que haga sentir incómodo a un integrante.</p>
+      </div>
+    </div>
+
+    <div class="conduct-card">
+      <span class="conduct-emoji">🔒</span>
+      <div>
+        <h2 class="font-display">Privacidad</h2>
+        <p>Respetá la privacidad de los demás miembros. No compartas información personal de otros sin su consentimiento explícito. Las conversaciones privadas dentro de la comunidad no deben difundirse sin permiso.</p>
+      </div>
+    </div>
+
+    <div class="conduct-card">
+      <span class="conduct-emoji">⭐</span>
+      <div>
+        <h2 class="font-display">Espíritu de colaboración</h2>
+        <p>Esta comunidad crece cuando sus miembros comparten conocimiento, ayudan a quienes están aprendiendo y celebran los logros colectivos. Te invitamos a participar con generosidad: compartí recursos, respondé dudas y contribuí a hacer de MdPDev un espacio que nos represente a todos.</p>
+      </div>
+    </div>
+
+    <div class="conduct-card">
+      <span class="conduct-emoji">⚖️</span>
+      <div>
+        <h2 class="font-display">Consecuencias</h2>
+        <p>El incumplimiento de este código puede derivar en una advertencia, la suspensión temporal o la expulsión definitiva de los espacios de la comunidad, según la gravedad del caso. Las decisiones las toman los fundadores o administradores designados.</p>
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <p>Si presenciás o experimentás una situación que no cumpla con este código, ponete en contacto con los fundadores a través del grupo de WhatsApp.</p>
+      <a href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs" target="_blank" rel="noopener noreferrer" class="btn-contact">
+        Contactar a los fundadores →
+      </a>
+    </div>
+
+    <p class="update-note">Última actualización: Marzo 2026 · MdPDev</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <div class="logo-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <ellipse cx="8" cy="7.5" rx="4" ry="3.5" stroke="white" stroke-width="1.8"/>
+              <circle cx="7" cy="6.5" r="0.8" fill="white"/>
+              <path d="M11.5 8.5 C13 8 14 8.5 13.5 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M11.5 8 L14.5 7" stroke="white" stroke-width="0.9" stroke-linecap="round"/>
+              <path d="M11.5 9 L14.5 9.5" stroke="white" stroke-width="0.9" stroke-linecap="round"/>
+              <path d="M6 11 C5.5 13 6 15 7 16" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M7 16 C9 17.5 13 18 17 16.5 C19 15.5 20 13.5 18.5 12 C17 10.5 14 10.5 11 11" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.5 14.5 C3.5 15.5 3 17.5 5 18.5" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M17.5 17 C19.5 16 21 17.5 19.5 19" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M16 17.5 C17 19.5 19 20.5 18 21.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span>MdPDev</span>
+        </a>
+        <p>Comunidad de tecnología y desarrollo en Mar del Plata. Impulsando el futuro digital de la costa atlántica.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Comunidad</h4>
+        <ul><li><a href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs" target="_blank" rel="noopener noreferrer">WhatsApp</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="index.html#eventos">Eventos</a></li>
+          <li><a href="index.html#colaboradores">Colaboradores</a></li>
+          <li><a href="index.html#staff">Staff</a></li>
+        </ul>
+        <h4 style="margin-top:1.5rem;">Legal</h4>
+        <ul><li><a href="reglamento.html" style="color:var(--ocean-200);">Código de Conducta</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 MdPDev. Todos los derechos reservados.</p>
+      <a href="#" class="back-top">
+        Volver al inicio
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  function updateNav() { navbar.classList.toggle('scrolled', window.scrollY > 20); }
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamIcon = document.getElementById('ham-icon');
+  let open = false;
+  hamburger.addEventListener('click', () => {
+    open = !open;
+    mobileMenu.classList.toggle('open', open);
+    hamIcon.innerHTML = open ? '<path d="M18 6 6 18M6 6l12 12"/>' : '<path d="M3 6h18M3 12h18M3 18h18"/>';
+  });
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+    open = false; mobileMenu.classList.remove('open');
+    hamIcon.innerHTML = '<path d="M3 6h18M3 12h18M3 18h18"/>';
+  }));
+</script>
+</body>
+</html>
