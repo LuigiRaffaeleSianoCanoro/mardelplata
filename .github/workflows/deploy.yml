@@ -16,21 +16,14 @@ jobs:
 
       - name: Deploy to mardelplata/mardelplata.github.io
         env:
-          DEPLOY_KEY: ${{ secrets.MARDELPLATA_DEPLOY_KEY }}
+          TOKEN: ${{ secrets.MARDELPLATA_DEPLOY_TOKEN }}
         run: |
-          # Configure SSH
-          mkdir -p ~/.ssh
-          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null
-          export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes"
-
-          # Clone target repo (shallow)
+          # Clone via HTTPS using the PAT (no SSH keys, no line-ending issues)
           git clone --depth=1 --branch=master \
-            git@github.com:mardelplata/mardelplata.github.io.git \
+            https://x-access-token:${TOKEN}@github.com/mardelplata/mardelplata.github.io.git \
             /tmp/target
 
-          # Replace only the HTML files — preserve .git
+          # Replace the files
           cp index.html      /tmp/target/index.html
           cp reglamento.html /tmp/target/reglamento.html
           cp public/CNAME    /tmp/target/CNAME
@@ -40,6 +33,6 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html reglamento.html CNAME
-          git diff --cached --quiet && echo "Nothing changed, skipping push." && exit 0
+          git diff --cached --quiet && echo "Nothing changed." && exit 0
           git commit -m "deploy: ${{ github.sha }}"
           git push origin master
