@@ -32,10 +32,10 @@ jobs:
       - name: Deploy to mardelplata/mardelplata.github.io
         uses: peaceiris/actions-gh-pages@v4
         with:
-          # PAT with write access to the mardelplata account.
-          # Create it at https://github.com/settings/tokens and add it
-          # as secret MARDELPLATA_DEPLOY_TOKEN in this repo's settings.
-          personal_token: ${{ secrets.MARDELPLATA_DEPLOY_TOKEN }}
+          # SSH deploy key: private key stored as secret MARDELPLATA_DEPLOY_KEY,
+          # public key added as a Deploy Key (with write access) on
+          # mardelplata/mardelplata.github.io via Settings → Deploy keys.
+          deploy_key: ${{ secrets.MARDELPLATA_DEPLOY_KEY }}
           external_repository: mardelplata/mardelplata.github.io
           publish_branch: master
           publish_dir: ./out
