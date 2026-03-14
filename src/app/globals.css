@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  /* Ocean palette */
+  --color-ocean-50:  #CAF0F8;
+  --color-ocean-100: #ADE8F4;
+  --color-ocean-200: #90E0EF;
+  --color-ocean-300: #48CAE4;
+  --color-ocean-400: #00B4D8;
+  --color-ocean-500: #0096C7;
+  --color-ocean-600: #0077B6;
+  --color-ocean-700: #023E8A;
+  --color-ocean-800: #03045E;
+  --color-ocean-900: #020030;
+
+  /* Sand palette */
+  --color-sand-100: #FEF9EE;
+  --color-sand-200: #F8EDD8;
+  --color-sand-300: #F4E4C1;
+  --color-sand-400: #E9D5A0;
+  --color-sand-500: #D4B483;
+
+  /* Fonts — resolved from next/font CSS variables */
+  --font-sans:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Animations ── */
+@keyframes wave-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.5); }
+  70%  { box-shadow: 0 0 0 12px rgba(0, 180, 216, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0); }
+}
+
+/* ── Utility classes ── */
+html { scroll-behavior: smooth; }
+
+.hero-bg {
+  background: linear-gradient(145deg, #020030 0%, #03045E 40%, #023E8A 75%, #0077B6 100%);
+}
+.ocean-tint {
+  background: linear-gradient(180deg, #f0f9ff 0%, #e0f4fb 100%);
+}
+.gradient-text {
+  background: linear-gradient(135deg, #48CAE4, #0096C7, #023E8A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.event-header {
+  background: linear-gradient(135deg, #023E8A, #0096C7);
+}
+.dots-bg {
+  background-image: radial-gradient(circle, rgba(72, 202, 228, 0.35) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.wave-drift { animation: wave-drift 16s linear infinite; width: 200%; }
+.float-1   { animation: float 5s ease-in-out infinite; }
+.float-2   { animation: float 5s ease-in-out 1.2s infinite; }
+.float-3   { animation: float 5s ease-in-out 2.4s infinite; }
+.pulse-dot { animation: pulse-ring 2.2s ease-in-out infinite; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 7px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #0077B6; border-radius: 4px; }
