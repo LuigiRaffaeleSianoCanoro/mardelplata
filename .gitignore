@@ -34,3 +34,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# MCP / AI tool configs (contain local paths and API keys)
+.mcp.json
+mcp.json
+
+# Editor / IDE configs with local settings
+.cursor/
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+
+# OS artifacts
+Thumbs.db
+ehthumbs.db
+Desktop.ini
