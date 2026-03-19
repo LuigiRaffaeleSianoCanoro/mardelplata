@@ -58,6 +58,16 @@ html { scroll-behavior: smooth; }
 .event-header {
   background: linear-gradient(135deg, #023E8A, #0096C7);
 }
+.event-header-hackathon {
+  background: linear-gradient(135deg, #020030 0%, #03045E 40%, #0077B6 80%, #00B4D8 100%);
+}
+.event-header-mystery {
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+}
+.mystery-blur {
+  filter: blur(4px);
+  user-select: none;
+}
 .dots-bg {
   background-image: radial-gradient(circle, rgba(72, 202, 228, 0.35) 1px, transparent 1px);
   background-size: 28px 28px;
