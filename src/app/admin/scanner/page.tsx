@@ -124,7 +124,9 @@ export default function ScannerPage() {
   const handleScan = async (qrValue: string) => {
     // Extract QR code from URL or use directly
     let qrCode = qrValue;
-    if (qrValue.includes("/miembro/")) {
+    if (qrValue.includes("/miembro?code=")) {
+      qrCode = qrValue.split("/miembro?code=").pop() || qrValue;
+    } else if (qrValue.includes("/miembro/")) {
       qrCode = qrValue.split("/miembro/").pop() || qrValue;
     }
 

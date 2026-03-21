@@ -1,23 +1,72 @@
-import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
+"use client";
+
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
-export default async function MemberPage({
-  params,
-}: {
-  params: Promise<{ qrCode: string }>;
-}) {
-  const { qrCode } = await params;
-  const supabase = await createClient();
+interface Profile {
+  full_name: string | null;
+  bio: string | null;
+  avatar_url: string | null;
+  github_url: string | null;
+  linkedin_url: string | null;
+  twitter_url: string | null;
+  created_at: string;
+}
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("qr_code", qrCode)
-    .single();
+function MemberContent() {
+  const searchParams = useSearchParams();
+  const qrCode = searchParams.get("code");
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!profile) {
-    notFound();
+  useEffect(() => {
+    async function fetchProfile() {
+      if (!qrCode) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("profiles")
+        .select("full_name, bio, avatar_url, github_url, linkedin_url, twitter_url, created_at")
+        .eq("qr_code", qrCode)
+        .single();
+
+      if (!data) {
+        setNotFound(true);
+      } else {
+        setProfile(data);
+      }
+      setLoading(false);
+    }
+
+    fetchProfile();
+  }, [qrCode]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen hero-bg flex items-center justify-center">
+        <div className="w-12 h-12 rounded-full border-4 border-ocean-500 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
+
+  if (notFound || !profile) {
+    return (
+      <div className="min-h-screen hero-bg flex items-center justify-center px-4">
+        <div className="text-center">
+          <p className="text-ocean-300 text-lg mb-4">Miembro no encontrado</p>
+          <Link href="/" className="text-ocean-400 hover:text-ocean-200 transition-colors font-medium text-sm">
+            Volver al inicio
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -112,7 +161,7 @@ export default async function MemberPage({
 
           {/* Link to community */}
           <div className="mt-6 text-center">
-            <Link 
+            <Link
               href="/"
               className="inline-flex items-center gap-2 text-ocean-400 hover:text-ocean-200 transition-colors font-medium text-sm"
             >
@@ -125,5 +174,19 @@ export default async function MemberPage({
         </div>
       </div>
     </div>
+  );
+}
+
+export default function MiembroPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen hero-bg flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full border-4 border-ocean-500 border-t-transparent animate-spin" />
+        </div>
+      }
+    >
+      <MemberContent />
+    </Suspense>
   );
 }

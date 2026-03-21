@@ -107,7 +107,7 @@ export default function ProfileClient({ user, profile }: ProfileClientProps) {
   };
 
   const qrValue = profile?.qr_code 
-    ? `${typeof window !== "undefined" ? window.location.origin : ""}/miembro/${profile.qr_code}`
+    ? `${typeof window !== "undefined" ? window.location.origin : ""}/miembro?code=${profile.qr_code}`
     : "";
 
   return (
