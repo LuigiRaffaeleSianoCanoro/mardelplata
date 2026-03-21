@@ -90,31 +90,70 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     setLoading(true);
     setSaveError(null);
 
-    const qrCode = currentProfile?.qr_code || crypto.randomUUID();
+    const editableFields = {
+      full_name: formData.full_name,
+      bio: formData.bio,
+      github_url: formData.github_url,
+      linkedin_url: formData.linkedin_url,
+      twitter_url: formData.twitter_url,
+    };
 
-    const { data: upserted, error } = await supabase
-      .from("profiles")
-      .upsert(
-        {
+    let savedProfile: Profile | null = null;
+    let saveErr: { message: string } | null = null;
+
+    if (currentProfile) {
+      // Profile already exists — only update the editable fields.
+      // We intentionally do NOT touch qr_code so the user's QR stays stable.
+      // updated_at is handled automatically by the DB trigger.
+      const { data, error } = await supabase
+        .from("profiles")
+        .update(editableFields)
+        .eq("id", user.id)
+        .select()
+        .single();
+
+      savedProfile = data as Profile | null;
+      saveErr = error;
+    } else {
+      // No profile row yet — create one with a fresh QR code.
+      const { data, error } = await supabase
+        .from("profiles")
+        .insert({
           id: user.id,
           email: user.email,
-          full_name: formData.full_name,
-          bio: formData.bio,
-          github_url: formData.github_url,
-          linkedin_url: formData.linkedin_url,
-          twitter_url: formData.twitter_url,
-          qr_code: qrCode,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: "id" }
-      )
-      .select()
-      .single();
+          qr_code: crypto.randomUUID(),
+          ...editableFields,
+        })
+        .select()
+        .single();
 
-    if (error) {
-      setSaveError("Error al guardar el perfil. Por favor, intentá de nuevo.");
+      if (error) {
+        // The profile may have been created by the DB trigger between our initial
+        // fetch and this insert (race condition). Fall back to an update.
+        const { data: updated, error: updateError } = await supabase
+          .from("profiles")
+          .update(editableFields)
+          .eq("id", user.id)
+          .select()
+          .single();
+
+        savedProfile = updated as Profile | null;
+        saveErr = updateError;
+      } else {
+        savedProfile = data as Profile | null;
+        saveErr = null;
+      }
+    }
+
+    if (saveErr) {
+      console.error("[perfil] Error saving profile:", saveErr);
+      const err = saveErr as { message?: string; details?: string; hint?: string };
+      const detail = err.hint || err.details || err.message;
+      setSaveError(
+        `Error al guardar el perfil: ${detail || "Por favor, intentá de nuevo."}`,
+      );
     } else {
-      setCurrentProfile(upserted as Profile);
+      setCurrentProfile(savedProfile);
       setIsEditing(false);
       if (onRefresh) onRefresh();
     }
