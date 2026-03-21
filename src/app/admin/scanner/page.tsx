@@ -97,7 +97,7 @@ export default function ScannerPage() {
       
       if (videoRef.current) {
         await codeReaderRef.current.decodeFromVideoDevice(
-          undefined,
+          null,
           videoRef.current,
           async (result) => {
             if (result) {
