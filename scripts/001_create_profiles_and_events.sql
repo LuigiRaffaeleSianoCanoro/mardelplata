@@ -69,11 +69,28 @@ GRANT SELECT ON public.events TO anon, authenticated;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.events TO authenticated;
 GRANT SELECT, INSERT ON public.event_attendance TO authenticated;
 
+-- ─── Helper function: admin check (SECURITY DEFINER bypasses RLS) ─────────────
+-- This function reads is_admin directly without going through RLS, so it can
+-- safely be called from within other table policies without causing recursion.
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN AS $$
+  SELECT COALESCE((SELECT is_admin FROM public.profiles WHERE id = auth.uid()), false);
+$$ LANGUAGE sql SECURITY DEFINER SET search_path = public, pg_temp;
+
 -- ─── RLS Policies: profiles ───────────────────────────────────────────────────
--- Drop existing policies first so this script is safe to re-run
-DROP POLICY IF EXISTS "Public profiles are viewable by everyone" ON public.profiles;
-DROP POLICY IF EXISTS "Users can insert own profile" ON public.profiles;
-DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
+-- Drop ALL existing policies on profiles so stale/recursive policies from
+-- previous script versions don't linger and cause infinite recursion errors.
+DO $$
+DECLARE
+  r RECORD;
+BEGIN
+  FOR r IN (
+    SELECT policyname FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'profiles'
+  ) LOOP
+    EXECUTE 'DROP POLICY IF EXISTS ' || quote_ident(r.policyname) || ' ON public.profiles';
+  END LOOP;
+END $$;
 
 -- Anyone can read profiles (needed for /miembro public page and admin QR scanner)
 CREATE POLICY "Public profiles are viewable by everyone"
@@ -103,12 +120,7 @@ CREATE POLICY "Published events are viewable by everyone"
 -- Admins have full access to events
 CREATE POLICY "Admins can manage events"
   ON public.events FOR ALL
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.profiles
-      WHERE profiles.id = auth.uid() AND profiles.is_admin = true
-    )
-  );
+  USING (public.is_admin());
 
 -- ─── RLS Policies: event_attendance ───────────────────────────────────────────
 DROP POLICY IF EXISTS "Admins can manage attendance" ON public.event_attendance;
@@ -116,12 +128,7 @@ DROP POLICY IF EXISTS "Admins can manage attendance" ON public.event_attendance;
 -- Admins can view and record attendance
 CREATE POLICY "Admins can manage attendance"
   ON public.event_attendance FOR ALL
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.profiles
-      WHERE profiles.id = auth.uid() AND profiles.is_admin = true
-    )
-  );
+  USING (public.is_admin());
 
 -- ─── Trigger: auto-create profile on signup ───────────────────────────────────
 
