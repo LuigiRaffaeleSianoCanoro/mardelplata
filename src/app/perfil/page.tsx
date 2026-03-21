@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import ProfileClient from "./ProfileClient";
@@ -12,29 +12,29 @@ export default function PerfilPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    async function loadProfile() {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+  const loadProfile = useCallback(async () => {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
 
-      if (!user) {
-        router.replace("/auth/login");
-        return;
-      }
-
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-
-      setUser(user);
-      setProfile(profile);
-      setLoading(false);
+    if (!user) {
+      router.replace("/auth/login");
+      return;
     }
 
-    loadProfile();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+    setUser(user);
+    setProfile(profile);
+    setLoading(false);
   }, [router]);
+
+  useEffect(() => {
+    loadProfile();
+  }, [loadProfile]);
 
   if (loading || !user) {
     return (
@@ -44,5 +44,5 @@ export default function PerfilPage() {
     );
   }
 
-  return <ProfileClient user={user} profile={profile} />;
+  return <ProfileClient user={user} profile={profile} onRefresh={loadProfile} />;
 }
