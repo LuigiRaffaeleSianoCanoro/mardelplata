@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
@@ -14,13 +15,21 @@ interface Profile {
   created_at: string;
 }
 
-export default function MemberPageClient({ qrCode }: { qrCode: string }) {
+function MemberContent() {
+  const searchParams = useSearchParams();
+  const qrCode = searchParams.get("code");
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
+      if (!qrCode) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
       const supabase = createClient();
       const { data } = await supabase
         .from("profiles")
@@ -165,5 +174,19 @@ export default function MemberPageClient({ qrCode }: { qrCode: string }) {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function MiembroPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen hero-bg flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full border-4 border-ocean-500 border-t-transparent animate-spin" />
+        </div>
+      }
+    >
+      <MemberContent />
+    </Suspense>
   );
 }
