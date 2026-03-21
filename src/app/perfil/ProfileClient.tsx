@@ -146,7 +146,12 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     }
 
     if (saveErr) {
-      setSaveError("Error al guardar el perfil. Por favor, intentá de nuevo.");
+      console.error("[perfil] Error saving profile:", saveErr);
+      const err = saveErr as { message?: string; details?: string; hint?: string };
+      const detail = err.hint || err.details || err.message;
+      setSaveError(
+        `Error al guardar el perfil: ${detail || "Por favor, intentá de nuevo."}`,
+      );
     } else {
       setCurrentProfile(savedProfile);
       setIsEditing(false);
