@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 
 export default function Navbar() {
@@ -11,6 +12,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -33,13 +36,14 @@ export default function Navbar() {
 
   const close = () => setMenuOpen(false);
 
+  const prefix = isHome ? "" : "/";
   const navLinks = [
-    { href: "#inicio",        label: "Inicio" },
-    { href: "#colaboradores", label: "Colaboradores" },
-    { href: "#staff",         label: "Staff" },
-    { href: "#comunidad",     label: "Comunidad" },
-    { href: "#eventos",       label: "Eventos" },
-    { href: "/reglamento",    label: "Reglamento" },
+    { href: `${prefix}#inicio`,        label: "Inicio" },
+    { href: `${prefix}#colaboradores`, label: "Colaboradores" },
+    { href: `${prefix}#staff`,         label: "Staff" },
+    { href: `${prefix}#comunidad`,     label: "Comunidad" },
+    { href: `${prefix}#eventos`,       label: "Eventos" },
+    { href: "/reglamento",             label: "Reglamento" },
   ];
 
   return (
@@ -52,7 +56,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <a href="#inicio" className="flex items-center gap-2.5 group">
+        <a href={`${prefix}#inicio`} className="flex items-center gap-2.5 group">
           <Image
             src="/mdpdev.png"
             alt="MdPDev logo"
