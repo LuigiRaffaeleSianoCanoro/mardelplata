@@ -16,11 +16,16 @@ export const metadata: Metadata = {
   title: "MdPDev — Comunidad Dev Mar del Plata",
   description:
     "El Hub Tech de la Costa Atlántica. Conectamos desarrolladores, diseñadores y emprendedores en Mar del Plata.",
+  icons: {
+    icon: "/mdpdev.png",
+    apple: "/mdpdev.png",
+  },
   openGraph: {
     title: "MdPDev — Comunidad Dev Mar del Plata",
     description:
       "El Hub Tech de la Costa Atlántica. Conectamos devs, diseñadores y emprendedores en Mar del Plata.",
     type: "website",
+    images: ["/mdpdev.png"],
   },
 };
 

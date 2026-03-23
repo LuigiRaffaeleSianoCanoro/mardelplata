@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function RegistroPage() {
@@ -23,7 +24,7 @@ export default function RegistroPage() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin}/auth/callback`,
         data: {
           full_name: fullName,
         },
@@ -44,9 +45,13 @@ export default function RegistroPage() {
         <div className="bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-8 border border-ocean-600/30 shadow-2xl">
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg">
-                <SeaLionIcon />
-              </div>
+              <Image
+                src="/mdpdev.png"
+                alt="MdPDev logo"
+                width={48}
+                height={48}
+                className="rounded-2xl shadow-lg"
+              />
             </Link>
             <h1 className="text-2xl font-display font-bold text-white mb-2">
               Unite a MdPDev
@@ -130,19 +135,3 @@ export default function RegistroPage() {
   );
 }
 
-function SeaLionIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <ellipse cx="8" cy="7.5" rx="4" ry="3.5" stroke="white" strokeWidth="1.8" />
-      <circle cx="7" cy="6.5" r="0.8" fill="white" />
-      <path d="M11.5 8.5 C13 8 14 8.5 13.5 9.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M11.5 8 L14.5 7" stroke="white" strokeWidth="0.9" strokeLinecap="round" />
-      <path d="M11.5 9 L14.5 9.5" stroke="white" strokeWidth="0.9" strokeLinecap="round" />
-      <path d="M6 11 C5.5 13 6 15 7 16" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M7 16 C9 17.5 13 18 17 16.5 C19 15.5 20 13.5 18.5 12 C17 10.5 14 10.5 11 11" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M5.5 14.5 C3.5 15.5 3 17.5 5 18.5" stroke="white" strokeWidth="1.7" strokeLinecap="round" />
-      <path d="M17.5 17 C19.5 16 21 17.5 19.5 19" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M16 17.5 C17 19.5 19 20.5 18 21.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
