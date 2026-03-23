@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Event {
   id: string;
@@ -62,10 +63,8 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
       <header className="bg-ocean-800 border-b border-ocean-700/50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center">
-                <SeaLionIcon />
-              </div>
+            <Link href="/">
+              <Image src="/mdpdev.png" alt="MdPDev logo" width={40} height={40} className="rounded-xl" />
             </Link>
             <div>
               <h1 className="font-display font-bold text-white text-lg">Admin Panel</h1>
@@ -282,6 +281,16 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
     router.refresh();
   };
 
+  const handleDelete = async (profile: Profile) => {
+    if (profile.id === currentUserId) {
+      alert("No podés eliminarte a vos mismo");
+      return;
+    }
+    if (!confirm(`¿Seguro que querés eliminar a ${profile.full_name || profile.email}? Esta acción no se puede deshacer.`)) return;
+    await supabase.from("profiles").delete().eq("id", profile.id);
+    router.refresh();
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -343,15 +352,28 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
                   </button>
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <button
-                    onClick={() => onEdit(profile)}
-                    className="text-ocean-400 hover:text-white transition-colors p-2"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
+                  <div className="flex items-center justify-end gap-2">
+                    <button
+                      onClick={() => onEdit(profile)}
+                      className="text-ocean-400 hover:text-white transition-colors p-2"
+                      title="Editar usuario"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(profile)}
+                      disabled={profile.id === currentUserId}
+                      className="text-red-400 hover:text-red-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors p-2"
+                      title="Eliminar usuario"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                      </svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -666,23 +688,6 @@ function UserModal({ user, onClose, onSave }: { user: Profile; onClose: () => vo
 }
 
 // Icons
-function SeaLionIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <ellipse cx="8" cy="7.5" rx="4" ry="3.5" stroke="white" strokeWidth="1.8" />
-      <circle cx="7" cy="6.5" r="0.8" fill="white" />
-      <path d="M11.5 8.5 C13 8 14 8.5 13.5 9.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M11.5 8 L14.5 7" stroke="white" strokeWidth="0.9" strokeLinecap="round" />
-      <path d="M11.5 9 L14.5 9.5" stroke="white" strokeWidth="0.9" strokeLinecap="round" />
-      <path d="M6 11 C5.5 13 6 15 7 16" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M7 16 C9 17.5 13 18 17 16.5 C19 15.5 20 13.5 18.5 12 C17 10.5 14 10.5 11 11" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M5.5 14.5 C3.5 15.5 3 17.5 5 18.5" stroke="white" strokeWidth="1.7" strokeLinecap="round" />
-      <path d="M17.5 17 C19.5 16 21 17.5 19.5 19" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M16 17.5 C17 19.5 19 20.5 18 21.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 function CalendarIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
