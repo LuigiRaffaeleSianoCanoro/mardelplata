@@ -119,22 +119,31 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
-      <button type="button" className="absolute inset-0 bg-stone-900/50" aria-label="Cerrar" onClick={close} />
+      <button
+        type="button"
+        className="absolute inset-0 bg-ocean-900/45 backdrop-blur-[1px]"
+        aria-label="Cerrar"
+        onClick={close}
+      />
       <div
-        className="bolsa-modal-zoom relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto rounded border-2 border-stone-600 bg-[#FEF9EE] shadow-2xl p-4 sm:p-6"
+        className="bolsa-modal-zoom relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border border-ocean-300/50 bg-sand-100 shadow-2xl shadow-ocean-900/15 p-4 sm:p-6"
         role="dialog"
         aria-modal="true"
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-stone-900">Publicar aviso</h2>
-          <button type="button" onClick={close} className="text-stone-600 hover:text-stone-900 text-xl leading-none">
+          <h2 className="font-display text-lg font-bold text-slate-900">Publicar aviso</h2>
+          <button
+            type="button"
+            onClick={close}
+            className="text-slate-500 hover:text-ocean-800 text-xl leading-none rounded-lg hover:bg-white/60 px-1"
+          >
             ×
           </button>
         </div>
 
         {step === 0 && (
           <div className="space-y-3">
-            <p className="text-sm text-stone-700">¿Qué querés publicar?</p>
+            <p className="text-sm text-slate-700">¿Qué querés publicar?</p>
             <button
               type="button"
               onClick={() => {
@@ -163,13 +172,13 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
             <button
               type="button"
               onClick={() => setStep(0)}
-              className="text-xs text-ocean-700 hover:underline"
+              className="text-xs font-medium text-ocean-700 hover:text-ocean-600 hover:underline"
             >
               ← Volver
             </button>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 mb-1">Título</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Título</label>
               <input
                 type="text"
                 value={title}
@@ -178,13 +187,13 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
                 className="bolsa-input w-full"
                 placeholder="Breve y claro"
               />
-              <p className="text-[10px] text-stone-500 mt-0.5">
+              <p className="text-[10px] text-slate-500 mt-0.5">
                 {title.length}/{CLASSIFIED_TITLE_MAX}
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 mb-1">Descripción</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Descripción</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -193,13 +202,13 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
                 className="bolsa-input w-full resize-y min-h-[100px]"
                 placeholder="Requisitos, modalidad, stack…"
               />
-              <p className="text-[10px] text-stone-500 mt-0.5">
+              <p className="text-[10px] text-slate-500 mt-0.5">
                 {description.length}/{CLASSIFIED_DESC_MAX}
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Link externo (opcional)
               </label>
               <input
@@ -213,17 +222,17 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
 
             {kind === "job" && (
               <div className="space-y-3">
-                <p className="text-xs font-semibold text-stone-800 border-b border-stone-400 pb-1">
+                <p className="text-xs font-semibold text-slate-800 border-b border-ocean-200 pb-1">
                   Posiciones (podés agregar varias)
                 </p>
                 {positions.map((pos, idx) => (
-                  <div key={idx} className="border border-stone-400 p-2 space-y-2 bg-white/40">
+                  <div key={idx} className="border border-ocean-200 rounded-xl p-2 space-y-2 bg-white/60">
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] uppercase text-stone-600">Puesto {idx + 1}</span>
+                      <span className="text-[10px] uppercase text-ocean-700">Puesto {idx + 1}</span>
                       {positions.length > 1 && (
                         <button
                           type="button"
-                          className="text-[10px] text-red-800"
+                          className="text-[10px] text-red-700 hover:text-red-800"
                           onClick={() => setPositions((prev) => prev.filter((_, i) => i !== idx))}
                         >
                           Quitar
@@ -276,7 +285,7 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-stone-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Tags tech (opcional, separados por coma)
               </label>
               <input
@@ -288,7 +297,7 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
               />
             </div>
 
-            {error && <p className="text-xs text-red-800">{error}</p>}
+            {error && <p className="text-xs text-red-700">{error}</p>}
 
             <button
               type="button"

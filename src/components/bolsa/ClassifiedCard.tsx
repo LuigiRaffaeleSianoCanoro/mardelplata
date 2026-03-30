@@ -41,30 +41,30 @@ export default function ClassifiedCard({
     (Date.now() - created.getTime()) / (1000 * 60 * 60 * 24) <= CLASSIFIED_NEW_DAYS;
 
   return (
-    <article className="bolsa-card group flex flex-col p-2 sm:p-2.5">
+    <article className="bolsa-card rounded-xl group flex flex-col p-2 sm:p-2.5">
       <button
         type="button"
         onClick={onOpen}
-        className="text-left flex-1 min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-600 rounded-sm"
+        className="text-left flex-1 min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ocean-500 rounded-lg"
       >
         <div className="flex items-start justify-between gap-1 mb-1">
-          <span className="text-[10px] uppercase tracking-wide text-stone-600 shrink-0">
+          <span className="text-[10px] uppercase tracking-wide text-ocean-700 shrink-0">
             {listing.kind === "job" ? "Trabajo" : "Freelance"}
           </span>
           {isNew && (
-            <span className="text-[9px] font-bold uppercase bg-stone-800 text-[#FEF9EE] px-1 py-0.5 leading-none">
+            <span className="text-[9px] font-bold uppercase bg-ocean-700 text-white px-1.5 py-0.5 rounded-full leading-none">
               Nuevo
             </span>
           )}
         </div>
-        <h3 className="font-semibold text-stone-900 text-sm leading-snug line-clamp-2 mb-1">
+        <h3 className="font-semibold text-slate-900 text-sm leading-snug line-clamp-2 mb-1">
           {listing.title}
         </h3>
-        <p className="text-[11px] sm:text-xs text-stone-700 leading-snug line-clamp-3 mb-2">
+        <p className="text-[11px] sm:text-xs text-slate-600 leading-snug line-clamp-3 mb-2">
           {previewText(listing.description, 140)}
         </p>
-        <p className="text-[10px] text-stone-500 border-t border-stone-300/80 pt-1.5">
-          <span className="text-stone-400">Por </span>
+        <p className="text-[10px] text-slate-500 border-t border-ocean-200/80 pt-1.5">
+          <span className="text-slate-400">Por </span>
           {authorLabel(listing)}
         </p>
       </button>
@@ -74,7 +74,7 @@ export default function ClassifiedCard({
           {listing.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="text-[9px] px-1 py-0 border border-stone-400/60 text-stone-600"
+              className="text-[9px] px-1.5 py-0.5 rounded-md border border-ocean-200 text-ocean-800 bg-ocean-50/80"
             >
               {tag}
             </span>
@@ -82,7 +82,7 @@ export default function ClassifiedCard({
         </div>
       )}
 
-      <div className="flex items-center justify-between gap-1 mt-auto pt-1 border-t border-dotted border-stone-400/70">
+      <div className="flex items-center justify-between gap-1 mt-auto pt-1 border-t border-dotted border-ocean-200/90">
         <div className="flex items-center gap-0.5">
           <button
             type="button"
@@ -90,7 +90,7 @@ export default function ClassifiedCard({
               e.stopPropagation();
               onVote(1);
             }}
-            className={`bolsa-vote-btn ${myVote === 1 ? "bg-stone-200" : ""}`}
+            className={`bolsa-vote-btn ${myVote === 1 ? "bolsa-vote-btn-active" : ""}`}
             aria-label="Me gusta"
             title="Me gusta"
           >
@@ -103,7 +103,7 @@ export default function ClassifiedCard({
               e.stopPropagation();
               onVote(-1);
             }}
-            className={`bolsa-vote-btn ${myVote === -1 ? "bg-stone-200" : ""}`}
+            className={`bolsa-vote-btn ${myVote === -1 ? "bolsa-vote-btn-active" : ""}`}
             aria-label="No me gusta"
             title="No me gusta"
           >
@@ -118,7 +118,7 @@ export default function ClassifiedCard({
               e.stopPropagation();
               onDelete();
             }}
-            className="text-[10px] text-red-800 hover:underline"
+            className="text-[10px] text-red-700 hover:text-red-800 hover:underline"
           >
             Borrar
           </button>

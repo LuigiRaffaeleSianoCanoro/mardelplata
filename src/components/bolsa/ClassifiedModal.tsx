@@ -54,60 +54,60 @@ export default function ClassifiedModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
       <button
         type="button"
-        className="absolute inset-0 bg-stone-900/50 backdrop-blur-[2px]"
+        className="absolute inset-0 bg-ocean-900/45 backdrop-blur-[2px]"
         aria-label="Cerrar"
         onClick={onClose}
       />
       <div
-        className="bolsa-modal-zoom relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded border-2 border-stone-600 bg-[#FEF9EE] shadow-2xl p-4 sm:p-6"
+        className="bolsa-modal-zoom relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border border-ocean-300/50 bg-sand-100 shadow-2xl shadow-ocean-900/15 p-4 sm:p-6"
         role="dialog"
         aria-modal="true"
         aria-labelledby="bolsa-modal-title"
       >
         <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="text-[10px] uppercase tracking-widest text-stone-600">
+          <span className="text-[10px] uppercase tracking-widest text-ocean-700">
             {listing.kind === "job" ? "Oferta laboral" : "Servicios freelance"}
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="text-stone-600 hover:text-stone-900 text-xl leading-none px-1"
+            className="text-slate-500 hover:text-ocean-800 text-xl leading-none px-1 rounded-lg hover:bg-white/60"
             aria-label="Cerrar"
           >
             ×
           </button>
         </div>
 
-        <h2 id="bolsa-modal-title" className="text-xl font-bold text-stone-900 mb-3 leading-tight">
+        <h2 id="bolsa-modal-title" className="font-display text-xl font-bold text-slate-900 mb-3 leading-tight">
           {listing.title}
         </h2>
 
-        <p className="text-xs text-stone-500 mb-4 pb-3 border-b border-dotted border-stone-400">
-          Publicado por <strong className="text-stone-800">{authorLabel(listing)}</strong>
+        <p className="text-xs text-slate-500 mb-4 pb-3 border-b border-dotted border-ocean-200">
+          Publicado por <strong className="text-slate-800">{authorLabel(listing)}</strong>
         </p>
 
-        <div className="text-stone-800 whitespace-pre-wrap text-sm leading-relaxed mb-4">
+        <div className="text-slate-800 whitespace-pre-wrap text-sm leading-relaxed mb-4">
           {listing.description}
         </div>
 
         {listing.external_url?.trim() && (
           <p className="mb-4">
-            <span className="text-xs text-stone-600 block mb-1">Enlace</span>
+            <span className="text-xs text-slate-600 block mb-1">Enlace</span>
             <LinkRow href={listing.external_url.trim()} label={listing.external_url.trim()} />
           </p>
         )}
 
         {listing.kind === "job" && positions.length > 0 && (
           <div className="mb-4 space-y-4">
-            <p className="text-[10px] uppercase tracking-wide text-stone-600 border-b border-stone-400 pb-1">
+            <p className="text-[10px] uppercase tracking-wide text-ocean-700 border-b border-ocean-200 pb-1">
               Posiciones
             </p>
             <ul className="space-y-4">
               {positions.map((pos, i) => (
-                <li key={i} className="border border-stone-400/80 p-3 bg-white/50">
-                  <p className="font-semibold text-stone-900 text-sm mb-1">{pos.title || `Puesto ${i + 1}`}</p>
+                <li key={i} className="border border-ocean-200 rounded-xl p-3 bg-white/70">
+                  <p className="font-semibold text-slate-900 text-sm mb-1">{pos.title || `Puesto ${i + 1}`}</p>
                   {pos.description?.trim() && (
-                    <p className="text-sm text-stone-700 whitespace-pre-wrap mb-2">{pos.description}</p>
+                    <p className="text-sm text-slate-700 whitespace-pre-wrap mb-2">{pos.description}</p>
                   )}
                   {pos.link?.trim() && (
                     <LinkRow href={pos.link.trim()} label={pos.link.trim()} />
@@ -118,19 +118,19 @@ export default function ClassifiedModal({
           </div>
         )}
 
-        <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-stone-400">
+        <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-ocean-200">
           <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={() => onVote(1)}
-              className={`bolsa-vote-btn ${myVote === 1 ? "bg-stone-200" : ""}`}
+              className={`bolsa-vote-btn ${myVote === 1 ? "bolsa-vote-btn-active" : ""}`}
             >
               👍 {likes}
             </button>
             <button
               type="button"
               onClick={() => onVote(-1)}
-              className={`bolsa-vote-btn ${myVote === -1 ? "bg-stone-200" : ""}`}
+              className={`bolsa-vote-btn ${myVote === -1 ? "bolsa-vote-btn-active" : ""}`}
             >
               👎 {dislikes}
             </button>
@@ -143,7 +143,7 @@ export default function ClassifiedModal({
                 onDelete();
                 onClose();
               }}
-              className="text-xs text-red-800 hover:underline ml-auto"
+              className="text-xs text-red-700 hover:text-red-800 hover:underline ml-auto"
             >
               Borrar mi anuncio
             </button>
