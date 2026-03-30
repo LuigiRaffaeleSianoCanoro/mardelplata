@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section id="inicio" className="hero-bg relative overflow-hidden min-h-screen flex flex-col justify-center pt-20">
@@ -79,7 +81,7 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-16 max-w-4xl mx-auto">
             <a
               href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
               target="_blank"
@@ -103,6 +105,17 @@ export default function Hero() {
               </svg>
               Ver Eventos
             </a>
+            <Link
+              href="/bolsa"
+              className="inline-flex items-center justify-center gap-2.5 border border-ocean-400/50 text-ocean-200 hover:bg-ocean-800/60 hover:text-white hover:border-ocean-300 px-8 py-4 rounded-full font-semibold text-lg transition-all hover:-translate-y-1 backdrop-blur-sm"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              Bolsa de trabajo
+            </Link>
           </div>
 
           {/* Feature cards */}
