@@ -1,10 +1,4 @@
 import type { Metadata } from "next";
-import { Lora } from "next/font/google";
-
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-bolsa-serif",
-});
 
 export const metadata: Metadata = {
   title: "Bolsa de trabajo — MdPDev",
@@ -13,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function BolsaLayout({ children }: { children: React.ReactNode }) {
-  return <div className={`${lora.variable} bolsa-root min-h-screen`}>{children}</div>;
+  return <div className="bolsa-root min-h-screen font-sans antialiased">{children}</div>;
 }

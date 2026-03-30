@@ -53,13 +53,13 @@ export default function ShareButton({ listingId, title }: ShareButtonProps) {
             aria-label="Cerrar menú"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute right-0 top-full z-[61] mt-1 min-w-[180px] rounded border border-stone-400/80 bg-[#FEF9EE] py-1 shadow-lg">
+          <div className="absolute right-0 top-full z-[61] mt-1 min-w-[180px] rounded-xl border border-ocean-200 bg-white py-1 shadow-lg shadow-ocean-900/10">
             <button
               type="button"
               onClick={() => {
                 void copyLink();
               }}
-              className="block w-full px-3 py-2 text-left text-xs hover:bg-stone-200/80"
+              className="block w-full px-3 py-2 text-left text-xs text-slate-700 hover:bg-ocean-50"
             >
               {copied ? "¡Copiado!" : "Copiar link"}
             </button>
@@ -70,7 +70,7 @@ export default function ShareButton({ listingId, title }: ShareButtonProps) {
                   void nativeShare();
                   setOpen(false);
                 }}
-                className="block w-full px-3 py-2 text-left text-xs hover:bg-stone-200/80"
+                className="block w-full px-3 py-2 text-left text-xs text-slate-700 hover:bg-ocean-50"
               >
                 Compartir…
               </button>

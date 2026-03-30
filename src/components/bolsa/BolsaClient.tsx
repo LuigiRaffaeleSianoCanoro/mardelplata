@@ -301,16 +301,16 @@ function BolsaInner() {
   if (authLoading) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
-        <div className="w-10 h-10 rounded-full border-2 border-stone-600 border-t-transparent animate-spin" />
+        <div className="w-10 h-10 rounded-full border-2 border-ocean-500 border-t-transparent animate-spin" />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center bolsa-paper rounded border border-stone-400/80 p-8">
-        <h2 className="text-xl font-bold text-stone-900 mb-3">Bolsa de trabajo</h2>
-        <p className="text-stone-700 text-sm mb-6 leading-relaxed">
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center bolsa-paper rounded-2xl border border-ocean-300/40 p-8 shadow-sm">
+        <h2 className="font-display text-xl font-bold text-slate-900 mb-3">Bolsa de trabajo</h2>
+        <p className="text-slate-600 text-sm mb-6 leading-relaxed">
           Para ver los clasificados, publicar avisos y votar, necesitás iniciar sesión con tu cuenta de MdPDev.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -333,40 +333,52 @@ function BolsaInner() {
 
   return (
     <>
-      <div className="bolsa-open bolsa-paper max-w-6xl mx-auto px-4 py-8 sm:py-10 rounded border border-stone-500/40 shadow-sm">
-        <header className="mb-8 border-b-2 border-double border-stone-800 pb-4">
-          <h1 className="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight">
+      <div className="bolsa-open bolsa-paper max-w-6xl mx-auto px-4 py-8 sm:py-10 rounded-2xl border border-ocean-300/35 shadow-md">
+        <header className="mb-8 border-b border-ocean-600/25 pb-5">
+          <h1 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             Bolsa de trabajo
           </h1>
-          <p className="text-stone-600 text-sm mt-2 max-w-2xl">
+          <p className="text-slate-600 text-sm mt-2 max-w-2xl">
             Ofertas laborales y servicios freelance de la comunidad. Avisos de 30 días; estilo clasificados.
           </p>
           <div className="flex flex-wrap gap-2 mt-4">
             <button
               type="button"
               onClick={() => setFilterKind("all")}
-              className={`text-xs px-2 py-1 border ${filterKind === "all" ? "bg-stone-800 text-[#FEF9EE]" : "border-stone-500 text-stone-700"}`}
+              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
+                filterKind === "all"
+                  ? "bg-ocean-700 text-white border-ocean-700 shadow-sm"
+                  : "border-ocean-300/60 text-slate-700 hover:bg-white/80"
+              }`}
             >
               Todos
             </button>
             <button
               type="button"
               onClick={() => setFilterKind("job")}
-              className={`text-xs px-2 py-1 border ${filterKind === "job" ? "bg-stone-800 text-[#FEF9EE]" : "border-stone-500 text-stone-700"}`}
+              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
+                filterKind === "job"
+                  ? "bg-ocean-700 text-white border-ocean-700 shadow-sm"
+                  : "border-ocean-300/60 text-slate-700 hover:bg-white/80"
+              }`}
             >
               Trabajos
             </button>
             <button
               type="button"
               onClick={() => setFilterKind("freelance")}
-              className={`text-xs px-2 py-1 border ${filterKind === "freelance" ? "bg-stone-800 text-[#FEF9EE]" : "border-stone-500 text-stone-700"}`}
+              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
+                filterKind === "freelance"
+                  ? "bg-ocean-700 text-white border-ocean-700 shadow-sm"
+                  : "border-ocean-300/60 text-slate-700 hover:bg-white/80"
+              }`}
             >
               Freelance
             </button>
             <button
               type="button"
               onClick={() => setPublishOpen(true)}
-              className="text-xs px-3 py-1.5 ml-auto bg-ocean-700 hover:bg-ocean-600 text-white font-semibold rounded-sm"
+              className="text-xs px-4 py-2 ml-auto inline-flex items-center bg-ocean-400 hover:bg-ocean-300 text-white font-semibold rounded-full shadow-md shadow-ocean-500/25 transition-colors"
             >
               + Publicar
             </button>
@@ -381,10 +393,10 @@ function BolsaInner() {
 
         {dataLoading && listings.length === 0 ? (
           <div className="flex justify-center py-12">
-            <div className="w-10 h-10 rounded-full border-2 border-stone-600 border-t-transparent animate-spin" />
+            <div className="w-10 h-10 rounded-full border-2 border-ocean-500 border-t-transparent animate-spin" />
           </div>
         ) : filtered.length === 0 ? (
-          <p className="text-stone-600 text-sm text-center py-12 border border-dashed border-stone-400">
+          <p className="text-slate-600 text-sm text-center py-12 border border-dashed border-ocean-300/50 rounded-xl bg-white/40">
             No hay avisos en esta categoría todavía. ¡Sé el primero en publicar!
           </p>
         ) : (
@@ -437,7 +449,7 @@ export default function BolsaClient() {
     <Suspense
       fallback={
         <div className="min-h-[40vh] flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full border-2 border-stone-600 border-t-transparent animate-spin" />
+          <div className="w-10 h-10 rounded-full border-2 border-ocean-500 border-t-transparent animate-spin" />
         </div>
       }
     >
