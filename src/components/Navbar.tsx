@@ -44,6 +44,7 @@ export default function Navbar() {
     { href: `${prefix}#comunidad`,     label: "Comunidad" },
     { href: `${prefix}#eventos`,       label: "Eventos" },
     { href: "/reglamento",             label: "Reglamento" },
+    { href: "/bolsa",                  label: "Bolsa" },
   ];
 
   return (
