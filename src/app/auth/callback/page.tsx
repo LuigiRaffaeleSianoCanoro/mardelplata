@@ -1,24 +1,77 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+
+const pendingCodeExchanges = new Map<string, Promise<void>>();
+const completedCodeExchanges = new Set<string>();
+
+function getSafeNextPath(next: string | null) {
+  if (!next || !next.startsWith("/") || next.startsWith("//")) {
+    return "/perfil";
+  }
+
+  return next;
+}
+
+async function exchangeCodeOnce(code: string) {
+  if (completedCodeExchanges.has(code)) {
+    return;
+  }
+
+  const existingExchange = pendingCodeExchanges.get(code);
+  if (existingExchange) {
+    await existingExchange;
+    return;
+  }
+
+  const supabase = createClient();
+  const exchangePromise = supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+    if (error) {
+      throw error;
+    }
+
+    completedCodeExchanges.add(code);
+  });
+
+  pendingCodeExchanges.set(code, exchangePromise);
+
+  try {
+    await exchangePromise;
+  } finally {
+    pendingCodeExchanges.delete(code);
+  }
+}
 
 function CallbackContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const hasHandledCallback = useRef(false);
+  const code = searchParams.get("code");
+  const next = getSafeNextPath(searchParams.get("next"));
 
   useEffect(() => {
+    if (hasHandledCallback.current) {
+      return;
+    }
+
+    hasHandledCallback.current = true;
+
     async function handleCallback() {
       const supabase = createClient();
-      const code = searchParams.get("code");
-      const next = searchParams.get("next") ?? "/perfil";
 
       if (code) {
-        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-        if (exchangeError) {
-          setError(exchangeError.message);
+        try {
+          await exchangeCodeOnce(code);
+        } catch (exchangeError) {
+          if (exchangeError instanceof Error) {
+            setError(exchangeError.message);
+            return;
+          }
+
+          setError("No se pudo completar la verificacion. Por favor, intentá de nuevo.");
           return;
         }
       }
@@ -57,7 +110,7 @@ function CallbackContent() {
     }
 
     handleCallback();
-  }, [searchParams, router]);
+  }, [code, next, router]);
 
   if (error) {
     return (

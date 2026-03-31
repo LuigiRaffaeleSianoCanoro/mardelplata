@@ -1,10 +1,72 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+const SIGNUP_RATE_LIMIT_COOLDOWN_MS = 60_000;
+const SIGNUP_RATE_LIMIT_STORAGE_KEY = "auth-signup-rate-limit-until";
+const SIGNUP_SUBMIT_GUARD_MS = 1_500;
+
+type SupabaseAuthLikeError = {
+  code?: string;
+  status?: number;
+  message: string;
+};
+
+function isRateLimitError(error: SupabaseAuthLikeError) {
+  return (
+    error.code === "over_email_send_rate_limit" ||
+    error.status === 429 ||
+    error.message.toLowerCase().includes("email rate limit exceeded")
+  );
+}
+
+function getSignupErrorMessage(error: SupabaseAuthLikeError) {
+  if (error.code === "over_email_send_rate_limit") {
+    return "Ya enviamos un email de verificacion hace poco. Revisa tu inbox o spam, o espera un minuto antes de volver a intentar.";
+  }
+
+  if (error.status === 429) {
+    return "El registro esta temporalmente saturado. Espera un momento y volve a intentar.";
+  }
+
+  return "No pudimos crear tu cuenta. Revisa los datos e intenta nuevamente.";
+}
+
+function readStoredCooldownUntil() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const rawValue = window.sessionStorage.getItem(SIGNUP_RATE_LIMIT_STORAGE_KEY);
+  if (!rawValue) {
+    return null;
+  }
+
+  const cooldownUntil = Number(rawValue);
+  if (!Number.isFinite(cooldownUntil) || cooldownUntil <= Date.now()) {
+    window.sessionStorage.removeItem(SIGNUP_RATE_LIMIT_STORAGE_KEY);
+    return null;
+  }
+
+  return cooldownUntil;
+}
+
+function persistCooldownUntil(cooldownUntil: number | null) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  if (cooldownUntil) {
+    window.sessionStorage.setItem(SIGNUP_RATE_LIMIT_STORAGE_KEY, String(cooldownUntil));
+    return;
+  }
+
+  window.sessionStorage.removeItem(SIGNUP_RATE_LIMIT_STORAGE_KEY);
+}
 
 export default function RegistroPage() {
   const [email, setEmail] = useState("");
@@ -12,27 +74,96 @@ export default function RegistroPage() {
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [cooldownUntil, setCooldownUntil] = useState<number | null>(null);
+  const [cooldownSecondsLeft, setCooldownSecondsLeft] = useState(0);
+  const submitGuardUntilRef = useRef(0);
   const router = useRouter();
+
+  useEffect(() => {
+    const storedCooldownUntil = readStoredCooldownUntil();
+    if (storedCooldownUntil) {
+      setCooldownUntil(storedCooldownUntil);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!cooldownUntil) {
+      setCooldownSecondsLeft(0);
+      return;
+    }
+
+    const syncCooldown = () => {
+      const millisecondsLeft = cooldownUntil - Date.now();
+      if (millisecondsLeft <= 0) {
+        setCooldownUntil(null);
+        setCooldownSecondsLeft(0);
+        persistCooldownUntil(null);
+        return;
+      }
+
+      setCooldownSecondsLeft(Math.ceil(millisecondsLeft / 1000));
+    };
+
+    syncCooldown();
+    const intervalId = window.setInterval(syncCooldown, 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [cooldownUntil]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) {
+      return;
+    }
+
+    const now = Date.now();
+    if (now < submitGuardUntilRef.current) {
+      return;
+    }
+
+    submitGuardUntilRef.current = now + SIGNUP_SUBMIT_GUARD_MS;
+
+    if (cooldownSecondsLeft > 0) {
+      setError(`Espera ${cooldownSecondsLeft}s antes de volver a intentar el registro.`);
+      return;
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedFullName = fullName.trim();
+
+    if (!normalizedFullName) {
+      setError("Ingresa tu nombre completo.");
+      return;
+    }
+
+    if (!normalizedEmail) {
+      setError("Ingresa un email valido.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     const supabase = createClient();
 
     const { error } = await supabase.auth.signUp({
-      email,
+      email: normalizedEmail,
       password,
       options: {
         emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin}/auth/callback`,
         data: {
-          full_name: fullName,
+          full_name: normalizedFullName,
         },
       },
     });
 
     if (error) {
-      setError(error.message);
+      if (isRateLimitError(error)) {
+        const nextCooldownUntil = Date.now() + SIGNUP_RATE_LIMIT_COOLDOWN_MS;
+        setCooldownUntil(nextCooldownUntil);
+        persistCooldownUntil(nextCooldownUntil);
+      }
+
+      setError(getSignupErrorMessage(error));
       setLoading(false);
     } else {
       router.push("/auth/verificar");
@@ -114,12 +245,22 @@ export default function RegistroPage() {
               </div>
             )}
 
+            {cooldownSecondsLeft > 0 && (
+              <div className="bg-amber-500/20 border border-amber-500/40 text-amber-100 px-4 py-3 rounded-xl text-sm">
+                Revisa si ya te llego el email de verificacion. Podras intentar de nuevo en {cooldownSecondsLeft}s.
+              </div>
+            )}
+
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || cooldownSecondsLeft > 0}
               className="w-full bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-all hover:shadow-lg hover:shadow-ocean-400/40"
             >
-              {loading ? "Creando cuenta..." : "Crear cuenta"}
+              {loading
+                ? "Creando cuenta..."
+                : cooldownSecondsLeft > 0
+                  ? `Espera ${cooldownSecondsLeft}s`
+                  : "Crear cuenta"}
             </button>
           </form>
 
