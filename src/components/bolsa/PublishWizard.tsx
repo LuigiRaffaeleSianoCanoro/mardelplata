@@ -2,10 +2,8 @@
 
 import { useCallback, useState } from "react";
 import type { ClassifiedKind, JobPosition } from "@/lib/types/classifieds";
-import {
-  CLASSIFIED_DESC_MAX,
-  CLASSIFIED_TITLE_MAX,
-} from "@/lib/types/classifieds";
+import { CLASSIFIED_DESC_MAX, CLASSIFIED_TITLE_MAX } from "@/lib/types/classifieds";
+import { validateClassifiedPublishPayload } from "@/lib/classifieds/validateClassifiedPublishPayload";
 
 type Step = 0 | 1;
 
@@ -65,50 +63,22 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
 
   const handleSubmit = async () => {
     setError(null);
-    const t = title.trim();
-    const d = description.trim();
-    if (!t) {
-      setError("El título es obligatorio.");
+    const validated = validateClassifiedPublishPayload({
+      kind,
+      title,
+      description,
+      external_url: externalUrl.trim() || null,
+      positions,
+      tags,
+    });
+    if (!validated.ok) {
+      setError(validated.error);
       return;
-    }
-    if (t.length > CLASSIFIED_TITLE_MAX) {
-      setError(`El título no puede superar ${CLASSIFIED_TITLE_MAX} caracteres.`);
-      return;
-    }
-    if (!d) {
-      setError("La descripción es obligatoria.");
-      return;
-    }
-    if (d.length > CLASSIFIED_DESC_MAX) {
-      setError(`La descripción no puede superar ${CLASSIFIED_DESC_MAX} caracteres.`);
-      return;
-    }
-
-    let posPayload: JobPosition[] = [];
-    if (kind === "job") {
-      posPayload = positions
-        .map((p) => ({
-          title: p.title.trim(),
-          description: p.description.trim(),
-          link: p.link.trim(),
-        }))
-        .filter((p) => p.title || p.description || p.link);
-      if (posPayload.length === 0) {
-        setError("Agregá al menos una posición con datos.");
-        return;
-      }
     }
 
     setSaving(true);
     try {
-      await onSubmit({
-        kind,
-        title: t,
-        description: d,
-        external_url: externalUrl.trim() || null,
-        positions: posPayload,
-        tags,
-      });
+      await onSubmit(validated.payload);
       close();
     } catch (e) {
       setError(e instanceof Error ? e.message : "No se pudo publicar.");

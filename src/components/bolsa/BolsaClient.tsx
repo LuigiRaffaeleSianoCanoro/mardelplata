@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { insertClassifiedListing } from "@/lib/classifieds/insertClassifiedListing";
 import type { ClassifiedKind, ClassifiedListing, JobPosition } from "@/lib/types/classifieds";
 import ClassifiedCard from "./ClassifiedCard";
 import ClassifiedModal from "./ClassifiedModal";
@@ -278,15 +279,7 @@ function BolsaInner() {
       tags: string[];
     }) => {
       if (!user) throw new Error("No hay sesión.");
-      const { error } = await supabase.from("classified_listings").insert({
-        author_id: user.id,
-        kind: payload.kind,
-        title: payload.title,
-        description: payload.description,
-        external_url: payload.external_url,
-        positions: payload.positions,
-        tags: payload.tags,
-      });
+      const { error } = await insertClassifiedListing(supabase, user.id, payload);
       if (error) throw new Error(error.message);
       await loadListings();
     },
