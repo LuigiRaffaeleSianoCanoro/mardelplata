@@ -16,6 +16,22 @@
       ]
     },
     {
+      "id": "misiones",
+      "title": "Misiones obligatorias",
+      "emoji": "🎯",
+      "priority": "alta",
+      "items": [
+        {"id": "mis_silver", "title": "Silver Dev: grade A o S antes de spamear CVs", "badExample": "Postulo masivo con grade C o sin pasar el checker", "goodExample": "Iteré en silver.dev/resume hasta A mínimo y guardé el resultado", "whyWrong": "Sin validación externa competís a ciegas en el primer filtro.", "action": "Pasá el PDF, corregí lo crítico, repetí hasta A/S.", "suggestedRewrite": "N/A", "strengthensSignals": ["cv_quality_external", "execution_over_theory"], "antiPatterns": ["Ignorar el checker porque ‘a mí me gusta el diseño’"]},
+        {"id": "mis_efset", "title": "EF SET (u otro test) para ubicar tu inglés", "badExample": "No sé mi nivel y aplico a todo", "goodExample": "Hice el test rápido y anoté lectura/escritura aproximada", "whyWrong": "Muchos procesos filtran inglés sin avisar; otros juniors ya midieron.", "action": "Completá efset.org o equivalente y respondé el diagnóstico con honestidad.", "suggestedRewrite": "N/A", "strengthensSignals": ["english_level", "market_awareness"], "antiPatterns": ["Inflar el nivel en el formulario sin haber leído doc en inglés"]},
+        {"id": "mis_github", "title": "GitHub con proyecto propio + README serio", "badExample": "Solo forks de curso sin contexto", "goodExample": "Un repo con problema, stack, tu rol y cómo correrlo", "whyWrong": "El recruiter no ve criterio propio en clones masivos.", "action": "Elegí un proyecto y escribí README de 8–12 líneas útiles.", "suggestedRewrite": "N/A", "strengthensSignals": ["proof_of_work"], "antiPatterns": ["README default del template", "Repo vacío con título inventado"]},
+        {"id": "mis_fcc", "title": "Certis + build, no solo PDF", "badExample": "Solo certificados freeCodeCamp sin deploy", "goodExample": "Cert + proyecto deployado que muestra decisiones", "whyWrong": "Cert sin código corrible no compite con URL + README.", "action": "Deployá un proyecto que respalde lo que estudiaste.", "suggestedRewrite": "N/A", "strengthensSignals": ["execution_over_theory", "proof_of_work"], "antiPatterns": ["Listar 10 certis y cero link"]},
+        {"id": "mis_present", "title": "Portfolio legible (presentación visual)", "badExample": "Tipografía chica, colores chillones, sin jerarquía", "goodExample": "En 10 segundos se entiende quién sos y qué mostrás", "whyWrong": "Antes del código ya transmitís desprolijidad.", "action": "Simplificá: una fuente, buen contraste, secciones claras.", "suggestedRewrite": "N/A", "strengthensSignals": ["presentation_quality", "proof_of_work"], "antiPatterns": ["Animaciones que tapan el contenido", "Solo PDF del CV como ‘portfolio’"]},
+        {"id": "mis_outreach", "title": "Outreach personalizado (no plantilla masiva)", "badExample": "Mismo DM a 40 recruiters", "goodExample": "2–4 líneas con empresa, rol y link demo", "whyWrong": "Spam interno = cero respuesta.", "action": "Escribí un borrador por persona antes de enviar.", "suggestedRewrite": "Vi que buscan [rol]. Mi demo: [URL]. Me interesa [motivo].", "strengthensSignals": ["reach_out_competence", "application_quality"], "antiPatterns": ["Adjuntar CV en el primer mensaje frío"]},
+        {"id": "mis_leet", "title": "LeetCode liviano si tu rol filtra así", "badExample": "Cero práctica y objetivo Big Tech", "goodExample": "4–8 easy/medium por semana mientras buscás", "whyWrong": "En filtros algorítmicos llegás frío frente a quien practicó.", "action": "Ajustá la dosis a tu objetivo; si no aplica, priorizá proyecto.", "suggestedRewrite": "N/A", "strengthensSignals": ["problem_solving_signal"], "antiPatterns": ["Memorizar sin entender complejidad básica"]},
+        {"id": "mis_hr_quiz", "title": "Simulador HR + práctica en vivo", "badExample": "Improvisar ‘debilidades’ en la primera call real", "goodExample": "Completar el simulador HR y 1 sesión Pramp/interviewing.io", "whyWrong": "Respuestas genéricas te cortan antes de la técnica.", "action": "Hacé el quiz interno y grabate respondiendo en voz alta.", "suggestedRewrite": "N/A", "strengthensSignals": ["interview_readiness"], "antiPatterns": ["Responder ‘soy perfeccionista’ sin segundo párrafo"]}
+      ]
+    },
+    {
       "id": "linkedin",
       "title": "LinkedIn",
       "emoji": "💼",

@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "employabilitySignals": [
     {"id": "clarity_role_stack", "label": "Claridad de rol y stack", "recruiterLens": "Si no te ubico en rol y stack en cinco segundos, paso al próximo: hay diez juniors que ya dicen en el título qué son."},
     {"id": "proof_of_work", "label": "Prueba de trabajo real", "recruiterLens": "Sin link, deploy o repo que se entienda rápido, asumo que no hay nada que validar: pierdo contra el que sí muestra entregables."},
@@ -10,7 +10,10 @@
     {"id": "market_awareness", "label": "Conocimiento del mercado (AR)", "recruiterLens": "Si no sabés dónde se publica ni qué pagan, aplicás a ciegas y tardás el doble: otros ya saben por dónde entra el agua."},
     {"id": "profile_consistency", "label": "Consistencia CV ↔ LinkedIn ↔ repo", "recruiterLens": "Si los tres se contradicen, no es detalle: es red flag. En junior no tengo tiempo a investigar."},
     {"id": "english_level", "label": "Inglés para el pipeline", "recruiterLens": "En muchas buscas te comparan con quien lee doc y escribe mail sin drama. Básico flojo te deja afuera de un montón de procesos."},
-    {"id": "execution_over_theory", "label": "Ejecución sobre teoría", "recruiterLens": "Cursos y certis sin proyecto propio no compiten con alguien que deployó y puede explicar el repo en un minuto."}
+    {"id": "execution_over_theory", "label": "Ejecución sobre teoría", "recruiterLens": "Cursos y certis sin proyecto propio no compiten con alguien que deployó y puede explicar el repo en un minuto."},
+    {"id": "presentation_quality", "label": "Presentación visual del portfolio", "recruiterLens": "Si el sitio o el PDF son ilegibles o caóticos, asumo desprolijidad antes de leer el código: otros ya mostraron algo ordenado."},
+    {"id": "problem_solving_signal", "label": "Práctica de resolución de problemas (algoritmos)", "recruiterLens": "En roles que filtran con HackerRank/LeetCode, el que nunca practicó llega flojo; en otros roles pesa menos, pero sigue siendo señal."},
+    {"id": "interview_readiness", "label": "Respuestas HR / screening", "recruiterLens": "Si en la primera charla sonás genérico o evasivo, no pasás a técnica aunque el repo sea bueno: otros ya ensayaron respuestas con hechos."}
   ],
   "eliminationRules": [
     {"id": "no_projects", "title": "Sin proyectos visibles no estás en la carrera", "description": "Otros juniors muestran repo o demo. Vos no: no hay contra qué compararte, así que sigo con el siguiente.", "condition": {"anyOfTags": ["no_projects"]}, "interviewPenaltyPoints": 18, "blocksReadiness": true, "relatedSignals": ["proof_of_work"], "fixModuleIds": ["portfolio", "cv"]},
@@ -20,7 +23,11 @@
     {"id": "silver_cv_not_ready", "title": "No estás en condiciones de aplicar masivamente todavía", "description": "Sin el resume checker de Silver Dev o con grade C o menos, el CV no está validado: spamear postulaciones es pérdida de tiempo frente a quien ya subió el score.", "condition": {"anyOfTags": ["silver_skipped", "silver_grade_low"]}, "interviewPenaltyPoints": 20, "blocksReadiness": true, "relatedSignals": ["cv_quality_external", "execution_over_theory"], "fixModuleIds": ["cv"]},
     {"id": "profile_inconsistent", "title": "Perfil inconsistente = no confío", "description": "CV, LinkedIn y repo que no cierran: en junior asumo ruido o exageración y paso de largo.", "condition": {"anyOfTags": ["stack_mismatch_cv_li"]}, "interviewPenaltyPoints": 16, "blocksReadiness": true, "relatedSignals": ["profile_consistency"], "fixModuleIds": ["cv", "linkedin", "portfolio"]},
     {"id": "certs_without_build", "title": "Certis sin proyectos propios no te ganan la entrevista", "description": "El otro junior muestra deploy y decisiones en código; vos mostrás certificados. No es la misma pelea.", "condition": {"anyOfTags": ["certs_without_projects"]}, "interviewPenaltyPoints": 10, "blocksReadiness": false, "relatedSignals": ["execution_over_theory", "proof_of_work"], "fixModuleIds": ["portfolio", "cv"]},
-    {"id": "otw_broadcast_risk", "title": "Open To Work a todo el mundo puede restar", "description": "No es ley, pero algunos leen el badge masivo como desesperación; otros juniors muestran disponibilidad sin prenderle fuego al feed.", "condition": {"anyOfTags": ["otw_all_visible"]}, "interviewPenaltyPoints": 6, "blocksReadiness": false, "relatedSignals": ["linkedin_strength"], "fixModuleIds": ["linkedin"]}
+    {"id": "otw_broadcast_risk", "title": "Open To Work a todo el mundo puede restar", "description": "No es ley, pero algunos leen el badge masivo como desesperación; otros juniors muestran disponibilidad sin prenderle fuego al feed.", "condition": {"anyOfTags": ["otw_all_visible"]}, "interviewPenaltyPoints": 6, "blocksReadiness": false, "relatedSignals": ["linkedin_strength"], "fixModuleIds": ["linkedin"]},
+    {"id": "efset_skipped_penalty", "title": "Sin benchmark de inglés (EF SET u otro) competís a ciegas", "description": "No sabés dónde estás frente a otros juniors que sí midieron; en procesos con inglés medio te comparan mal sin que te avisen.", "condition": {"anyOfTags": ["efset_skipped"]}, "interviewPenaltyPoints": 8, "blocksReadiness": false, "relatedSignals": ["english_level", "market_awareness"], "fixModuleIds": ["mercado"]},
+    {"id": "github_course_only", "title": "GitHub de curso clon no diferencia", "description": "Si solo mostrás forks de tutoriales, no veo criterio propio: el otro candidato tiene decisiones documentadas en un repo serio.", "condition": {"anyOfTags": ["github_only_course"]}, "interviewPenaltyPoints": 10, "blocksReadiness": false, "relatedSignals": ["proof_of_work"], "fixModuleIds": ["portfolio"]},
+    {"id": "outreach_channel_gap", "title": "Cero outreach a recruiters = menos superficie", "description": "No es ilegal postular solo por portal, pero perdés un canal donde otros juniors ya mandan mensajes cortos con demo.", "condition": {"anyOfTags": ["outreach_none"]}, "interviewPenaltyPoints": 5, "blocksReadiness": false, "relatedSignals": ["reach_out_competence"], "fixModuleIds": ["busqueda"]},
+    {"id": "leetcode_practice_gap", "title": "Poca práctica algorítmica (si el rol filtra así)", "description": "No bloquea todos los roles, pero en procesos con tests tipo LeetCode llegás más frío que quien practicó aunque sea un poco.", "condition": {"anyOfTags": ["leetcode_never"]}, "interviewPenaltyPoints": 4, "blocksReadiness": false, "relatedSignals": ["problem_solving_signal"], "fixModuleIds": ["mercado"]}
   ],
   "searchQueryByOption": {
     "app_rol_objetivo": {
@@ -50,15 +57,28 @@
     {"when": {"anyOfTags": ["silent_no_clue"]}, "line": "No sabés por qué no te responden: seguís repitiendo el mismo error. Otros ya iteraron."},
     {"when": {"anyOfTags": ["english_weak_junior"]}, "line": "Inglés muy bajo para lo que piden muchas empresas: comparación directa con juniors que leen doc sin traductor."},
     {"when": {"anyOfTags": ["pitch_cant_explain"]}, "line": "No podés explicar un proyecto en un minuto: en screening perdés contra quien narra problema → solución → stack con claridad."},
-    {"when": {"anyOfTags": ["tutorial_only_build"]}, "line": "Lo que mostrás suena a tutorial clon: no veo problema real ni criterio. Sigo con el que documentó decisiones propias."}
+    {"when": {"anyOfTags": ["tutorial_only_build"]}, "line": "Lo que mostrás suena a tutorial clon: no veo problema real ni criterio. Sigo con el que documentó decisiones propias."},
+    {"when": {"anyOfTags": ["efset_skipped"]}, "line": "No hiciste un test tipo EF SET: no sé si tu inglés aguanta doc y mails frente al junior que ya midió y mejoró."},
+    {"when": {"anyOfTags": ["github_only_course"]}, "line": "GitHub lleno de cursos clon: no veo decisiones tuyas. Paso al que tiene README y alcance propio."},
+    {"when": {"anyOfTags": ["outreach_none"]}, "line": "No hacés outreach a recruiters: ok, pero perdés un canal donde otros juniors ya pasan link en dos líneas."},
+    {"when": {"anyOfTags": ["leetcode_never"]}, "line": "Cero práctica tipo LeetCode: en roles que filtran con tests algorítmicos llegás más frío."},
+    {"when": {"anyOfTags": ["presentation_weak"]}, "line": "Portfolio o sitio difícil de leer: antes de ver código ya asumo desorden frente a quien mostró algo prolijo."}
   ],
-  "weekPlan": [
-    "Si todavía no pasaste el CV por el resume checker de Silver Dev: esta semana eso primero — subí hasta grade A mínimo antes de mandar tandas grandes de aplicaciones.",
-    "1 proyecto con deploy público y README que explique problema, stack, tu rol y cómo correrlo (no negociable).",
-    "1 headline + Acerca de en LinkedIn: rol, stack, link a demo/repo arriba; Open To Work solo recruiters si lo usás.",
-    "5 aplicaciones bien hechas: CV o nota ajustada por aviso, con 2–4 líneas que demuestren que leíste el puesto.",
-    "Tabla viva: empresa, fecha, canal, nota personalizada sí/no, respuesta; sin eso no sabés qué corregir.",
-    "2 outreach no spam: uno a empresa sin aviso (mensaje corto, demo, sin adjuntar PDF al primer contacto) y uno a recruiter con 3 líneas máximo y contexto real.",
-    "8 empresas objetivo en Argentina (al menos 2 de tu ciudad o región) con una línea de qué hacen antes de escribirles."
-  ]
+  "weekPlan": {
+    "week1": [
+      "Silver Dev: pasá el CV por el resume checker y subí hasta grade A mínimo (objetivo S) antes de tandas grandes de aplicaciones.",
+      "EF SET (o test equivalente): medí inglés en 15 minutos; si estás bajo, 30 min diarios de lectura de doc técnica en inglés esta semana.",
+      "GitHub: un repo propio con README que explique problema, stack, tu rol y cómo correrlo (no solo forks de curso).",
+      "freeCodeCamp u otros certis: si tenés certis, que exista al menos un proyecto propio deployado que las respalde.",
+      "Simulador HR interno: completá las preguntas de respuestas típicas y anotá los rewrites sugeridos."
+    ],
+    "week2": [
+      "1 proyecto con deploy público y demo en 1–2 clics desde LinkedIn (featured o Acerca de).",
+      "Revisá presentación del portfolio o sitio (tipografía, jerarquía); compará con referencias claras como galerías en huev0.site.",
+      "Outreach: 3–5 mensajes personalizados a recruiters o talento (empresa + rol + link demo), sin plantilla masiva.",
+      "LeetCode / HackerRank liviano: 4–8 problemas fáciles si tu rol objetivo suele filtrar así (si no, priorizá proyecto).",
+      "5 aplicaciones bien hechas con nota de 2–4 líneas que citen el aviso + tabla de seguimiento actualizada.",
+      "Práctica de entrevista en vivo (Pramp, interviewing.io u otro) si podés: 1 sesión cuenta más que cero."
+    ]
+  }
 }

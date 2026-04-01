@@ -4,12 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { primerTrabajoData } from "@/content/primer-trabajo";
 import { getAllQuestions, runDiagnostic } from "@/lib/primer-trabajo/engine";
-import { SILVER_DEV_RESUME_CHECKER_HREF } from "@/lib/primer-trabajo/silver-dev";
+import { MISSION_CALLOUTS } from "@/lib/primer-trabajo/mission-callouts";
 import { usePrimerTrabajoPersist } from "@/lib/primer-trabajo/persist";
+import MissionCallout from "./MissionCallout";
 import type { DiagnosticResult } from "@/lib/primer-trabajo/types";
 
 export default function DiagnosticoClient() {
-  const { hydrated, diagnosticResult, saveDiagnostic } = usePrimerTrabajoPersist();
+  const { hydrated, diagnosticResult, hrQuizResult, saveDiagnostic } = usePrimerTrabajoPersist();
   const [mode, setMode] = useState<"summary" | "wizard">("wizard");
   const [bootstrapped, setBootstrapped] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -33,7 +34,9 @@ export default function DiagnosticoClient() {
   const next = () => {
     if (!current || !answers[current.id]) return;
     if (index + 1 >= total) {
-      const result = runDiagnostic(answers);
+      const result = runDiagnostic(answers, {
+        interviewReadinessScore: hrQuizResult?.score,
+      });
       saveDiagnostic(result);
       setMode("summary");
       return;
@@ -112,27 +115,7 @@ export default function DiagnosticoClient() {
                 </div>
               </div>
 
-              {current.id === "cv_silver_grade" && (
-                <div className="mb-6 rounded-xl border-2 border-ocean-400 bg-ocean-50/90 p-4 md:p-5 space-y-3">
-                  <p className="text-sm font-semibold text-ocean-950">
-                    Antes de seguir: pasá tu CV por el resume checker de Silver Dev.
-                  </p>
-                  <p className="text-sm text-slate-800 leading-relaxed">
-                    Si tu CV no pasa un filtro básico, es muy probable que no llegues a entrevista. Usá la herramienta, corregí lo que marque y volvé acá con el grade (S / A / B / C) que te dio.
-                  </p>
-                  <a
-                    href={SILVER_DEV_RESUME_CHECKER_HREF}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-xl bg-ocean-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-ocean-700 transition-colors"
-                  >
-                    Abrir resume checker (Silver Dev) — nueva pestaña
-                  </a>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Herramienta externa; no estamos afiliados. El diagnóstico no puntúa el contenido del CV: solo registramos tu resultado honesto en Silver Dev como señal de mercado.
-                  </p>
-                </div>
-              )}
+              {MISSION_CALLOUTS[current.id] && <MissionCallout {...MISSION_CALLOUTS[current.id]!} />}
 
               <p className="font-display font-bold text-xl text-ocean-900 mb-6 leading-snug">{current.prompt}</p>
 
@@ -211,6 +194,15 @@ function guideHintFromSignals(weakest: string[]): string | null {
   if (top === "execution_over_theory") {
     return "Ejecución floja frente a teoría: menos certis decorativos, más proyecto deployado y pitch de 1 minuto (plan + portfolio).";
   }
+  if (top === "presentation_quality") {
+    return "Presentación visual floja: mejorá legibilidad y jerarquía del portfolio o sitio (tipografía, espaciado); compará con referencias claras y simplificá antes de sumar features.";
+  }
+  if (top === "problem_solving_signal") {
+    return "Poca práctica algorítmica: si tu rol objetivo suele filtrar con LeetCode/HackerRank, sumá 4–8 problemas fáciles por semana; si no aplica, priorizá proyecto y README.";
+  }
+  if (top === "interview_readiness") {
+    return "Respuestas HR flojas: hacé el simulador HR de esta herramienta y ensayá en voz alta; para práctica en vivo probá Pramp o interviewing.io.";
+  }
   if (rest.has("linkedin_strength")) {
     return "LinkedIn sigue flojo entre tus señales: la guía te muestra headline y Acerca de con ejemplos reales.";
   }
@@ -274,6 +266,12 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
             className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-400 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-white/90"
           >
             Guía LinkedIn
+          </Link>
+          <Link
+            href="/primer-trabajo/entrevista-hr"
+            className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-500 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-ocean-50"
+          >
+            Simulador HR
           </Link>
           <Link
             href="/primer-trabajo/plan"

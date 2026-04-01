@@ -85,11 +85,24 @@ export default function PlanClient() {
             </a>
           </div>
         )}
-        <ol className="list-decimal list-inside space-y-2 text-sm text-slate-700">
-          {primerTrabajoData.weekPlan.map((line, i) => (
-            <li key={i}>{line}</li>
-          ))}
-        </ol>
+        <div className="space-y-6 text-sm text-slate-700">
+          <div>
+            <h3 className="font-display font-bold text-ocean-900 text-base mb-2">Semana 1 — Fundamentos y señal mínima</h3>
+            <ol className="list-decimal list-inside space-y-2">
+              {primerTrabajoData.weekPlan.week1.map((line, i) => (
+                <li key={i}>{line}</li>
+              ))}
+            </ol>
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-ocean-900 text-base mb-2">Semana 2 — Deploy, outreach y entrevista</h3>
+            <ol className="list-decimal list-inside space-y-2">
+              {primerTrabajoData.weekPlan.week2.map((line, i) => (
+                <li key={i}>{line}</li>
+              ))}
+            </ol>
+          </div>
+        </div>
       </section>
 
       <section className="rounded-2xl border-2 border-ocean-200 bg-gradient-to-br from-ocean-50/80 to-white p-6 shadow-sm">

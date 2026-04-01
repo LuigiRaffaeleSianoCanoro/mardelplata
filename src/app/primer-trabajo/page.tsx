@@ -24,7 +24,17 @@ export default function PrimerTrabajoPage() {
                 🔍
               </span>
               <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Diagnóstico</h2>
-              <p className="text-sm text-slate-600">30 preguntas, reglas duras, probabilidad de entrevista y modo recruiter.</p>
+              <p className="text-sm text-slate-600">Preguntas con misiones (Silver Dev, EF SET, GitHub, FCC, portfolio, outreach, LeetCode), reglas duras y modo recruiter.</p>
+            </Link>
+            <Link
+              href="/primer-trabajo/entrevista-hr"
+              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-ocean-300 transition-all"
+            >
+              <span className="text-2xl mb-2 block" aria-hidden>
+                🎤
+              </span>
+              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Simulador HR</h2>
+              <p className="text-sm text-slate-600">Preguntas tipo screening con feedback; el puntaje actualiza la señal de entrevista en el diagnóstico.</p>
             </Link>
             <Link
               href="/primer-trabajo/plan"

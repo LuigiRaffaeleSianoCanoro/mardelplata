@@ -199,10 +199,19 @@ export function buildInterviewExplanation(
   return parts.join(" ");
 }
 
-export function runDiagnostic(answers: Record<string, string>): DiagnosticResult {
+export type RunDiagnosticOptions = {
+  /** 0–100 from simulador HR; overrides señal interview_readiness en el promedio */
+  interviewReadinessScore?: number;
+};
+
+export function runDiagnostic(answers: Record<string, string>, opts?: RunDiagnosticOptions): DiagnosticResult {
   const tags = collectTags(answers);
   const triggered = getTriggeredRules(tags);
   const signalStrength = computeSignalStrength(answers);
+  if (opts?.interviewReadinessScore != null) {
+    const v = Math.max(0, Math.min(100, Math.round(opts.interviewReadinessScore)));
+    signalStrength.interview_readiness = v;
+  }
   const signalValues = data.employabilitySignals.map((s) => signalStrength[s.id] ?? 0);
   const avgSignal =
     signalValues.length === 0 ? 0 : signalValues.reduce((a, b) => a + b, 0) / signalValues.length;

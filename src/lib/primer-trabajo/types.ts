@@ -80,8 +80,21 @@ export interface DiagnosticResult {
   sectionScores: Record<string, number>;
 }
 
+export interface HrQuizAnswerRecord {
+  questionId: string;
+  optionId: string;
+  ideal: boolean;
+}
+
+export interface HrQuizResult {
+  completedAt: string;
+  answers: HrQuizAnswerRecord[];
+  score: number;
+}
+
 export interface PrimerTrabajoPersisted {
   schemaVersion: 1;
   diagnosticResult?: DiagnosticResult;
   checklistCheckedIds: string[];
+  hrQuizResult?: HrQuizResult;
 }
