@@ -179,6 +179,12 @@ function guideHintFromSignals(weakest: string[]): string | null {
   if (top === "proof_of_work") {
     return "Prueba de trabajo floja: portfolio + README + deploy en el plan; en CV, links visibles arriba (guía CV).";
   }
+  if (top === "english_level") {
+    return "Inglés flojo para el pipeline: en muchas buscas de AR te comparan con quien lee doc sin drama; subí lectura y mails simples ya.";
+  }
+  if (top === "execution_over_theory") {
+    return "Ejecución floja frente a teoría: menos certis decorativos, más proyecto deployado y pitch de 1 minuto (plan + portfolio).";
+  }
   if (rest.has("linkedin_strength")) {
     return "LinkedIn sigue flojo entre tus señales: la guía te muestra headline y Acerca de con ejemplos reales.";
   }
@@ -197,7 +203,31 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-display font-bold text-lg text-ocean-900 mb-2">Probabilidad de entrevista (estimada)</h2>
         <p className="text-4xl font-bold text-ocean-600 mb-3">{result.interviewProbability}%</p>
-        <p className="text-slate-700 text-sm leading-relaxed">{result.interviewProbabilityExplanation}</p>
+        <p className="text-slate-700 text-sm leading-relaxed mb-4">{result.interviewProbabilityExplanation}</p>
+        {result.interviewFactors && (result.interviewFactors.lowers.length > 0 || result.interviewFactors.raises.length > 0) ? (
+          <div className="grid gap-4 sm:grid-cols-2 text-sm">
+            {result.interviewFactors.lowers.length > 0 ? (
+              <div className="rounded-xl border border-amber-200 bg-amber-50/80 p-4">
+                <h3 className="font-semibold text-amber-950 mb-2">Te la bajan</h3>
+                <ul className="list-disc list-inside space-y-1.5 text-amber-950/90 leading-relaxed">
+                  {result.interviewFactors.lowers.map((line, i) => (
+                    <li key={i}>{line}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+            {result.interviewFactors.raises.length > 0 ? (
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-4">
+                <h3 className="font-semibold text-emerald-950 mb-2">Te la suben</h3>
+                <ul className="list-disc list-inside space-y-1.5 text-emerald-950/90 leading-relaxed">
+                  {result.interviewFactors.raises.map((line, i) => (
+                    <li key={i}>{line}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </section>
 
       <section className="rounded-2xl border-2 border-ocean-200 bg-ocean-50/50 p-5 shadow-sm">

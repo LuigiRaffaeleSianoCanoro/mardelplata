@@ -65,7 +65,8 @@ export default function PlanClient() {
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-display font-bold text-lg text-ocean-900 mb-4">Esta semana</h2>
+        <h2 className="font-display font-bold text-lg text-ocean-900 mb-1">Esta semana (mínimo)</h2>
+        <p className="text-xs text-slate-500 mb-4">Sin esto estás perdiendo tiempo frente a otros juniors que sí cierran entregables.</p>
         <ol className="list-decimal list-inside space-y-2 text-sm text-slate-700">
           {primerTrabajoData.weekPlan.map((line, i) => (
             <li key={i}>{line}</li>
@@ -164,6 +165,16 @@ export default function PlanClient() {
                               <p className="bg-slate-50 rounded-lg p-3 border border-slate-100">
                                 <span className="font-medium text-slate-900">Rewrite sugerido:</span> {item.suggestedRewrite}
                               </p>
+                            )}
+                            {item.antiPatterns && item.antiPatterns.length > 0 && (
+                              <div className="rounded-lg border border-slate-200 bg-slate-900 text-slate-100 p-3">
+                                <p className="font-medium text-ocean-200 text-xs uppercase tracking-wide mb-2">Anti-patrones (te descartan)</p>
+                                <ul className="list-disc list-inside space-y-1 text-sm text-slate-200">
+                                  {item.antiPatterns.map((ap, i) => (
+                                    <li key={i}>{ap}</li>
+                                  ))}
+                                </ul>
+                              </div>
                             )}
                           </div>
                         )}

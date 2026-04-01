@@ -1,5 +1,5 @@
 import { primerTrabajoData } from "@/content/primer-trabajo";
-import type { DiagnosticQuestion, DiagnosticResult, EliminationRule } from "./types";
+import type { DiagnosticQuestion, DiagnosticResult, EliminationRule, InterviewFactors } from "./types";
 
 const data = primerTrabajoData;
 
@@ -87,6 +87,35 @@ function pickWeakestSignals(signalStrength: Record<string, number>, take: number
     .map(([id]) => id);
 }
 
+const FACTOR_LOW_THRESHOLD = 46;
+const FACTOR_HIGH_THRESHOLD = 72;
+
+export function buildInterviewFactors(
+  signalStrength: Record<string, number>,
+  triggeredRules: EliminationRule[]
+): InterviewFactors {
+  const lowers: string[] = [];
+  const raises: string[] = [];
+
+  for (const s of data.employabilitySignals) {
+    const v = signalStrength[s.id] ?? 0;
+    if (v < FACTOR_LOW_THRESHOLD) {
+      lowers.push(`Tu señal «${s.label}» está baja: otros juniors suelen mostrar mejor eso en el screening.`);
+    } else if (v >= FACTOR_HIGH_THRESHOLD) {
+      raises.push(`«${s.label}» viene bien: te diferenciás positivamente acá.`);
+    }
+  }
+
+  for (const r of triggeredRules) {
+    lowers.push(r.title);
+  }
+
+  return {
+    lowers: [...new Set(lowers)].slice(0, 10),
+    raises: [...new Set(raises)].slice(0, 8),
+  };
+}
+
 function reasonMatches(when: { anyOfTags?: string[] }, tags: Set<string>): boolean {
   if (!when.anyOfTags?.length) return false;
   return when.anyOfTags.some((t) => tags.has(t));
@@ -95,7 +124,8 @@ function reasonMatches(when: { anyOfTags?: string[] }, tags: Set<string>): boole
 export function buildRecruiterSimulation(
   answers: Record<string, string>,
   tags: Set<string>,
-  interviewProbability: number
+  interviewProbability: number,
+  signalStrength: Record<string, number>
 ): DiagnosticResult["recruiterSimulation"] {
   const roleKey = answers.app_rol_objetivo ?? "unclear";
   const map = data.searchQueryByOption.app_rol_objetivo as Record<string, string>;
@@ -105,12 +135,31 @@ export function buildRecruiterSimulation(
   for (const r of data.recruiterSimulationReasons) {
     if (reasonMatches(r.when, tags)) lines.push(r.line);
   }
-  const result = lines.slice(0, 5);
+  let result = lines.slice(0, 6);
+
+  if (result.length < 2) {
+    for (const sigId of pickWeakestSignals(signalStrength, 4)) {
+      if (result.length >= 5) break;
+      const s = data.employabilitySignals.find((x) => x.id === sigId);
+      if (!s) continue;
+      const v = signalStrength[sigId] ?? 0;
+      if (v >= FACTOR_LOW_THRESHOLD) continue;
+      const line = `Señal floja — ${s.label}: ${s.recruiterLens}`;
+      if (!result.includes(line)) result.push(line);
+    }
+  }
 
   let decision: string;
-  if (interviewProbability < 35) decision = "Paso a otro candidato";
-  else if (interviewProbability < 55) decision = "Te guardo si no aparece nada mejor";
-  else decision = "Te contacto si el stack cierra";
+  if (interviewProbability < 30) {
+    decision =
+      "Cierro el perfil y paso a otro candidato que ya muestra deploy claro, stack alineado y mensaje sin ruido.";
+  } else if (interviewProbability < 48) {
+    decision = "Te dejo en carpeta baja: solo si no aparece nadie con mejor señal que vos.";
+  } else if (interviewProbability < 65) {
+    decision = "Podría escribirte si el stack cierra, pero no sos primera opción frente al pool.";
+  } else {
+    decision = "Señal suficiente para primera ronda si el puesto matchea; el resto es fit con el equipo.";
+  }
 
   return { searchQuery, result, decision };
 }
@@ -161,7 +210,8 @@ export function runDiagnostic(answers: Record<string, string>): DiagnosticResult
   const interviewProbability = Math.max(0, Math.min(100, Math.round(avgSignal - penalty)));
   const weakestSignals = pickWeakestSignals(signalStrength, 2);
   const explanation = buildInterviewExplanation(weakestSignals, triggered, interviewProbability);
-  const recruiterSimulation = buildRecruiterSimulation(answers, tags, interviewProbability);
+  const interviewFactors = buildInterviewFactors(signalStrength, triggered);
+  const recruiterSimulation = buildRecruiterSimulation(answers, tags, interviewProbability, signalStrength);
 
   return {
     schemaVersion: 1,
@@ -173,6 +223,7 @@ export function runDiagnostic(answers: Record<string, string>): DiagnosticResult
     weakestSignals,
     interviewProbability,
     interviewProbabilityExplanation: explanation,
+    interviewFactors,
     recruiterSimulation,
     sectionScores: computeSectionScores(answers),
   };

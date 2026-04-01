@@ -43,6 +43,7 @@ export interface ChecklistItem {
   action: string;
   suggestedRewrite: string;
   strengthensSignals: string[];
+  antiPatterns?: string[];
 }
 
 export interface ChecklistModule {
@@ -59,6 +60,11 @@ export interface RecruiterSimulation {
   decision: string;
 }
 
+export interface InterviewFactors {
+  lowers: string[];
+  raises: string[];
+}
+
 export interface DiagnosticResult {
   schemaVersion: 1;
   completedAt: string;
@@ -69,6 +75,7 @@ export interface DiagnosticResult {
   weakestSignals: string[];
   interviewProbability: number;
   interviewProbabilityExplanation: string;
+  interviewFactors?: InterviewFactors;
   recruiterSimulation: RecruiterSimulation;
   sectionScores: Record<string, number>;
 }
