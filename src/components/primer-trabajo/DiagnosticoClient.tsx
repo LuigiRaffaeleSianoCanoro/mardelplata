@@ -117,7 +117,13 @@ export default function DiagnosticoClient() {
 
               {MISSION_CALLOUTS[current.id] && <MissionCallout {...MISSION_CALLOUTS[current.id]!} />}
 
-              <p className="font-display font-bold text-xl text-ocean-900 mb-6 leading-snug">{current.prompt}</p>
+              {"explanationForUser" in current && current.explanationForUser ? (
+                <p className="text-sm text-slate-600 mb-3 leading-relaxed">{current.explanationForUser}</p>
+              ) : null}
+
+              <p className="font-display font-bold text-xl text-ocean-900 mb-6 leading-snug whitespace-pre-line">
+                {current.prompt}
+              </p>
 
               <ul className="space-y-3">
                 {current.options.map((opt) => {
@@ -193,9 +199,6 @@ function guideHintFromSignals(weakest: string[]): string | null {
   }
   if (top === "execution_over_theory") {
     return "Ejecución floja frente a teoría: menos certis decorativos, más proyecto deployado y pitch de 1 minuto (plan + portfolio).";
-  }
-  if (top === "presentation_quality") {
-    return "Presentación visual floja: mejorá legibilidad y jerarquía del portfolio o sitio (tipografía, espaciado); compará con referencias claras y simplificá antes de sumar features.";
   }
   if (top === "problem_solving_signal") {
     return "Poca práctica algorítmica: si tu rol objetivo suele filtrar con LeetCode/HackerRank, sumá 4–8 problemas fáciles por semana; si no aplica, priorizá proyecto y README.";

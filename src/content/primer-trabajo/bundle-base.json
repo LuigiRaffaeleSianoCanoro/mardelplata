@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "employabilitySignals": [
     {"id": "clarity_role_stack", "label": "Claridad de rol y stack", "recruiterLens": "Si no te ubico en rol y stack en cinco segundos, paso al próximo: hay diez juniors que ya dicen en el título qué son."},
     {"id": "proof_of_work", "label": "Prueba de trabajo real", "recruiterLens": "Sin link, deploy o repo que se entienda rápido, asumo que no hay nada que validar: pierdo contra el que sí muestra entregables."},
@@ -11,7 +11,6 @@
     {"id": "profile_consistency", "label": "Consistencia CV ↔ LinkedIn ↔ repo", "recruiterLens": "Si los tres se contradicen, no es detalle: es red flag. En junior no tengo tiempo a investigar."},
     {"id": "english_level", "label": "Inglés para el pipeline", "recruiterLens": "En muchas buscas te comparan con quien lee doc y escribe mail sin drama. Básico flojo te deja afuera de un montón de procesos."},
     {"id": "execution_over_theory", "label": "Ejecución sobre teoría", "recruiterLens": "Cursos y certis sin proyecto propio no compiten con alguien que deployó y puede explicar el repo en un minuto."},
-    {"id": "presentation_quality", "label": "Presentación visual del portfolio", "recruiterLens": "Si el sitio o el PDF son ilegibles o caóticos, asumo desprolijidad antes de leer el código: otros ya mostraron algo ordenado."},
     {"id": "problem_solving_signal", "label": "Práctica de resolución de problemas (algoritmos)", "recruiterLens": "En roles que filtran con HackerRank/LeetCode, el que nunca practicó llega flojo; en otros roles pesa menos, pero sigue siendo señal."},
     {"id": "interview_readiness", "label": "Respuestas HR / screening", "recruiterLens": "Si en la primera charla sonás genérico o evasivo, no pasás a técnica aunque el repo sea bueno: otros ya ensayaron respuestas con hechos."}
   ],
@@ -62,7 +61,7 @@
     {"when": {"anyOfTags": ["github_only_course"]}, "line": "GitHub lleno de cursos clon: no veo decisiones tuyas. Paso al que tiene README y alcance propio."},
     {"when": {"anyOfTags": ["outreach_none"]}, "line": "No hacés outreach a recruiters: ok, pero perdés un canal donde otros juniors ya pasan link en dos líneas."},
     {"when": {"anyOfTags": ["leetcode_never"]}, "line": "Cero práctica tipo LeetCode: en roles que filtran con tests algorítmicos llegás más frío."},
-    {"when": {"anyOfTags": ["presentation_weak"]}, "line": "Portfolio o sitio difícil de leer: antes de ver código ya asumo desorden frente a quien mostró algo prolijo."}
+    {"when": {"anyOfTags": ["cv_includes_photo"]}, "line": "CV con foto: en muchas búsquedas tech miran primero qué sabés hacer; la foto suele no sumar."}
   ],
   "weekPlan": {
     "week1": [
@@ -74,7 +73,7 @@
     ],
     "week2": [
       "1 proyecto con deploy público y demo en 1–2 clics desde LinkedIn (featured o Acerca de).",
-      "Revisá presentación del portfolio o sitio (tipografía, jerarquía); compará con referencias claras como galerías en huev0.site.",
+      "Revisá que tu portfolio o sitio se entienda en segundos: secciones claras y proyectos visibles (en el plan tenés Huevsite como referencia opcional, no como obligación).",
       "Outreach: 3–5 mensajes personalizados a recruiters o talento (empresa + rol + link demo), sin plantilla masiva.",
       "LeetCode / HackerRank liviano: 4–8 problemas fáciles si tu rol objetivo suele filtrar así (si no, priorizá proyecto).",
       "5 aplicaciones bien hechas con nota de 2–4 líneas que citen el aviso + tabla de seguimiento actualizada.",

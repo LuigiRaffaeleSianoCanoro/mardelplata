@@ -11,6 +11,8 @@ export interface DiagnosticOption {
 export interface DiagnosticQuestion {
   id: string;
   prompt: string;
+  /** Una línea opcional que aclara la pregunta si el prompt es largo o nuevo término. */
+  explanationForUser?: string;
   type: "single";
   affectedSignals: string[];
   options: DiagnosticOption[];
