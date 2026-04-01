@@ -135,7 +135,7 @@ export function buildRecruiterSimulation(
   for (const r of data.recruiterSimulationReasons) {
     if (reasonMatches(r.when, tags)) lines.push(r.line);
   }
-  let result = lines.slice(0, 6);
+  const result = lines.slice(0, 6);
 
   if (result.length < 2) {
     for (const sigId of pickWeakestSignals(signalStrength, 4)) {
