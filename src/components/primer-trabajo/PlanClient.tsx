@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { primerTrabajoData } from "@/content/primer-trabajo";
 import { usePrimerTrabajoPersist } from "@/lib/primer-trabajo/persist";
+import { SILVER_DEV_RESUME_CHECKER_HREF } from "@/lib/primer-trabajo/silver-dev";
 import type { ModulePriority } from "@/lib/primer-trabajo/types";
 
 const priorityOrder: Record<ModulePriority, number> = { alta: 0, media: 1, baja: 2 };
@@ -67,6 +68,23 @@ export default function PlanClient() {
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-display font-bold text-lg text-ocean-900 mb-1">Esta semana (mínimo)</h2>
         <p className="text-xs text-slate-500 mb-4">Sin esto estás perdiendo tiempo frente a otros juniors que sí cierran entregables.</p>
+        {diagnosticResult?.derivedTags?.some((t) => t === "silver_skipped" || t === "silver_grade_low") && (
+          <div className="mb-4 rounded-xl border-2 border-amber-400 bg-amber-50 p-4 text-sm text-amber-950 space-y-2">
+            <p className="font-semibold">Semana 1: CV con Silver Dev antes de aplicar en masa</p>
+            <p className="leading-relaxed">
+              Tu último diagnóstico marca que no validaste el CV con el resume checker o tenés grade C o menos. Pará las tandas grandes: pasá el PDF por Silver Dev, corregí hasta{" "}
+              <strong>grade A mínimo</strong> (objetivo S), y recién ahí volvé a postular en serio.
+            </p>
+            <a
+              href={SILVER_DEV_RESUME_CHECKER_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block font-semibold text-ocean-800 underline underline-offset-2 hover:text-ocean-950"
+            >
+              Abrir resume checker (silver.dev/resume)
+            </a>
+          </div>
+        )}
         <ol className="list-decimal list-inside space-y-2 text-sm text-slate-700">
           {primerTrabajoData.weekPlan.map((line, i) => (
             <li key={i}>{line}</li>

@@ -1,11 +1,11 @@
 {
-  "version": 4,
+  "version": 5,
   "employabilitySignals": [
     {"id": "clarity_role_stack", "label": "Claridad de rol y stack", "recruiterLens": "Si no te ubico en rol y stack en cinco segundos, paso al próximo: hay diez juniors que ya dicen en el título qué son."},
     {"id": "proof_of_work", "label": "Prueba de trabajo real", "recruiterLens": "Sin link, deploy o repo que se entienda rápido, asumo que no hay nada que validar: pierdo contra el que sí muestra entregables."},
     {"id": "application_quality", "label": "Calidad de postulación", "recruiterLens": "CV y nota genéricos = cola con otros cien. Si no parece que leíste el aviso, no compito por vos."},
     {"id": "linkedin_strength", "label": "LinkedIn que convierte", "recruiterLens": "Perfil flojo ni me hace abrir el PDF: ya perdiste contra juniors con headline y Acerca de que venden hechos."},
-    {"id": "cv_signal_density", "label": "CV con señales densas", "recruiterLens": "Sin keywords ni bullets con hechos no pasás ATS ni la comparación humana: el otro candidato sí llena la hoja con señal."},
+    {"id": "cv_quality_external", "label": "CV validado (resume checker)", "recruiterLens": "No miro tu PDF con reglas caseras: si no pasaste un checker serio tipo Silver Dev, no sé si competís en el primer filtro. Otros ya lo hicieron."},
     {"id": "reach_out_competence", "label": "Outreach competente", "recruiterLens": "Plantilla masiva = spam. Tengo doscientos iguales; respondo al que demostró que me leyó."},
     {"id": "market_awareness", "label": "Conocimiento del mercado (AR)", "recruiterLens": "Si no sabés dónde se publica ni qué pagan, aplicás a ciegas y tardás el doble: otros ya saben por dónde entra el agua."},
     {"id": "profile_consistency", "label": "Consistencia CV ↔ LinkedIn ↔ repo", "recruiterLens": "Si los tres se contradicen, no es detalle: es red flag. En junior no tengo tiempo a investigar."},
@@ -17,10 +17,9 @@
     {"id": "no_public_proof", "title": "Sin deploy o demo no te valido", "description": "Todo en local = cero verificación en dos minutos. El otro candidato tiene URL: ese gana el visto bueno.", "condition": {"anyOfTags": ["no_public_demo"]}, "interviewPenaltyPoints": 16, "blocksReadiness": true, "relatedSignals": ["proof_of_work"], "fixModuleIds": ["portfolio"]},
     {"id": "linkedin_invisible", "title": "LinkedIn que no vende = te descarto antes del CV", "description": "Headline y Acerca de flojos: ni aparecés bien en búsqueda ni me dan ganas de abrir el PDF. Otros ya cerraron esa parte.", "condition": {"allOfTags": ["weak_headline", "empty_about"]}, "interviewPenaltyPoints": 14, "blocksReadiness": true, "relatedSignals": ["linkedin_strength", "clarity_role_stack"], "fixModuleIds": ["linkedin"]},
     {"id": "spray_and_pray", "title": "Aplicar en masa sin personalizar te hunde el ratio", "description": "Mismo CV y misma nota para todo: parecés bot. Los que ajustan una línea por aviso ya te pasaron.", "condition": {"anyOfTags": ["mass_apply_no_tailor"]}, "interviewPenaltyPoints": 15, "blocksReadiness": true, "relatedSignals": ["application_quality"], "fixModuleIds": ["busqueda"]},
-    {"id": "cv_generic_noise", "title": "CV genérico no llega a la pelea", "description": "Sin keywords de rol/stack o un solo PDF para roles distintos: afuera en el primer filtro. El mercado no te espera.", "condition": {"anyOfTags": ["cv_no_keywords", "one_cv_all_roles"]}, "interviewPenaltyPoints": 14, "blocksReadiness": true, "relatedSignals": ["cv_signal_density", "application_quality"], "fixModuleIds": ["cv", "busqueda"]},
+    {"id": "silver_cv_not_ready", "title": "No estás en condiciones de aplicar masivamente todavía", "description": "Sin el resume checker de Silver Dev o con grade C o menos, el CV no está validado: spamear postulaciones es pérdida de tiempo frente a quien ya subió el score.", "condition": {"anyOfTags": ["silver_skipped", "silver_grade_low"]}, "interviewPenaltyPoints": 20, "blocksReadiness": true, "relatedSignals": ["cv_quality_external", "execution_over_theory"], "fixModuleIds": ["cv"]},
     {"id": "profile_inconsistent", "title": "Perfil inconsistente = no confío", "description": "CV, LinkedIn y repo que no cierran: en junior asumo ruido o exageración y paso de largo.", "condition": {"anyOfTags": ["stack_mismatch_cv_li"]}, "interviewPenaltyPoints": 16, "blocksReadiness": true, "relatedSignals": ["profile_consistency"], "fixModuleIds": ["cv", "linkedin", "portfolio"]},
     {"id": "certs_without_build", "title": "Certis sin proyectos propios no te ganan la entrevista", "description": "El otro junior muestra deploy y decisiones en código; vos mostrás certificados. No es la misma pelea.", "condition": {"anyOfTags": ["certs_without_projects"]}, "interviewPenaltyPoints": 10, "blocksReadiness": false, "relatedSignals": ["execution_over_theory", "proof_of_work"], "fixModuleIds": ["portfolio", "cv"]},
-    {"id": "silver_blind_spot", "title": "No pasaste el CV por un checker serio", "description": "Otros corrigen errores estructurales antes de postular; vos mandás a ciegas. Perdés contra quien ya vio el score y ajustó.", "condition": {"anyOfTags": ["silver_not_used"]}, "interviewPenaltyPoints": 8, "blocksReadiness": false, "relatedSignals": ["cv_signal_density"], "fixModuleIds": ["cv"]},
     {"id": "otw_broadcast_risk", "title": "Open To Work a todo el mundo puede restar", "description": "No es ley, pero algunos leen el badge masivo como desesperación; otros juniors muestran disponibilidad sin prenderle fuego al feed.", "condition": {"anyOfTags": ["otw_all_visible"]}, "interviewPenaltyPoints": 6, "blocksReadiness": false, "relatedSignals": ["linkedin_strength"], "fixModuleIds": ["linkedin"]}
   ],
   "searchQueryByOption": {
@@ -39,13 +38,12 @@
     {"when": {"anyOfTags": ["no_projects"]}, "line": "No hay proyectos visibles: no tengo forma rápida de validar skills. Sigo con el que tiene repo."},
     {"when": {"anyOfTags": ["no_public_demo"]}, "line": "Sin deploy ni demo pública: en la práctica no existe. Elegí al junior que pasó URL."},
     {"when": {"anyOfTags": ["mass_apply_no_tailor"]}, "line": "Se nota aplicación genérica: no mencionás empresa ni stack del aviso. Perdés contra quien sí."},
-    {"when": {"anyOfTags": ["cv_no_keywords"]}, "line": "El CV no matchea el puesto: no pasás el escaneo. Otro sí alineó keywords."},
     {"when": {"anyOfTags": ["spam_recruiter"]}, "line": "Tu mensaje parece plantilla masiva: no respondo. El que personalizó dos líneas sí."},
     {"when": {"anyOfTags": ["stack_mismatch_cv_li"]}, "line": "CV y LinkedIn no cuentan la misma historia: red flag. Paso al perfil coherente."},
     {"when": {"anyOfTags": ["otw_all_visible"]}, "line": "Open To Work a todo el mundo: algunos recruiters lo leen mal; el otro junior tiene señal más fina."},
     {"when": {"anyOfTags": ["otw_off"]}, "line": "Sin señal de búsqueda activa en LinkedIn: en herramientas internas aparecés menos que otros con OTW bien configurado."},
-    {"when": {"anyOfTags": ["silver_not_used"]}, "line": "No pasaste el CV por un resume checker: probablemente hay problemas estructurales que otros ya corrigieron."},
-    {"when": {"anyOfTags": ["silver_low_score"]}, "line": "Score bajo en checker de CV: antes de competir con otros, tenés que subir eso."},
+    {"when": {"anyOfTags": ["silver_skipped"]}, "line": "No pasaste el CV por el resume checker de Silver Dev: no tengo señal de que el PDF pase un mínimo; el otro candidato sí la tiene."},
+    {"when": {"anyOfTags": ["silver_grade_low"]}, "line": "Grade bajo en Silver Dev: el CV todavía no compite en el primer filtro. Paso al que ya subió el score."},
     {"when": {"anyOfTags": ["certs_without_projects"]}, "line": "Mucho curso en el papel, poco que abrir en el navegador: me quedo con el que tiene build."},
     {"when": {"anyOfTags": ["profile_story_split"]}, "line": "CV, LinkedIn y portfolio dicen cosas distintas: no sé qué perfil estoy evaluando."},
     {"when": {"anyOfTags": ["no_strategy_apply"]}, "line": "Aplicás sin foco: se nota en el mensaje. Otros junior llegan con rol claro y prueba alineada."},
@@ -55,8 +53,8 @@
     {"when": {"anyOfTags": ["tutorial_only_build"]}, "line": "Lo que mostrás suena a tutorial clon: no veo problema real ni criterio. Sigo con el que documentó decisiones propias."}
   ],
   "weekPlan": [
+    "Si todavía no pasaste el CV por el resume checker de Silver Dev: esta semana eso primero — subí hasta grade A mínimo antes de mandar tandas grandes de aplicaciones.",
     "1 proyecto con deploy público y README que explique problema, stack, tu rol y cómo correrlo (no negociable).",
-    "1 pasada seria por un resume checker externo (ej. herramientas tipo Silver Dev), anotá el score y corregí lo que marque fuerte.",
     "1 headline + Acerca de en LinkedIn: rol, stack, link a demo/repo arriba; Open To Work solo recruiters si lo usás.",
     "5 aplicaciones bien hechas: CV o nota ajustada por aviso, con 2–4 líneas que demuestren que leíste el puesto.",
     "Tabla viva: empresa, fecha, canal, nota personalizada sí/no, respuesta; sin eso no sabés qué corregir.",

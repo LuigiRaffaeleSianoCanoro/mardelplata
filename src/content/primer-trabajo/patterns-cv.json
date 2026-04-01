@@ -1,6 +1,6 @@
 {
   "title": "CV — patrones que te descartan",
-  "intro": "Cada patrón es cómo te lee un recruiter o un ATS en Argentina en pocos segundos. Nada de teoría: corregí el texto o la estructura.",
+  "intro": "Cada patrón es cómo te lee un recruiter o un ATS en Argentina en pocos segundos. Nada de teoría: corregí el texto o la estructura. Para el PDF en conjunto, el resume checker de Silver Dev es la referencia externa que usamos en el diagnóstico.",
   "patterns": [
     {
       "id": "cv_solo_estudiante",
@@ -13,8 +13,8 @@
         "Sumá 2–4 tecnologías que realmente usaste en proyectos.",
         "Una línea de disponibilidad o link a demo/repo arriba de todo."
       ],
-      "linkedSignals": ["clarity_role_stack", "cv_signal_density"],
-      "mayTriggerEliminationRuleIds": ["cv_generic_noise"]
+      "linkedSignals": ["clarity_role_stack", "cv_quality_external"],
+      "mayTriggerEliminationRuleIds": []
     },
     {
       "id": "cv_bullets_tareas",
@@ -27,7 +27,7 @@
         "Sacá “responsable de” si no viene seguido de un hecho.",
         "Máximo 3 bullets fuertes por proyecto; el resto es ruido."
       ],
-      "linkedSignals": ["cv_signal_density", "proof_of_work"],
+      "linkedSignals": ["cv_quality_external", "proof_of_work"],
       "mayTriggerEliminationRuleIds": []
     },
     {
@@ -55,7 +55,7 @@
         "Cursos: solo si completás una línea con proyecto asociado o certificación útil al rol.",
         "Soft skills: una línea máximo; el resto tiene que ser hechos."
       ],
-      "linkedSignals": ["cv_signal_density"],
+      "linkedSignals": ["cv_quality_external"],
       "mayTriggerEliminationRuleIds": []
     },
     {
@@ -83,8 +83,8 @@
         "Ajustá el primer bullet y las skills para repetir 4–6 keywords del aviso (sin mentir).",
         "Guardá versiones con nombre claro: CV-frontend-react.pdf."
       ],
-      "linkedSignals": ["application_quality", "cv_signal_density"],
-      "mayTriggerEliminationRuleIds": ["cv_generic_noise", "spray_and_pray"]
+      "linkedSignals": ["application_quality", "cv_quality_external"],
+      "mayTriggerEliminationRuleIds": ["spray_and_pray"]
     },
     {
       "id": "cv_proyectos_sin_contexto",
@@ -97,7 +97,7 @@
         "Stack en la misma línea o bullet siguiente.",
         "Link a repo o demo si existe."
       ],
-      "linkedSignals": ["proof_of_work", "cv_signal_density"],
+      "linkedSignals": ["proof_of_work", "cv_quality_external"],
       "mayTriggerEliminationRuleIds": ["no_projects"]
     }
   ]

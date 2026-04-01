@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { primerTrabajoData } from "@/content/primer-trabajo";
 import { getAllQuestions, runDiagnostic } from "@/lib/primer-trabajo/engine";
+import { SILVER_DEV_RESUME_CHECKER_HREF } from "@/lib/primer-trabajo/silver-dev";
 import { usePrimerTrabajoPersist } from "@/lib/primer-trabajo/persist";
 import type { DiagnosticResult } from "@/lib/primer-trabajo/types";
 
@@ -111,6 +112,28 @@ export default function DiagnosticoClient() {
                 </div>
               </div>
 
+              {current.id === "cv_silver_grade" && (
+                <div className="mb-6 rounded-xl border-2 border-ocean-400 bg-ocean-50/90 p-4 md:p-5 space-y-3">
+                  <p className="text-sm font-semibold text-ocean-950">
+                    Antes de seguir: pasá tu CV por el resume checker de Silver Dev.
+                  </p>
+                  <p className="text-sm text-slate-800 leading-relaxed">
+                    Si tu CV no pasa un filtro básico, es muy probable que no llegues a entrevista. Usá la herramienta, corregí lo que marque y volvé acá con el grade (S / A / B / C) que te dio.
+                  </p>
+                  <a
+                    href={SILVER_DEV_RESUME_CHECKER_HREF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-xl bg-ocean-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-ocean-700 transition-colors"
+                  >
+                    Abrir resume checker (Silver Dev) — nueva pestaña
+                  </a>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Herramienta externa; no estamos afiliados. El diagnóstico no puntúa el contenido del CV: solo registramos tu resultado honesto en Silver Dev como señal de mercado.
+                  </p>
+                </div>
+              )}
+
               <p className="font-display font-bold text-xl text-ocean-900 mb-6 leading-snug">{current.prompt}</p>
 
               <ul className="space-y-3">
@@ -170,8 +193,11 @@ function guideHintFromSignals(weakest: string[]): string | null {
   if (top === "linkedin_strength") {
     return "Tu señal más débil es LinkedIn: priorizá headline y Acerca de con la guía (ejemplos mal/bien).";
   }
-  if (top === "cv_signal_density" || top === "clarity_role_stack") {
-    return "CV o claridad de rol están abajo: la guía de CV ataca encabezado, bullets y el mismo PDF para todo.";
+  if (top === "cv_quality_external") {
+    return "Tu CV validado externamente está flojo: pasá el PDF por silver.dev/resume, subí el grade a A o S y repetí el diagnóstico; después el plan y la guía CV para el detalle.";
+  }
+  if (top === "clarity_role_stack") {
+    return "Claridad de rol/stack floja: la guía CV y LinkedIn atacan headline y mensaje; el checker de Silver Dev no reemplaza eso.";
   }
   if (top === "profile_consistency") {
     return "Coherencia entre CV, LinkedIn y repo: leé las dos guías y unificá mensaje y stack.";
@@ -188,8 +214,11 @@ function guideHintFromSignals(weakest: string[]): string | null {
   if (rest.has("linkedin_strength")) {
     return "LinkedIn sigue flojo entre tus señales: la guía te muestra headline y Acerca de con ejemplos reales.";
   }
-  if (weakest.some((id) => id === "cv_signal_density" || id === "clarity_role_stack")) {
-    return "El CV o el rol no cierran del todo: repasá la guía de CV antes de la próxima tanda de aplicaciones.";
+  if (weakest.some((id) => id === "cv_quality_external")) {
+    return "El grade de Silver Dev te está frenando: priorizá silver.dev/resume antes de mandar más CVs.";
+  }
+  if (weakest.some((id) => id === "clarity_role_stack")) {
+    return "El rol no cierra del todo: repasá guía CV / LinkedIn antes de la próxima tanda.";
   }
   return null;
 }
