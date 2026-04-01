@@ -1,0 +1,105 @@
+{
+  "title": "LinkedIn — patrones que te congelan",
+  "intro": "El recruiter mira headline + foto + primeras líneas del Acerca de. Si ahí no cerrás, muchos ni abren el CV.",
+  "patterns": [
+    {
+      "id": "li_headline_vacio",
+      "title": "Headline solo con la universidad",
+      "recruiterView": "En búsqueda por “React” o “Java” no aparecés como candidato técnico.",
+      "bad": "Estudiante de Licenciatura en Sistemas — Universidad …",
+      "good": "Frontend Developer (React, TypeScript) | Proyectos en GitHub | Primera experiencia en producto",
+      "rewriteSteps": [
+        "Poné el rol que querés, no solo la carrera.",
+        "2–4 tecnologías que defendés en entrevista.",
+        "Opcional: “Buscando primera experiencia” o “Open to work” coherente."
+      ],
+      "linkedSignals": ["clarity_role_stack", "linkedin_strength"],
+      "mayTriggerEliminationRuleIds": ["linkedin_invisible"]
+    },
+    {
+      "id": "li_acerca_motivacional",
+      "title": "Acerca de genérico (“me gusta aprender”)",
+      "recruiterView": "No sé qué podés construir ni qué stack usás. Es ruido.",
+      "bad": "Me apasiona la tecnología y el trabajo en equipo. Siempre en busca de nuevos desafíos.",
+      "good": "Desarrollo en Node y React. Dos proyectos en producción (links abajo). Busco equipo con mentoría en backend.",
+      "rewriteSteps": [
+        "Borrá frases que sirvan para cualquier persona.",
+        "Primera oración: rol + stack.",
+        "Segunda: prueba concreta (proyecto, práctica, freelance).",
+        "Tercera: qué buscás (tipo de empresa o rol)."
+      ],
+      "linkedSignals": ["linkedin_strength", "proof_of_work"],
+      "mayTriggerEliminationRuleIds": ["linkedin_invisible"]
+    },
+    {
+      "id": "li_sin_experiencia_proyectos",
+      "title": "Solo educación en Experiencia",
+      "recruiterView": "Parecés sin práctica aplicada. Otros juniors muestran proyectos como experiencia.",
+      "bad": "Única entrada: Universidad X, 2021–actualidad.",
+      "good": "Entrada “Proyecto …” con fechas, stack y link a demo/repo.",
+      "rewriteSteps": [
+        "Creá experiencias tipo “Proyecto personal” o “Freelance” si aplica.",
+        "2–4 líneas: objetivo, tu rol, stack, link.",
+        "No inventes empleos: sí mostrá trabajo real aunque no sea en relación de dependencia."
+      ],
+      "linkedSignals": ["proof_of_work", "linkedin_strength"],
+      "mayTriggerEliminationRuleIds": ["no_projects"]
+    },
+    {
+      "id": "li_url_feos",
+      "title": "URL con números random y sin destacados",
+      "recruiterView": "Perdés confianza y no das un camino corto al portfolio.",
+      "bad": "linkedin.com/in/juan-pérez-123456789 sin proyectos destacados.",
+      "good": "URL personalizada + destacados: repo principal + demo.",
+      "rewriteSteps": [
+        "Configurá URL corta si LinkedIn lo permite.",
+        "Featured: link a deploy y a GitHub del proyecto más fuerte.",
+        "Revisá que los links no estén rotos."
+      ],
+      "linkedSignals": ["linkedin_strength", "reach_out_competence"],
+      "mayTriggerEliminationRuleIds": []
+    },
+    {
+      "id": "li_open_to_work_ruido",
+      "title": "Open to Work mal configurado",
+      "recruiterView": "Aparecés en búsquedas que no querés o en ubicaciones imposibles: te filtran igual.",
+      "bad": "Abierto a cualquier país y cualquier tipo de empleo sin alinear al stack.",
+      "good": "Argentina / remoto AR, roles alineados a Frontend o Full Stack que declarás en el headline.",
+      "rewriteSteps": [
+        "Alineá ubicaciones con dónde podés trabajar legalmente y en la práctica.",
+        "Tipos de trabajo: empleo tiempo completo / contractor según tu caso.",
+        "Que coincida con lo que decís en el CV."
+      ],
+      "linkedSignals": ["market_awareness", "linkedin_strength"],
+      "mayTriggerEliminationRuleIds": []
+    },
+    {
+      "id": "li_posts_vacios",
+      "title": "Posts solo motivacionales o reposts sin contexto",
+      "recruiterView": "No suma señal técnica; a veces resta si parecés influencer sin obra.",
+      "bad": "Solo frases de éxito o reposts de terceros sin un comentario tuyo.",
+      "good": "Un post corto: “Terminé X, stack Y, aprendí Z” + link.",
+      "rewriteSteps": [
+        "Si publicás, que sea 1 proyecto, 1 bug resuelto o 1 lectura técnica con tu opinión.",
+        "Mejor pocos posts con sustancia que ruido diario.",
+        "Evitá el “feliz de anunciar” sin link ni detalle."
+      ],
+      "linkedSignals": ["proof_of_work", "linkedin_strength"],
+      "mayTriggerEliminationRuleIds": []
+    },
+    {
+      "id": "li_contradice_cv",
+      "title": "LinkedIn dice una cosa y el CV otra",
+      "recruiterView": "Es red flag de descuido o exageración. En junior no damos vuelta a eso.",
+      "bad": "LinkedIn “Data Scientist”; CV solo proyectos web sin análisis de datos.",
+      "good": "Mismo rol objetivo y mismos stacks protagonistas en ambos lados.",
+      "rewriteSteps": [
+        "Compará headline con el título del CV línea por línea.",
+        "Ajustá el que esté desactualizado.",
+        "Si estás pivotando, decilo explícitamente en Acerca de."
+      ],
+      "linkedSignals": ["profile_consistency"],
+      "mayTriggerEliminationRuleIds": ["profile_inconsistent"]
+    }
+  ]
+}

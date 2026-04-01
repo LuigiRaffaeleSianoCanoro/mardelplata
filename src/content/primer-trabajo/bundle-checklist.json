@@ -1,0 +1,74 @@
+{
+  "checklistModules": [
+    {
+      "id": "cv",
+      "title": "CV",
+      "emoji": "📄",
+      "priority": "alta",
+      "items": [
+        {"id": "cv_h1", "title": "Encabezado con rol y stack", "badExample": "Solo Universidad X — Ingeniería", "goodExample": "Junior Backend Developer — Java/Spring — buscando primera experiencia", "whyWrong": "Sin rol/stack no aparecés en el bucket mental del recruiter.", "action": "Reescribí el encabezado con rol, stack y disponibilidad.", "suggestedRewrite": "Junior Backend Developer (Java/Spring) | Primera experiencia | GitHub: …", "strengthensSignals": ["clarity_role_stack", "cv_signal_density"]},
+        {"id": "cv_h2", "title": "Una página si no tenés laburo formal", "badExample": "Dos páginas con cursos listados", "goodExample": "Una página densa en proyectos y skills", "whyWrong": "Juniors con páginas largas suelen compensar falta de hechos.", "action": "Cortá todo lo que no pruebe skill o entregable.", "suggestedRewrite": "Dejá 3 proyectos max con 2 bullets fuertes cada uno.", "strengthensSignals": ["cv_signal_density"]},
+        {"id": "cv_h3", "title": "Bullets con impacto", "badExample": "Trabajé en el proyecto", "goodExample": "Implementé auth JWT en Node; reduje errores de login reportados en pruebas internas", "whyWrong": "Sin hechos no hay comparación posible con otros CVs.", "action": "Reescribí 3 bullets: acción + herramienta + resultado observable.", "suggestedRewrite": "Implementé [X] con [stack], lo que permitió [resultado medible u observable].", "strengthensSignals": ["cv_signal_density", "proof_of_work"]},
+        {"id": "cv_h4", "title": "Keywords del aviso", "badExample": "Mismo PDF para frontend y backend", "goodExample": "Versión con títulos y skills alineados al puesto", "whyWrong": "ATS y humanos buscan match literal.", "action": "Por cada aplicación, ajustá título, skills y primer bullet.", "suggestedRewrite": "En la línea de skills, repetí 4-6 términos del aviso sin mentir.", "strengthensSignals": ["application_quality", "cv_signal_density"]},
+        {"id": "cv_h5", "title": "Links arriba", "badExample": "GitHub al final de la segunda página", "goodExample": "GitHub, LinkedIn, mail en el header", "whyWrong": "Si no es inmediato, muchos no lo buscan.", "action": "Mové links al bloque inicial.", "suggestedRewrite": "github.com/tuuser · linkedin.com/in/tuuser · mail@…", "strengthensSignals": ["proof_of_work", "profile_consistency"]},
+        {"id": "cv_h6", "title": "PDF legible en mobile", "badExample": "Columnas raras que se rompen en el celu", "goodExample": "Una columna, fuentes estándar", "whyWrong": "Muchos recruiters miran en el teléfono entre reuniones.", "action": "Abrí el PDF en el celu; si lag, simplificá layout.", "suggestedRewrite": "Tipografía 10.5-11pt, márgenes normales, sin tablas complejas.", "strengthensSignals": ["cv_signal_density"]}
+      ]
+    },
+    {
+      "id": "linkedin",
+      "title": "LinkedIn",
+      "emoji": "💼",
+      "priority": "alta",
+      "items": [
+        {"id": "li_h1", "title": "Headline claro", "badExample": "Estudiante de sistemas", "goodExample": "Frontend Developer (React) | Proyectos en GitHub | Buscando primera experiencia", "whyWrong": "No dice rol ni stack.", "action": "Reescribí el headline.", "suggestedRewrite": "Frontend Developer (React) | Demo: [URL]", "strengthensSignals": ["clarity_role_stack", "linkedin_strength"]},
+        {"id": "li_h2", "title": "Acerca de con propuesta", "badExample": "Me gusta aprender y el trabajo en equipo", "goodExample": "Junior backend con Node/Postgres. Dos proyectos deployados. Busco equipo con mentoría.", "whyWrong": "Frases vacías no venden skill.", "action": "Borrá lo genérico; sumá stack, links y qué buscás.", "suggestedRewrite": "Stack: … | Proyectos: [links] | Busco: primera experiencia en …", "strengthensSignals": ["linkedin_strength", "proof_of_work"]},
+        {"id": "li_h3", "title": "Proyectos como experiencia", "badExample": "Solo la facultad en Experiencia", "goodExample": "Proyecto X — API REST deployada — link a repo", "whyWrong": "Sin entregables parecés sin práctica.", "action": "Agregá 1-2 entradas de proyecto con descripción corta y link.", "suggestedRewrite": "Nombre — qué resolviste — stack — link demo/repo", "strengthensSignals": ["proof_of_work", "linkedin_strength"]},
+        {"id": "li_h4", "title": "Foto presentable", "badExample": "Selfie con lentes oscuros", "goodExample": "Rostro visible, fondo simple", "whyWrong": "Resta en el scaneo rápido.", "action": "Cambiá foto por una clara y recortada.", "suggestedRewrite": "N/A", "strengthensSignals": ["linkedin_strength"]},
+        {"id": "li_h5", "title": "Open to Work alineado", "badExample": "Activado para cualquier país sin sentido", "goodExample": "Argentina + remoto + roles que coinciden con tu stack", "whyWrong": "Ruido geográfico o rol baja conversión.", "action": "Ajustá ubicaciones y tipos de trabajo a tu realidad.", "suggestedRewrite": "N/A", "strengthensSignals": ["market_awareness", "linkedin_strength"]},
+        {"id": "li_h6", "title": "Destacados con demo", "badExample": "Sin destacados", "goodExample": "Link a deploy + link a repo principal", "whyWrong": "Perdés el clic más barato a prueba de trabajo.", "action": "Agregá 2 destacados: demo y repo.", "suggestedRewrite": "Featured: Demo producción · Repo principal", "strengthensSignals": ["proof_of_work", "linkedin_strength"]}
+      ]
+    },
+    {
+      "id": "portfolio",
+      "title": "Portfolio",
+      "emoji": "🧑‍💻",
+      "priority": "alta",
+      "items": [
+        {"id": "pf_h1", "title": "Dos proyectos con deploy", "badExample": "Todo en localhost", "goodExample": "Dos URLs públicas o demos accesibles", "whyWrong": "Sin deploy no hay verificación rápida.", "action": "Deployá dos proyectos (Vercel/Netlify/Railway/etc.).", "suggestedRewrite": "Proyecto A: [URL] · Proyecto B: [URL]", "strengthensSignals": ["proof_of_work"]},
+        {"id": "pf_h2", "title": "README mínimo viable", "badExample": "README vacío", "goodExample": "Problema, stack, cómo correr, tu rol", "whyWrong": "Sin contexto parece tutorial robado.", "action": "Escribí README de 8-12 líneas útiles.", "suggestedRewrite": "## Qué es / Stack / Cómo correr / Mi rol", "strengthensSignals": ["proof_of_work", "cv_signal_density"]},
+        {"id": "pf_h3", "title": "No solo tutoriales clon", "badExample": "Tres veces el mismo ToDo de YouTube", "goodExample": "Al menos un proyecto con decisión tuya documentada", "whyWrong": "No diferenciás del promedio.", "action": "Elegí un proyecto y explicá qué cambiaste vos.", "suggestedRewrite": "En README: Decisiones de diseño / qué haría distinto", "strengthensSignals": ["proof_of_work", "profile_consistency"]},
+        {"id": "pf_h4", "title": "Stack alineado al CV", "badExample": "CV dice React y el repo es solo Python sin explicación", "goodExample": "Mismo stack protagonista o explicás el pivote", "whyWrong": "Inconsistencia = red flag.", "action": "Alineá lenguajes del repo con lo que vendés.", "suggestedRewrite": "N/A", "strengthensSignals": ["profile_consistency"]},
+        {"id": "pf_h5", "title": "Un proyecto con problema real", "badExample": "CRUD sin narrativa", "goodExample": "Resolver un dolor chico pero concreto (turnos, stock, etc.)", "whyWrong": "Sin problema no hay historia en entrevista.", "action": "Escribí en README el problema en una oración.", "suggestedRewrite": "Problema: … | Usuario: … | Alcance: …", "strengthensSignals": ["proof_of_work"]},
+        {"id": "pf_h6", "title": "Código revisable", "badExample": "Un solo archivo gigante sin estructura", "goodExample": "Carpetas razonables y nombres claros", "whyWrong": "Si el repo da miedo abrirlo, asumen desorden.", "action": "Refactor mínimo de estructura y nombres.", "suggestedRewrite": "N/A", "strengthensSignals": ["proof_of_work"]}
+      ]
+    },
+    {
+      "id": "busqueda",
+      "title": "Búsqueda laboral",
+      "emoji": "📩",
+      "priority": "alta",
+      "items": [
+        {"id": "bu_h1", "title": "Definí un rol objetivo por mes", "badExample": "Aplico a todo", "goodExample": "Este mes solo backend Java o solo frontend React", "whyWrong": "Sin foco tu CV y mensajes son genéricos.", "action": "Elegí un foco por 4 semanas y ajustá perfil.", "suggestedRewrite": "Rol objetivo: … | Proyectos mostrados: alineados a eso", "strengthensSignals": ["clarity_role_stack", "application_quality"]},
+        {"id": "bu_h2", "title": "Nota de 3 líneas por aplicación", "badExample": "Adjunto CV", "goodExample": "Vi el aviso X; tengo proyecto Y con stack Z; acá el link", "whyWrong": "Sin nota parecés masivo.", "action": "Escribí nota con empresa, stack del aviso y un link.", "suggestedRewrite": "Hola, apliqué a [puesto]. Tengo [proyecto] con [stack]. Demo: [URL].", "strengthensSignals": ["application_quality", "reach_out_competence"]},
+        {"id": "bu_h3", "title": "Tabla de seguimiento", "badExample": "No sé a quién mandé", "goodExample": "Empresa | fecha | canal | nota | respuesta", "whyWrong": "Sin registro no iterás ni hacés follow-up.", "action": "Creá Google Sheet o Notion mínimo.", "suggestedRewrite": "N/A", "strengthensSignals": ["application_quality", "market_awareness"]},
+        {"id": "bu_h4", "title": "Cupos semanales realistas", "badExample": "50 aplicaciones genéricas", "goodExample": "5-12 aplicaciones con ajuste fino", "whyWrong": "Volumen sin calidad quema canales.", "action": "Fijá número semanal y cumplilo con ajuste.", "suggestedRewrite": "Esta semana: 8 aplicaciones + 2 outreach", "strengthensSignals": ["application_quality"]},
+        {"id": "bu_h5", "title": "Outreach a recruiter sin spam", "badExample": "Misma plantilla a 40 recruiters", "goodExample": "Mensaje único mencionando su empresa y tu link demo", "whyWrong": "Spam = cero respuesta.", "action": "Personalizá 2 líneas antes de enviar.", "suggestedRewrite": "Vi que buscan [rol]. Tengo [demo]. Me interesa [motivo concreto].", "strengthensSignals": ["reach_out_competence"]},
+        {"id": "bu_h6", "title": "Ajustá keywords por aviso", "badExample": "PDF idéntico", "goodExample": "Skills y primer bullet alineados", "whyWrong": "No pasás filtros ni lectura rápida.", "action": "Por aviso, tocá skills y primer bullet.", "suggestedRewrite": "Copiá 4 términos del aviso a tu bloque de skills si los tenés.", "strengthensSignals": ["application_quality", "cv_signal_density"]}
+      ]
+    },
+    {
+      "id": "mercado",
+      "title": "Mercado local",
+      "emoji": "📍",
+      "priority": "media",
+      "items": [
+        {"id": "mk_h1", "title": "Listá canales AR", "badExample": "Solo LinkedIn", "goodExample": "LinkedIn + 2 comunidades/sitios que usan empresas argentinas", "whyWrong": "Perdés ofertas que no pasan por LinkedIn.", "action": "Anotá 3 canales y revisalos 2 veces por semana.", "suggestedRewrite": "N/A", "strengthensSignals": ["market_awareness"]},
+        {"id": "mk_h2", "title": "10 empresas objetivo", "badExample": "Aplico random", "goodExample": "Lista con qué hacen y stack aproximado", "whyWrong": "Sin lista no hay outreach frío ni referidos.", "action": "Armá lista y guardá link careers o LinkedIn empresa.", "suggestedRewrite": "N/A", "strengthensSignals": ["market_awareness", "reach_out_competence"]},
+        {"id": "mk_h3", "title": "Empresas de tu ciudad", "badExample": "Ignoro MdP / mi ciudad", "goodExample": "5 locales + resto remoto/CABA", "whyWrong": "Competís de más en pools gigantes.", "action": "Investigá empresas locales en el directorio de la comunidad.", "suggestedRewrite": "N/A", "strengthensSignals": ["market_awareness"]},
+        {"id": "mk_h4", "title": "Mensaje frío sin aviso", "badExample": "Les mando CV a ventas@", "goodExample": "Talent/People o LinkedIn + 4 líneas con demo", "whyWrong": "Correos genéricos no leen.", "action": "Buscá contacto de talento; mensaje corto con link.", "suggestedRewrite": "Hola, soy [rol]. Vi que hacen [X]. Mi demo: [URL]. ¿Reciben CVs para junior?", "strengthensSignals": ["reach_out_competence", "market_awareness"]},
+        {"id": "mk_h5", "title": "Expectativa salarial realista", "badExample": "Pedís senior sin experiencia", "goodExample": "Rango junior anclado en fuentes locales", "whyWrong": "Te filtran antes por desalineación.", "action": "Preguntá en comunidad o mirá rangos publicados.", "suggestedRewrite": "N/A", "strengthensSignals": ["market_awareness", "application_quality"]},
+        {"id": "mk_h6", "title": "Pedir intro en comunidad", "badExample": "Nunca pedís ayuda", "goodExample": "Pedís intro cuando hay vínculo", "whyWrong": "En AR el referido acelera.", "action": "En MdPDev u otra comunidad, pedí intro con contexto.", "suggestedRewrite": "¿Me podés pasar con alguien de [empresa]? Tengo demo en [URL].", "strengthensSignals": ["reach_out_competence", "market_awareness"]}
+      ]
+    }
+  ]
+}

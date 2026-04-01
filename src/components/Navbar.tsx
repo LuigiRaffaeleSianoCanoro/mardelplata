@@ -45,6 +45,7 @@ export default function Navbar() {
     { href: `${prefix}#eventos`,       label: "Eventos" },
     { href: "/reglamento",             label: "Reglamento" },
     { href: "/bolsa",                  label: "Bolsa" },
+    { href: "/primer-trabajo",        label: "Primer trabajo" },
   ];
 
   return (

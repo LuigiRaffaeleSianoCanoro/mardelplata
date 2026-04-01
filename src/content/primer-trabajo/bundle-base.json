@@ -1,0 +1,49 @@
+{
+  "version": 3,
+  "employabilitySignals": [
+    {"id": "clarity_role_stack", "label": "Claridad de rol y stack", "recruiterLens": "Si no sé qué buscás y con qué tecnologías metés manos, no te matcheo con la búsqueda activa."},
+    {"id": "proof_of_work", "label": "Prueba de trabajo real", "recruiterLens": "Si no puedo ver algo funcionando rápido, asumo que no hay experiencia aplicable."},
+    {"id": "application_quality", "label": "Calidad de postulación", "recruiterLens": "Si mandás genérico, inferís que no leíste el aviso o no te importa esta empresa."},
+    {"id": "linkedin_strength", "label": "LinkedIn que convierte", "recruiterLens": "Si el perfil está flojo, ni entro al CV: ya perdés contra otros juniors."},
+    {"id": "cv_signal_density", "label": "CV con señales densas", "recruiterLens": "Si el CV no tiene keywords ni hechos, no pasás filtros ni ganás la comparación en 30 segundos."},
+    {"id": "reach_out_competence", "label": "Outreach competente", "recruiterLens": "Si el mensaje parece spam o plantilla, no respondo: tengo 200 iguales."},
+    {"id": "market_awareness", "label": "Conocimiento del mercado (AR)", "recruiterLens": "Si no sabés dónde se mueve el mercado local, tardás más y aplicás donde no hay match."},
+    {"id": "profile_consistency", "label": "Consistencia CV ↔ LinkedIn ↔ proyecto", "recruiterLens": "Si los tres se contradicen, te descarto por riesgo de ruido o mentira."}
+  ],
+  "eliminationRules": [
+    {"id": "no_projects", "title": "Sin proyectos visibles no competís", "description": "Otros juniors muestran trabajo real. Sin eso, no generás interés.", "condition": {"anyOfTags": ["no_projects"]}, "interviewPenaltyPoints": 18, "blocksReadiness": true, "relatedSignals": ["proof_of_work"], "fixModuleIds": ["portfolio", "cv"]},
+    {"id": "no_public_proof", "title": "Sin deploy o demo accesible no validamos nada", "description": "Repo sin correr o sin link público = cero verificación rápida. Pasamos al siguiente.", "condition": {"anyOfTags": ["no_public_demo"]}, "interviewPenaltyPoints": 16, "blocksReadiness": true, "relatedSignals": ["proof_of_work"], "fixModuleIds": ["portfolio"]},
+    {"id": "linkedin_invisible", "title": "LinkedIn que no vende = cero inbound", "description": "Headline y Acerca de flojos: no aparecés bien y no damos el clic al CV.", "condition": {"allOfTags": ["weak_headline", "empty_about"]}, "interviewPenaltyPoints": 14, "blocksReadiness": true, "relatedSignals": ["linkedin_strength", "clarity_role_stack"], "fixModuleIds": ["linkedin"]},
+    {"id": "spray_and_pray", "title": "Aplicar en masa sin personalizar te funde el ratio", "description": "Mismo CV y mismo mensaje para todo: parecés bot. No te priorizamos.", "condition": {"anyOfTags": ["mass_apply_no_tailor"]}, "interviewPenaltyPoints": 15, "blocksReadiness": true, "relatedSignals": ["application_quality"], "fixModuleIds": ["busqueda"]},
+    {"id": "cv_generic_noise", "title": "CV genérico no pasa el primer filtro", "description": "Sin keywords de rol/stack o un solo CV para roles distintos: afuera antes de la pelea.", "condition": {"anyOfTags": ["cv_no_keywords", "one_cv_all_roles"]}, "interviewPenaltyPoints": 14, "blocksReadiness": true, "relatedSignals": ["cv_signal_density", "application_quality"], "fixModuleIds": ["cv", "busqueda"]},
+    {"id": "profile_inconsistent", "title": "Perfil inconsistente = red flag", "description": "CV, LinkedIn y repo dicen cosas distintas: en junior no damos vuelta a eso.", "condition": {"anyOfTags": ["stack_mismatch_cv_li"]}, "interviewPenaltyPoints": 16, "blocksReadiness": true, "relatedSignals": ["profile_consistency"], "fixModuleIds": ["cv", "linkedin", "portfolio"]}
+  ],
+  "searchQueryByOption": {
+    "app_rol_objetivo": {
+      "unclear": "Junior Developer Argentina",
+      "fe": "Junior Frontend React",
+      "be": "Junior Backend",
+      "fs": "Junior Full Stack",
+      "data": "Junior Data Analyst",
+      "qa": "Junior QA Automation"
+    }
+  },
+  "recruiterSimulationReasons": [
+    {"when": {"anyOfTags": ["weak_headline"]}, "line": "No queda claro tu rol ni tu stack en el headline: en búsqueda perdés contra perfiles que lo dicen explícito."},
+    {"when": {"anyOfTags": ["empty_about"]}, "line": "El Acerca de no cierra: no veo propuesta, links ni señal de qué podés construir."},
+    {"when": {"anyOfTags": ["no_projects"]}, "line": "No hay proyectos visibles: no tengo forma rápida de validar skills."},
+    {"when": {"anyOfTags": ["no_public_demo"]}, "line": "No hay demo ni deploy accesible: asumo que no hay entregable verificable."},
+    {"when": {"anyOfTags": ["mass_apply_no_tailor"]}, "line": "Se nota aplicación genérica: no mencionás la empresa ni el stack del aviso."},
+    {"when": {"anyOfTags": ["cv_no_keywords"]}, "line": "El CV no matchea keywords del puesto: no pasás el escaneo inicial."},
+    {"when": {"anyOfTags": ["spam_recruiter"]}, "line": "Tu outreach parece spam o plantilla: no genera respuesta."},
+    {"when": {"anyOfTags": ["stack_mismatch_cv_li"]}, "line": "Lo que decís en CV no coincide con LinkedIn: es señal de ruido."}
+  ],
+  "weekPlan": [
+    "Publicar 1 proyecto con deploy público + README (problema, stack, tu rol, cómo correrlo)",
+    "Reescribir headline y Acerca de: rol + stack + link a demo/repo en la primera pantalla",
+    "Mandar 5 postulaciones con CV ajustado a keywords de cada aviso (sin el mismo PDF para todo)",
+    "Registrar en tabla: empresa, fecha, canal, si mandaste nota personalizada y si seguiste",
+    "Escribir 2 mensajes de outreach específicos: uno a empresa sin aviso (sin adjuntar CV al primer contacto) y uno a recruiter con 3 líneas máximo",
+    "Listar 8 empresas objetivo en Argentina (2 de tu ciudad/región) y leer qué hacen antes de escribir"
+  ]
+}

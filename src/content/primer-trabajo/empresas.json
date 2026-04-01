@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "regions": ["Mar del Plata", "Buenos Aires", "Remoto (AR)"],
+  "disclaimer": "Datos orientativos. Verificá en cada sitio/LinkedIn si hay búsquedas abiertas y si toman perfiles junior. Sumá o corregí entradas con un PR.",
+  "companies": [
+    {
+      "id": "making-sense",
+      "name": "Making Sense",
+      "type": "consultora",
+      "city": "Mar del Plata",
+      "careersUrl": "https://www.makingsense.com/",
+      "contactHint": "Revisá el sitio y el LinkedIn de la empresa por avisos o contacto de People/Talent.",
+      "notes": "Empresa de producto y servicios tech con presencia histórica en la región. Procesos y perfiles varían: no asumas junior-friendly sin leer avisos actuales.",
+      "tags": ["remoto", "producto", "consultora"]
+    },
+    {
+      "id": "mat12",
+      "name": "MAT12",
+      "type": "software_factory",
+      "city": "Mar del Plata",
+      "careersUrl": "https://mat12.com/",
+      "contactHint": "Formulario o mail de contacto en el sitio; seguí la empresa en LinkedIn.",
+      "notes": "Desarrollo web y apps a medida en la ciudad. Acercamiento profesional con portfolio y demo suele funcionar mejor que mail genérico.",
+      "tags": ["local", "junior_friendly_investigar"]
+    },
+    {
+      "id": "neo-software",
+      "name": "NEO Software",
+      "type": "producto",
+      "city": "Mar del Plata",
+      "careersUrl": "https://www.neosoftware.com.ar/",
+      "contactHint": "Contacto comercial en web; preguntá si tienen área de desarrollo o partners.",
+      "notes": "Enfoque en software de gestión para comercios/PyMEs. Útil como referencia del ecosistema local aunque el perfil pueda ser más funcional que puro dev.",
+      "tags": ["local", "pyme"]
+    },
+    {
+      "id": "mdp-software",
+      "name": "Mar del Plata Software",
+      "type": "producto",
+      "city": "Mar del Plata",
+      "careersUrl": "https://mdpsoftware.com.ar/",
+      "contactHint": "Contacto vía web; si aplicás, mostrá interés en producto/implantación y no solo en “código”.",
+      "notes": "Software de gestión y POS local. Menos “startup genérica”, más producto establecido en la región.",
+      "tags": ["local", "producto"]
+    },
+    {
+      "id": "globant-remoto-ar",
+      "name": "Globant (referencia nacional)",
+      "type": "software_factory",
+      "city": "Remoto (AR)",
+      "careersUrl": "https://www.globant.com/careers",
+      "contactHint": "Portal de careers; muchos ingresos vía procesos estándar y referidos.",
+      "notes": "No es de MdP, pero aparece en búsquedas de juniors en Argentina. Competencia alta: necesitás señales fuertes de inglés y portfolio.",
+      "tags": ["remoto", "ingles", "junior_sometimes"]
+    },
+    {
+      "id": "contribuir-mdp",
+      "name": "Tu empresa o la que falte",
+      "type": "otro",
+      "city": "Mar del Plata",
+      "careersUrl": "",
+      "contactHint": "Abrí un PR en el repo editando empresas.json con nombre, tipo, link y notas verificables.",
+      "notes": "Este directorio lo mejora la comunidad. Incluí careers reales o LinkedIn de la empresa, y si sabés que toman trainees/juniors decilo en notas.",
+      "tags": ["comunidad"]
+    }
+  ]
+}
