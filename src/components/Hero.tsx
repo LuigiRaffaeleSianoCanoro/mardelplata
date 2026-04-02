@@ -82,6 +82,19 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-16 max-w-4xl mx-auto">
+            <Link
+              href="/primer-trabajo"
+              className="inline-flex flex-col items-center justify-center gap-0.5 bg-ocean-800/90 hover:bg-ocean-800 border-2 border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm text-center"
+            >
+              <span className="flex items-center gap-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M9 12l2 2 4-4" />
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+                Primer Trabajo OS
+              </span>
+              <span className="text-ocean-200 text-xs font-medium leading-tight">Evaluación y plan para tu primer laburo en tech</span>
+            </Link>
             <a
               href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
               target="_blank"

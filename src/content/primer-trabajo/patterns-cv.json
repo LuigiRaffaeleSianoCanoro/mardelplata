@@ -1,0 +1,104 @@
+{
+  "title": "CV en PDF — patrones que te descartan",
+  "intro": "Cada patrón es cómo te lee quien selecciona candidatos (o un ATS) en Argentina en pocos segundos. Nada de teoría: corregí el texto o la estructura. Para el archivo completo, el resume checker de Silver Dev es la referencia externa que usamos en el diagnóstico.",
+  "patterns": [
+    {
+      "id": "cv_solo_estudiante",
+      "title": "Encabezado solo “Estudiante de…”",
+      "recruiterView": "No sé en qué perfil ubicarte: no aparecés como candidato a un rol técnico, solo como alumno.",
+      "bad": "Estudiante de Ingeniería en Sistemas — Universidad X",
+      "good": "Junior Backend Developer (Java/Spring) — Buscando primera experiencia — GitHub: …",
+      "rewriteSteps": [
+        "Escribí el rol que querés (aunque sea “Junior Frontend” sin laburo previo).",
+        "Sumá 2–4 tecnologías que realmente usaste en proyectos.",
+        "Una línea de disponibilidad o link a demo/repo arriba de todo."
+      ],
+      "linkedSignals": ["clarity_role_stack", "cv_quality_external"],
+      "mayTriggerEliminationRuleIds": []
+    },
+    {
+      "id": "cv_bullets_tareas",
+      "title": "Bullets que solo listan tareas",
+      "recruiterView": "Cualquier candidato puede decir “participé en el proyecto”. No veo impacto ni criterio técnico.",
+      "bad": "Participé en el desarrollo del sistema. Trabajé en equipo. Usé Git.",
+      "good": "Implementé endpoints de autenticación JWT en Node/Express; documenté contratos para el equipo.",
+      "rewriteSteps": [
+        "Por cada bullet: qué hiciste + con qué herramienta + resultado observable (aunque sea “en entorno de prueba”).",
+        "Sacá “responsable de” si no viene seguido de un hecho.",
+        "Máximo 3 bullets fuertes por proyecto; el resto es ruido."
+      ],
+      "linkedSignals": ["cv_quality_external", "proof_of_work"],
+      "mayTriggerEliminationRuleIds": []
+    },
+    {
+      "id": "cv_sin_links",
+      "title": "Sin GitHub ni LinkedIn visibles arriba",
+      "recruiterView": "No voy a buscar tu perfil: si no está en el primer pantallazo, asumo que no hay nada que ver.",
+      "bad": "Mail al pie de la segunda página; sin links a repo.",
+      "good": "github.com/usuario · linkedin.com/in/usuario · mail@ — bloque inicial",
+      "rewriteSteps": [
+        "Poné GitHub y LinkedIn clickeables en el header.",
+        "Si tenés deploy, una URL al lado del nombre del proyecto.",
+        "PDF probado en el celu: que los links sean tocables."
+      ],
+      "linkedSignals": ["proof_of_work", "profile_consistency"],
+      "mayTriggerEliminationRuleIds": ["no_public_proof"]
+    },
+    {
+      "id": "cv_multipagina_relleno",
+      "title": "Dos páginas de cursos y soft skills",
+      "recruiterView": "Sin experiencia formal, dos páginas suelen ser relleno. Corto a la mitad y sigo sin ver entregables.",
+      "bad": "Página 2 llena de cursos de Udemy y “proactivo”.",
+      "good": "Una página: contacto, rol, 2–3 proyectos con 2 bullets cada uno, stack.",
+      "rewriteSteps": [
+        "Dejá una sola página hasta que tengas laburo formal relevante.",
+        "Cursos: solo si completás una línea con proyecto asociado o certificación útil al rol.",
+        "Soft skills: una línea máximo; el resto tiene que ser hechos."
+      ],
+      "linkedSignals": ["cv_quality_external"],
+      "mayTriggerEliminationRuleIds": []
+    },
+    {
+      "id": "cv_ingles_sin_soporte",
+      "title": "CV entero en inglés sin señal de inglés real",
+      "recruiterView": "Parece plantilla importada. Si el resto del perfil no cierra, asumo copy-paste.",
+      "bad": "Summary, Experience, Skills todo en inglés; LinkedIn y mensajes en español.",
+      "good": "CV en español para empresas locales, o inglés coherente con perfil LinkedIn y entrevista.",
+      "rewriteSteps": [
+        "Elegí un idioma principal alineado al mercado al que aplicás más.",
+        "Si usás inglés, que los títulos de proyecto y tecnologías sigan siendo creíbles.",
+        "No mezcles secciones en dos idiomas sin criterio."
+      ],
+      "linkedSignals": ["profile_consistency", "application_quality"],
+      "mayTriggerEliminationRuleIds": []
+    },
+    {
+      "id": "cv_mismo_pdf_todo",
+      "title": "El mismo PDF para frontend y backend",
+      "recruiterView": "No hay foco: parece que aplicás a todo y no invertís 10 minutos en el aviso.",
+      "bad": "Un solo archivo genérico “Developer” para puestos distintos.",
+      "good": "Versión A con título y skills React; versión B con Java/Spring — según el aviso.",
+      "rewriteSteps": [
+        "Duplicá el CV y renombrá por familia de rol.",
+        "Ajustá el primer bullet y las skills para repetir 4–6 keywords del aviso (sin mentir).",
+        "Guardá versiones con nombre claro: CV-frontend-react.pdf."
+      ],
+      "linkedSignals": ["application_quality", "cv_quality_external"],
+      "mayTriggerEliminationRuleIds": ["spray_and_pray"]
+    },
+    {
+      "id": "cv_proyectos_sin_contexto",
+      "title": "Proyectos sin problema ni stack",
+      "recruiterView": "“App full stack” no dice nada: no sé si fue un tutorial o un producto.",
+      "bad": "Proyecto final — App full stack — 2024",
+      "good": "E-commerce de pedidos (Node, React, Postgres) — deploy en … — repo: …",
+      "rewriteSteps": [
+        "Una línea: qué problema resolvía.",
+        "Stack en la misma línea o bullet siguiente.",
+        "Link a repo o demo si existe."
+      ],
+      "linkedSignals": ["proof_of_work", "cv_quality_external"],
+      "mayTriggerEliminationRuleIds": ["no_projects"]
+    }
+  ]
+}

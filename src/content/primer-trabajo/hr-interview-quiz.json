@@ -1,0 +1,164 @@
+{
+  "items": [
+    {
+      "id": "hr_motivation",
+      "prompt": "Te preguntan: \"¿Por qué querés trabajar acá?\" ¿Qué respondés?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Porque necesito laburo y ustedes están contratando.",
+          "isIdeal": false,
+          "whyWrong": "Suena genérico y centrado en vos; no demostrás que investigaste la empresa.",
+          "rewriteHint": "Una frase sobre qué hacen + un stack o producto concreto + cómo encaja tu proyecto o objetivo."
+        },
+        {
+          "id": "b",
+          "label": "Vi que hacen [X] con [stack]; mi proyecto [Y] usa algo parecido y quiero seguir en ese camino.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    },
+    {
+      "id": "hr_weakness",
+      "prompt": "\"Contame una debilidad.\"",
+      "options": [
+        {
+          "id": "a",
+          "label": "Soy perfeccionista / trabajo demasiado.",
+          "isIdeal": false,
+          "whyWrong": "Cliché que suena a evasión; muchas personas de selección lo marcan como señal de alerta.",
+          "rewriteHint": "Algo real, menor, con qué hacés para mitigarlo (ej. estimación, pedir feedback a tiempo)."
+        },
+        {
+          "id": "b",
+          "label": "Me cuesta estimar tiempos en tareas nuevas; uso desglose en tareas chicas y reviso con el equipo a mitad de sprint.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    },
+    {
+      "id": "hr_gap",
+      "prompt": "\"Tenés poca experiencia formal. ¿Por qué te elijo a vos?\"",
+      "options": [
+        {
+          "id": "a",
+          "label": "Aprendo rápido y me esfuerzo mucho.",
+          "isIdeal": false,
+          "whyWrong": "Promesa vacía sin evidencia; todos dicen lo mismo.",
+          "rewriteHint": "Enlace o repositorio concreto + qué problema resolviste + stack + resultado observable si podés."
+        },
+        {
+          "id": "b",
+          "label": "Mostré en [repo/URL] cómo resolví [problema] con [stack]; puedo explicar decisiones y trade-offs en 2 minutos.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    },
+    {
+      "id": "hr_salary",
+      "prompt": "\"¿Qué expectativa salarial tenés?\" (candidato, primera experiencia)",
+      "options": [
+        {
+          "id": "a",
+          "label": "Lo que ustedes paguen / no sé, lo que sea.",
+          "isIdeal": false,
+          "whyWrong": "Pasás por desprevenido o desesperado; complica negociar después.",
+          "rewriteHint": "Rango razonable anclado en referencias locales + flexibilidad según beneficios y aprendizaje."
+        },
+        {
+          "id": "b",
+          "label": "Tengo un rango en mente según lo que vi para candidatos sin experiencia formal en Argentina y en la industria; escucho la propuesta y lo charlamos con contexto del rol.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    },
+    {
+      "id": "hr_conflict",
+      "prompt": "\"¿Alguna vez discrepaste con alguien del equipo?\"",
+      "options": [
+        {
+          "id": "a",
+          "label": "No, siempre me llevo bien con todos.",
+          "isIdeal": false,
+          "whyWrong": "Poco creíble; no mostrás madurez para el trabajo en equipo.",
+          "rewriteHint": "Situación concreta, tu postura basada en datos o usuario, y cómo cerraron (aunque sea acordar experimento)."
+        },
+        {
+          "id": "b",
+          "label": "En un proyecto académico/propio, no estábamos de acuerdo en prioridad; propuse medir con usuarios de prueba y acordamos un MVP más chico.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    },
+    {
+      "id": "hr_questions",
+      "prompt": "Al final te dicen: \"¿Tenés preguntas para nosotros?\"",
+      "options": [
+        {
+          "id": "a",
+          "label": "No, está todo claro.",
+          "isIdeal": false,
+          "whyWrong": "Perdés señal de interés y de que pensaste el fit.",
+          "rewriteHint": "1–2 preguntas sobre el día a día, el stack en producción o cómo miden el éxito en el rol."
+        },
+        {
+          "id": "b",
+          "label": "Sí: ¿cómo es el onboarding técnico las primeras semanas? ¿Qué stack usan en producción para [área del rol]?",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    },
+    {
+      "id": "hr_notice",
+      "prompt": "\"¿Cuándo podrías empezar?\"",
+      "options": [
+        {
+          "id": "a",
+          "label": "Mañana mismo, lo que necesiten.",
+          "isIdeal": false,
+          "whyWrong": "Puede sonar a que no valorás tus compromisos actuales (estudios, otros).",
+          "rewriteHint": "Plazo realista (exámenes, preaviso informal si aplica) + disposición para alinear."
+        },
+        {
+          "id": "b",
+          "label": "Puedo desde [fecha] considerando finales / entregas; si hay urgencia, vemos cómo ordenar prioridades.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    },
+    {
+      "id": "hr_remote",
+      "prompt": "\"¿Preferís remoto, híbrido u oficina?\"",
+      "options": [
+        {
+          "id": "a",
+          "label": "Solo lo que ustedes quieran, no me importa.",
+          "isIdeal": false,
+          "whyWrong": "Evitás dar señal de cómo rendís mejor; suena a respuesta automática.",
+          "rewriteHint": "Preferencia honesta + flexibilidad y por qué (foco, aprendizaje en equipo, etc.)."
+        },
+        {
+          "id": "b",
+          "label": "Me va bien híbrido o remoto con buena comunicación escrita; valoro 1–2 días presenciales si ayuda al onboarding.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ]
+    }
+  ]
+}
