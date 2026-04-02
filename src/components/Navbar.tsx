@@ -40,15 +40,10 @@ export default function Navbar() {
 
   const prefix = isHome ? "" : "/";
   const navLinks = [
-    { href: `${prefix}#inicio`,        label: "Inicio" },
-    { href: `${prefix}#colaboradores`, label: "Colaboradores" },
-    { href: `${prefix}#staff`,         label: "Staff" },
-    { href: `${prefix}#comunidad`,     label: "Comunidad" },
-    { href: `${prefix}#eventos`,       label: "Eventos" },
-    { href: "/reglamento",             label: "Reglamento" },
-    { href: "/bolsa",                  label: "Bolsa" },
-    { href: "/primer-trabajo",        label: "Primer trabajo" },
-    { href: "/primer-trabajo/entrevista-hr", label: "Simulador Recursos Humanos" },
+    { href: `${prefix}#inicio`, label: "Inicio" },
+    { href: "/bolsa", label: "Bolsa de Trabajo" },
+    { href: "/primer-trabajo", label: "Primer Trabajo OS" },
+    { href: "/reglamento", label: "Reglamento" },
   ];
 
   return (
