@@ -79,9 +79,7 @@ export default function PrimerTrabajoPage() {
                 📍
               </span>
               <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Empresas (directorio)</h2>
-              <p className="text-sm text-slate-600">
-                Referencias de Mar del Plata y remotas en Argentina; siempre verificá careers y sumá o corregí datos con un PR al JSON.
-              </p>
+              <p className="text-sm text-slate-600">Referencias de Mar del Plata y remotas en Argentina.</p>
             </Link>
           </div>
 

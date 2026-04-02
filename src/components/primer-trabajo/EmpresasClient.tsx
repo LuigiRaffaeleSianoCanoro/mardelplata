@@ -7,6 +7,24 @@ type Company = (typeof empresas.companies)[number];
 
 const empresasRoot = empresas as typeof empresas & { disclaimer?: string };
 
+function companySearchBlob(c: Company): string {
+  const parts = [
+    c.name,
+    c.notes,
+    c.description,
+    c.modalidad,
+    c.contactHint,
+    c.type,
+    c.tags?.join(" "),
+    ...(c.howToApply ?? []),
+  ];
+  return parts.filter(Boolean).join(" ").toLowerCase();
+}
+
+function formatTagLabel(tag: string): string {
+  return tag.replace(/_/g, " ");
+}
+
 export default function EmpresasClient() {
   const [city, setCity] = useState<string>("");
   const [q, setQ] = useState("");
@@ -15,8 +33,7 @@ export default function EmpresasClient() {
     return empresas.companies.filter((c: Company) => {
       if (city && c.city !== city) return false;
       if (q) {
-        const n = `${c.name} ${c.notes} ${c.tags?.join(" ") ?? ""}`.toLowerCase();
-        if (!n.includes(q.toLowerCase())) return false;
+        if (!companySearchBlob(c).includes(q.toLowerCase())) return false;
       }
       return true;
     });
@@ -35,9 +52,7 @@ export default function EmpresasClient() {
         </p>
       ) : null}
       <p className="text-slate-600 text-sm leading-relaxed">
-        Directorio colaborativo: sumá empresas reales con un PR al repo (archivo{" "}
-        <code className="text-ocean-800 bg-slate-100 px-1 rounded">empresas.json</code>). Complementá con el checklist de mercado
-        en el plan de acción.
+        Complementá con el checklist de mercado del plan de acción.
       </p>
 
       <div className="flex flex-col sm:flex-row gap-3">
@@ -69,7 +84,15 @@ export default function EmpresasClient() {
               <h3 className="font-display font-bold text-ocean-900">{c.name}</h3>
               <span className="text-xs font-medium text-slate-500">{c.type}</span>
             </div>
-            <p className="text-sm text-slate-600 mt-1">{c.city}</p>
+            <p className="text-sm text-slate-600 mt-1">
+              {c.city}
+              {c.modalidad ? (
+                <span className="text-slate-500"> · {c.modalidad}</span>
+              ) : null}
+            </p>
+            {c.description ? (
+              <p className="text-sm text-slate-700 mt-2 leading-relaxed">{c.description}</p>
+            ) : null}
             {c.careersUrl ? (
               <a
                 href={c.careersUrl}
@@ -82,11 +105,21 @@ export default function EmpresasClient() {
             ) : null}
             {c.contactHint ? <p className="text-sm text-slate-600 mt-2">{c.contactHint}</p> : null}
             <p className="text-sm text-slate-700 mt-2 leading-relaxed">{c.notes}</p>
+            {c.howToApply?.length ? (
+              <div className="mt-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1.5">Cómo acercarte</p>
+                <ul className="text-sm text-slate-700 list-disc pl-5 space-y-1 leading-relaxed">
+                  {c.howToApply.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
             {c.tags?.length ? (
               <div className="flex flex-wrap gap-1.5 mt-3">
                 {c.tags.map((t) => (
                   <span key={t} className="text-[11px] uppercase tracking-wide bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
-                    {t}
+                    {formatTagLabel(t)}
                   </span>
                 ))}
               </div>
