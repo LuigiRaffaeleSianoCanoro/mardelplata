@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "regions": ["Mar del Plata", "Buenos Aires", "Remoto (AR)"],
   "disclaimer": "Listado de referencia revisado por la comunidad (abril 2026).",
   "companies": [
@@ -53,6 +53,22 @@
       "tags": ["primer_trabajo", "corporativo"]
     },
     {
+      "id": "intive",
+      "name": "Intive",
+      "type": "consultora",
+      "city": "Mar del Plata",
+      "modalidad": "híbrido",
+      "careersUrl": "https://www.intive.com/careers",
+      "description": "Empresa global de desarrollo de software con presencia en Argentina; productos digitales para clientes internacionales.",
+      "notes": "Suelen pedir buen nivel técnico; el inglés suma mucho según el equipo y el cliente.",
+      "howToApply": [
+        "Aplicá en careers (filtrá por Argentina si aplica)",
+        "Buscá personas de recruiting o talento en LinkedIn",
+        "Prepará portfolio con proyectos claros y contexto de tu rol"
+      ],
+      "tags": ["ingles", "producto", "consultora"]
+    },
+    {
       "id": "neo-software",
       "name": "NEO Software",
       "type": "producto",
@@ -104,6 +120,134 @@
       "tags": ["local", "primer_trabajo_indaga"]
     },
     {
+      "id": "basement",
+      "name": "Basement",
+      "type": "software_factory",
+      "city": "Mar del Plata",
+      "modalidad": "híbrido",
+      "careersUrl": "https://www.basementstudio.co/",
+      "description": "Empresa argentina de desarrollo de software; productos digitales y clientes internacionales.",
+      "notes": "Fuerte foco en producto y diseño. Conviene ir con portfolio sólido y casos concretos.",
+      "howToApply": [
+        "Revisá la web y el perfil de la empresa en LinkedIn",
+        "Buscá integrantes del equipo y escribí un mensaje corto y específico",
+        "Enviá portfolio con proyectos claros y demos si tenés"
+      ],
+      "tags": ["producto", "diseño", "ingles"]
+    },
+    {
+      "id": "kapsch-trafficcom",
+      "name": "Kapsch TrafficCom",
+      "type": "producto",
+      "city": "Mar del Plata",
+      "modalidad": "híbrido",
+      "careersUrl": "https://www.kapsch.net/",
+      "description": "Soluciones tecnológicas para transporte inteligente y sistemas de movilidad.",
+      "notes": "Perfil a menudo orientado a ingeniería y sistemas complejos; leé bien cada búsqueda.",
+      "howToApply": [
+        "Revisá la sección de careers del grupo Kapsch",
+        "Buscá roles técnicos alineados a tu formación",
+        "Prepará un CV con detalle técnico y proyectos relevantes"
+      ],
+      "tags": ["corporativo"]
+    },
+    {
+      "id": "planexware",
+      "name": "Planexware",
+      "type": "producto",
+      "city": "Mar del Plata",
+      "modalidad": "local",
+      "careersUrl": "https://www.planexware.com/",
+      "description": "Software de gestión y soluciones empresariales con base local.",
+      "notes": "Entorno PyME/regional; puede ser un buen primer contacto con producto de gestión.",
+      "howToApply": [
+        "Contactá por los canales que indique la web",
+        "Enviá CV y portfolio o ejemplos de trabajo",
+        "Preguntá explícitamente por oportunidades en desarrollo o implementación"
+      ],
+      "tags": ["local", "primer_trabajo"]
+    },
+    {
+      "id": "ats-sistemas",
+      "name": "ATS Sistemas",
+      "type": "software_factory",
+      "city": "Mar del Plata",
+      "modalidad": "local",
+      "careersUrl": "https://www.atssistemas.com.ar/",
+      "description": "Desarrollo de soluciones de software para empresas.",
+      "notes": "Empresa mediana local; un contacto directo y claro suele funcionar mejor que un mail genérico.",
+      "howToApply": [
+        "Escribí desde el formulario o correo que publiquen en la web",
+        "Buscá contacto en LinkedIn y presentate en una línea",
+        "Adjuntá un proyecto propio o demo que muestre cómo resolvés problemas"
+      ],
+      "tags": ["local", "outreach"]
+    },
+    {
+      "id": "infosis",
+      "name": "Infosis",
+      "type": "software_factory",
+      "city": "Mar del Plata",
+      "modalidad": "local",
+      "careersUrl": "https://www.infosis.com.ar/",
+      "description": "Desarrollo de software con foco en soluciones empresariales.",
+      "notes": "Estructura más chica: outreach personalizado y portfolio visible suelen ayudar.",
+      "howToApply": [
+        "Contactá vía web o correo publicado",
+        "Enviá portfolio o enlaces a repos y demos",
+        "Mensaje personalizado: qué te interesa de lo que hacen"
+      ],
+      "tags": ["local", "outreach"]
+    },
+    {
+      "id": "grupo-delsud",
+      "name": "Grupo Delsud",
+      "type": "consultora",
+      "city": "Mar del Plata",
+      "modalidad": "local",
+      "careersUrl": "https://www.delsud.com/",
+      "description": "Servicios tecnológicos y soluciones IT para distintos rubros.",
+      "notes": "Puede haber roles mixtos entre soporte, implementación y desarrollo; alineá expectativas al hablar.",
+      "howToApply": [
+        "Contactá desde la web corporativa",
+        "Buscá la empresa y referentes en LinkedIn",
+        "Mostrá predisposición a roles mixtos si te interesan"
+      ],
+      "tags": ["local"]
+    },
+    {
+      "id": "paikan",
+      "name": "Paikan",
+      "type": "software_factory",
+      "city": "Mar del Plata",
+      "modalidad": "local",
+      "careersUrl": "https://www.paikan.com.ar/",
+      "description": "Software a medida y soluciones con componentes de automatización.",
+      "notes": "Con proyectos concretos para mostrar suele ser más fácil generar conversación.",
+      "howToApply": [
+        "Escribí por el canal de contacto de la web",
+        "Enviá un proyecto deployado o demo accesible",
+        "Mensaje corto: stack, qué construiste y qué te gustaría aprender"
+      ],
+      "tags": ["local", "outreach"]
+    },
+    {
+      "id": "it-zeta",
+      "name": "IT-Zeta",
+      "type": "software_factory",
+      "city": "Mar del Plata",
+      "modalidad": "local",
+      "careersUrl": "https://www.it-zeta.com.ar/",
+      "description": "Soluciones tecnológicas integrales: desarrollo, integración e infraestructura.",
+      "notes": "El día a día puede combinar tareas técnicas variadas; preguntá en la entrevista cómo es el rol.",
+      "howToApply": [
+        "Enviá CV por el medio que indiquen en la web",
+        "Contactá en LinkedIn con un resumen de tu perfil",
+        "Mostrá interés en aprender y en el tipo de proyectos que llevan"
+      ],
+      "tags": ["local"]
+    },
+    {
       "id": "globant-remoto-ar",
       "name": "Globant",
       "type": "software_factory",
@@ -134,54 +278,6 @@
         "Tener portfolio y experiencia en proyectos claros en el CV"
       ],
       "tags": ["ingles", "alta_competencia", "remoto"]
-    },
-    {
-      "id": "softtek",
-      "name": "Softtek",
-      "type": "consultora",
-      "city": "Remoto (AR)",
-      "modalidad": "remoto",
-      "careersUrl": "https://careers.softtek.com/",
-      "description": "Consultora tecnológica con presencia en LATAM y proyectos mixtos.",
-      "notes": "A veces publican perfiles de entrada; revisá filtros por país y modalidad.",
-      "howToApply": [
-        "Aplicá en el portal de careers",
-        "Buscá recruiters o talento en LinkedIn",
-        "CV adaptado al rol y stack que elegís"
-      ],
-      "tags": ["primer_trabajo", "remoto", "consultora"]
-    },
-    {
-      "id": "hexacta",
-      "name": "Hexacta",
-      "type": "consultora",
-      "city": "Remoto (AR)",
-      "modalidad": "remoto",
-      "careersUrl": "https://www.hexacta.com/join-us/",
-      "description": "Empresa argentina con foco en calidad de software y equipos de desarrollo.",
-      "notes": "Interesante si te orientás a QA, automatización o ingeniería con énfasis en calidad.",
-      "howToApply": [
-        "Revisá ofertas en Join us / empleos",
-        "Buscá roles de QA o desarrollo según tu perfil",
-        "Mostrá proyectos o certificaciones relevantes en el CV"
-      ],
-      "tags": ["qa", "primer_trabajo", "remoto"]
-    },
-    {
-      "id": "vates",
-      "name": "Vates",
-      "type": "software_factory",
-      "city": "Remoto (AR)",
-      "modalidad": "remoto",
-      "careersUrl": "https://www.vates.com/careers/",
-      "description": "Servicios tecnológicos y equipos dedicados para clientes internacionales.",
-      "notes": "Stacks y squads varían según proyecto; leé bien cada aviso.",
-      "howToApply": [
-        "Aplicá en careers",
-        "Prepará portfolio alineado al stack del puesto",
-        "Contacto por LinkedIn como segundo canal si no hay respuesta"
-      ],
-      "tags": ["remoto"]
     },
     {
       "id": "huenei",
@@ -232,20 +328,36 @@
       "tags": ["ingles", "remoto", "consultora"]
     },
     {
-      "id": "intive",
-      "name": "Intive",
+      "id": "wecheckai",
+      "name": "WeCheckAI",
+      "type": "startup",
+      "city": "Remoto (AR)",
+      "modalidad": "remoto",
+      "careersUrl": "https://www.wecheck.ai/",
+      "description": "Producto con foco en inteligencia artificial aplicada a validación y automatización.",
+      "notes": "Ambiente startup: suele pedirse proactividad y criterio; confirmá si trabajan 100 % remoto desde Argentina.",
+      "howToApply": [
+        "Revisá el sitio y cualquier sección de equipo o contacto",
+        "Buscá founders o equipo en LinkedIn",
+        "Escribí con proyectos alineados a IA o automatización si aplica a tu perfil"
+      ],
+      "tags": ["startup", "ia", "outreach"]
+    },
+    {
+      "id": "snoop-consulting",
+      "name": "Snoop Consulting",
       "type": "consultora",
       "city": "Remoto (AR)",
       "modalidad": "remoto",
-      "careersUrl": "https://intive.com/careers",
-      "description": "Producto y ingeniería de software con equipos en varios países, incluida Argentina.",
-      "notes": "Revisá ofertas por país y modalidad remota. Inglés puede ser requisito según el equipo.",
+      "careersUrl": "https://www.snoopconsulting.com/",
+      "description": "Consultora tecnológica argentina; desarrollo y transformación digital.",
+      "notes": "Proyectos y stacks variados; adaptá el CV al tipo de rol que te interese.",
       "howToApply": [
-        "Filtrá careers por Argentina o remoto LATAM",
-        "Aplicá con CV en inglés si el aviso lo pide",
-        "Completá cualquier formulario o challenge que indiquen"
+        "Revisá si publican careers o formulario en la web",
+        "Buscá recruiters o talento en LinkedIn",
+        "Enviá CV claro y con logros medibles cuando sea posible"
       ],
-      "tags": ["ingles", "remoto", "producto", "consultora"]
+      "tags": ["consultora", "remoto"]
     }
   ]
 }
