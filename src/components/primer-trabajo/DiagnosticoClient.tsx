@@ -180,7 +180,7 @@ function guideHintFromSignals(weakest: string[]): string | null {
   const rest = new Set(weakest.slice(1));
 
   if (top === "linkedin_strength") {
-    return "Tu señal más débil es LinkedIn: priorizá headline y Acerca de con la guía (ejemplos mal/bien).";
+    return "Tu señal más débil es LinkedIn: priorizá titular y resumen del perfil con la guía (ejemplos mal/bien).";
   }
   if (top === "cv_quality_external") {
     return "Tu CV validado externamente está flojo: pasá el PDF por silver.dev/resume, subí el grade a A o S y repetí el diagnóstico; después el plan y la guía CV para el detalle.";
@@ -189,28 +189,28 @@ function guideHintFromSignals(weakest: string[]): string | null {
     return "Claridad de rol/stack floja: la guía CV y LinkedIn atacan headline y mensaje; el checker de Silver Dev no reemplaza eso.";
   }
   if (top === "profile_consistency") {
-    return "Coherencia entre CV, LinkedIn y repo: leé las dos guías y unificá mensaje y stack.";
+    return "Coherencia entre CV, LinkedIn y repositorio: leé las dos guías y unificá mensaje y stack.";
   }
   if (top === "proof_of_work") {
-    return "Prueba de trabajo floja: portfolio + README + deploy en el plan; en CV, links visibles arriba (guía CV).";
+    return "Prueba de trabajo floja: portfolio + README + versión publicada en el plan; en CV, enlaces visibles arriba (guía CV).";
   }
   if (top === "english_level") {
     return "Inglés flojo para el pipeline: en muchas buscas de AR te comparan con quien lee doc sin drama; subí lectura y mails simples ya.";
   }
   if (top === "execution_over_theory") {
-    return "Ejecución floja frente a teoría: menos certis decorativos, más proyecto deployado y pitch de 1 minuto (plan + portfolio).";
+    return "Ejecución floja frente a teoría: menos certificados decorativos, más proyecto publicado en línea y pitch de 1 minuto (plan + portfolio).";
   }
   if (top === "problem_solving_signal") {
     return "Poca práctica algorítmica: si tu rol objetivo suele filtrar con LeetCode/HackerRank, sumá 4–8 problemas fáciles por semana; si no aplica, priorizá proyecto y README.";
   }
   if (top === "interview_readiness") {
-    return "Respuestas HR flojas: hacé el simulador HR de esta herramienta y ensayá en voz alta; para práctica en vivo probá Pramp o interviewing.io.";
+    return "Respuestas de Recursos Humanos flojas: hacé el simulador de esta herramienta y ensayá en voz alta; para práctica en vivo probá Pramp o interviewing.io.";
   }
   if (rest.has("linkedin_strength")) {
-    return "LinkedIn sigue flojo entre tus señales: la guía te muestra headline y Acerca de con ejemplos reales.";
+    return "LinkedIn sigue flojo entre tus señales: la guía te muestra titular y resumen con ejemplos reales.";
   }
   if (weakest.some((id) => id === "cv_quality_external")) {
-    return "El grade de Silver Dev te está frenando: priorizá silver.dev/resume antes de mandar más CVs.";
+    return "El grade de Silver Dev te está frenando: priorizá silver.dev/resume antes de enviar más CVs.";
   }
   if (weakest.some((id) => id === "clarity_role_stack")) {
     return "El rol no cierra del todo: repasá guía CV / LinkedIn antes de la próxima tanda.";
@@ -232,7 +232,7 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
           <div className="grid gap-4 sm:grid-cols-2 text-sm">
             {result.interviewFactors.lowers.length > 0 ? (
               <div className="rounded-xl border border-amber-200 bg-amber-50/80 p-4">
-                <h3 className="font-semibold text-amber-950 mb-2">Te la bajan</h3>
+                <h3 className="font-semibold text-amber-950 mb-2">Factores que bajan la probabilidad</h3>
                 <ul className="list-disc list-inside space-y-1.5 text-amber-950/90 leading-relaxed">
                   {result.interviewFactors.lowers.map((line, i) => (
                     <li key={i}>{line}</li>
@@ -242,7 +242,7 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
             ) : null}
             {result.interviewFactors.raises.length > 0 ? (
               <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-4">
-                <h3 className="font-semibold text-emerald-950 mb-2">Te la suben</h3>
+                <h3 className="font-semibold text-emerald-950 mb-2">Factores que suben la probabilidad</h3>
                 <ul className="list-disc list-inside space-y-1.5 text-emerald-950/90 leading-relaxed">
                   {result.interviewFactors.raises.map((line, i) => (
                     <li key={i}>{line}</li>
@@ -274,7 +274,7 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
             href="/primer-trabajo/entrevista-hr"
             className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-500 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-ocean-50"
           >
-            Simulador HR
+            Simulador Recursos Humanos
           </Link>
           <Link
             href="/primer-trabajo/plan"
@@ -287,7 +287,7 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
 
       {rules.length > 0 && (
         <section className="rounded-2xl border border-red-200 bg-red-50/80 p-6 shadow-sm" role="region" aria-label="Reglas de eliminación">
-          <h2 className="font-display font-bold text-lg text-red-900 mb-3">Reglas duras (no estás listo para spamear CVs)</h2>
+          <h2 className="font-display font-bold text-lg text-red-900 mb-3">Reglas duras (no estás listo para enviar el CV en masa)</h2>
           <ul className="space-y-3">
             {rules.map((r) => (
               <li key={r.id} className="text-sm">
@@ -301,7 +301,7 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
 
       <section className="rounded-2xl border border-slate-800 bg-slate-900 text-white p-6 shadow-sm">
         <h2 className="font-display font-bold text-lg mb-1">Modo recruiter</h2>
-        <p className="text-ocean-200 text-xs mb-4">Búsqueda simulada: «{result.recruiterSimulation.searchQuery}»</p>
+        <p className="text-ocean-200 text-xs mb-4">Búsqueda simulada: &quot;{result.recruiterSimulation.searchQuery}&quot;</p>
         <ul className="list-disc list-inside space-y-2 text-sm text-slate-200 mb-4">
           {result.recruiterSimulation.result.map((line, i) => (
             <li key={i}>{line}</li>

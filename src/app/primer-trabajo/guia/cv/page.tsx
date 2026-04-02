@@ -10,8 +10,9 @@ import type { GuideBundle } from "@/lib/primer-trabajo/guideTypes";
 const bundle = patternsCv as GuideBundle;
 
 export const metadata: Metadata = {
-  title: "Guía CV — Primer Trabajo OS — MdPDev",
-  description: "Patrones de CV que te descartan: mal vs bien, mirada recruiter y pasos de rewrite.",
+  title: "Guía CV (PDF) — Primer Trabajo OS — Mar del Plata Devs",
+  description:
+    "Patrones concretos de CV para primer trabajo en tech: ejemplos malo/bien, cómo te lee quien selecciona en Argentina y pasos para mejorar el PDF antes de postular.",
 };
 
 export default function GuiaCvPage() {

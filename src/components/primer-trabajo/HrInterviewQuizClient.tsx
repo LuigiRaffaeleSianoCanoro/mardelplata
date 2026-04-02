@@ -65,10 +65,10 @@ export default function HrInterviewQuizClient() {
     return (
       <div className="space-y-8">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm space-y-4">
-          <h2 className="font-display font-bold text-xl text-ocean-900">Resultado simulador HR</h2>
+          <h2 className="font-display font-bold text-xl text-ocean-900">Resultado simulador Recursos Humanos</h2>
           <p className="text-3xl font-bold text-ocean-600">{hrQuizResult.score}%</p>
           <p className="text-sm text-slate-600 leading-relaxed">
-            Este score se fusiona con la señal «Respuestas HR / screening» cuando completás el{" "}
+            Este puntaje se fusiona con la señal &quot;Respuestas de Recursos Humanos / screening&quot; cuando completás el{" "}
             <Link href="/primer-trabajo/diagnostico" className="text-ocean-700 font-semibold underline">
               diagnóstico
             </Link>

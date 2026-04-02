@@ -1,11 +1,11 @@
 {
-  "title": "CV — patrones que te descartan",
-  "intro": "Cada patrón es cómo te lee un recruiter o un ATS en Argentina en pocos segundos. Nada de teoría: corregí el texto o la estructura. Para el PDF en conjunto, el resume checker de Silver Dev es la referencia externa que usamos en el diagnóstico.",
+  "title": "CV en PDF — patrones que te descartan",
+  "intro": "Cada patrón es cómo te lee quien selecciona candidatos (o un ATS) en Argentina en pocos segundos. Nada de teoría: corregí el texto o la estructura. Para el archivo completo, el resume checker de Silver Dev es la referencia externa que usamos en el diagnóstico.",
   "patterns": [
     {
       "id": "cv_solo_estudiante",
       "title": "Encabezado solo “Estudiante de…”",
-      "recruiterView": "No sé en qué bucket meterte: no aparecés como candidato a un rol técnico, solo como alumno.",
+      "recruiterView": "No sé en qué perfil ubicarte: no aparecés como candidato a un rol técnico, solo como alumno.",
       "bad": "Estudiante de Ingeniería en Sistemas — Universidad X",
       "good": "Junior Backend Developer (Java/Spring) — Buscando primera experiencia — GitHub: …",
       "rewriteSteps": [
@@ -19,7 +19,7 @@
     {
       "id": "cv_bullets_tareas",
       "title": "Bullets que solo listan tareas",
-      "recruiterView": "Cualquier junior puede decir “participé en el proyecto”. No veo impacto ni criterio técnico.",
+      "recruiterView": "Cualquier candidato puede decir “participé en el proyecto”. No veo impacto ni criterio técnico.",
       "bad": "Participé en el desarrollo del sistema. Trabajé en equipo. Usé Git.",
       "good": "Implementé endpoints de autenticación JWT en Node/Express; documenté contratos para el equipo.",
       "rewriteSteps": [

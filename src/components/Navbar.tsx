@@ -48,7 +48,7 @@ export default function Navbar() {
     { href: "/reglamento",             label: "Reglamento" },
     { href: "/bolsa",                  label: "Bolsa" },
     { href: "/primer-trabajo",        label: "Primer trabajo" },
-    { href: "/primer-trabajo/entrevista-hr", label: "Simulador HR" },
+    { href: "/primer-trabajo/entrevista-hr", label: "Simulador Recursos Humanos" },
   ];
 
   return (

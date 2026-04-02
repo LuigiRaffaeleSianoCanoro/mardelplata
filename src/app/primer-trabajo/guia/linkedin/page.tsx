@@ -10,8 +10,9 @@ import type { GuideBundle } from "@/lib/primer-trabajo/guideTypes";
 const bundle = patternsLinkedin as GuideBundle;
 
 export const metadata: Metadata = {
-  title: "Guía LinkedIn — Primer Trabajo OS — MdPDev",
-  description: "Patrones de LinkedIn: headline, Acerca de y coherencia con el CV, con mirada de recruiter.",
+  title: "Guía LinkedIn — Primer Trabajo OS — Mar del Plata Devs",
+  description:
+    "Patrones de perfil de LinkedIn para candidatos tech: titular, resumen, experiencia y coherencia con el CV, con la mirada de quien filtra candidatos en minutos.",
 };
 
 export default function GuiaLinkedinPage() {

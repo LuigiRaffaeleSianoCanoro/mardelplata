@@ -1,6 +1,6 @@
 {
-  "title": "LinkedIn — patrones que te congelan",
-  "intro": "El recruiter mira headline + foto + primeras líneas del Acerca de. Si ahí no cerrás, muchos ni abren el CV.",
+  "title": "LinkedIn — patrones que te frenan",
+  "intro": "Quien selecciona mira el titular, la foto y las primeras líneas del resumen del perfil. Si ahí no cerrás, muchos ni abren el PDF del CV.",
   "patterns": [
     {
       "id": "li_headline_vacio",
@@ -34,7 +34,7 @@
     {
       "id": "li_sin_experiencia_proyectos",
       "title": "Solo educación en Experiencia",
-      "recruiterView": "Parecés sin práctica aplicada. Otros juniors muestran proyectos como experiencia.",
+      "recruiterView": "Parecés sin práctica aplicada. Otros candidatos muestran proyectos como experiencia.",
       "bad": "Única entrada: Universidad X, 2021–actualidad.",
       "good": "Entrada “Proyecto …” con fechas, stack y link a demo/repo.",
       "rewriteSteps": [
@@ -90,7 +90,7 @@
     {
       "id": "li_contradice_cv",
       "title": "LinkedIn dice una cosa y el CV otra",
-      "recruiterView": "Es red flag de descuido o exageración. En junior no damos vuelta a eso.",
+      "recruiterView": "Es red flag de descuido o exageración. En perfiles como el tuyo no damos vuelta a eso.",
       "bad": "LinkedIn “Data Scientist”; CV solo proyectos web sin análisis de datos.",
       "good": "Mismo rol objetivo y mismos stacks protagonistas en ambos lados.",
       "rewriteSteps": [

@@ -8,11 +8,11 @@ export default function PrimerTrabajoPage() {
       <Navbar />
       <main className="ocean-tint min-h-screen pt-24 pb-16">
         <div className="max-w-3xl mx-auto px-6">
-          <p className="text-ocean-700 text-sm font-semibold uppercase tracking-widest mb-3">Herramienta MdPDev</p>
+          <p className="text-ocean-700 text-sm font-semibold uppercase tracking-widest mb-3">Herramienta Mar del Plata Devs</p>
           <h1 className="font-display font-bold text-4xl md:text-5xl text-ocean-900 leading-tight mb-4">Primer Trabajo OS</h1>
           <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            No es un curso: es un sistema para evaluar cómo te ven los recruiters en Argentina y qué corregir primero. Tono directo,
-            foco en CV, LinkedIn, portfolio, búsqueda y mercado local.
+            No es un curso: es un sistema para evaluar cómo te ven quienes seleccionan candidatos en Argentina y qué corregir primero. Tono
+            directo, foco en CV, LinkedIn, portfolio, búsqueda y mercado local.
           </p>
 
           <div className="grid gap-4 sm:grid-cols-2 mb-12">
@@ -24,7 +24,10 @@ export default function PrimerTrabajoPage() {
                 🔍
               </span>
               <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Diagnóstico</h2>
-              <p className="text-sm text-slate-600">Preguntas con misiones (Silver Dev, EF SET, GitHub, FCC, portfolio, outreach, LeetCode), reglas duras y modo recruiter.</p>
+              <p className="text-sm text-slate-600">
+                Preguntas con misiones (Silver Dev, EF SET, GitHub, certificados, portfolio, contacto a reclutadores, LeetCode), reglas duras y
+                modo reclutador simulado.
+              </p>
             </Link>
             <Link
               href="/primer-trabajo/entrevista-hr"
@@ -33,8 +36,10 @@ export default function PrimerTrabajoPage() {
               <span className="text-2xl mb-2 block" aria-hidden>
                 🎤
               </span>
-              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Simulador HR</h2>
-              <p className="text-sm text-slate-600">Preguntas tipo screening con feedback; el puntaje actualiza la señal de entrevista en el diagnóstico.</p>
+              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Simulador Recursos Humanos</h2>
+              <p className="text-sm text-slate-600">
+                Preguntas tipo screening con feedback; el puntaje actualiza la señal de entrevista en el diagnóstico.
+              </p>
             </Link>
             <Link
               href="/primer-trabajo/plan"
@@ -54,7 +59,7 @@ export default function PrimerTrabajoPage() {
                 📄
               </span>
               <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Guía CV</h2>
-              <p className="text-sm text-slate-600">Patrones mal/bien, mirada recruiter y pasos de rewrite enlazados a señales del diagnóstico.</p>
+              <p className="text-sm text-slate-600">Patrones mal/bien, mirada de quien selecciona y pasos de mejora enlazados al diagnóstico.</p>
             </Link>
             <Link
               href="/primer-trabajo/guia/linkedin"
@@ -64,7 +69,7 @@ export default function PrimerTrabajoPage() {
                 💼
               </span>
               <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Guía LinkedIn</h2>
-              <p className="text-sm text-slate-600">Headline, Acerca de, experiencia y coherencia con el CV — sin humo motivacional.</p>
+              <p className="text-sm text-slate-600">Titular, resumen del perfil, experiencia y coherencia con el CV — sin humo motivacional.</p>
             </Link>
             <Link
               href="/primer-trabajo/empresas"
@@ -74,7 +79,9 @@ export default function PrimerTrabajoPage() {
                 📍
               </span>
               <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Empresas (directorio)</h2>
-              <p className="text-sm text-slate-600">Referencias MdP y nacionales; verificá avisos y sumá datos con PR al JSON.</p>
+              <p className="text-sm text-slate-600">
+                Referencias de Mar del Plata y remotas en Argentina; siempre verificá careers y sumá o corregí datos con un PR al JSON.
+              </p>
             </Link>
           </div>
 

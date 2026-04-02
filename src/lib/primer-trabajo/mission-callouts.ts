@@ -20,10 +20,8 @@ export const MISSION_CALLOUTS: Partial<Record<string, MissionCalloutConfig>> = {
     checklist: [
       "Subís el PDF que mandás en postulaciones.",
       "Anotás la calificación que te dio la herramienta.",
-      "Respondés acá con honestidad: no evaluamos el texto del CV nosotros.",
+      "Respondés acá con el resultado que te dio (honestidad).",
     ],
-    badExample: "Decís que no lo hiciste y seguís mandando el mismo PDF a todo.",
-    goodExample: "Pasás el archivo, mejorás lo que marca y repetís hasta subir el puntaje.",
     href: SILVER_DEV_RESUME_CHECKER_HREF,
     linkLabel: "Abrir resume checker (Silver Dev) — nueva pestaña",
     disclaimer:
@@ -47,28 +45,27 @@ export const MISSION_CALLOUTS: Partial<Record<string, MissionCalloutConfig>> = {
   pf_existen: {
     title: "Misión GitHub: mostrar un proyecto propio",
     explanation:
-      "Entrá a tu perfil de GitHub y pensá qué vería alguien que te busca en 30 segundos. No evaluamos el código acá: importa tu lectura honesta.",
+      "Entrá a tu perfil de GitHub y pensá qué vería alguien que te busca en 30 segundos. Respondé según lo que ves ahí, con honestidad.",
     checklist: [
       "¿Hay al menos un proyecto hecho por vos (no solo ejercicios iguales a un curso paso a paso)?",
       "¿Hay un texto que explique qué hace el proyecto y cómo probarlo?",
       "¿Se entiende qué rol tuviste vos?",
     ],
-    badExample: "Solo repos copiados del curso, sin cambios tuyos claros.",
-    goodExample: "Un proyecto tuyo con texto claro y link para abrirlo o clonarlo.",
     href: "https://github.com/",
     linkLabel: "Abrir GitHub — nueva pestaña",
-    disclaimer: "No evaluamos repos desde acá: solo tu autopercepción como señal.",
+    disclaimer:
+      "Respondé según tu lectura del perfil público; no revisamos repositorios desde esta herramienta.",
   },
   mkt_certs_vs_build: {
     title: "Misión certificados (freeCodeCamp u otros)",
     explanation:
-      "El mercado mira antes un proyecto online funcionando y un texto claro en el repo que un PDF de certificado. Contrastá qué tenés de cada lado.",
+      "El mercado mira antes un proyecto en línea funcionando y un texto claro en el repositorio que un PDF de certificado. Contrastá qué tenés de cada lado.",
     checklist: [
       "¿Tenés certificados pero poco código propio publicado?",
-      "¿O tenés proyecto propio con link aunque el certificado pese menos?",
+      "¿O tenés proyecto propio con enlace aunque el certificado pese menos?",
     ],
     badExample: "Solo diplomas y cero proyecto que se pueda abrir.",
-    goodExample: "Certificado + al menos un proyecto tuyo con link y explicación.",
+    goodExample: "Certificado + al menos un proyecto tuyo con enlace y explicación.",
     href: "https://www.freecodecamp.org/",
     linkLabel: "Abrir freeCodeCamp — nueva pestaña",
     disclaimer: "Referencia común de cursos online; sin afiliación. Respondé según tu situación real.",

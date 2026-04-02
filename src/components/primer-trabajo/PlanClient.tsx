@@ -67,7 +67,7 @@ export default function PlanClient() {
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-display font-bold text-lg text-ocean-900 mb-1">Esta semana (mínimo)</h2>
-        <p className="text-xs text-slate-500 mb-4">Sin esto estás perdiendo tiempo frente a otros juniors que sí cierran entregables.</p>
+        <p className="text-xs text-slate-500 mb-4">Sin esto estás perdiendo tiempo frente a otros candidatos que sí cierran entregables.</p>
         {diagnosticResult?.derivedTags?.some((t) => t === "silver_skipped" || t === "silver_grade_low") && (
           <div className="mb-4 rounded-xl border-2 border-amber-400 bg-amber-50 p-4 text-sm text-amber-950 space-y-2">
             <p className="font-semibold">Semana 1: CV con Silver Dev antes de aplicar en masa</p>
@@ -95,7 +95,7 @@ export default function PlanClient() {
             </ol>
           </div>
           <div>
-            <h3 className="font-display font-bold text-ocean-900 text-base mb-2">Semana 2 — Deploy, outreach y entrevista</h3>
+            <h3 className="font-display font-bold text-ocean-900 text-base mb-2">Semana 2 — Publicación, contacto y entrevista</h3>
             <ol className="list-decimal list-inside space-y-2">
               {primerTrabajoData.weekPlan.week2.map((line, i) => (
                 <li key={i}>{line}</li>

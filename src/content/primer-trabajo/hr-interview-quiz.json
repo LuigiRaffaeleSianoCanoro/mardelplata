@@ -2,7 +2,7 @@
   "items": [
     {
       "id": "hr_motivation",
-      "prompt": "Te preguntan: «¿Por qué querés trabajar acá?» ¿Qué respondés?",
+      "prompt": "Te preguntan: \"¿Por qué querés trabajar acá?\" ¿Qué respondés?",
       "options": [
         {
           "id": "a",
@@ -22,13 +22,13 @@
     },
     {
       "id": "hr_weakness",
-      "prompt": "«Contame una debilidad.»",
+      "prompt": "\"Contame una debilidad.\"",
       "options": [
         {
           "id": "a",
           "label": "Soy perfeccionista / trabajo demasiado.",
           "isIdeal": false,
-          "whyWrong": "Cliché que suena a evasión; muchos recruiters lo marcan como red flag.",
+          "whyWrong": "Cliché que suena a evasión; muchas personas de selección lo marcan como señal de alerta.",
           "rewriteHint": "Algo real, menor, con qué hacés para mitigarlo (ej. estimación, pedir feedback a tiempo)."
         },
         {
@@ -42,14 +42,14 @@
     },
     {
       "id": "hr_gap",
-      "prompt": "«Tenés poca experiencia formal. ¿Por qué te elijo a vos?»",
+      "prompt": "\"Tenés poca experiencia formal. ¿Por qué te elijo a vos?\"",
       "options": [
         {
           "id": "a",
           "label": "Aprendo rápido y me esfuerzo mucho.",
           "isIdeal": false,
           "whyWrong": "Promesa vacía sin evidencia; todos dicen lo mismo.",
-          "rewriteHint": "Demo/repo concreto + qué problema resolviste + stack + métrica o resultado observable si podés."
+          "rewriteHint": "Enlace o repositorio concreto + qué problema resolviste + stack + resultado observable si podés."
         },
         {
           "id": "b",
@@ -62,7 +62,7 @@
     },
     {
       "id": "hr_salary",
-      "prompt": "«¿Qué expectativa salarial tenés?» (junior, primera experiencia)",
+      "prompt": "\"¿Qué expectativa salarial tenés?\" (candidato, primera experiencia)",
       "options": [
         {
           "id": "a",
@@ -73,7 +73,7 @@
         },
         {
           "id": "b",
-          "label": "Tengo un rango en mente según junior en AR y lo que vi en la industria; escucho la propuesta y lo charlamos con contexto del rol.",
+          "label": "Tengo un rango en mente según lo que vi para candidatos sin experiencia formal en Argentina y en la industria; escucho la propuesta y lo charlamos con contexto del rol.",
           "isIdeal": true,
           "whyWrong": "",
           "rewriteHint": ""
@@ -82,7 +82,7 @@
     },
     {
       "id": "hr_conflict",
-      "prompt": "«¿Alguna vez discrepaste con alguien del equipo?»",
+      "prompt": "\"¿Alguna vez discrepaste con alguien del equipo?\"",
       "options": [
         {
           "id": "a",
@@ -102,14 +102,14 @@
     },
     {
       "id": "hr_questions",
-      "prompt": "Al final te dicen: «¿Tenés preguntas para nosotros?»",
+      "prompt": "Al final te dicen: \"¿Tenés preguntas para nosotros?\"",
       "options": [
         {
           "id": "a",
           "label": "No, está todo claro.",
           "isIdeal": false,
           "whyWrong": "Perdés señal de interés y de que pensaste el fit.",
-          "rewriteHint": "1–2 preguntas sobre el día a día, el stack en producción o cómo miden el éxito del junior."
+          "rewriteHint": "1–2 preguntas sobre el día a día, el stack en producción o cómo miden el éxito en el rol."
         },
         {
           "id": "b",
@@ -122,7 +122,7 @@
     },
     {
       "id": "hr_notice",
-      "prompt": "«¿Cuándo podrías empezar?»",
+      "prompt": "\"¿Cuándo podrías empezar?\"",
       "options": [
         {
           "id": "a",
@@ -142,7 +142,7 @@
     },
     {
       "id": "hr_remote",
-      "prompt": "«¿Preferís remoto, híbrido u oficina?»",
+      "prompt": "\"¿Preferís remoto, híbrido u oficina?\"",
       "options": [
         {
           "id": "a",

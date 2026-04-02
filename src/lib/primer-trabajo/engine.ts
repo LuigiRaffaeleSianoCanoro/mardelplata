@@ -100,9 +100,9 @@ export function buildInterviewFactors(
   for (const s of data.employabilitySignals) {
     const v = signalStrength[s.id] ?? 0;
     if (v < FACTOR_LOW_THRESHOLD) {
-      lowers.push(`Tu señal «${s.label}» está baja: otros juniors suelen mostrar mejor eso en el screening.`);
+      lowers.push(`Tu señal "${s.label}" está baja: otros candidatos suelen mostrar mejor eso en el screening.`);
     } else if (v >= FACTOR_HIGH_THRESHOLD) {
-      raises.push(`«${s.label}» viene bien: te diferenciás positivamente acá.`);
+      raises.push(`"${s.label}" viene bien: te diferenciás positivamente acá.`);
     }
   }
 
@@ -152,7 +152,7 @@ export function buildRecruiterSimulation(
   let decision: string;
   if (interviewProbability < 30) {
     decision =
-      "Cierro el perfil y paso a otro candidato que ya muestra deploy claro, stack alineado y mensaje sin ruido.";
+      "Cierro el perfil y paso a otro candidato que ya muestra proyecto publicado con enlace claro, stack alineado y mensaje sin ruido.";
   } else if (interviewProbability < 48) {
     decision = "Te dejo en carpeta baja: solo si no aparece nadie con mejor señal que vos.";
   } else if (interviewProbability < 65) {
@@ -200,7 +200,7 @@ export function buildInterviewExplanation(
 }
 
 export type RunDiagnosticOptions = {
-  /** 0–100 from simulador HR; overrides señal interview_readiness en el promedio */
+  /** 0–100 from simulador Recursos Humanos; overrides señal interview_readiness en el promedio */
   interviewReadinessScore?: number;
 };
 
