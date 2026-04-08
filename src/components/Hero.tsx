@@ -71,13 +71,11 @@ export default function Hero() {
 
           {/* Headline */}
           <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-6">
-            El Hub Tech de<br />
-            <span className="gradient-text">la Costa Atlántica</span>
+            El Club tech de la Costa Atlantica
           </h1>
 
           <p className="text-ocean-200 text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Conectamos desarrolladores, diseñadores y emprendedores en Mar del Plata.
-            Impulsamos el talento local a través de la colaboración, el aprendizaje y eventos.
+            Crece profesionalmente conectando con quien ya esta trabajando en los desafíos que vos tenes
           </p>
 
           {/* CTAs */}
