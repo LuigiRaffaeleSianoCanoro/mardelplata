@@ -24,7 +24,7 @@ export default async function Home() {
     .from("events")
     .select("*")
     .eq("is_published", true)
-    .order("date", { ascending: true });
+    .order("date", { ascending: false });
 
   const { data: founders } = await supabase
     .from("profiles")

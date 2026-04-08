@@ -33,7 +33,7 @@ export default function Collaborators({ members = [] }: { members?: CommunityMem
             {loopMembers.map((member, index) => (
               <article
                 key={`${member.id}-${index}`}
-                className="w-[260px] bg-white rounded-3xl p-6 text-center border border-slate-100 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-ocean-600/10"
+                className="w-[220px] bg-white rounded-3xl p-5 text-center border border-slate-100 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-ocean-600/10"
               >
                 <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden bg-slate-100 border border-slate-200 shadow-lg">
                   <img
@@ -42,8 +42,18 @@ export default function Collaborators({ members = [] }: { members?: CommunityMem
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="font-display font-bold text-xl text-slate-800">{member.full_name || "Miembro"}</h3>
-                <p className="text-ocean-600 font-medium text-sm mb-4">{member.bio || "Miembro de la comunidad"}</p>
+                <h3
+                  className="font-display font-bold text-lg text-slate-800 truncate"
+                  title={member.full_name || "Miembro"}
+                >
+                  {member.full_name || "Miembro"}
+                </h3>
+                <p
+                  className="text-ocean-600 font-medium text-sm mb-4 one-line-ellipsis"
+                  title={member.bio || "Miembro de la comunidad"}
+                >
+                  {member.bio || "Miembro de la comunidad"}
+                </p>
                 {(member.github_url || member.linkedin_url || member.twitter_url) && (
                   <div className="flex items-center justify-center gap-3">
                     {normalizeExternalUrl(member.github_url) && (

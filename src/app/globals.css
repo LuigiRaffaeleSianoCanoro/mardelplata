@@ -90,6 +90,12 @@ html { scroll-behavior: smooth; }
   animation-play-state: paused;
 }
 
+.one-line-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ── Bolsa (clasificados) — Inter + ocean/sand brand tokens ── */
 .bolsa-root {
   font-family: var(--font-sans);
