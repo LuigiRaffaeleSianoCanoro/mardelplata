@@ -43,7 +43,7 @@ export default function CommunityPlatforms() {
 
   return (
     <section id="comunidad" className="py-20 px-6 ocean-tint">
-      <div className="max-w-2xl mx-auto text-center">
+      <div className="max-w-6xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 bg-ocean-200/60 text-ocean-800 rounded-full px-4 py-2 text-sm font-semibold mb-4">
           💬 Plataformas
         </div>
@@ -55,14 +55,14 @@ export default function CommunityPlatforms() {
           para conectar con otros devs y enterarte de los próximos eventos.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {platforms.map((platform) => (
             <a
               key={platform.name}
               href={platform.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-4 bg-white rounded-2xl p-6 border border-slate-100 shadow-sm w-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${platform.hoverBorder} group`}
+              className={`inline-flex items-start gap-4 bg-white rounded-2xl p-7 border border-slate-100 shadow-sm w-full min-h-[170px] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${platform.hoverBorder} group`}
             >
               <div className={`w-16 h-16 rounded-2xl ${platform.iconBg} flex items-center justify-center flex-shrink-0`}>
                 {platform.icon}
@@ -79,7 +79,7 @@ export default function CommunityPlatforms() {
                 stroke="#94a3b8"
                 strokeWidth="2.5"
                 strokeLinecap="round"
-                className={`flex-shrink-0 transition-colors ${platform.arrowHover}`}
+                className={`flex-shrink-0 mt-1 transition-colors ${platform.arrowHover}`}
               >
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
