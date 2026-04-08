@@ -26,6 +26,25 @@ export default async function Home() {
     .eq("is_published", true)
     .order("date", { ascending: true });
 
+  const { data: founders } = await supabase
+    .from("profiles")
+    .select("full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
+    .or("full_name.ilike.%Luigi%,full_name.ilike.%Franco%");
+
+  const orderedFounders =
+    founders
+      ?.slice()
+      .sort((a, b) => {
+        const aName = (a.full_name || "").toLowerCase();
+        const bName = (b.full_name || "").toLowerCase();
+        const score = (name: string) => {
+          if (name.includes("luigi")) return 0;
+          if (name.includes("franco")) return 1;
+          return 2;
+        };
+        return score(aName) - score(bName);
+      }) ?? [];
+
   return (
     <>
       <Navbar />
@@ -44,7 +63,7 @@ export default async function Home() {
 
         <WaveDown from="bg-white" to="fill-[#f0f9ff]" d="M0,40 C360,10 1080,55 1440,20 L1440,60 L0,60 Z" />
 
-        <Team />
+        <Team members={orderedFounders} />
 
         <WaveDown from="[background:linear-gradient(180deg,#f0f9ff_0%,#e0f4fb_100%)]" to="fill-white" d="M0,20 C720,55 1080,5 1440,35 L1440,60 L0,60 Z" />
 
