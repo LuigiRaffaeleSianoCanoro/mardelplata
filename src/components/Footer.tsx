@@ -16,7 +16,7 @@ export default function Footer() {
                 height={40}
                 className="rounded-2xl shadow-lg group-hover:scale-105 transition-transform"
               />
-              <span className="font-display font-bold text-xl text-white">MdPDev</span>
+              <span className="font-display font-bold text-xl text-white">MarDelPlata.dev.ar</span>
             </a>
             <p className="text-ocean-400 text-sm leading-relaxed max-w-xs mb-5">
               Comunidad de tecnología y desarrollo en Mar del Plata. Impulsando el futuro digital de la costa atlántica.
