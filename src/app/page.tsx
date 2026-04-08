@@ -28,8 +28,15 @@ export default async function Home() {
 
   const { data: founders } = await supabase
     .from("profiles")
-    .select("full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
+    .select("id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
     .or("full_name.ilike.%Luigi%,full_name.ilike.%Franco%");
+
+  const { data: communityMembers } = await supabase
+    .from("profiles")
+    .select("id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
+    .not("full_name", "is", null)
+    .order("created_at", { ascending: false })
+    .limit(30);
 
   const orderedFounders =
     founders
@@ -51,7 +58,7 @@ export default async function Home() {
       <main>
         <Hero />
 
-        <Collaborators />
+        <Collaborators members={communityMembers ?? []} />
 
         <WaveDown from="bg-white" to="fill-[#f0f9ff]" d="M0,30 C360,55 1080,5 1440,30 L1440,60 L0,60 Z" />
 
