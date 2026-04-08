@@ -71,20 +71,18 @@ export default function Hero() {
 
           {/* Headline */}
           <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-6">
-            El Hub Tech de<br />
-            <span className="gradient-text">la Costa Atlántica</span>
+            El Club tech de la Costa Atlántica
           </h1>
 
           <p className="text-ocean-200 text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Conectamos desarrolladores, diseñadores y emprendedores en Mar del Plata.
-            Impulsamos el talento local a través de la colaboración, el aprendizaje y eventos.
+            Crece profesionalmente conectando con quien ya está trabajando en los desafíos que vos tenés
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-16 max-w-4xl mx-auto">
             <Link
               href="/primer-trabajo"
-              className="inline-flex flex-col items-center justify-center gap-0.5 bg-ocean-800/90 hover:bg-ocean-800 border-2 border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm text-center"
+              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
             >
               <span className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -93,13 +91,12 @@ export default function Hero() {
                 </svg>
                 Primer Trabajo OS
               </span>
-              <span className="text-ocean-200 text-xs font-medium leading-tight">Evaluación y plan para tu primer laburo en tech</span>
             </Link>
             <a
               href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 bg-ocean-400 hover:bg-ocean-300 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/40 hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -108,7 +105,7 @@ export default function Hero() {
             </a>
             <a
               href="#eventos"
-              className="inline-flex items-center justify-center gap-2.5 border border-ocean-400/50 text-ocean-200 hover:bg-ocean-800/60 hover:text-white hover:border-ocean-300 px-8 py-4 rounded-full font-semibold text-lg transition-all hover:-translate-y-1 backdrop-blur-sm"
+              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -120,7 +117,7 @@ export default function Hero() {
             </a>
             <Link
               href="/bolsa"
-              className="inline-flex items-center justify-center gap-2.5 border border-ocean-400/50 text-ocean-200 hover:bg-ocean-800/60 hover:text-white hover:border-ocean-300 px-8 py-4 rounded-full font-semibold text-lg transition-all hover:-translate-y-1 backdrop-blur-sm"
+              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />

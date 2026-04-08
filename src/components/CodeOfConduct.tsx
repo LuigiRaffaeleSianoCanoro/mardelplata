@@ -9,7 +9,7 @@ export default function CodeOfConduct() {
           Reglamento de la Comunidad
         </h2>
         <p className="text-slate-500 text-lg leading-relaxed mb-8 max-w-xl mx-auto">
-          En MdPDev creemos en un espacio seguro, inclusivo y respetuoso para todos los miembros. La
+          En MarDelPlata.dev.ar creemos en un espacio seguro, inclusivo y respetuoso para todos los miembros. La
           comunidad se basa en el respeto mutuo, la colaboración y el aprendizaje compartido.
         </p>
         <a

@@ -64,7 +64,7 @@ export default function Navbar() {
             height={40}
             className="rounded-2xl shadow-lg shadow-ocean-700/40 group-hover:scale-105 transition-transform"
           />
-          <span className="font-display font-bold text-xl text-white tracking-tight">MdPDev</span>
+          <span className="font-display font-bold text-xl text-white tracking-tight">MarDelPlata.dev.ar</span>
         </a>
 
         {/* Desktop links */}

@@ -26,7 +26,7 @@ function isRateLimitError(error: SupabaseAuthLikeError) {
 
 function getSignupErrorMessage(error: SupabaseAuthLikeError) {
   if (error.code === "over_email_send_rate_limit") {
-    return "Ya enviamos un email de verificacion hace poco. Revisa tu inbox o spam, o espera un minuto antes de volver a intentar.";
+    return "El registro esta temporalmente saturado. Espera un minuto antes de volver a intentar.";
   }
 
   if (error.status === 429) {
@@ -149,7 +149,6 @@ export default function RegistroPage() {
       email: normalizedEmail,
       password,
       options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin}/auth/callback`,
         data: {
           full_name: normalizedFullName,
         },
@@ -166,7 +165,8 @@ export default function RegistroPage() {
       setError(getSignupErrorMessage(error));
       setLoading(false);
     } else {
-      router.push("/auth/verificar");
+      router.push("/perfil");
+      router.refresh();
     }
   };
 
@@ -247,7 +247,7 @@ export default function RegistroPage() {
 
             {cooldownSecondsLeft > 0 && (
               <div className="bg-amber-500/20 border border-amber-500/40 text-amber-100 px-4 py-3 rounded-xl text-sm">
-                Revisa si ya te llego el email de verificacion. Podras intentar de nuevo en {cooldownSecondsLeft}s.
+                Podras intentar de nuevo en {cooldownSecondsLeft}s.
               </div>
             )}
 

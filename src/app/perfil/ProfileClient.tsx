@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { User } from "@supabase/supabase-js";
 import { QRCodeSVG } from "qrcode.react";
+import { AVATAR_PRESETS, getFallbackAvatar, isFounderName } from "@/lib/avatarPresets";
 
 interface Profile {
   id: string;
@@ -32,7 +33,6 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [currentProfile, setCurrentProfile] = useState<Profile | null>(profile);
   const [formData, setFormData] = useState({
     full_name: profile?.full_name || "",
@@ -41,8 +41,8 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     linkedin_url: profile?.linkedin_url || "",
     twitter_url: profile?.twitter_url || "",
   });
-  const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url || "");
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const initialAvatar = profile?.avatar_url || getFallbackAvatar(profile?.full_name || user.email);
+  const [selectedAvatar, setSelectedAvatar] = useState(initialAvatar);
   
   const router = useRouter();
   const supabase = createClient();
@@ -53,39 +53,12 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     router.refresh();
   };
 
-  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploadingAvatar(true);
-    try {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${user.id}-${Date.now()}.${fileExt}`;
-      const filePath = `avatars/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from("avatars")
-        .getPublicUrl(filePath);
-
-      setAvatarUrl(publicUrl);
-      
-      await supabase
-        .from("profiles")
-        .update({ avatar_url: publicUrl })
-        .eq("id", user.id);
-
-    } catch (error) {
-      console.error("Error uploading avatar:", error);
-    } finally {
-      setUploadingAvatar(false);
-    }
-  };
+  const founderLocked = isFounderName(currentProfile?.full_name || formData.full_name);
+  const resolvedAvatar = useMemo(() => {
+    const raw = currentProfile?.avatar_url || selectedAvatar;
+    if (raw) return raw;
+    return getFallbackAvatar(currentProfile?.full_name || formData.full_name || user.email);
+  }, [currentProfile?.avatar_url, selectedAvatar, currentProfile?.full_name, formData.full_name, user.email]);
 
   const handleSave = async () => {
     setLoading(true);
@@ -97,6 +70,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
       github_url: formData.github_url,
       linkedin_url: formData.linkedin_url,
       twitter_url: formData.twitter_url,
+      avatar_url: founderLocked ? (currentProfile?.avatar_url ?? null) : selectedAvatar,
     };
 
     let savedProfile: Profile | null = null;
@@ -224,9 +198,9 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                 <div className="flex-shrink-0">
                   <div className="relative group">
                     <div className="w-32 h-32 rounded-2xl overflow-hidden bg-ocean-700/50 border-2 border-ocean-500/30">
-                      {avatarUrl ? (
+                      {resolvedAvatar ? (
                         <img
-                          src={avatarUrl}
+                          src={resolvedAvatar}
                           alt={formData.full_name || "Avatar"}
                           className="w-full h-full object-cover"
                         />
@@ -239,22 +213,9 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                         </div>
                       )}
                     </div>
-                    <button
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={uploadingAvatar}
-                      className="absolute inset-0 bg-ocean-900/70 opacity-0 group-hover:opacity-100 rounded-2xl flex items-center justify-center transition-opacity"
-                    >
-                      <span className="text-white text-sm font-medium">
-                        {uploadingAvatar ? "Subiendo..." : "Cambiar"}
-                      </span>
-                    </button>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={handleAvatarUpload}
-                      className="hidden"
-                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-ocean-900/75 text-ocean-100 text-xs text-center py-1.5 rounded-b-2xl">
+                      {founderLocked ? "Foto verificada" : "Avatar tech"}
+                    </div>
                   </div>
                 </div>
 
@@ -281,6 +242,35 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           placeholder="Contanos sobre vos..."
                         />
                       </div>
+                      {!founderLocked && (
+                        <div>
+                          <p className="block text-sm font-medium text-ocean-200 mb-2">Avatar</p>
+                          <div className="grid grid-cols-5 gap-2">
+                            {AVATAR_PRESETS.map((avatar) => {
+                              const isActive = selectedAvatar === avatar;
+                              return (
+                                <button
+                                  key={avatar}
+                                  type="button"
+                                  onClick={() => setSelectedAvatar(avatar)}
+                                  className={`rounded-xl overflow-hidden border-2 transition-all ${isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500"}`}
+                                  aria-label="Seleccionar avatar"
+                                >
+                                  <img src={avatar} alt="Avatar preset" className="w-full h-full object-cover" />
+                                </button>
+                              );
+                            })}
+                          </div>
+                          <p className="text-ocean-300 text-xs mt-2">
+                            Elegí uno de los avatares disponibles.
+                          </p>
+                        </div>
+                      )}
+                      {founderLocked && (
+                        <p className="text-ocean-300 text-xs">
+                          Tu foto de perfil está protegida y no se puede reemplazar.
+                        </p>
+                      )}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <div>
                           <label className="block text-sm font-medium text-ocean-200 mb-1">GitHub</label>
