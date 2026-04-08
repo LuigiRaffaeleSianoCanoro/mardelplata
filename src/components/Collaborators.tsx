@@ -79,22 +79,6 @@ export default function Collaborators({ members = [] }: { members?: CommunityMem
           </div>
         </div>
       </div>
-      <style jsx>{`
-        .community-marquee {
-          animation: community-marquee 45s linear infinite;
-        }
-        .community-marquee:hover {
-          animation-play-state: paused;
-        }
-        @keyframes community-marquee {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
     </section>
   );
 }

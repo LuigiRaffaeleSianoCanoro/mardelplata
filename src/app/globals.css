@@ -79,6 +79,17 @@ html { scroll-behavior: smooth; }
 .float-3   { animation: float 5s ease-in-out 2.4s infinite; }
 .pulse-dot { animation: pulse-ring 2.2s ease-in-out infinite; }
 
+@keyframes community-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.community-marquee {
+  animation: community-marquee 45s linear infinite;
+}
+.community-marquee:hover {
+  animation-play-state: paused;
+}
+
 /* ── Bolsa (clasificados) — Inter + ocean/sand brand tokens ── */
 .bolsa-root {
   font-family: var(--font-sans);
