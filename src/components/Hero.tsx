@@ -71,11 +71,11 @@ export default function Hero() {
 
           {/* Headline */}
           <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-6">
-            El Club tech de la Costa Atlantica
+            El Club tech de la Costa Atlántica
           </h1>
 
           <p className="text-ocean-200 text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Crece profesionalmente conectando con quien ya esta trabajando en los desafíos que vos tenes
+            Crece profesionalmente conectando con quien ya está trabajando en los desafíos que vos tenés
           </p>
 
           {/* CTAs */}
