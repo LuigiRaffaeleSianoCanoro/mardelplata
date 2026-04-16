@@ -356,7 +356,7 @@ export default function ScannerPage() {
                       {new Date(member.scanned_at).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}
                     </div>
                   </div>
-                  <div className="text-ocean-500 text-xs font-mono">
+                  <div className="flex-shrink-0 text-ocean-500 text-xs font-mono max-w-[90px] sm:max-w-[110px] truncate">
                     {member.qr_code}
                   </div>
                 </div>

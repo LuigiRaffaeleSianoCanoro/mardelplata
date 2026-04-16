@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -34,6 +34,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   const [loading, setLoading] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [currentProfile, setCurrentProfile] = useState<Profile | null>(profile);
+  const [qrSize, setQrSize] = useState(180);
   const [formData, setFormData] = useState({
     full_name: profile?.full_name || "",
     bio: profile?.bio || "",
@@ -59,6 +60,17 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     if (raw) return raw;
     return getFallbackAvatar(currentProfile?.full_name || formData.full_name || user.email);
   }, [currentProfile?.avatar_url, selectedAvatar, currentProfile?.full_name, formData.full_name, user.email]);
+
+  useEffect(() => {
+    // Keep the QR card from feeling cramped on very small screens.
+    const update = () => {
+      const w = window.innerWidth;
+      setQrSize(w <= 420 ? 150 : w <= 640 ? 170 : 180);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const handleSave = async () => {
     setLoading(true);
@@ -177,7 +189,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
           {/* Profile Card */}
           <div className="lg:col-span-2">
             <div className="bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-8 border border-ocean-600/30 shadow-2xl">
-              <div className="flex items-start justify-between mb-6">
+              <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-3 mb-6">
                 <h1 className="text-2xl font-display font-bold text-white">Mi Perfil</h1>
                 {!isEditing && (
                   <button
@@ -245,7 +257,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                       {!founderLocked && (
                         <div>
                           <p className="block text-sm font-medium text-ocean-200 mb-2">Avatar</p>
-                          <div className="grid grid-cols-5 gap-2">
+                          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
                             {AVATAR_PRESETS.map((avatar) => {
                               const isActive = selectedAvatar === avatar;
                               return (
@@ -253,7 +265,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                                   key={avatar}
                                   type="button"
                                   onClick={() => setSelectedAvatar(avatar)}
-                                  className={`rounded-xl overflow-hidden border-2 transition-all ${isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500"}`}
+                                  className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-all ${isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500"}`}
                                   aria-label="Seleccionar avatar"
                                 >
                                   <img src={avatar} alt="Avatar preset" className="w-full h-full object-cover" />
@@ -371,18 +383,21 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
               <h2 className="text-lg font-display font-bold text-white mb-4 text-center">
                 Tu QR de Miembro
               </h2>
-              <div className="bg-white rounded-2xl p-4 mx-auto w-fit">
+              <div className="bg-white rounded-2xl p-4 mx-auto w-fit max-w-full">
                 {currentProfile?.qr_code ? (
                   <QRCodeSVG
                     value={qrValue}
-                    size={180}
+                    size={qrSize}
                     level="H"
                     includeMargin={false}
                     bgColor="#ffffff"
                     fgColor="#03045E"
                   />
                 ) : (
-                  <div className="w-[180px] h-[180px] flex items-center justify-center text-ocean-400 text-xs text-center p-4">
+                  <div
+                    className="flex items-center justify-center text-ocean-400 text-xs text-center p-4 aspect-square"
+                    style={{ width: qrSize, height: qrSize }}
+                  >
                     Guardá tu perfil para generar tu QR
                   </div>
                 )}
@@ -391,7 +406,9 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                 Mostrá este código en los eventos de la comunidad
               </p>
               <div className="mt-4 bg-ocean-900/50 rounded-xl p-3 text-center">
-                <span className="text-ocean-400 font-mono text-sm">{currentProfile?.qr_code}</span>
+                <span className="text-ocean-400 font-mono text-xs break-all block px-1">
+                  {currentProfile?.qr_code}
+                </span>
               </div>
             </div>
 
