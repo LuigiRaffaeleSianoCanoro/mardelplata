@@ -413,35 +413,6 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           Tu foto de perfil está protegida y no se puede reemplazar.
                         </p>
                       )}
-                      {!photoAuthorized && (
-                        <div className="bg-ocean-900/40 border border-ocean-700/40 rounded-xl p-3 text-xs text-ocean-300 space-y-1">
-                          <p>
-                            Sea snail icons created by Freepik -
-                            {" "}
-                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/sea-snail" target="_blank" rel="noopener noreferrer">Flaticon</a>
-                          </p>
-                          <p>
-                            Sea lion icons created by Freepik -
-                            {" "}
-                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/sea-lion" target="_blank" rel="noopener noreferrer">Flaticon</a>
-                          </p>
-                          <p>
-                            Starfish icons created by Freepik -
-                            {" "}
-                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/starfish" target="_blank" rel="noopener noreferrer">Flaticon</a>
-                          </p>
-                          <p>
-                            Lighthouse icons created by Freepik -
-                            {" "}
-                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/lighthouse" target="_blank" rel="noopener noreferrer">Flaticon</a>
-                          </p>
-                          <p>
-                            Surfer icons created by Park Jisun -
-                            {" "}
-                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/surfer" target="_blank" rel="noopener noreferrer">Flaticon</a>
-                          </p>
-                        </div>
-                      )}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <div>
                           <label className="block text-sm font-medium text-ocean-200 mb-1">GitHub</label>

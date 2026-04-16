@@ -4,6 +4,10 @@ export const FLATICON_AVATARS = [
   "/avatar-icons/starfish.png",
   "/avatar-icons/lighthouse.png",
   "/avatar-icons/summer.png",
+  "/avatar-icons/wallbit.png",
+  "/avatar-icons/softbox.png",
+  "/avatar-icons/whatsapp-01.png",
+  "/avatar-icons/whatsapp-02.png",
 ] as const;
 
 export const TECH_AVATARS = [
