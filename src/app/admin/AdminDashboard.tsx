@@ -85,7 +85,7 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
       {/* Tabs */}
       <div className="bg-ocean-800/50 border-b border-ocean-700/30">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex gap-1">
+          <div className="flex gap-1 overflow-x-auto whitespace-nowrap">
             {[
               { id: "events" as Tab, label: "Eventos", icon: CalendarIcon },
               { id: "users" as Tab, label: "Usuarios", icon: UsersIcon },
@@ -94,7 +94,7 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-5 py-3 text-sm font-medium transition-all border-b-2 ${
+                className={`flex flex-shrink-0 items-center gap-2 px-3 sm:px-5 py-3 text-sm font-medium transition-all border-b-2 ${
                   activeTab === tab.id
                     ? "text-white border-ocean-400 bg-ocean-700/30"
                     : "text-ocean-400 border-transparent hover:text-white hover:bg-ocean-700/20"
@@ -190,24 +190,28 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
         </button>
       </div>
 
-      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-hidden">
-        <table className="w-full">
+      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-x-auto">
+        <table className="w-full min-w-[760px]">
           <thead>
             <tr className="border-b border-ocean-700/30">
-              <th className="text-left px-6 py-4 text-ocean-300 font-medium text-sm">Evento</th>
-              <th className="text-left px-6 py-4 text-ocean-300 font-medium text-sm">Fecha</th>
-              <th className="text-left px-6 py-4 text-ocean-300 font-medium text-sm">Estado</th>
-              <th className="text-right px-6 py-4 text-ocean-300 font-medium text-sm">Acciones</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Evento</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Fecha</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Estado</th>
+              <th className="text-right px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {events.map((event) => (
               <tr key={event.id} className="border-b border-ocean-700/20 last:border-0">
-                <td className="px-6 py-4">
+                <td className="px-4 sm:px-6 py-4">
                   <div>
-                    <div className="font-medium text-white">{event.title}</div>
-                    {event.subtitle && <div className="text-ocean-400 text-sm">{event.subtitle}</div>}
-                    <div className="flex gap-1 mt-1">
+                    <div className="font-medium text-white truncate max-w-[240px] sm:max-w-none">{event.title}</div>
+                    {event.subtitle && (
+                      <div className="text-ocean-400 text-sm truncate max-w-[240px] sm:max-w-none">
+                        {event.subtitle}
+                      </div>
+                    )}
+                    <div className="flex flex-wrap gap-1 mt-1">
                       {event.tags?.map((tag) => (
                         <span key={tag} className="text-xs bg-ocean-700/50 text-ocean-300 px-2 py-0.5 rounded-full">
                           {tag}
@@ -216,10 +220,10 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-ocean-200 text-sm">
+                <td className="px-4 sm:px-6 py-4 text-ocean-200 text-sm">
                   {new Date(event.date).toLocaleDateString("es-AR", { day: "2-digit", month: "short", year: "numeric" })}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-4 sm:px-6 py-4">
                   <button
                     onClick={() => handleTogglePublish(event)}
                     className={`text-xs px-3 py-1 rounded-full font-medium ${
@@ -231,7 +235,7 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
                     {event.is_published ? "Publicado" : "Borrador"}
                   </button>
                 </td>
-                <td className="px-6 py-4 text-right">
+                <td className="px-4 sm:px-6 py-4 text-right">
                   <div className="flex items-center justify-end gap-2">
                     <button
                       onClick={() => onEdit(event)}
@@ -256,7 +260,7 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
             ))}
             {events.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-6 py-12 text-center text-ocean-400">
+                <td colSpan={4} className="px-4 sm:px-6 py-12 text-center text-ocean-400">
                   No hay eventos. Crea el primero!
                 </td>
               </tr>
@@ -298,21 +302,21 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
         <div className="text-ocean-400 text-sm">{profiles.length} usuarios registrados</div>
       </div>
 
-      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-hidden">
-        <table className="w-full">
+      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-x-auto">
+        <table className="w-full min-w-[900px]">
           <thead>
             <tr className="border-b border-ocean-700/30">
-              <th className="text-left px-6 py-4 text-ocean-300 font-medium text-sm">Usuario</th>
-              <th className="text-left px-6 py-4 text-ocean-300 font-medium text-sm">QR Code</th>
-              <th className="text-left px-6 py-4 text-ocean-300 font-medium text-sm">Registrado</th>
-              <th className="text-left px-6 py-4 text-ocean-300 font-medium text-sm">Rol</th>
-              <th className="text-right px-6 py-4 text-ocean-300 font-medium text-sm">Acciones</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Usuario</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">QR Code</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Registrado</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Rol</th>
+              <th className="text-right px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {profiles.map((profile) => (
               <tr key={profile.id} className="border-b border-ocean-700/20 last:border-0">
-                <td className="px-6 py-4">
+                <td className="px-4 sm:px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl overflow-hidden bg-ocean-700/50">
                       {profile.avatar_url ? (
@@ -327,18 +331,22 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
                       )}
                     </div>
                     <div>
-                      <div className="font-medium text-white">{profile.full_name || "Sin nombre"}</div>
-                      <div className="text-ocean-400 text-sm">{profile.email}</div>
+                      <div className="font-medium text-white truncate max-w-[160px] sm:max-w-none">
+                        {profile.full_name || "Sin nombre"}
+                      </div>
+                      <div className="text-ocean-400 text-sm truncate max-w-[160px]">{profile.email}</div>
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4">
-                  <span className="font-mono text-ocean-300 text-sm">{profile.qr_code}</span>
+                <td className="px-4 sm:px-6 py-4 min-w-0">
+                  <span className="block font-mono text-ocean-300 text-xs max-w-[140px] sm:max-w-[220px] truncate">
+                    {profile.qr_code}
+                  </span>
                 </td>
-                <td className="px-6 py-4 text-ocean-200 text-sm">
+                <td className="px-4 sm:px-6 py-4 text-ocean-200 text-sm">
                   {new Date(profile.created_at).toLocaleDateString("es-AR")}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-4 sm:px-6 py-4">
                   <button
                     onClick={() => handleToggleAdmin(profile)}
                     disabled={profile.id === currentUserId}
@@ -351,7 +359,7 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
                     {profile.is_admin ? "Admin" : "Miembro"}
                   </button>
                 </td>
-                <td className="px-6 py-4 text-right">
+                <td className="px-4 sm:px-6 py-4 text-right">
                   <div className="flex items-center justify-end gap-2">
                     <button
                       onClick={() => onEdit(profile)}

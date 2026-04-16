@@ -1,4 +1,16 @@
-export const AVATAR_PRESETS = [
+export const FLATICON_AVATARS = [
+  "/avatar-icons/sea-snail.png",
+  "/avatar-icons/sea-lion.png",
+  "/avatar-icons/starfish.png",
+  "/avatar-icons/lighthouse.png",
+  "/avatar-icons/summer.png",
+  "/avatar-icons/wallbit.png",
+  "/avatar-icons/softbox.png",
+  "/avatar-icons/whatsapp-01.png",
+  "/avatar-icons/whatsapp-02.png",
+] as const;
+
+export const TECH_AVATARS = [
   "/avatars/tech-01.svg",
   "/avatars/tech-02.svg",
   "/avatars/tech-03.svg",
@@ -6,9 +18,21 @@ export const AVATAR_PRESETS = [
   "/avatars/tech-05.svg",
 ] as const;
 
-export function isFounderName(name?: string | null) {
-  const normalized = (name || "").trim().toLowerCase();
-  return normalized === "luigi canoro" || normalized === "franco petruccelli";
+export const AVATAR_PRESETS = [...FLATICON_AVATARS, ...TECH_AVATARS] as const;
+
+const PHOTO_ALLOWED_EMAILS = new Set([
+  "phoenix_luigi@hotmail.com",
+  "petruu.fi@gmail.com",
+]);
+
+export function isAvatarPhotoAuthorizedEmail(email?: string | null) {
+  const normalized = (email || "").trim().toLowerCase();
+  return PHOTO_ALLOWED_EMAILS.has(normalized);
+}
+
+export function isAllowedPresetAvatarUrl(url?: string | null) {
+  if (!url) return false;
+  return AVATAR_PRESETS.includes(url as (typeof AVATAR_PRESETS)[number]);
 }
 
 export function getFallbackAvatar(seed?: string | null) {
@@ -18,6 +42,6 @@ export function getFallbackAvatar(seed?: string | null) {
     hash = (hash << 5) - hash + key.charCodeAt(i);
     hash |= 0;
   }
-  const index = Math.abs(hash) % AVATAR_PRESETS.length;
-  return AVATAR_PRESETS[index];
+  const index = Math.abs(hash) % FLATICON_AVATARS.length;
+  return FLATICON_AVATARS[index];
 }
