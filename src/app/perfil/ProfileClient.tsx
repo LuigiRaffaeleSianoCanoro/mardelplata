@@ -7,7 +7,13 @@ import Link from "next/link";
 import Image from "next/image";
 import type { User } from "@supabase/supabase-js";
 import { QRCodeSVG } from "qrcode.react";
-import { AVATAR_PRESETS, getFallbackAvatar, isFounderName } from "@/lib/avatarPresets";
+import {
+  FLATICON_AVATARS,
+  TECH_AVATARS,
+  getFallbackAvatar,
+  isAllowedPresetAvatarUrl,
+  isAvatarPhotoAuthorizedEmail,
+} from "@/lib/avatarPresets";
 
 interface Profile {
   id: string;
@@ -35,6 +41,9 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   const [saveError, setSaveError] = useState<string | null>(null);
   const [currentProfile, setCurrentProfile] = useState<Profile | null>(profile);
   const [qrSize, setQrSize] = useState(180);
+  const [attendanceCount, setAttendanceCount] = useState(0);
+  const [activeLockedHint, setActiveLockedHint] = useState<number | null>(null);
+  const [enforcingAvatar, setEnforcingAvatar] = useState(false);
   const [formData, setFormData] = useState({
     full_name: profile?.full_name || "",
     bio: profile?.bio || "",
@@ -42,7 +51,11 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     linkedin_url: profile?.linkedin_url || "",
     twitter_url: profile?.twitter_url || "",
   });
-  const initialAvatar = profile?.avatar_url || getFallbackAvatar(profile?.full_name || user.email);
+  const photoAuthorized = isAvatarPhotoAuthorizedEmail(user.email || profile?.email);
+  const hasAllowedPreset = isAllowedPresetAvatarUrl(profile?.avatar_url);
+  const initialAvatar = photoAuthorized
+    ? (profile?.avatar_url || getFallbackAvatar(profile?.full_name || user.email))
+    : (hasAllowedPreset ? profile?.avatar_url : getFallbackAvatar(profile?.full_name || user.email));
   const [selectedAvatar, setSelectedAvatar] = useState(initialAvatar);
   
   const router = useRouter();
@@ -54,9 +67,8 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     router.refresh();
   };
 
-  const founderLocked = isFounderName(currentProfile?.full_name || formData.full_name);
   const resolvedAvatar = useMemo(() => {
-    const raw = currentProfile?.avatar_url || selectedAvatar;
+    const raw = currentProfile?.avatar_url || selectedAvatar || getFallbackAvatar(currentProfile?.full_name || formData.full_name || user.email);
     if (raw) return raw;
     return getFallbackAvatar(currentProfile?.full_name || formData.full_name || user.email);
   }, [currentProfile?.avatar_url, selectedAvatar, currentProfile?.full_name, formData.full_name, user.email]);
@@ -72,6 +84,52 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     return () => window.removeEventListener("resize", update);
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadAttendance = async () => {
+      const { data, error } = await supabase
+        .from("event_attendance")
+        .select("event_id")
+        .eq("user_id", user.id);
+
+      if (cancelled) return;
+      if (error || !data) {
+        setAttendanceCount(0);
+        return;
+      }
+
+      const distinct = new Set(data.map((row) => row.event_id).filter(Boolean));
+      setAttendanceCount(distinct.size);
+    };
+
+    loadAttendance();
+    return () => {
+      cancelled = true;
+    };
+  }, [supabase, user.id]);
+
+  useEffect(() => {
+    if (photoAuthorized || !currentProfile || enforcingAvatar) return;
+    if (!currentProfile.avatar_url || isAllowedPresetAvatarUrl(currentProfile.avatar_url)) return;
+
+    const enforceAvatarPreset = async () => {
+      setEnforcingAvatar(true);
+      const { error } = await supabase
+        .from("profiles")
+        .update({ avatar_url: null })
+        .eq("id", user.id);
+
+      if (!error) {
+        setCurrentProfile((prev) => (prev ? { ...prev, avatar_url: null } : prev));
+        setSelectedAvatar(getFallbackAvatar(currentProfile.full_name || user.email));
+      }
+      setEnforcingAvatar(false);
+    };
+
+    enforceAvatarPreset();
+  }, [photoAuthorized, currentProfile, supabase, user.id, user.email, enforcingAvatar]);
+
   const handleSave = async () => {
     setLoading(true);
     setSaveError(null);
@@ -82,7 +140,9 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
       github_url: formData.github_url,
       linkedin_url: formData.linkedin_url,
       twitter_url: formData.twitter_url,
-      avatar_url: founderLocked ? (currentProfile?.avatar_url ?? null) : selectedAvatar,
+      avatar_url: photoAuthorized
+        ? (currentProfile?.avatar_url ?? null)
+        : (isAllowedPresetAvatarUrl(selectedAvatar) ? selectedAvatar : null),
     };
 
     let savedProfile: Profile | null = null;
@@ -226,7 +286,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                       )}
                     </div>
                     <div className="absolute inset-x-0 bottom-0 bg-ocean-900/75 text-ocean-100 text-xs text-center py-1.5 rounded-b-2xl whitespace-nowrap leading-none overflow-hidden">
-                      {founderLocked ? "Foto verificada" : "Avatar tech"}
+                      {photoAuthorized ? "Foto verificada" : "Avatar tech"}
                     </div>
                   </div>
                 </div>
@@ -254,11 +314,11 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           placeholder="Contanos sobre vos..."
                         />
                       </div>
-                      {!founderLocked && (
+                      {!photoAuthorized && (
                         <div>
-                          <p className="block text-sm font-medium text-ocean-200 mb-2">Avatar</p>
+                          <p className="block text-sm font-medium text-ocean-200 mb-2">Avatares disponibles</p>
                           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
-                            {AVATAR_PRESETS.map((avatar) => {
+                            {FLATICON_AVATARS.map((avatar) => {
                               const isActive = selectedAvatar === avatar;
                               return (
                                 <button
@@ -274,14 +334,113 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                             })}
                           </div>
                           <p className="text-ocean-300 text-xs mt-2">
-                            Elegí uno de los avatares disponibles.
+                            Elegí uno de los avatares de la costa para tu perfil.
                           </p>
                         </div>
                       )}
-                      {founderLocked && (
+                      {!photoAuthorized && (
+                        <div>
+                          <p className="block text-sm font-medium text-ocean-200 mb-2">Coming soon: desbloqueables por asistencia</p>
+                          <div className="mb-3 bg-ocean-900/40 border border-ocean-700/40 rounded-xl p-3">
+                            <div className="flex items-center justify-between text-xs text-ocean-300 mb-2">
+                              <span>Progreso de desbloqueo</span>
+                              <span className="font-medium text-ocean-200">{Math.min(attendanceCount, 5)}/5 eventos</span>
+                            </div>
+                            <div className="h-2 rounded-full bg-ocean-950/80 overflow-hidden">
+                              <div
+                                className="h-full bg-ocean-400 transition-all"
+                                style={{ width: `${Math.min((attendanceCount / 5) * 100, 100)}%` }}
+                              />
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                            {TECH_AVATARS.map((avatar, idx) => {
+                              const requiredEvents = idx + 1;
+                              const unlocked = attendanceCount >= requiredEvents;
+                              const isActive = selectedAvatar === avatar;
+                              const remaining = Math.max(requiredEvents - attendanceCount, 0);
+                              const hint = `Si firmás presencia en ${remaining} ${remaining === 1 ? "evento" : "eventos"} más, vas a tener este avatar disponible.`;
+                              return (
+                                <div
+                                  key={avatar}
+                                  className="relative group"
+                                  onMouseEnter={() => !unlocked && setActiveLockedHint(idx)}
+                                  onMouseLeave={() => !unlocked && setActiveLockedHint((curr) => (curr === idx ? null : curr))}
+                                >
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      if (!unlocked) {
+                                        setActiveLockedHint((curr) => (curr === idx ? null : idx));
+                                        return;
+                                      }
+                                      setSelectedAvatar(avatar);
+                                    }}
+                                    className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-all ${
+                                      unlocked
+                                        ? (isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500")
+                                        : "border-ocean-700/40 opacity-60"
+                                    }`}
+                                    aria-label={unlocked ? "Seleccionar avatar desbloqueado" : "Avatar bloqueado"}
+                                  >
+                                    <img src={avatar} alt="Avatar desbloqueable" className="w-full h-full object-cover" />
+                                    {!unlocked && (
+                                      <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-ocean-950/65 text-[10px] font-semibold tracking-wide text-ocean-100">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                          <rect x="3" y="11" width="18" height="10" rx="2" />
+                                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                        </svg>
+                                        <span>Coming soon</span>
+                                      </span>
+                                    )}
+                                  </button>
+                                  {!unlocked && activeLockedHint === idx && (
+                                    <div className="absolute z-10 left-1/2 -translate-x-1/2 mt-2 w-40 rounded-lg bg-ocean-950 text-ocean-100 text-[11px] p-2 border border-ocean-700/50 shadow-xl">
+                                      {hint}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <p className="text-ocean-300 text-xs mt-2">
+                            Se desbloquea 1 avatar por cada evento donde firmes presencia.
+                          </p>
+                        </div>
+                      )}
+                      {photoAuthorized && (
                         <p className="text-ocean-300 text-xs">
                           Tu foto de perfil está protegida y no se puede reemplazar.
                         </p>
+                      )}
+                      {!photoAuthorized && (
+                        <div className="bg-ocean-900/40 border border-ocean-700/40 rounded-xl p-3 text-xs text-ocean-300 space-y-1">
+                          <p>
+                            Sea snail icons created by Freepik -
+                            {" "}
+                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/sea-snail" target="_blank" rel="noopener noreferrer">Flaticon</a>
+                          </p>
+                          <p>
+                            Sea lion icons created by Freepik -
+                            {" "}
+                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/sea-lion" target="_blank" rel="noopener noreferrer">Flaticon</a>
+                          </p>
+                          <p>
+                            Starfish icons created by Freepik -
+                            {" "}
+                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/starfish" target="_blank" rel="noopener noreferrer">Flaticon</a>
+                          </p>
+                          <p>
+                            Lighthouse icons created by Freepik -
+                            {" "}
+                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/lighthouse" target="_blank" rel="noopener noreferrer">Flaticon</a>
+                          </p>
+                          <p>
+                            Surfer icons created by Park Jisun -
+                            {" "}
+                            <a className="text-ocean-200 hover:text-white underline" href="https://www.flaticon.com/free-icons/surfer" target="_blank" rel="noopener noreferrer">Flaticon</a>
+                          </p>
+                        </div>
                       )}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <div>
