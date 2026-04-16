@@ -225,7 +225,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                         </div>
                       )}
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 bg-ocean-900/75 text-ocean-100 text-xs text-center py-1.5 rounded-b-2xl">
+                    <div className="absolute inset-x-0 bottom-0 bg-ocean-900/75 text-ocean-100 text-xs text-center py-1.5 rounded-b-2xl whitespace-nowrap leading-none overflow-hidden">
                       {founderLocked ? "Foto verificada" : "Avatar tech"}
                     </div>
                   </div>
