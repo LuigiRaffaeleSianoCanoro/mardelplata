@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { BrowserMultiFormatReader } from "@zxing/library";
@@ -20,29 +20,33 @@ interface Event {
   date: string;
 }
 
+interface VideoInputDevice {
+  deviceId: string;
+  label: string;
+}
+
+const SCAN_DEDUP_WINDOW_MS = 2500;
+
 export default function ScannerPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<string>("");
   const [scanning, setScanning] = useState(false);
+  const [isStartingCamera, setIsStartingCamera] = useState(false);
+  const [availableCameras, setAvailableCameras] = useState<VideoInputDevice[]>([]);
+  const [selectedCameraId, setSelectedCameraId] = useState<string>("");
   const [lastScanned, setLastScanned] = useState<ScannedMember | null>(null);
   const [scannedMembers, setScannedMembers] = useState<ScannedMember[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [manualCode, setManualCode] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const codeReaderRef = useRef<BrowserMultiFormatReader | null>(null);
+  const processingScanRef = useRef(false);
+  const pendingCodesRef = useRef<Set<string>>(new Set());
+  const recentlyScannedRef = useRef<Map<string, number>>(new Map());
+  const scannedCodesRef = useRef<Set<string>>(new Set());
   const supabase = createClient();
 
-  useEffect(() => {
-    loadEvents();
-  }, []);
-
-  useEffect(() => {
-    if (selectedEvent) {
-      loadAttendance();
-    }
-  }, [selectedEvent]);
-
-  const loadEvents = async () => {
+  const loadEvents = useCallback(async () => {
     const { data } = await supabase
       .from("events")
       .select("id, title, date")
@@ -51,9 +55,9 @@ export default function ScannerPage() {
     if (data && data.length > 0) {
       setSelectedEvent(data[0].id);
     }
-  };
+  }, [supabase]);
 
-  const loadAttendance = async () => {
+  const loadAttendance = useCallback(async () => {
     const { data } = await supabase
       .from("event_attendance")
       .select(`
@@ -81,7 +85,78 @@ export default function ScannerPage() {
       }));
       setScannedMembers(members);
     }
-  };
+  }, [selectedEvent, supabase]);
+
+  useEffect(() => {
+    loadEvents();
+  }, [loadEvents]);
+
+  useEffect(() => {
+    if (selectedEvent) {
+      loadAttendance();
+    }
+  }, [loadAttendance, selectedEvent]);
+
+  useEffect(() => {
+    scannedCodesRef.current = new Set(scannedMembers.map((member) => member.qr_code));
+  }, [scannedMembers]);
+
+  useEffect(() => {
+    return () => {
+      if (codeReaderRef.current) {
+        codeReaderRef.current.reset();
+        codeReaderRef.current = null;
+      }
+    };
+  }, []);
+
+  const logScannerEvent = useCallback((event: string, details?: Record<string, unknown>) => {
+    if (details) {
+      console.info(`[scanner] ${event}`, details);
+      return;
+    }
+    console.info(`[scanner] ${event}`);
+  }, []);
+
+  const getCameraErrorMessage = useCallback((err: unknown) => {
+    if (!(err instanceof Error)) {
+      return "No se pudo acceder a la cámara. Intentá de nuevo.";
+    }
+
+    switch (err.name) {
+      case "NotAllowedError":
+      case "SecurityError":
+        return "Permiso de cámara denegado. Habilitalo en el navegador y reintentá.";
+      case "NotFoundError":
+      case "DevicesNotFoundError":
+        return "No se encontró una cámara disponible en este dispositivo.";
+      case "NotReadableError":
+      case "TrackStartError":
+        return "La cámara está en uso por otra app o pestaña. Cerrala e intentá otra vez.";
+      case "OverconstrainedError":
+      case "ConstraintNotSatisfiedError":
+        return "No se pudo iniciar la cámara seleccionada. Probá con otra cámara.";
+      default:
+        return "No se pudo acceder a la cámara. Verificá permisos y conexión segura (HTTPS).";
+    }
+  }, []);
+
+  const extractQrCode = useCallback((qrValue: string) => {
+    if (qrValue.includes("/miembro?code=")) {
+      return qrValue.split("/miembro?code=").pop() || qrValue;
+    }
+    if (qrValue.includes("/miembro/")) {
+      return qrValue.split("/miembro/").pop() || qrValue;
+    }
+    return qrValue;
+  }, []);
+
+  const stopScannerReader = useCallback(() => {
+    if (codeReaderRef.current) {
+      codeReaderRef.current.reset();
+      codeReaderRef.current = null;
+    }
+  }, []);
 
   const startScanning = async () => {
     if (!selectedEvent) {
@@ -89,105 +164,190 @@ export default function ScannerPage() {
       return;
     }
 
-    try {
-      setScanning(true);
-      setError(null);
-      
-      codeReaderRef.current = new BrowserMultiFormatReader();
-      
-      if (videoRef.current) {
-        await codeReaderRef.current.decodeFromVideoDevice(
-          null,
-          videoRef.current,
-          async (result) => {
-            if (result) {
-              const code = result.getText();
-              await handleScan(code);
-            }
-          }
-        );
-      }
-    } catch (err) {
-      setError("No se pudo acceder a la cámara");
-      setScanning(false);
-    }
+    setError(null);
+    setLastScanned(null);
+    setScanning(true);
   };
 
   const stopScanning = () => {
-    if (codeReaderRef.current) {
-      codeReaderRef.current.reset();
-      codeReaderRef.current = null;
-    }
+    stopScannerReader();
+    setIsStartingCamera(false);
     setScanning(false);
   };
 
-  const handleScan = async (qrValue: string) => {
-    // Extract QR code from URL or use directly
-    let qrCode = qrValue;
-    if (qrValue.includes("/miembro?code=")) {
-      qrCode = qrValue.split("/miembro?code=").pop() || qrValue;
-    } else if (qrValue.includes("/miembro/")) {
-      qrCode = qrValue.split("/miembro/").pop() || qrValue;
+  const handleScan = useCallback(async (qrValue: string) => {
+    const qrCode = extractQrCode(qrValue.trim());
+    const now = Date.now();
+    const lastReadAt = recentlyScannedRef.current.get(qrCode);
+
+    if (lastReadAt && now - lastReadAt < SCAN_DEDUP_WINDOW_MS) {
+      return;
+    }
+    recentlyScannedRef.current.set(qrCode, now);
+
+    if (pendingCodesRef.current.has(qrCode)) {
+      return;
     }
 
-    // Check if already scanned
-    if (scannedMembers.some((m) => m.qr_code === qrCode)) {
+    if (scannedCodesRef.current.has(qrCode)) {
       setError("Este miembro ya fue registrado en este evento");
       return;
     }
 
-    // Find profile
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("qr_code", qrCode)
-      .single();
+    pendingCodesRef.current.add(qrCode);
+    processingScanRef.current = true;
 
-    if (!profile) {
-      setError("QR no válido o usuario no encontrado");
-      return;
-    }
+    try {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("qr_code", qrCode)
+        .single();
 
-    // Get current user
-    const { data: { user } } = await supabase.auth.getUser();
+      if (!profile) {
+        setError("QR no válido o usuario no encontrado");
+        return;
+      }
 
-    // Register attendance
-    const { error: insertError } = await supabase
-      .from("event_attendance")
-      .insert({
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      const { error: insertError } = await supabase.from("event_attendance").insert({
         event_id: selectedEvent,
         user_id: profile.id,
         scanned_by: user?.id,
       });
 
-    if (insertError) {
-      if (insertError.code === "23505") {
-        setError("Este miembro ya fue registrado en este evento");
-      } else {
-        setError("Error al registrar asistencia");
+      if (insertError) {
+        if (insertError.code === "23505") {
+          setError("Este miembro ya fue registrado en este evento");
+        } else {
+          setError("Error al registrar asistencia");
+        }
+        return;
       }
+
+      const scanned: ScannedMember = {
+        id: profile.id,
+        full_name: profile.full_name,
+        email: profile.email,
+        avatar_url: profile.avatar_url,
+        qr_code: profile.qr_code,
+        scanned_at: new Date().toISOString(),
+      };
+
+      setLastScanned(scanned);
+      setScannedMembers((prev) => [scanned, ...prev]);
+      setError(null);
+      setManualCode("");
+
+      if (typeof window !== "undefined" && "vibrate" in navigator) {
+        navigator.vibrate(200);
+      }
+    } finally {
+      pendingCodesRef.current.delete(qrCode);
+      processingScanRef.current = false;
+    }
+  }, [extractQrCode, selectedEvent, supabase]);
+
+  useEffect(() => {
+    if (!scanning) {
       return;
     }
 
-    const scanned: ScannedMember = {
-      id: profile.id,
-      full_name: profile.full_name,
-      email: profile.email,
-      avatar_url: profile.avatar_url,
-      qr_code: profile.qr_code,
-      scanned_at: new Date().toISOString(),
+    let cancelled = false;
+
+    const initializeScanner = async () => {
+      if (!videoRef.current) {
+        setError("No se pudo inicializar la vista de cámara.");
+        setScanning(false);
+        return;
+      }
+
+      if (!window.isSecureContext) {
+        setError("La cámara requiere HTTPS. Abrí esta página en una conexión segura.");
+        setScanning(false);
+        return;
+      }
+
+      if (!navigator.mediaDevices?.getUserMedia) {
+        setError("Este navegador no soporta acceso a cámara.");
+        setScanning(false);
+        return;
+      }
+
+      setIsStartingCamera(true);
+      setError(null);
+      stopScannerReader();
+
+      try {
+        const permissionState = await navigator.permissions
+          .query({ name: "camera" as PermissionName })
+          .then((permission) => permission.state)
+          .catch(() => "unknown");
+
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices
+          .filter((device) => device.kind === "videoinput")
+          .map((device) => ({ deviceId: device.deviceId, label: device.label || "Camara sin nombre" }));
+
+        setAvailableCameras(videoDevices);
+
+        const rearCamera = videoDevices.find((device) =>
+          /back|rear|environment|trasera/i.test(device.label),
+        );
+        const preferredCameraId = selectedCameraId || rearCamera?.deviceId || videoDevices[0]?.deviceId;
+
+        codeReaderRef.current = new BrowserMultiFormatReader();
+
+        const constraints = preferredCameraId
+          ? { video: { deviceId: { exact: preferredCameraId } } }
+          : { video: { facingMode: { ideal: "environment" } } };
+
+        await codeReaderRef.current.decodeFromConstraints(
+          constraints,
+          videoRef.current,
+          async (result) => {
+            if (!result || processingScanRef.current || cancelled) {
+              return;
+            }
+            await handleScan(result.getText());
+          },
+        );
+
+        if (cancelled) {
+          return;
+        }
+
+        logScannerEvent("camera_open_success", {
+          selectedCameraId: preferredCameraId || "auto",
+          permissionState,
+        });
+      } catch (err) {
+        if (cancelled) {
+          return;
+        }
+        logScannerEvent("camera_open_failure", {
+          errorName: err instanceof Error ? err.name : "UnknownError",
+          secureContext: window.isSecureContext,
+        });
+        setError(getCameraErrorMessage(err));
+        setScanning(false);
+      } finally {
+        if (!cancelled) {
+          setIsStartingCamera(false);
+        }
+      }
     };
 
-    setLastScanned(scanned);
-    setScannedMembers((prev) => [scanned, ...prev]);
-    setError(null);
-    setManualCode("");
+    initializeScanner();
 
-    // Play success sound feedback
-    if (typeof window !== "undefined" && "vibrate" in navigator) {
-      navigator.vibrate(200);
-    }
-  };
+    return () => {
+      cancelled = true;
+      stopScannerReader();
+    };
+  }, [getCameraErrorMessage, handleScan, logScannerEvent, scanning, selectedCameraId, stopScannerReader]);
 
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -232,6 +392,23 @@ export default function ScannerPage() {
           {/* Scanner */}
           <div className="bg-ocean-800/50 rounded-2xl p-6 border border-ocean-700/30">
             <h2 className="text-lg font-display font-bold text-white mb-4">Cámara</h2>
+            {availableCameras.length > 1 && (
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-ocean-200 mb-2">Camara</label>
+                <select
+                  value={selectedCameraId}
+                  onChange={(e) => setSelectedCameraId(e.target.value)}
+                  className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                >
+                  <option value="">Auto (preferir trasera)</option>
+                  {availableCameras.map((camera) => (
+                    <option key={camera.deviceId} value={camera.deviceId}>
+                      {camera.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             
             <div className="relative aspect-square bg-ocean-900 rounded-xl overflow-hidden mb-4">
               {scanning ? (
@@ -253,6 +430,11 @@ export default function ScannerPage() {
               {scanning && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-48 h-48 border-2 border-ocean-400 rounded-xl animate-pulse" />
+                </div>
+              )}
+              {isStartingCamera && (
+                <div className="absolute inset-0 bg-ocean-900/80 flex items-center justify-center text-ocean-200 text-sm">
+                  Iniciando camara...
                 </div>
               )}
             </div>
