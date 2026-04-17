@@ -1,9 +1,7 @@
--- One-time: clear NextSolution sponsor image from profile avatars (no longer a selectable preset).
--- Run in Supabase SQL Editor after deploy. Adjust URLs if your storage uses absolute URLs.
+-- Clear NextSolution sponsor image from profile avatars (matches any URL shape: site path, Supabase Storage, etc.).
+-- Run in Supabase SQL Editor. Re-run safely after deploy if needed.
 
 UPDATE public.profiles
 SET avatar_url = NULL
-WHERE avatar_url IN (
-  '/avatar-icons/avatar_WhatsApp Image 2026-04-15 at 11.55.46.png',
-  '/avatar-icons/avatar_WhatsApp%20Image%202026-04-15%20at%2011.55.46.png'
-);
+WHERE avatar_url IS NOT NULL
+  AND lower(avatar_url) LIKE '%whatsapp image 2026-04-15 at 11.55.46%';

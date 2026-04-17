@@ -4,6 +4,9 @@ const NEXTSOLUTION_RETIRED_PATH =
 const NEXTSOLUTION_RETIRED_ENCODED =
   "/avatar-icons/avatar_WhatsApp%20Image%202026-04-15%20at%2011.55.46.png";
 
+/** Unique substring of the sponsor filename; matches relative paths, Supabase Storage URLs, and mixed encoding. */
+const NEXTSOLUTION_URL_SNIPPET = "whatsapp image 2026-04-15 at 11.55.46";
+
 export const RETIRED_PRESET_AVATAR_URLS = [
   NEXTSOLUTION_RETIRED_PATH,
   NEXTSOLUTION_RETIRED_ENCODED,
@@ -28,8 +31,23 @@ function pathMatchesRetired(normalizedPath: string): boolean {
   return false;
 }
 
+function urlLooksLikeNextsolutionAsset(url: string): boolean {
+  let decoded = url;
+  for (let i = 0; i < 3; i += 1) {
+    try {
+      const next = decodeURIComponent(decoded);
+      if (next === decoded) break;
+      decoded = next;
+    } catch {
+      break;
+    }
+  }
+  return decoded.toLowerCase().includes(NEXTSOLUTION_URL_SNIPPET);
+}
+
 export function isRetiredPresetAvatarUrl(url?: string | null): boolean {
   if (!url) return false;
+  if (urlLooksLikeNextsolutionAsset(url)) return true;
   try {
     if (/^https?:\/\//i.test(url)) {
       return pathMatchesRetired(new URL(url).pathname);
