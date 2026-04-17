@@ -13,6 +13,8 @@ import {
   getFallbackAvatar,
   isAllowedPresetAvatarUrl,
   isAvatarPhotoAuthorizedEmail,
+  isRetiredPresetAvatarUrl,
+  resolveAvatarDisplayUrl,
 } from "@/lib/avatarPresets";
 
 interface Profile {
@@ -54,7 +56,11 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   const photoAuthorized = isAvatarPhotoAuthorizedEmail(user.email || profile?.email);
   const hasAllowedPreset = isAllowedPresetAvatarUrl(profile?.avatar_url);
   const initialAvatar = photoAuthorized
-    ? (profile?.avatar_url || getFallbackAvatar(profile?.full_name || user.email))
+    ? (
+        profile?.avatar_url && !isRetiredPresetAvatarUrl(profile.avatar_url)
+          ? profile.avatar_url
+          : getFallbackAvatar(profile?.full_name || user.email)
+      )
     : (hasAllowedPreset ? profile?.avatar_url : getFallbackAvatar(profile?.full_name || user.email));
   const [selectedAvatar, setSelectedAvatar] = useState(initialAvatar);
   
@@ -68,9 +74,9 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   };
 
   const resolvedAvatar = useMemo(() => {
-    const raw = currentProfile?.avatar_url || selectedAvatar || getFallbackAvatar(currentProfile?.full_name || formData.full_name || user.email);
-    if (raw) return raw;
-    return getFallbackAvatar(currentProfile?.full_name || formData.full_name || user.email);
+    const seed = currentProfile?.full_name || formData.full_name || user.email;
+    const raw = currentProfile?.avatar_url || selectedAvatar || getFallbackAvatar(seed);
+    return resolveAvatarDisplayUrl(raw || null, seed);
   }, [currentProfile?.avatar_url, selectedAvatar, currentProfile?.full_name, formData.full_name, user.email]);
 
   useEffect(() => {
@@ -141,7 +147,11 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
       linkedin_url: formData.linkedin_url,
       twitter_url: formData.twitter_url,
       avatar_url: photoAuthorized
-        ? (currentProfile?.avatar_url ?? null)
+        ? (
+            isRetiredPresetAvatarUrl(currentProfile?.avatar_url ?? null)
+              ? null
+              : (currentProfile?.avatar_url ?? null)
+          )
         : (isAllowedPresetAvatarUrl(selectedAvatar) ? selectedAvatar : null),
     };
 

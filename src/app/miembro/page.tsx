@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 import Link from "next/link";
 
 interface Profile {
@@ -76,20 +77,11 @@ function MemberContent() {
           {/* Avatar */}
           <div className="flex justify-center mb-6">
             <div className="w-24 h-24 rounded-2xl overflow-hidden bg-ocean-700/50 border-2 border-ocean-500/30">
-              {profile.avatar_url ? (
-                <img
-                  src={profile.avatar_url}
-                  alt={profile.full_name || "Miembro"}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-ocean-300">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <circle cx="12" cy="8" r="4"/>
-                    <path d="M20 21a8 8 0 1 0-16 0"/>
-                  </svg>
-                </div>
-              )}
+              <img
+                src={resolveAvatarDisplayUrl(profile.avatar_url, profile.full_name)}
+                alt={profile.full_name || "Miembro"}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 

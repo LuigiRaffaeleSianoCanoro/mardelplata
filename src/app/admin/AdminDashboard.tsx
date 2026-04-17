@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 
 interface Event {
   id: string;
@@ -319,16 +320,11 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
                 <td className="px-4 sm:px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl overflow-hidden bg-ocean-700/50">
-                      {profile.avatar_url ? (
-                        <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-ocean-400">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                            <circle cx="12" cy="8" r="4"/>
-                            <path d="M20 21a8 8 0 1 0-16 0"/>
-                          </svg>
-                        </div>
-                      )}
+                      <img
+                        src={resolveAvatarDisplayUrl(profile.avatar_url, profile.full_name || profile.id)}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div>
                       <div className="font-medium text-white truncate max-w-[160px] sm:max-w-none">
