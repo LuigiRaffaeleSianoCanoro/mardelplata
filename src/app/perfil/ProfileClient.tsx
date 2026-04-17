@@ -147,7 +147,11 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
       linkedin_url: formData.linkedin_url,
       twitter_url: formData.twitter_url,
       avatar_url: photoAuthorized
-        ? (currentProfile?.avatar_url ?? null)
+        ? (
+            isRetiredPresetAvatarUrl(currentProfile?.avatar_url ?? null)
+              ? null
+              : (currentProfile?.avatar_url ?? null)
+          )
         : (isAllowedPresetAvatarUrl(selectedAvatar) ? selectedAvatar : null),
     };
 

@@ -1,15 +1,22 @@
-/** Sponsor logos withdrawn from the preset picker; still matched for display + DB cleanup. */
+/** Sponsor / mistaken assets withdrawn from the preset picker; matched for display + DB cleanup. */
 const NEXTSOLUTION_RETIRED_PATH =
   "/avatar-icons/avatar_WhatsApp Image 2026-04-15 at 11.55.46.png";
 const NEXTSOLUTION_RETIRED_ENCODED =
   "/avatar-icons/avatar_WhatsApp%20Image%202026-04-15%20at%2011.55.46.png";
 
-/** Unique substring of the sponsor filename; matches relative paths, Supabase Storage URLs, and mixed encoding. */
+/** Was incorrectly used as generic "whatsapp" preset but is sponsor artwork (NextSolution). */
+const RETIRED_WHATSAPP_02_PATH = "/avatar-icons/whatsapp-02.png";
+
+/** Unique substring of the misnamed sponsor file; matches Storage URLs and mixed encoding. */
 const NEXTSOLUTION_URL_SNIPPET = "whatsapp image 2026-04-15 at 11.55.46";
+
+/** Substring match for the wrong preset filename (after decode, case-insensitive). */
+const RETIRED_WHATSAPP_02_SNIPPET = "avatar-icons/whatsapp-02.png";
 
 export const RETIRED_PRESET_AVATAR_URLS = [
   NEXTSOLUTION_RETIRED_PATH,
   NEXTSOLUTION_RETIRED_ENCODED,
+  RETIRED_WHATSAPP_02_PATH,
 ] as const;
 
 function normalizeAvatarPathUrl(url: string): string {
@@ -31,7 +38,7 @@ function pathMatchesRetired(normalizedPath: string): boolean {
   return false;
 }
 
-function urlLooksLikeNextsolutionAsset(url: string): boolean {
+function urlLooksLikeRetiredSponsorAsset(url: string): boolean {
   let decoded = url;
   for (let i = 0; i < 3; i += 1) {
     try {
@@ -42,12 +49,15 @@ function urlLooksLikeNextsolutionAsset(url: string): boolean {
       break;
     }
   }
-  return decoded.toLowerCase().includes(NEXTSOLUTION_URL_SNIPPET);
+  const lower = decoded.toLowerCase();
+  if (lower.includes(NEXTSOLUTION_URL_SNIPPET)) return true;
+  if (lower.includes(RETIRED_WHATSAPP_02_SNIPPET)) return true;
+  return false;
 }
 
 export function isRetiredPresetAvatarUrl(url?: string | null): boolean {
   if (!url) return false;
-  if (urlLooksLikeNextsolutionAsset(url)) return true;
+  if (urlLooksLikeRetiredSponsorAsset(url)) return true;
   try {
     if (/^https?:\/\//i.test(url)) {
       return pathMatchesRetired(new URL(url).pathname);
@@ -67,7 +77,6 @@ export const FLATICON_AVATARS = [
   "/avatar-icons/wallbit.png",
   "/avatar-icons/softbox.png",
   "/avatar-icons/whatsapp-01.png",
-  "/avatar-icons/whatsapp-02.png",
 ] as const;
 
 export const TECH_AVATARS = [
