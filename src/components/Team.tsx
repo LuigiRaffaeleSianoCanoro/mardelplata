@@ -1,3 +1,5 @@
+import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
+
 interface TeamMember {
   full_name: string | null;
   bio: string | null;
@@ -50,13 +52,11 @@ export default function Team({ members = [] }: { members?: TeamMember[] }) {
               className="group bg-white rounded-3xl p-7 text-center border border-slate-100 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-ocean-600/10"
             >
               <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden bg-slate-100 border border-slate-200 shadow-lg">
-                {m.avatar_url ? (
-                  <img src={m.avatar_url} alt={m.full_name || "Miembro"} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-slate-500 text-2xl font-bold font-display">
-                    {(m.full_name || "M").charAt(0).toUpperCase()}
-                  </div>
-                )}
+                <img
+                  src={resolveAvatarDisplayUrl(m.avatar_url, m.full_name)}
+                  alt={m.full_name || "Miembro"}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="inline-flex items-center gap-1 bg-ocean-100 text-ocean-700 rounded-full px-3 py-1 text-xs font-semibold mb-3">
                 ⭐ Co-fundador

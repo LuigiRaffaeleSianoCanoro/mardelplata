@@ -1,4 +1,4 @@
-import { getFallbackAvatar } from "@/lib/avatarPresets";
+import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 import { normalizeExternalUrl } from "@/lib/urls";
 
 interface CommunityMember {
@@ -37,7 +37,7 @@ export default function Collaborators({ members = [] }: { members?: CommunityMem
               >
                 <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden bg-slate-100 border border-slate-200 shadow-lg">
                   <img
-                    src={member.avatar_url || getFallbackAvatar(member.full_name || member.id)}
+                    src={resolveAvatarDisplayUrl(member.avatar_url, member.full_name || member.id)}
                     alt={member.full_name || "Miembro"}
                     className="w-full h-full object-cover"
                   />
