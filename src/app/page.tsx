@@ -8,12 +8,61 @@ import CodeOfConduct from "@/components/CodeOfConduct";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabase/server";
 
-/** Co-founder rows in `profiles`: Franco by auth user id, Luigi by stable `qr_code`. */
+/**
+ * Preferred `profiles` identifiers. If id/qr drift, name fallback still matches
+ * only when both first name + surname tokens are present (not "any Franco").
+ */
 const COFOUNDER_FRANCO_PROFILE_ID = "98049008-8218-48a5-84e0-a3764a904de8";
 const COFOUNDER_LUIGI_QR_CODE = "MDP-3762970D9EBF";
 
 const FOUNDER_FIELDS =
-  "id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url" as const;
+  "id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url, qr_code" as const;
+
+type FounderRow = {
+  id: string;
+  full_name: string | null;
+  bio: string | null;
+  avatar_url: string | null;
+  github_url: string | null;
+  linkedin_url: string | null;
+  twitter_url: string | null;
+  qr_code: string | null;
+};
+
+function normName(s: string): string {
+  return s
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "");
+}
+
+function isLuigiCanoro(fullName: string | null): boolean {
+  if (!fullName) return false;
+  const n = normName(fullName);
+  return n.includes("luigi") && n.includes("canoro");
+}
+
+function isFrancoPetruccelli(fullName: string | null): boolean {
+  if (!fullName) return false;
+  const n = normName(fullName);
+  return n.includes("franco") && n.includes("petruccelli");
+}
+
+function pickLuigi(rows: FounderRow[]): FounderRow | null {
+  const byQr = rows.find((r) => r.qr_code === COFOUNDER_LUIGI_QR_CODE);
+  if (byQr) return byQr;
+  const byName = rows.filter((r) => isLuigiCanoro(r.full_name));
+  return byName[0] ?? null;
+}
+
+function pickFranco(rows: FounderRow[], excludeId?: string | null): FounderRow | null {
+  const pool = excludeId ? rows.filter((r) => r.id !== excludeId) : rows;
+  const byId = pool.find((r) => r.id === COFOUNDER_FRANCO_PROFILE_ID);
+  if (byId && isFrancoPetruccelli(byId.full_name)) return byId;
+  const byName = pool.filter((r) => isFrancoPetruccelli(r.full_name));
+  return byName[0] ?? null;
+}
 
 function WaveDown({ from, to, d = "M0,30 C360,55 1080,5 1440,30 L1440,60 L0,60 Z" }: { from: string; to: string; d?: string }) {
   return (
@@ -33,11 +82,16 @@ export default async function Home() {
     .eq("is_published", true)
     .order("date", { ascending: false });
 
-  const [{ data: luigiRow }, { data: francoRow }] = await Promise.all([
-    supabase.from("profiles").select(FOUNDER_FIELDS).eq("qr_code", COFOUNDER_LUIGI_QR_CODE).maybeSingle(),
-    supabase.from("profiles").select(FOUNDER_FIELDS).eq("id", COFOUNDER_FRANCO_PROFILE_ID).maybeSingle(),
-  ]);
+  const { data: founderCandidates } = await supabase
+    .from("profiles")
+    .select(FOUNDER_FIELDS)
+    .or(
+      `qr_code.eq.${COFOUNDER_LUIGI_QR_CODE},id.eq.${COFOUNDER_FRANCO_PROFILE_ID},and(full_name.ilike.%luigi%,full_name.ilike.%canoro%),and(full_name.ilike.%franco%,full_name.ilike.%petruccelli%)`,
+    );
 
+  const rows = (founderCandidates ?? []) as FounderRow[];
+  const luigiRow = pickLuigi(rows);
+  const francoRow = pickFranco(rows, luigiRow?.id);
   const orderedFounders = [luigiRow, francoRow].filter((p): p is NonNullable<typeof p> => p != null);
 
   const { data: communityMembers } = await supabase
