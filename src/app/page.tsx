@@ -8,19 +8,12 @@ import CodeOfConduct from "@/components/CodeOfConduct";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabase/server";
 
-/** Full names that may appear in "Quiénes Somos" as co-founders (normalized). */
-const COFOUNDER_FULL_NAMES = new Set(["luigi canoro", "franco petruccelli"]);
+/** Co-founder rows in `profiles`: Franco by auth user id, Luigi by stable `qr_code`. */
+const COFOUNDER_FRANCO_PROFILE_ID = "98049008-8218-48a5-84e0-a3764a904de8";
+const COFOUNDER_LUIGI_QR_CODE = "MDP-3762970D9EBF";
 
-function normalizeFullName(name: string | null): string | null {
-  if (!name) return null;
-  const n = name.trim().toLowerCase().replace(/\s+/g, " ");
-  return n.length > 0 ? n : null;
-}
-
-function isCofounderProfile(fullName: string | null): boolean {
-  const n = normalizeFullName(fullName);
-  return n != null && COFOUNDER_FULL_NAMES.has(n);
-}
+const FOUNDER_FIELDS =
+  "id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url" as const;
 
 function WaveDown({ from, to, d = "M0,30 C360,55 1080,5 1440,30 L1440,60 L0,60 Z" }: { from: string; to: string; d?: string }) {
   return (
@@ -40,14 +33,12 @@ export default async function Home() {
     .eq("is_published", true)
     .order("date", { ascending: false });
 
-  const { data: foundersRaw } = await supabase
-    .from("profiles")
-    .select("id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
-    .or(
-      "and(full_name.ilike.%luigi%,full_name.ilike.%canoro%),and(full_name.ilike.%franco%,full_name.ilike.%petruccelli%)",
-    );
+  const [{ data: luigiRow }, { data: francoRow }] = await Promise.all([
+    supabase.from("profiles").select(FOUNDER_FIELDS).eq("qr_code", COFOUNDER_LUIGI_QR_CODE).maybeSingle(),
+    supabase.from("profiles").select(FOUNDER_FIELDS).eq("id", COFOUNDER_FRANCO_PROFILE_ID).maybeSingle(),
+  ]);
 
-  const founders = foundersRaw?.filter((p) => isCofounderProfile(p.full_name)) ?? [];
+  const orderedFounders = [luigiRow, francoRow].filter((p): p is NonNullable<typeof p> => p != null);
 
   const { data: communityMembers } = await supabase
     .from("profiles")
@@ -55,17 +46,6 @@ export default async function Home() {
     .not("full_name", "is", null)
     .order("created_at", { ascending: false })
     .limit(30);
-
-  const orderedFounders = founders.slice().sort((a, b) => {
-    const aName = normalizeFullName(a.full_name) ?? "";
-    const bName = normalizeFullName(b.full_name) ?? "";
-    const score = (name: string) => {
-      if (name === "luigi canoro") return 0;
-      if (name === "franco petruccelli") return 1;
-      return 2;
-    };
-    return score(aName) - score(bName);
-  });
 
   return (
     <>
