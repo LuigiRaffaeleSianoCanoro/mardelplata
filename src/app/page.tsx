@@ -8,18 +8,60 @@ import CodeOfConduct from "@/components/CodeOfConduct";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabase/server";
 
-/** Full names that may appear in "Quiénes Somos" as co-founders (normalized). */
-const COFOUNDER_FULL_NAMES = new Set(["luigi canoro", "franco petruccelli"]);
+/**
+ * Preferred `profiles` identifiers. If id/qr drift, name fallback still matches
+ * only when both first name + surname tokens are present (not "any Franco").
+ */
+const COFOUNDER_FRANCO_PROFILE_ID = "98049008-8218-48a5-84e0-a3764a904de8";
+const COFOUNDER_LUIGI_QR_CODE = "MDP-3762970D9EBF";
 
-function normalizeFullName(name: string | null): string | null {
-  if (!name) return null;
-  const n = name.trim().toLowerCase().replace(/\s+/g, " ");
-  return n.length > 0 ? n : null;
+const FOUNDER_FIELDS =
+  "id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url, qr_code" as const;
+
+type FounderRow = {
+  id: string;
+  full_name: string | null;
+  bio: string | null;
+  avatar_url: string | null;
+  github_url: string | null;
+  linkedin_url: string | null;
+  twitter_url: string | null;
+  qr_code: string | null;
+};
+
+function normName(s: string): string {
+  return s
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "");
 }
 
-function isCofounderProfile(fullName: string | null): boolean {
-  const n = normalizeFullName(fullName);
-  return n != null && COFOUNDER_FULL_NAMES.has(n);
+function isLuigiCanoro(fullName: string | null): boolean {
+  if (!fullName) return false;
+  const n = normName(fullName);
+  return n.includes("luigi") && n.includes("canoro");
+}
+
+function isFrancoPetruccelli(fullName: string | null): boolean {
+  if (!fullName) return false;
+  const n = normName(fullName);
+  return n.includes("franco") && n.includes("petruccelli");
+}
+
+function pickLuigi(rows: FounderRow[]): FounderRow | null {
+  const byQr = rows.find((r) => r.qr_code === COFOUNDER_LUIGI_QR_CODE);
+  if (byQr) return byQr;
+  const byName = rows.filter((r) => isLuigiCanoro(r.full_name));
+  return byName[0] ?? null;
+}
+
+function pickFranco(rows: FounderRow[], excludeId?: string | null): FounderRow | null {
+  const pool = excludeId ? rows.filter((r) => r.id !== excludeId) : rows;
+  const byId = pool.find((r) => r.id === COFOUNDER_FRANCO_PROFILE_ID);
+  if (byId && isFrancoPetruccelli(byId.full_name)) return byId;
+  const byName = pool.filter((r) => isFrancoPetruccelli(r.full_name));
+  return byName[0] ?? null;
 }
 
 function WaveDown({ from, to, d = "M0,30 C360,55 1080,5 1440,30 L1440,60 L0,60 Z" }: { from: string; to: string; d?: string }) {
@@ -40,14 +82,17 @@ export default async function Home() {
     .eq("is_published", true)
     .order("date", { ascending: false });
 
-  const { data: foundersRaw } = await supabase
+  const { data: founderCandidates } = await supabase
     .from("profiles")
-    .select("id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
+    .select(FOUNDER_FIELDS)
     .or(
-      "and(full_name.ilike.%luigi%,full_name.ilike.%canoro%),and(full_name.ilike.%franco%,full_name.ilike.%petruccelli%)",
+      `qr_code.eq.${COFOUNDER_LUIGI_QR_CODE},id.eq.${COFOUNDER_FRANCO_PROFILE_ID},and(full_name.ilike.%luigi%,full_name.ilike.%canoro%),and(full_name.ilike.%franco%,full_name.ilike.%petruccelli%)`,
     );
 
-  const founders = foundersRaw?.filter((p) => isCofounderProfile(p.full_name)) ?? [];
+  const rows = (founderCandidates ?? []) as FounderRow[];
+  const luigiRow = pickLuigi(rows);
+  const francoRow = pickFranco(rows, luigiRow?.id);
+  const orderedFounders = [luigiRow, francoRow].filter((p): p is NonNullable<typeof p> => p != null);
 
   const { data: communityMembers } = await supabase
     .from("profiles")
@@ -55,17 +100,6 @@ export default async function Home() {
     .not("full_name", "is", null)
     .order("created_at", { ascending: false })
     .limit(30);
-
-  const orderedFounders = founders.slice().sort((a, b) => {
-    const aName = normalizeFullName(a.full_name) ?? "";
-    const bName = normalizeFullName(b.full_name) ?? "";
-    const score = (name: string) => {
-      if (name === "luigi canoro") return 0;
-      if (name === "franco petruccelli") return 1;
-      return 2;
-    };
-    return score(aName) - score(bName);
-  });
 
   return (
     <>
