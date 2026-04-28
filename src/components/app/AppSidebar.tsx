@@ -18,6 +18,7 @@ import {
   GitBranch,
   Bookmark,
   Lightbulb,
+  Boxes,
   LayoutDashboard,
   ScanLine,
   type LucideIcon,
@@ -369,6 +370,7 @@ export default function AppSidebar({ isAdmin, user }: AppSidebarProps) {
         { href: "/red", label: "Open source", icon: GitBranch },
         { href: "/red/mis-proyectos", label: "Mis proyectos", icon: Bookmark, matchPrefix: "/red/mis-proyectos" },
         { href: "/red/ideas", label: "Ideas", icon: Lightbulb, matchPrefix: "/red/ideas" },
+        { href: "/red/modulos", label: "Módulos", icon: Boxes, matchPrefix: "/red/modulos" },
       ],
     },
     ...(isAdmin

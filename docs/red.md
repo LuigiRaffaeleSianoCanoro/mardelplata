@@ -350,12 +350,19 @@ project_comments
 - ✅ URL sync ↔ sheet con `useSheetUrlSync` (`history.replaceState` para `?p=` y `?i=`).
 - ✅ Loading skeleton por sheet (header + toolbar + body).
 
-### Etapa 3 — módulos
-- migration: agregar tablas `modules` + `module_usages` a `006_red.sql`.
-- tipos + queries (`listModules`, `getModuleBySlug`, `useModuleInProject`).
-- página `/red/modulos` con cards.
-- tab Módulos del ProjectSheet wireado al registry.
-- flujo "importar módulo" (cómo un proyecto declara que usa un módulo).
+### Etapa 3 — módulos ✅
+- ✅ migration `scripts/007_red_modules.sql` — `modules` y `module_usages` con RLS:
+  cualquier user puede crear módulo, solo contributors del proyecto pueden declarar uso.
+- ✅ tipos en `types.ts` (`RedModule`, `ModuleKind`, `ModuleUsage`, `ModuleCardData`).
+- ✅ queries (`listModules`, `getModuleBySlug`, `listModuleUsagesByModule`,
+  `listModuleUsagesByProject`) + mutations (`createModule`, `declareModuleUsage`,
+  `removeModuleUsage`) con mock fallback.
+- ✅ página `/red/modulos` con filtros por kind + deeplink `?m=<slug>`.
+- ✅ `ModuleCard`, `ModuleSheet` (tabs Overview, Proyectos), `NewModuleDialog`.
+- ✅ Tab Módulos del ProjectSheet wireado al registry: contributors ven botón
+  "Importar módulo" y "quitar"; el resto solo ve la lista.
+- ✅ `ImportModuleDialog` con autocomplete por nombre/slug y nota opcional.
+- ✅ Pillar Red del sidebar incluye el link a Módulos.
 
 ---
 

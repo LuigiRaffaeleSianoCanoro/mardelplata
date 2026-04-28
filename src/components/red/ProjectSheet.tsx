@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import BottomSheet from "./BottomSheet";
 import NewChangeDialog from "./NewChangeDialog";
+import ImportModuleDialog from "./ImportModuleDialog";
 import {
   SheetHeaderSkeleton,
   SheetToolbarSkeleton,
@@ -37,10 +38,13 @@ import {
   joinAsContributor,
   updateProjectComment,
   deleteProjectComment,
+  listModuleUsagesByProject,
+  removeModuleUsage,
   type ContributorWithProfile,
   type CommentWithAuthor,
   type LinkedIdeaSummary,
   type ProjectMembership,
+  type ModuleUsageWithModule,
 } from "@/lib/red/queries";
 import type { ProjectCardData, ProjectChange, ChangeKind } from "@/lib/red/types";
 import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
@@ -91,6 +95,8 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
   });
   const [busy, setBusy] = useState<"follow" | "join" | null>(null);
   const [newChangeOpen, setNewChangeOpen] = useState(false);
+  const [importModuleOpen, setImportModuleOpen] = useState(false);
+  const [moduleUsages, setModuleUsages] = useState<ModuleUsageWithModule[]>([]);
   const open = slug !== null;
 
   useEffect(() => {
@@ -115,13 +121,15 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
         listLinkedIdeas(p.id),
         listProjectComments(p.id),
         getProjectMembership(p.id, userId),
-      ]).then(([c, ch, ideas, cm, mem]) => {
+        listModuleUsagesByProject(p.id),
+      ]).then(([c, ch, ideas, cm, mem, mods]) => {
         if (cancelled) return;
         setContributors(c);
         setChanges(ch);
         setLinkedIdeas(ideas);
         setComments(cm);
         setMembership(mem);
+        setModuleUsages(mods);
       });
     });
     return () => {
@@ -330,7 +338,17 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
           <OverviewTab project={project} contributors={contributors} linkedIdeas={linkedIdeas} />
         )}
         {project && tab === "construyendo" && <ContributorsTab contributors={contributors} />}
-        {project && tab === "modulos" && <ModulesTab />}
+        {project && tab === "modulos" && (
+          <ModulesTab
+            usages={moduleUsages}
+            canEdit={membership.is_contributor}
+            onImport={() => setImportModuleOpen(true)}
+            onRemove={async (moduleId) => {
+              const ok = await removeModuleUsage({ projectId: project.id, moduleId });
+              if (ok) setModuleUsages((prev) => prev.filter((u) => u.module.id !== moduleId));
+            }}
+          />
+        )}
         {project && tab === "ideas" && <IdeasTab linkedIdeas={linkedIdeas} />}
         {project && tab === "cambios" && (
           <ChangesTab
@@ -357,6 +375,21 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
           projectId={project.id}
           authorId={userId}
           onCreated={handleChangeAdded}
+        />
+      )}
+
+      {project && (
+        <ImportModuleDialog
+          open={importModuleOpen}
+          onClose={() => setImportModuleOpen(false)}
+          projectId={project.id}
+          projectName={project.name}
+          userId={userId}
+          alreadyUsedModuleIds={moduleUsages.map((u) => u.module.id)}
+          onImported={async () => {
+            const fresh = await listModuleUsagesByProject(project.id);
+            setModuleUsages(fresh);
+          }}
         />
       )}
     </>
@@ -471,15 +504,63 @@ function ContributorsTab({ contributors }: { contributors: ContributorWithProfil
   );
 }
 
-function ModulesTab() {
+function ModulesTab({
+  usages,
+  canEdit,
+  onImport,
+  onRemove,
+}: {
+  usages: ModuleUsageWithModule[];
+  canEdit: boolean;
+  onImport: () => void;
+  onRemove: (moduleId: string) => void | Promise<void>;
+}) {
   return (
-    <div className="p-10 text-center">
-      <Boxes size={28} className="text-white/35 mx-auto mb-3" />
-      <p className="text-white/65 font-light mb-2">Módulos llegan en etapa 3.</p>
-      <p className="text-white/40 text-sm font-light max-w-md mx-auto">
-        Vas a poder publicar piezas reusables (componentes, helpers) extraídos de tus proyectos
-        de Aeterna Studio para que otros las importen.
-      </p>
+    <div className="p-6 sm:p-8 space-y-3">
+      {canEdit && (
+        <button
+          type="button"
+          onClick={onImport}
+          className="w-full px-4 py-3 rounded-2xl border border-dashed border-white/[0.12] text-white/65 hover:text-white hover:border-[rgba(59,130,246,0.45)] hover:bg-[rgba(59,130,246,0.06)] text-sm font-light inline-flex items-center justify-center gap-2 transition-colors"
+        >
+          <Plus size={14} /> Importar módulo
+        </button>
+      )}
+      {usages.length === 0 ? (
+        <div className="py-10 text-center">
+          <Boxes size={24} className="text-white/35 mx-auto mb-3" />
+          <p className="text-white/55 font-light">
+            {canEdit
+              ? "Este proyecto no declaró módulos todavía."
+              : "Sin módulos declarados todavía."}
+          </p>
+        </div>
+      ) : (
+        usages.map((u) => (
+          <div
+            key={u.module.id}
+            className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
+          >
+            <Boxes size={14} className="text-white/55" />
+            <div className="flex-1 min-w-0">
+              <p className="text-white/85 text-sm font-light truncate">{u.module.name}</p>
+              <p className="text-white/40 text-[0.72rem] truncate">
+                {u.module.kind}{u.module.version ? ` · v${u.module.version}` : ""}
+                {u.usage.note ? ` · “${u.usage.note}”` : ""}
+              </p>
+            </div>
+            {canEdit && (
+              <button
+                type="button"
+                onClick={() => onRemove(u.module.id)}
+                className="text-white/45 hover:text-[#ff8aa8] text-[0.72rem] transition-colors"
+              >
+                quitar
+              </button>
+            )}
+          </div>
+        ))
+      )}
     </div>
   );
 }

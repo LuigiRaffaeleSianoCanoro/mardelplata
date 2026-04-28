@@ -91,3 +91,42 @@ export interface IdeaCardData extends Idea {
   followers_count: number;
   projects_count: number;
 }
+
+// =====================================================================
+// Modules (etapa 3) — piezas reusables que un proyecto declara que usa.
+// =====================================================================
+
+export type ModuleKind =
+  | "component"
+  | "helper"
+  | "hook"
+  | "pattern"
+  | "integration"
+  | "snippet";
+
+export interface RedModule {
+  id: string;
+  slug: string;
+  name: string;
+  description: string | null;
+  kind: ModuleKind;
+  version: string | null;
+  source_url: string | null;
+  license: string | null;
+  is_public: boolean;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ModuleUsage {
+  project_id: string;
+  module_id: string;
+  declared_by: string | null;
+  declared_at: string;
+  note: string | null;
+}
+
+export interface ModuleCardData extends RedModule {
+  usages_count: number;
+}

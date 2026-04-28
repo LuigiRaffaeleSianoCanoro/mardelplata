@@ -11,6 +11,10 @@ import type {
   IdeaLinkType,
   ProjectStatus,
   IdeaStatus,
+  ModuleCardData,
+  ModuleKind,
+  ModuleUsage,
+  RedModule,
 } from "./types";
 
 // =====================================================================
@@ -1019,5 +1023,359 @@ export async function deleteProjectComment(commentId: string): Promise<boolean> 
   return !error;
 }
 
+// =====================================================================
+// Modules (etapa 3) — registro reusable + uso por proyecto.
+// =====================================================================
+
+const MOCK_MODULES: ModuleCardData[] = [
+  {
+    id: "m-001",
+    slug: "low-poly-waves",
+    name: "Low-poly waves SVG",
+    description: "Componente SVG con triangulación procedural para fondos costeros — el del landing.",
+    kind: "component",
+    version: "1.2.0",
+    source_url: "https://github.com/mardelplata-dev/aeterna/blob/main/components/LowPolyWaves.tsx",
+    license: "MIT",
+    is_public: true,
+    created_by: null,
+    created_at: "2026-02-04T00:00:00Z",
+    updated_at: "2026-04-10T00:00:00Z",
+    usages_count: 1,
+  },
+  {
+    id: "m-002",
+    slug: "lenis-smooth",
+    name: "Lenis smooth scroll provider",
+    description: "Wrapper sobre Lenis con bandwidth-aware fallback (saveData / 2G). Carga dinámica.",
+    kind: "integration",
+    version: "0.3.1",
+    source_url: null,
+    license: "MIT",
+    is_public: true,
+    created_by: null,
+    created_at: "2026-03-12T00:00:00Z",
+    updated_at: "2026-04-22T00:00:00Z",
+    usages_count: 2,
+  },
+  {
+    id: "m-003",
+    slug: "use-current-user",
+    name: "useCurrentUserId hook",
+    description: "Hook tiny que resuelve el id del usuario actual con fallback a mock-mode.",
+    kind: "hook",
+    version: "1.0.0",
+    source_url: null,
+    license: "MIT",
+    is_public: true,
+    created_by: null,
+    created_at: "2026-04-02T00:00:00Z",
+    updated_at: "2026-04-02T00:00:00Z",
+    usages_count: 0,
+  },
+];
+
+const MOCK_MODULE_USAGES: ModuleUsage[] = [
+  {
+    project_id: "p-001",
+    module_id: "m-002",
+    declared_by: mockProfiles[1].id,
+    declared_at: "2026-04-10T00:00:00Z",
+    note: "Para parallax en /eventos.",
+  },
+  {
+    project_id: "p-002",
+    module_id: "m-001",
+    declared_by: mockProfiles[0].id,
+    declared_at: "2026-03-20T00:00:00Z",
+    note: null,
+  },
+  {
+    project_id: "p-002",
+    module_id: "m-002",
+    declared_by: mockProfiles[0].id,
+    declared_at: "2026-03-22T00:00:00Z",
+    note: null,
+  },
+];
+
+interface ModuleRow {
+  id: string;
+  slug: string;
+  name: string;
+  description: string | null;
+  kind: ModuleKind;
+  version: string | null;
+  source_url: string | null;
+  license: string | null;
+  is_public: boolean;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+  usages?: CountWrapper;
+}
+
+function toModuleCardData(row: ModuleRow): ModuleCardData {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    description: row.description,
+    kind: row.kind,
+    version: row.version,
+    source_url: row.source_url,
+    license: row.license,
+    is_public: row.is_public,
+    created_by: row.created_by,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+    usages_count: pickCount(row.usages),
+  };
+}
+
+export async function listModules(): Promise<ModuleCardData[]> {
+  if (IS_MOCK) {
+    return MOCK_MODULES.map((m) => ({
+      ...m,
+      usages_count: MOCK_MODULE_USAGES.filter((u) => u.module_id === m.id).length,
+    }));
+  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("modules")
+    .select(
+      `id, slug, name, description, kind, version, source_url, license, is_public,
+       created_by, created_at, updated_at,
+       usages:module_usages(count)`,
+    )
+    .eq("is_public", true)
+    .order("updated_at", { ascending: false });
+  if (error || !data) return [];
+  return (data as unknown as ModuleRow[]).map(toModuleCardData);
+}
+
+export async function getModuleBySlug(slug: string): Promise<ModuleCardData | null> {
+  if (IS_MOCK) {
+    const m = MOCK_MODULES.find((mm) => mm.slug === slug);
+    if (!m) return null;
+    return { ...m, usages_count: MOCK_MODULE_USAGES.filter((u) => u.module_id === m.id).length };
+  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("modules")
+    .select(
+      `id, slug, name, description, kind, version, source_url, license, is_public,
+       created_by, created_at, updated_at,
+       usages:module_usages(count)`,
+    )
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error || !data) return null;
+  return toModuleCardData(data as ModuleRow);
+}
+
+export interface ModuleUsageWithProject {
+  usage: ModuleUsage;
+  project: Pick<ProjectCardData, "id" | "slug" | "name" | "status">;
+}
+
+export interface ModuleUsageWithModule {
+  usage: ModuleUsage;
+  module: Pick<ModuleCardData, "id" | "slug" | "name" | "kind" | "version">;
+}
+
+export async function listModuleUsagesByModule(moduleId: string): Promise<ModuleUsageWithProject[]> {
+  if (IS_MOCK) {
+    return MOCK_MODULE_USAGES.filter((u) => u.module_id === moduleId)
+      .map((u) => {
+        const project = MOCK_PROJECTS.find((p) => p.id === u.project_id);
+        if (!project) return null;
+        return {
+          usage: u,
+          project: { id: project.id, slug: project.slug, name: project.name, status: project.status },
+        };
+      })
+      .filter((x): x is ModuleUsageWithProject => x !== null);
+  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("module_usages")
+    .select(`project_id, module_id, declared_by, declared_at, note, project:projects(id, slug, name, status)`)
+    .eq("module_id", moduleId);
+  if (error || !data) return [];
+  return (data as unknown as Array<{
+    project_id: string;
+    module_id: string;
+    declared_by: string | null;
+    declared_at: string;
+    note: string | null;
+    project: { id: string; slug: string; name: string; status: ProjectCardData["status"] } | null;
+  }>)
+    .filter((r) => r.project !== null)
+    .map((r) => ({
+      usage: {
+        project_id: r.project_id,
+        module_id: r.module_id,
+        declared_by: r.declared_by,
+        declared_at: r.declared_at,
+        note: r.note,
+      },
+      project: r.project!,
+    }));
+}
+
+export async function listModuleUsagesByProject(projectId: string): Promise<ModuleUsageWithModule[]> {
+  if (IS_MOCK) {
+    return MOCK_MODULE_USAGES.filter((u) => u.project_id === projectId)
+      .map((u) => {
+        const m = MOCK_MODULES.find((mm) => mm.id === u.module_id);
+        if (!m) return null;
+        return {
+          usage: u,
+          module: { id: m.id, slug: m.slug, name: m.name, kind: m.kind, version: m.version },
+        };
+      })
+      .filter((x): x is ModuleUsageWithModule => x !== null);
+  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("module_usages")
+    .select(`project_id, module_id, declared_by, declared_at, note, module:modules(id, slug, name, kind, version)`)
+    .eq("project_id", projectId);
+  if (error || !data) return [];
+  return (data as unknown as Array<{
+    project_id: string;
+    module_id: string;
+    declared_by: string | null;
+    declared_at: string;
+    note: string | null;
+    module: { id: string; slug: string; name: string; kind: ModuleKind; version: string | null } | null;
+  }>)
+    .filter((r) => r.module !== null)
+    .map((r) => ({
+      usage: {
+        project_id: r.project_id,
+        module_id: r.module_id,
+        declared_by: r.declared_by,
+        declared_at: r.declared_at,
+        note: r.note,
+      },
+      module: r.module!,
+    }));
+}
+
+export async function createModule(args: {
+  slug: string;
+  name: string;
+  description: string | null;
+  kind: ModuleKind;
+  version: string | null;
+  sourceUrl: string | null;
+  license: string | null;
+  userId: string;
+}): Promise<ModuleCardData | null> {
+  const slug = args.slug.trim().toLowerCase();
+  const name = args.name.trim();
+  if (!slug || !name) return null;
+  if (IS_MOCK) {
+    if (MOCK_MODULES.some((m) => m.slug === slug)) return null;
+    const now = new Date().toISOString();
+    const fresh: ModuleCardData = {
+      id: `m-mock-${Date.now()}`,
+      slug,
+      name,
+      description: args.description?.trim() || null,
+      kind: args.kind,
+      version: args.version?.trim() || null,
+      source_url: args.sourceUrl?.trim() || null,
+      license: args.license?.trim() || null,
+      is_public: true,
+      created_by: args.userId,
+      created_at: now,
+      updated_at: now,
+      usages_count: 0,
+    };
+    MOCK_MODULES.unshift(fresh);
+    return fresh;
+  }
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("modules")
+    .insert({
+      slug,
+      name,
+      description: args.description,
+      kind: args.kind,
+      version: args.version,
+      source_url: args.sourceUrl,
+      license: args.license,
+      created_by: args.userId,
+    })
+    .select(
+      `id, slug, name, description, kind, version, source_url, license, is_public,
+       created_by, created_at, updated_at,
+       usages:module_usages(count)`,
+    )
+    .maybeSingle();
+  if (error || !data) return null;
+  return toModuleCardData(data as ModuleRow);
+}
+
+export async function declareModuleUsage(args: {
+  projectId: string;
+  moduleId: string;
+  userId: string;
+  note: string | null;
+}): Promise<boolean> {
+  if (!args.userId) return false;
+  if (IS_MOCK) {
+    if (MOCK_MODULE_USAGES.some((u) => u.project_id === args.projectId && u.module_id === args.moduleId)) {
+      return true;
+    }
+    MOCK_MODULE_USAGES.push({
+      project_id: args.projectId,
+      module_id: args.moduleId,
+      declared_by: args.userId,
+      declared_at: new Date().toISOString(),
+      note: args.note?.trim() || null,
+    });
+    const m = MOCK_MODULES.find((mm) => mm.id === args.moduleId);
+    if (m) m.usages_count = MOCK_MODULE_USAGES.filter((u) => u.module_id === m.id).length;
+    return true;
+  }
+  const supabase = createClient();
+  const { error } = await supabase.from("module_usages").upsert({
+    project_id: args.projectId,
+    module_id: args.moduleId,
+    declared_by: args.userId,
+    note: args.note,
+  });
+  return !error;
+}
+
+export async function removeModuleUsage(args: {
+  projectId: string;
+  moduleId: string;
+}): Promise<boolean> {
+  if (IS_MOCK) {
+    const before = MOCK_MODULE_USAGES.length;
+    const idx = MOCK_MODULE_USAGES.findIndex(
+      (u) => u.project_id === args.projectId && u.module_id === args.moduleId,
+    );
+    if (idx >= 0) MOCK_MODULE_USAGES.splice(idx, 1);
+    const m = MOCK_MODULES.find((mm) => mm.id === args.moduleId);
+    if (m) m.usages_count = MOCK_MODULE_USAGES.filter((u) => u.module_id === m.id).length;
+    return MOCK_MODULE_USAGES.length < before;
+  }
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("module_usages")
+    .delete()
+    .eq("project_id", args.projectId)
+    .eq("module_id", args.moduleId);
+  return !error;
+}
+
 // Re-exported for callers that want to stay shallow.
-export type { ChangeKind, IdeaLinkType, ProjectStatus, IdeaStatus };
+export type { ChangeKind, IdeaLinkType, ProjectStatus, IdeaStatus, ModuleKind };
+export type { RedModule };
