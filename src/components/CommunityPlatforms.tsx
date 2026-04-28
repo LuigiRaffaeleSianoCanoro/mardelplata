@@ -6,6 +6,7 @@ type Platform = {
   desc: string;
   href: string;
   accent: string;
+  glow: string; // "R, G, B" — drives the aurora background per tile
   members?: string;
   icon: React.ReactNode;
 };
@@ -18,6 +19,7 @@ export default function CommunityPlatforms() {
       desc: "Día a día, anuncios y ayuda entre devs.",
       href: "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs",
       accent: "#25D366",
+      glow: "37, 211, 102",
       members: "comunidad activa",
       icon: (
         <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
@@ -31,6 +33,7 @@ export default function CommunityPlatforms() {
       desc: "Cobertura visual de eventos.",
       href: "https://www.instagram.com/mardelplata.dev.ar/",
       accent: "#E1306C",
+      glow: "225, 48, 108",
       icon: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069Zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073Zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881Z" />
@@ -43,6 +46,7 @@ export default function CommunityPlatforms() {
       desc: "Pulso del ecosistema en tiempo real.",
       href: "https://x.com/Mardeldev",
       accent: "#0f172a",
+      glow: "59, 130, 246",
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -97,42 +101,47 @@ export default function CommunityPlatforms() {
 
         {/* Bento grid — feature WhatsApp dark tile + 2 light tiles */}
         <div className="grid grid-cols-12 gap-4 md:gap-5 auto-rows-[minmax(170px,_auto)]">
-          {/* Feature: WhatsApp (dark) — col-7 row-2 */}
+          {/* Feature: WhatsApp — col-7 row-2 */}
           <a
             href={whatsapp.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="bento-tile bento-tile-dark col-span-12 md:col-span-7 md:row-span-2 group"
+            className="bento-tile col-span-12 md:col-span-7 md:row-span-2 group"
+            style={{ ["--tile-glow" as string]: whatsapp.glow }}
           >
             <div className="relative h-full flex flex-col justify-between p-2">
               <div className="flex items-start justify-between gap-4">
-                <span className="kicker text-white/45 flex items-center gap-2">
-                  <span className="dot-amber" /> {whatsapp.slot}
+                <span className="kicker text-ocean-700/70 flex items-center gap-2">
+                  <span
+                    className="inline-block w-1.5 h-1.5 rounded-full"
+                    style={{ background: `rgb(${whatsapp.glow})`, boxShadow: `0 0 8px rgba(${whatsapp.glow}, 0.7)` }}
+                  />
+                  {whatsapp.slot}
                 </span>
-                <span className="kicker text-white/40">{whatsapp.members}</span>
+                <span className="kicker text-ocean-700/55">{whatsapp.members}</span>
               </div>
 
               <div className="my-8 md:my-10">
                 <span
-                  className="metal-chip w-14 h-14 rounded-2xl mb-5 inline-flex"
+                  className="grid place-items-center w-14 h-14 rounded-2xl mb-5 bg-white border border-ocean-200/70 shadow-sm"
                   style={{ color: whatsapp.accent }}
                   aria-hidden
                 >
                   {whatsapp.icon}
                 </span>
-                <h3 className="display-thin text-white text-3xl md:text-4xl mb-3">
+                <h3 className="display-thin text-ocean-900 text-3xl md:text-4xl mb-3">
                   {whatsapp.handle}
                 </h3>
-                <p className="text-white/60 text-base max-w-md leading-relaxed font-light">
+                <p className="text-slate-600 text-base max-w-md leading-relaxed font-light">
                   {whatsapp.desc} Sumate y enganchate desde el primer mensaje del día.
                 </p>
               </div>
 
-              <div className="flex items-center justify-between border-t border-white/[0.06] pt-4">
-                <p className="coord-line">
+              <div className="flex items-center justify-between border-t border-ocean-300/15 pt-4">
+                <p className="coord-line text-ocean-700/60">
                   CHANNEL <span className="sep">·</span> <span className="num">PRIMARY</span>
                 </p>
-                <span className="text-white/65 group-hover:text-white group-hover:translate-x-1 transition-all flex items-center gap-2 text-sm">
+                <span className="text-ocean-700 group-hover:translate-x-1 transition-transform flex items-center gap-2 text-sm">
                   Unirse
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                     <path d="M5 12h14M13 5l7 7-7 7" />
@@ -148,6 +157,7 @@ export default function CommunityPlatforms() {
             target="_blank"
             rel="noopener noreferrer"
             className="bento-tile col-span-12 md:col-span-5 group"
+            style={{ ["--tile-glow" as string]: instagram.glow }}
           >
             <div className="flex items-start justify-between mb-5">
               <span className="kicker text-ocean-700/70">{instagram.slot}</span>
@@ -177,6 +187,7 @@ export default function CommunityPlatforms() {
             target="_blank"
             rel="noopener noreferrer"
             className="bento-tile col-span-12 md:col-span-5 group"
+            style={{ ["--tile-glow" as string]: x.glow }}
           >
             <div className="flex items-start justify-between mb-5">
               <span className="kicker text-ocean-700/70">{x.slot}</span>

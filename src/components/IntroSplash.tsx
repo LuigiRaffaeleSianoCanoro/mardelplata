@@ -69,6 +69,12 @@ export default function IntroSplash() {
           ATLÁNTICO SUR
         </p>
       </div>
+
+      {/* HUD lock-off — content fades, a horizontal scan line locks at center
+          and collapses to a point. Pacific-Rim mech vibe, no brackets. */}
+      <div className="splash-iris">
+        <span className="iris-line" />
+      </div>
     </div>
   );
 }
