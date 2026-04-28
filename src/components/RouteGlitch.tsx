@@ -58,21 +58,38 @@ export default function RouteGlitch() {
     return () => document.removeEventListener("click", handler, true);
   }, [router]);
 
-  // When pathname actually changes, run the glitch-in and unmount the overlay.
+  // When pathname actually changes during phase=out, kick the transition into
+  // phase=in. Splitting the timer into its own effect keeps it from being
+  // cancelled by the cleanup of the same effect that scheduled it.
   useEffect(() => {
-    if (phase !== "out") {
+    if (phase === "out" && prevPathRef.current !== pathname) {
       prevPathRef.current = pathname;
-      return;
+      setPhase("in");
+    } else if (phase !== "out") {
+      prevPathRef.current = pathname;
     }
-    if (prevPathRef.current === pathname) return;
-    prevPathRef.current = pathname;
-    setPhase("in");
+  }, [pathname, phase]);
+
+  // When in phase=in, schedule the cleanup that unlocks clicks.
+  useEffect(() => {
+    if (phase !== "in") return;
     const t = window.setTimeout(() => {
       setPhase("idle");
       lockedRef.current = false;
     }, 520);
     return () => window.clearTimeout(t);
-  }, [pathname, phase]);
+  }, [phase]);
+
+  // Safety net — if the route push silently fails (or pathname doesn't move
+  // for any reason), force-reset after 2.5s so the user is never locked out.
+  useEffect(() => {
+    if (phase === "idle") return;
+    const t = window.setTimeout(() => {
+      setPhase("idle");
+      lockedRef.current = false;
+    }, 2500);
+    return () => window.clearTimeout(t);
+  }, [phase]);
 
   if (phase === "idle") return null;
 

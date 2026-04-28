@@ -45,7 +45,7 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-40 px-4 pt-4">
       <nav
         className={`mx-auto max-w-5xl flex items-center justify-between gap-2 px-3 py-2 rounded-full transition-all duration-500 ${
-          scrolled ? "glass-pill" : "bg-transparent border border-transparent"
+          scrolled || !isHome ? "glass-pill" : "bg-transparent border border-transparent"
         }`}
       >
         {/* Logo */}
