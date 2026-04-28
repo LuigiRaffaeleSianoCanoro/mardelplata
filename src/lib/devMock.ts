@@ -1,6 +1,38 @@
 import type { User } from "@supabase/supabase-js";
 
-export const IS_MOCK = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "1";
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+const looksLikePlaceholder = (value: string | undefined) =>
+  !value || value.length === 0 || value.includes("placeholder");
+
+export const HAS_SUPABASE_CONFIG =
+  !looksLikePlaceholder(SUPABASE_URL) && !looksLikePlaceholder(SUPABASE_ANON_KEY);
+
+const explicitlyEnabled = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "1";
+const isDev = process.env.NODE_ENV !== "production";
+const autoEnabled = isDev && !HAS_SUPABASE_CONFIG;
+
+export const IS_MOCK = explicitlyEnabled || autoEnabled;
+
+export const MOCK_REASON: "explicit" | "auto-no-supabase" | "off" = explicitlyEnabled
+  ? "explicit"
+  : autoEnabled
+    ? "auto-no-supabase"
+    : "off";
+
+const globalKey = "__mardelplata_mock_warned__" as const;
+type GlobalWithFlag = typeof globalThis & { [globalKey]?: boolean };
+const g = globalThis as GlobalWithFlag;
+
+if (autoEnabled && !g[globalKey]) {
+  g[globalKey] = true;
+  const where = typeof window === "undefined" ? "[server]" : "[client]";
+  console.warn(
+    `${where} Supabase no está configurado (NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY faltantes o placeholder). ` +
+      `Modo desarrollo: usando datos mock. Definí esas variables en .env.local para conectar a un proyecto real.`,
+  );
+}
 
 export const mockUser = {
   id: "00000000-0000-0000-0000-000000000001",
