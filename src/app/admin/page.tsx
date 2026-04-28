@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import AdminDashboard from "./AdminDashboard";
+import { IS_MOCK, mockUser, mockEvents, mockProfiles } from "@/lib/devMock";
 
 interface Event {
   id: string;
@@ -41,6 +42,13 @@ export default function AdminPage() {
 
   useEffect(() => {
     async function loadData() {
+      if (IS_MOCK) {
+        setEvents(mockEvents as Event[]);
+        setProfiles(mockProfiles as Profile[]);
+        setCurrentUserId(mockUser.id);
+        setLoading(false);
+        return;
+      }
       const supabase = createClient();
 
       const { data: { user } } = await supabase.auth.getUser();

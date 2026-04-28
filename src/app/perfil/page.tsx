@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import ProfileClient from "./ProfileClient";
 import type { User } from "@supabase/supabase-js";
+import { IS_MOCK, mockUser, mockProfile } from "@/lib/devMock";
 
 export default function PerfilPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -14,6 +15,13 @@ export default function PerfilPage() {
   const router = useRouter();
 
   const loadProfile = useCallback(async () => {
+    if (IS_MOCK) {
+      setUser(mockUser);
+      setProfile(mockProfile as never);
+      setDbError(null);
+      setLoading(false);
+      return;
+    }
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { IS_MOCK } from "@/lib/devMock";
 
 export default function AdminLayout({
   children,
@@ -15,6 +16,11 @@ export default function AdminLayout({
 
   useEffect(() => {
     async function checkAdmin() {
+      if (IS_MOCK) {
+        setAuthorized(true);
+        setLoading(false);
+        return;
+      }
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
 

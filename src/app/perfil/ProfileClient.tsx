@@ -17,6 +17,7 @@ import {
   resolveAvatarDisplayUrl,
 } from "@/lib/avatarPresets";
 import { Button, GlassCard, PageHeader, StaggerReveal } from "@/components/ui";
+import { IS_MOCK } from "@/lib/devMock";
 
 interface Profile {
   id: string;
@@ -92,6 +93,10 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   }, []);
 
   useEffect(() => {
+    if (IS_MOCK) {
+      setAttendanceCount(3);
+      return;
+    }
     let cancelled = false;
 
     const loadAttendance = async () => {
@@ -117,6 +122,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   }, [supabase, user.id]);
 
   useEffect(() => {
+    if (IS_MOCK) return;
     if (photoAuthorized || !currentProfile || enforcingAvatar) return;
     if (!currentProfile.avatar_url || isAllowedPresetAvatarUrl(currentProfile.avatar_url)) return;
 
