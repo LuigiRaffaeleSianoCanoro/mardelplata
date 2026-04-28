@@ -1,24 +1,33 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Home,
   User,
-  Briefcase,
-  Compass,
+  Network,
   Shield,
   Settings,
   LogOut,
+  UserCircle2,
+  QrCode,
+  CalendarCheck,
+  CalendarDays,
+  GitBranch,
+  Bookmark,
+  Lightbulb,
+  LayoutDashboard,
+  ScanLine,
   type LucideIcon,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { IS_MOCK } from "@/lib/devMock";
+import QrDialog from "./QrDialog";
 
 /* ------------------------------------------------------------------ */
-/*  Tooltip — slides in from the right, no Radix                       */
+/*  Tooltip — slides in from the right                                  */
 /* ------------------------------------------------------------------ */
 
 function SidebarTooltip({
@@ -45,8 +54,8 @@ function SidebarTooltip({
           show ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"
         } ${
           active
-            ? "bg-[rgba(20,20,28,0.92)] border border-[rgba(59,130,246,0.32)] text-[#3B82F6] shadow-lg"
-            : "bg-[rgba(14,14,20,0.92)] border border-white/[0.08] text-white/75 shadow-lg"
+            ? "bg-[rgba(28,31,39,0.95)] border border-[rgba(59,130,246,0.32)] text-[#3B82F6] shadow-lg"
+            : "bg-[rgba(20,22,28,0.95)] border border-white/[0.08] text-white/80 shadow-lg"
         }`}
       >
         <div className="flex items-center gap-2">
@@ -75,71 +84,183 @@ function Shimmer({ hovered }: { hovered: boolean }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Pillar / section button                                             */
+/*  Pillar button (top — context switcher)                              */
 /* ------------------------------------------------------------------ */
 
-type NavItem = {
-  href: string;
+type Pillar = {
+  id: string;
   label: string;
   icon: LucideIcon;
-  prefix?: string;
+  /** Path used for active-state detection from pathname. */
+  basePath: string;
   accent: string;
+  tabs: TabItem[];
+  /** When true, clicking the pillar navigates. When false (default for
+   *  context-only pillars like "Yo" / "Red"), the click only swaps the
+   *  tabs shown below — no route change. */
+  navigate?: boolean;
 };
 
-function NavButton({
-  item,
+type TabItem = {
+  href?: string;
+  label: string;
+  icon: LucideIcon;
+  matchPrefix?: string;
+  /** Special action — clicking the tab triggers in-app behavior instead of navigating. */
+  action?: "qr";
+};
+
+function PillarButton({
+  pillar,
   isActive,
+  onClick,
   index,
 }: {
-  item: NavItem;
+  pillar: Pillar;
   isActive: boolean;
+  onClick: () => void;
   index: number;
 }) {
   const [hovered, setHovered] = useState(false);
-  const Icon = item.icon;
+  const Icon = pillar.icon;
+
+  const className = `relative w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-200 overflow-hidden active:scale-95 ${
+    hovered && !isActive ? "scale-105" : ""
+  } ${isActive ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""}`;
+  const style: React.CSSProperties = {
+    animation: `sidebar-tab-in 300ms ease-out ${index * 60}ms both`,
+    ...(isActive
+      ? { boxShadow: `0 0 16px ${pillar.accent}30, inset 0 0 0 1px ${pillar.accent}40` }
+      : hovered
+        ? { boxShadow: `0 0 10px ${pillar.accent}20` }
+        : {}),
+  };
+  const inner = (
+    <>
+      <Icon
+        size={20}
+        strokeWidth={1.6}
+        className="relative z-10 transition-colors duration-200"
+        style={{
+          color: isActive
+            ? pillar.accent
+            : hovered
+              ? `${pillar.accent}cc`
+              : "rgba(255,255,255,0.55)",
+        }}
+      />
+      <Shimmer hovered={hovered} />
+    </>
+  );
 
   return (
-    <SidebarTooltip label={item.label} icon={Icon} active={isActive}>
-      <Link
-        href={item.href}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className={`relative w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-200 overflow-hidden active:scale-95 ${
-          hovered && !isActive ? "scale-105" : ""
-        } ${
-          isActive
-            ? "bg-[rgba(20,20,28,0.85)] ring-1 ring-white/10"
-            : ""
-        }`}
-        style={{
-          animation: `sidebar-tab-in 300ms ease-out ${index * 60}ms both`,
-          ...(isActive
-            ? { boxShadow: `0 0 14px ${item.accent}22, inset 0 0 0 1px ${item.accent}30` }
-            : hovered
-              ? { boxShadow: `0 0 8px ${item.accent}18` }
-              : undefined),
-        }}
-      >
-        <Icon
-          size={20}
-          strokeWidth={1.6}
-          className="relative z-10 transition-colors duration-200"
-          style={{
-            color: isActive
-              ? item.accent
-              : hovered
-                ? `${item.accent}cc`
-                : "rgba(255,255,255,0.5)",
-          }}
-        />
-        <Shimmer hovered={hovered} />
-      </Link>
+    <SidebarTooltip label={pillar.label} icon={Icon} active={isActive}>
+      {pillar.navigate ? (
+        <Link
+          href={pillar.basePath}
+          onClick={onClick}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className={className}
+          style={style}
+        >
+          {inner}
+        </Link>
+      ) : (
+        <button
+          type="button"
+          onClick={onClick}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className={className}
+          style={style}
+          aria-label={pillar.label}
+          aria-pressed={isActive}
+        >
+          {inner}
+        </button>
+      )}
     </SidebarTooltip>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Footer button (settings, logout)                                    */
+/*  Tab button (bottom — for active pillar)                             */
+/* ------------------------------------------------------------------ */
+
+const TAB_HOVER_PALETTE = ["#C0D4E8", "#F2D0C8", "#C8E0D0", "#F5E0C0", "#D0C8E8"];
+
+function TabButton({
+  tab,
+  isActive,
+  index,
+  onAction,
+}: {
+  tab: TabItem;
+  isActive: boolean;
+  index: number;
+  onAction?: (action: "qr", e: React.MouseEvent<HTMLButtonElement>) => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const Icon = tab.icon;
+  const hoverColor = TAB_HOVER_PALETTE[index % TAB_HOVER_PALETTE.length];
+
+  const className = `relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 overflow-hidden active:scale-95 ${
+    hovered && !isActive ? "scale-105" : ""
+  } ${isActive ? "bg-[rgba(35,39,50,0.92)]" : ""}`;
+  const style: React.CSSProperties = {
+    animation: `sidebar-tab-in 280ms ease-out ${index * 50}ms both`,
+    ...(hovered && !isActive ? { boxShadow: `0 0 8px ${hoverColor}40` } : {}),
+  };
+  const inner = (
+    <>
+      <Icon
+        size={18}
+        strokeWidth={1.6}
+        className="relative z-10 transition-colors duration-200"
+        style={{
+          color: isActive
+            ? "rgba(255,255,255,0.95)"
+            : hovered
+              ? hoverColor
+              : "rgba(255,255,255,0.45)",
+        }}
+      />
+      <Shimmer hovered={hovered} />
+    </>
+  );
+
+  return (
+    <SidebarTooltip label={tab.label} icon={Icon} active={isActive}>
+      {tab.action ? (
+        <button
+          type="button"
+          onClick={(e) => tab.action && onAction?.(tab.action, e)}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className={className}
+          style={style}
+          aria-label={tab.label}
+        >
+          {inner}
+        </button>
+      ) : (
+        <Link
+          href={tab.href ?? "#"}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className={className}
+          style={style}
+        >
+          {inner}
+        </Link>
+      )}
+    </SidebarTooltip>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Footer button                                                       */
 /* ------------------------------------------------------------------ */
 
 function FooterButton({
@@ -161,7 +282,7 @@ function FooterButton({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 overflow-hidden cursor-pointer ${
-        active ? "bg-[rgba(20,20,28,0.85)] ring-1 ring-white/10" : ""
+        active ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""
       }`}
     >
       <Icon
@@ -197,26 +318,107 @@ function FooterButton({
 /*  Sidebar                                                             */
 /* ------------------------------------------------------------------ */
 
-interface AppSidebarProps {
-  isAdmin?: boolean;
+export interface AppSidebarUser {
+  fullName: string | null;
+  email: string | null;
+  qrCode: string | null;
+  memberSince?: string | null;
 }
 
-export default function AppSidebar({ isAdmin }: AppSidebarProps) {
-  const pathname = usePathname();
-  const router = useRouter();
+interface AppSidebarProps {
+  isAdmin?: boolean;
+  user?: AppSidebarUser | null;
+}
 
-  const items: NavItem[] = [
-    { href: "/", label: "Inicio", icon: Home, accent: "#3B82F6" },
-    { href: "/perfil", label: "Mi perfil", icon: User, prefix: "/perfil", accent: "#3B82F6" },
-    { href: "/bolsa", label: "Bolsa", icon: Briefcase, prefix: "/bolsa", accent: "#FFB070" },
-    { href: "/primer-trabajo", label: "Primer Trabajo", icon: Compass, prefix: "/primer-trabajo", accent: "#FF2DAA" },
+export default function AppSidebar({ isAdmin, user }: AppSidebarProps) {
+  const pathname = usePathname() ?? "/";
+  const router = useRouter();
+  const [qrOpen, setQrOpen] = useState(false);
+  const [qrAnchorY, setQrAnchorY] = useState<number | null>(null);
+
+  const pillars: Pillar[] = [
+    {
+      id: "inicio",
+      label: "Inicio",
+      icon: Home,
+      basePath: "/dashboard",
+      accent: "#3B82F6",
+      tabs: [],
+      navigate: true,
+    },
+    {
+      id: "yo",
+      label: "Yo",
+      icon: User,
+      basePath: "/perfil",
+      accent: "#3B82F6",
+      tabs: [
+        { href: "/perfil", label: "Mi perfil", icon: UserCircle2 },
+        { label: "Mi QR", icon: QrCode, action: "qr" },
+        { href: "/perfil#asistencias", label: "Asistencias", icon: CalendarCheck },
+        { href: "/eventos", label: "Eventos", icon: CalendarDays, matchPrefix: "/eventos" },
+      ],
+    },
+    {
+      id: "red",
+      label: "Red",
+      icon: Network,
+      basePath: "/red",
+      accent: "#FF2DAA",
+      tabs: [
+        { href: "/red", label: "Open source", icon: GitBranch },
+        { href: "/red/mis-proyectos", label: "Mis proyectos", icon: Bookmark, matchPrefix: "/red/mis-proyectos" },
+        { href: "/red/ideas", label: "Ideas", icon: Lightbulb, matchPrefix: "/red/ideas" },
+      ],
+    },
     ...(isAdmin
-      ? [{ href: "/admin", label: "Admin", icon: Shield, prefix: "/admin", accent: "#FF2DAA" } as NavItem]
+      ? [
+          {
+            id: "admin",
+            label: "Admin",
+            icon: Shield,
+            basePath: "/admin",
+            accent: "#FFB070",
+            tabs: [
+              { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+              { href: "/admin/scanner", label: "Scanner", icon: ScanLine, matchPrefix: "/admin/scanner" },
+            ],
+          } as Pillar,
+        ]
       : []),
   ];
 
-  const isActive = (item: NavItem) =>
-    item.prefix ? pathname?.startsWith(item.prefix) ?? false : pathname === item.href;
+  // Detect which pillar matches the current pathname. Default to "yo" when
+  // landing on something we don't recognize so a useful tab list shows up.
+  const detectedPillar =
+    pillars.find((p) => p.id !== "inicio" && pathname.startsWith(p.basePath)) ??
+    (pathname.startsWith("/dashboard") ? pillars[0] : null) ??
+    pillars[1];
+
+  const [selectedId, setSelectedId] = useState<string>(detectedPillar.id);
+  // Re-sync the highlighted pillar when the pathname changes (e.g. user
+  // clicked a tab inside another pillar's group, or navigated externally).
+  useEffect(() => {
+    setSelectedId(detectedPillar.id);
+  }, [detectedPillar.id]);
+  const activePillar = pillars.find((p) => p.id === selectedId) ?? detectedPillar;
+
+  const isPillarActive = (p: Pillar) => p.id === selectedId;
+
+  const isTabActive = (tab: TabItem) => {
+    if (tab.action === "qr") return qrOpen;
+    if (tab.matchPrefix) return pathname.startsWith(tab.matchPrefix);
+    if (!tab.href) return false;
+    return pathname === tab.href.split("#")[0];
+  };
+
+  const handleAction = (action: "qr", e: React.MouseEvent<HTMLButtonElement>) => {
+    if (action === "qr") {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setQrAnchorY(rect.top + rect.height / 2);
+      setQrOpen(true);
+    }
+  };
 
   const handleLogout = async () => {
     if (!IS_MOCK) {
@@ -227,12 +429,9 @@ export default function AppSidebar({ isAdmin }: AppSidebarProps) {
     router.refresh();
   };
 
-  const settingsActive = pathname?.startsWith("/perfil/settings") ?? false;
-
   return (
     <aside className="app-sidebar" aria-label="Navegación principal">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(59,130,246,0.04)] to-transparent pointer-events-none rounded-inherit" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(59,130,246,0.04)] to-transparent pointer-events-none" />
 
       {/* Logo */}
       <Link
@@ -245,29 +444,54 @@ export default function AppSidebar({ isAdmin }: AppSidebarProps) {
         </span>
       </Link>
 
-      {/* Separator */}
       <div className="relative z-10 w-8 h-px bg-white/[0.06] mb-4 mx-auto" />
 
       {/* Pillars */}
-      <nav className="relative z-10 flex flex-col items-center gap-1.5 mb-4 flex-1">
-        {items.map((item, i) => (
-          <NavButton key={item.href} item={item} isActive={isActive(item)} index={i} />
+      <nav className="relative z-10 flex flex-col items-center gap-1.5 mb-4">
+        {pillars.map((p, i) => (
+          <PillarButton
+            key={p.id}
+            pillar={p}
+            isActive={isPillarActive(p)}
+            onClick={() => setSelectedId(p.id)}
+            index={i}
+          />
         ))}
       </nav>
 
-      {/* Separator */}
       <div className="relative z-10 w-8 h-px bg-white/[0.06] mb-3 mx-auto" />
+
+      {/* Tabs for active pillar */}
+      <nav
+        key={activePillar.id}
+        className="relative z-10 flex flex-col items-center gap-1 flex-1"
+      >
+        {activePillar.tabs.map((t, i) => (
+          <TabButton
+            key={t.href ?? t.action ?? t.label}
+            tab={t}
+            isActive={isTabActive(t)}
+            index={i}
+            onAction={handleAction}
+          />
+        ))}
+      </nav>
 
       {/* Footer */}
       <div className="relative z-10 flex flex-col items-center gap-1 pb-1">
-        <FooterButton
-          label="Configuración"
-          icon={Settings}
-          href="/perfil"
-          active={settingsActive}
-        />
+        <FooterButton label="Configuración" icon={Settings} href="/perfil" />
         <FooterButton label="Cerrar sesión" icon={LogOut} onClick={handleLogout} />
       </div>
+
+      <QrDialog
+        open={qrOpen}
+        onClose={() => setQrOpen(false)}
+        qrCode={user?.qrCode ?? null}
+        fullName={user?.fullName ?? null}
+        email={user?.email ?? null}
+        memberSince={user?.memberSince ?? null}
+        anchorY={qrAnchorY}
+      />
     </aside>
   );
 }

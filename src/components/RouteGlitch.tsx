@@ -23,6 +23,14 @@ export default function RouteGlitch() {
   // Capture-phase click interceptor. We need capture so we beat Next.js's
   // own Link handler (which lives on the React root).
   useEffect(() => {
+    // Routes that live inside the AppShell. Navigating between two of these
+    // skips the boot-terminal — the shell itself stays put, only the content
+    // pane swaps with a soft fade. The terminal is reserved for crossings
+    // between the public landing and the app.
+    const APP_ROUTE_PREFIXES = ["/perfil", "/admin", "/red", "/eventos", "/dashboard"];
+    const isAppRoute = (p: string) =>
+      APP_ROUTE_PREFIXES.some((prefix) => p === prefix || p.startsWith(prefix + "/") || p.startsWith(prefix + "#"));
+
     const handler = (e: MouseEvent) => {
       if (lockedRef.current) {
         e.preventDefault();
@@ -42,6 +50,12 @@ export default function RouteGlitch() {
       if (url.origin !== window.location.origin) return;
       // Same page, no path change → let other handlers (anchor teleport) take over
       if (url.pathname === window.location.pathname) return;
+
+      // Intra-app navigation → let Next.js handle it natively. The AppShell
+      // content key={pathname} animation gives the soft transition.
+      const fromApp = isAppRoute(window.location.pathname);
+      const toApp = isAppRoute(url.pathname);
+      if (fromApp && toApp) return;
 
       e.preventDefault();
       e.stopPropagation();

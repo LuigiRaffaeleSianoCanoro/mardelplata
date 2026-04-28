@@ -48,6 +48,14 @@
   --text-hi:  rgba(255, 255, 255, 0.96);
   --text-md:  rgba(255, 255, 255, 0.62);
   --text-lo:  rgba(255, 255, 255, 0.40);
+
+  /* App shell — gunmetal palette (lighter than the landing matte black,
+     gives a brushed-steel feel without going full dark). Used only in
+     .app-canvas / .app-sidebar / .glass-night so the landing stays jet. */
+  --color-app-bg:        #16181f;
+  --color-app-surface:   #1c1f27;
+  --color-app-elevated:  #232732;
+  --color-app-rail:      #1a1d24;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -1015,10 +1023,11 @@ html.lenis, html.lenis body { height: auto; }
   transform: translateX(100%);
 }
 
-/* App-shell canvas — matte black + atmospheric depth (Tron / Vision Pro) */
+/* App-shell canvas — gunmetal gray with brushed-steel highlight, lighter
+   than the landing matte black so the workspace doesn't feel oppressive. */
 .app-canvas {
   position: relative;
-  background: var(--color-ink-0);
+  background: var(--color-app-bg);
   color: var(--text-hi);
   overflow-x: hidden;
   animation: shell-bg-fade 0.6s ease-out both;
@@ -1030,9 +1039,10 @@ html.lenis, html.lenis body { height: auto; }
   pointer-events: none;
   z-index: 0;
   background-image:
-    radial-gradient(70% 55% at 88% -8%,  rgba(59, 130, 246, 0.10),  transparent 65%),
-    radial-gradient(60% 55% at -8% 105%, rgba(59, 130, 246, 0.06), transparent 65%),
-    radial-gradient(120% 80% at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.55) 100%);
+    radial-gradient(70% 55% at 88% -8%,  rgba(59, 130, 246, 0.08),  transparent 65%),
+    radial-gradient(60% 55% at -8% 105%, rgba(59, 130, 246, 0.05), transparent 65%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 30%),
+    radial-gradient(120% 80% at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.35) 100%);
 }
 .app-canvas::after {
   content: '';
@@ -1576,8 +1586,9 @@ html.lenis, html.lenis body { height: auto; }
    ──────────────────────────────────────────────────────────── */
 
 /* Spectra-style icon rail. Fixed 68px collapsed width, no expand toggle.
-   Each pillar is an icon-only button with a custom slide-in tooltip,
-   shimmer hover overlay and per-item accent glow on active. */
+   Pillars on top switch context, tabs below reflect the active pillar.
+   Gunmetal background — slightly brighter than the canvas so the rail
+   reads as elevated, like a brushed-steel panel. */
 .app-sidebar {
   position: fixed;
   top: 0;
@@ -1585,8 +1596,10 @@ html.lenis, html.lenis body { height: auto; }
   left: 0;
   width: 68px;
   z-index: 50;
-  background: rgba(8, 8, 12, 0.96);
-  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 8%),
+    var(--color-app-rail);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   display: flex;
@@ -1596,6 +1609,96 @@ html.lenis, html.lenis body { height: auto; }
   overflow: visible;
   animation: sidebar-slide-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
+
+/* QR popover — slides out from the sidebar like an oversized tooltip,
+   anchored next to the Mi QR button. Not a centered modal. */
+@keyframes qr-popover-in {
+  from { opacity: 0; transform: translateX(-12px) scale(0.97); filter: blur(3px); }
+  to   { opacity: 1; transform: translateX(0) scale(1);       filter: blur(0); }
+}
+.qr-popover {
+  padding: 1.6rem 1.5rem 1.4rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015) 30%, transparent),
+    rgba(24, 26, 33, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 30px 70px -25px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(59, 130, 246, 0.06),
+    0 0 50px -16px rgba(59, 130, 246, 0.32);
+  animation: qr-popover-in 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  transform-origin: left center;
+}
+.qr-popover-arrow {
+  position: absolute;
+  left: -7px;
+  width: 14px;
+  height: 14px;
+  background: rgba(24, 26, 33, 0.96);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transform: rotate(45deg);
+  box-shadow: -2px 2px 8px -3px rgba(0, 0, 0, 0.4);
+}
+.qr-frame {
+  position: relative;
+  padding: 22px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(35, 39, 50, 0.85), rgba(20, 22, 28, 0.85));
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 32px -10px rgba(59, 130, 246, 0.4);
+}
+.qr-frame-corners {
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, #3B82F6 0 18px, transparent 18px) 0 0/20px 2px no-repeat,
+    linear-gradient(180deg, #3B82F6 0 18px, transparent 18px) 0 0/2px 20px no-repeat,
+    linear-gradient(270deg, #3B82F6 0 18px, transparent 18px) 100% 0/20px 2px no-repeat,
+    linear-gradient(180deg, #3B82F6 0 18px, transparent 18px) 100% 0/2px 20px no-repeat,
+    linear-gradient(90deg, #3B82F6 0 18px, transparent 18px) 0 100%/20px 2px no-repeat,
+    linear-gradient(0deg, #3B82F6 0 18px, transparent 18px) 0 100%/2px 20px no-repeat,
+    linear-gradient(270deg, #3B82F6 0 18px, transparent 18px) 100% 100%/20px 2px no-repeat,
+    linear-gradient(0deg, #3B82F6 0 18px, transparent 18px) 100% 100%/2px 20px no-repeat;
+  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6));
+}
+
+/* Glass-night card — for app-shell content over the gunmetal canvas.
+   Sapphire-tinted glass, more refined than the public landing's white
+   bento; reads like a Vision-Pro panel sitting on brushed steel. */
+.glass-night {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015) 40%, transparent),
+    rgba(28, 31, 39, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 24px 60px -32px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(59, 130, 246, 0.04);
+  overflow: hidden;
+  isolation: isolate;
+}
+.glass-night::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(140% 100% at 100% 0%, rgba(59, 130, 246, 0.05), transparent 55%);
+}
+.glass-night > * { position: relative; z-index: 1; }
 
 @keyframes sidebar-slide-in {
   from { opacity: 0; transform: translateX(-22px); }
@@ -1607,12 +1710,17 @@ html.lenis, html.lenis body { height: auto; }
   padding-right: 16px;
   position: relative;
   z-index: 1;
-  animation: shell-reveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
-@keyframes shell-reveal {
-  from { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(6px); }
-  to   { opacity: 1; clip-path: inset(0 0 0 0);     transform: translateY(0); }
+/* Soft per-route content transition. Re-fires every time the wrapper's
+   `key={pathname}` changes (set by AppShell), so route swaps inside the
+   shell get a quick fade-in without disturbing the sidebar skeleton. */
+@keyframes shell-content-fade {
+  from { opacity: 0; transform: translateY(6px); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0);   filter: blur(0); }
+}
+.shell-content-fade {
+  animation: shell-content-fade 320ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 .shell-scan-line {
