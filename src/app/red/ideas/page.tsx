@@ -8,7 +8,7 @@ import IdeaSheet from "@/components/red/IdeaSheet";
 import NewIdeaDialog from "@/components/red/NewIdeaDialog";
 import { listIdeas } from "@/lib/red/queries";
 import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
-import { useSheetUrlSync } from "@/lib/red/useSheetUrlSync";
+import { useSheetSlugParam } from "@/lib/red/useSheetUrlSync";
 import type { IdeaCardData } from "@/lib/red/types";
 
 type FilterMode = "all" | "following" | "mine";
@@ -18,7 +18,7 @@ export default function IdeasPage() {
   const [ideas, setIdeas] = useState<IdeaCardData[]>([]);
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState<FilterMode>("all");
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [openSlug, setOpenSlug] = useSheetSlugParam("i");
   const [creatingOpen, setCreatingOpen] = useState(false);
 
   useEffect(() => {
@@ -34,13 +34,6 @@ export default function IdeasPage() {
     };
   }, []);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const slug = new URL(window.location.href).searchParams.get("i");
-    if (slug) setOpenSlug(slug);
-  }, []);
-
-  useSheetUrlSync("i", openSlug);
 
   // Filtering by following / mine is a noop until we wire up auth & follower
   // tables (etapa 2). For now the toggle only updates the chosen visual.

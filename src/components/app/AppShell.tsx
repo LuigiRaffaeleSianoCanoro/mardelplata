@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import AppSidebar, { type AppSidebarUser } from "./AppSidebar";
+import CommandPalette from "./CommandPalette";
 import { createClient } from "@/lib/supabase/client";
 import { IS_MOCK, mockProfile } from "@/lib/devMock";
 
@@ -21,6 +22,19 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
   const [scanning, setScanning] = useState(true);
   const [user, setUser] = useState<AppSidebarUser | null>(userProp ?? null);
   const [resolvedAdmin, setResolvedAdmin] = useState<boolean>(Boolean(isAdmin));
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  // Cmd+K / Ctrl+K toggles the global command palette.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const t = window.setTimeout(() => setScanning(false), 1100);
@@ -75,11 +89,16 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
       {/* Sidebar lives outside the keyed wrapper, so it never re-mounts on
           route changes — feels like a fixed skeleton with the content panel
           swapping underneath. */}
-      <AppSidebar isAdmin={resolvedAdmin} user={user} />
+      <AppSidebar
+        isAdmin={resolvedAdmin}
+        user={user}
+        onOpenSearch={() => setPaletteOpen(true)}
+      />
       <div key={pathname} className="app-shell-content shell-content-fade">
         {children}
       </div>
       {scanning && <div className="shell-scan-line" aria-hidden="true" />}
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
     </div>
   );
 }

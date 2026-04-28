@@ -8,23 +8,15 @@ import ProjectSheet from "@/components/red/ProjectSheet";
 import NewProjectDialog from "@/components/red/NewProjectDialog";
 import { listMyProjects } from "@/lib/red/queries";
 import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
-import { useSheetUrlSync } from "@/lib/red/useSheetUrlSync";
+import { useSheetSlugParam } from "@/lib/red/useSheetUrlSync";
 import type { ProjectCardData } from "@/lib/red/types";
 
 export default function MyProjectsPage() {
   const userId = useCurrentUserId();
   const [projects, setProjects] = useState<ProjectCardData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [openSlug, setOpenSlug] = useSheetSlugParam("p");
   const [creatingOpen, setCreatingOpen] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const slug = new URL(window.location.href).searchParams.get("p");
-    if (slug) setOpenSlug(slug);
-  }, []);
-
-  useSheetUrlSync("p", openSlug);
 
   useEffect(() => {
     if (!userId) {

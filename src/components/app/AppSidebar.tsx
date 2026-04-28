@@ -19,6 +19,7 @@ import {
   Bookmark,
   Lightbulb,
   Boxes,
+  Search,
   LayoutDashboard,
   ScanLine,
   type LucideIcon,
@@ -329,9 +330,11 @@ export interface AppSidebarUser {
 interface AppSidebarProps {
   isAdmin?: boolean;
   user?: AppSidebarUser | null;
+  /** Open the global ⌘K command palette. Wired by AppShell. */
+  onOpenSearch?: () => void;
 }
 
-export default function AppSidebar({ isAdmin, user }: AppSidebarProps) {
+export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarProps) {
   const pathname = usePathname() ?? "/";
   const router = useRouter();
   const [qrOpen, setQrOpen] = useState(false);
@@ -481,6 +484,13 @@ export default function AppSidebar({ isAdmin, user }: AppSidebarProps) {
 
       {/* Footer */}
       <div className="relative z-10 flex flex-col items-center gap-1 pb-1">
+        {onOpenSearch && (
+          <FooterButton
+            label="Buscar  ⌘K"
+            icon={Search}
+            onClick={onOpenSearch}
+          />
+        )}
         <FooterButton label="Configuración" icon={Settings} href="/perfil" />
         <FooterButton label="Cerrar sesión" icon={LogOut} onClick={handleLogout} />
       </div>

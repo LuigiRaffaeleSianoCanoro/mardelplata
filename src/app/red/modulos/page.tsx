@@ -8,7 +8,7 @@ import ModuleSheet from "@/components/red/ModuleSheet";
 import NewModuleDialog from "@/components/red/NewModuleDialog";
 import { listModules } from "@/lib/red/queries";
 import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
-import { useSheetUrlSync } from "@/lib/red/useSheetUrlSync";
+import { useSheetSlugParam } from "@/lib/red/useSheetUrlSync";
 import type { ModuleCardData, ModuleKind } from "@/lib/red/types";
 
 const KIND_FILTERS: { id: ModuleKind | "all"; label: string }[] = [
@@ -25,7 +25,7 @@ export default function ModulesPage() {
   const userId = useCurrentUserId();
   const [modules, setModules] = useState<ModuleCardData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [openSlug, setOpenSlug] = useSheetSlugParam("m");
   const [creatingOpen, setCreatingOpen] = useState(false);
   const [filter, setFilter] = useState<ModuleKind | "all">("all");
 
@@ -42,13 +42,6 @@ export default function ModulesPage() {
     };
   }, []);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const slug = new URL(window.location.href).searchParams.get("m");
-    if (slug) setOpenSlug(slug);
-  }, []);
-
-  useSheetUrlSync("m", openSlug);
 
   const visible = filter === "all" ? modules : modules.filter((m) => m.kind === filter);
 

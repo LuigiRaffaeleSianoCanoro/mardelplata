@@ -8,14 +8,14 @@ import ProjectSheet from "@/components/red/ProjectSheet";
 import NewProjectDialog from "@/components/red/NewProjectDialog";
 import { listPublicProjects } from "@/lib/red/queries";
 import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
-import { useSheetUrlSync } from "@/lib/red/useSheetUrlSync";
+import { useSheetSlugParam } from "@/lib/red/useSheetUrlSync";
 import type { ProjectCardData } from "@/lib/red/types";
 
 export default function RedDirectoryPage() {
   const userId = useCurrentUserId();
   const [projects, setProjects] = useState<ProjectCardData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [openSlug, setOpenSlug] = useSheetSlugParam("p");
   const [creatingOpen, setCreatingOpen] = useState(false);
 
   useEffect(() => {
@@ -30,15 +30,6 @@ export default function RedDirectoryPage() {
       cancelled = true;
     };
   }, []);
-
-  // Read the deep-link query param on mount so /red?p=<slug> opens the sheet.
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const slug = new URL(window.location.href).searchParams.get("p");
-    if (slug) setOpenSlug(slug);
-  }, []);
-
-  useSheetUrlSync("p", openSlug);
 
   return (
     <main className="max-w-6xl mx-auto px-2 sm:px-4 py-10">
