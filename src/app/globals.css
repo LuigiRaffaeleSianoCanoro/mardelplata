@@ -1575,124 +1575,36 @@ html.lenis, html.lenis body { height: auto; }
    App sidebar — floating glass rail (Vision Pro restraint)
    ──────────────────────────────────────────────────────────── */
 
+/* Spectra-style icon rail. Fixed 68px collapsed width, no expand toggle.
+   Each pillar is an icon-only button with a custom slide-in tooltip,
+   shimmer hover overlay and per-item accent glow on active. */
 .app-sidebar {
   position: fixed;
-  top: 14px;
-  bottom: 14px;
-  left: 14px;
-  width: 3.5rem;
-  z-index: 30;
-  border-radius: 22px;
-  background: linear-gradient(180deg, rgba(20, 20, 28, 0.55), rgba(10, 10, 15, 0.65));
-  border: 1px solid var(--rim-soft);
-  backdrop-filter: blur(28px) saturate(140%);
-  -webkit-backdrop-filter: blur(28px) saturate(140%);
-  box-shadow:
-    0 24px 60px -28px rgba(0, 0, 0, 0.9),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 68px;
+  z-index: 50;
+  background: rgba(8, 8, 12, 0.96);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  transition: width 0.34s cubic-bezier(0.22, 0.61, 0.36, 1);
-  overflow: hidden;
+  align-items: center;
+  padding: 16px 0;
+  overflow: visible;
   animation: sidebar-slide-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
-.app-sidebar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(180deg,
-    rgba(255, 255, 255, 0.04) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(59, 130, 246, 0.04) 100%);
-}
-.app-sidebar > * { position: relative; }
 
 @keyframes sidebar-slide-in {
   from { opacity: 0; transform: translateX(-22px); }
   to   { opacity: 1; transform: translateX(0); }
 }
 
-.app-sidebar.is-expanded {
-  width: 14rem;
-}
-
-.app-sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  margin: 3px 8px;
-  padding: 0.6rem 0.7rem;
-  border-radius: 12px;
-  color: var(--text-md);
-  font-size: 0.825rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-  white-space: nowrap;
-  position: relative;
-}
-.app-sidebar-item:hover {
-  color: var(--text-hi);
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: inset 0 0 0 1px var(--rim-soft);
-}
-.app-sidebar-item.active {
-  color: var(--text-hi);
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.06), rgba(59, 130, 246, 0));
-  box-shadow:
-    inset 0 0 0 1px var(--rim-amber),
-    inset 0 0 24px rgba(59, 130, 246, 0.04);
-}
-.app-sidebar-item.active::before {
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: 28%;
-  bottom: 28%;
-  width: 2px;
-  border-radius: 2px;
-  background: var(--color-neon-amber);
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.85);
-}
-
-.app-sidebar-icon {
-  flex: 0 0 1.5rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-md);
-}
-.app-sidebar-item.active .app-sidebar-icon,
-.app-sidebar-item:hover .app-sidebar-icon {
-  color: var(--color-neon-amber);
-}
-
-.app-sidebar-label {
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 0.2s ease 0.05s, transform 0.2s ease 0.05s;
-  font-weight: 300;
-  letter-spacing: 0.02em;
-}
-.app-sidebar.is-expanded .app-sidebar-label {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.app-sidebar-toggle .app-sidebar-icon svg {
-  transition: transform 0.34s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.app-sidebar.is-expanded .app-sidebar-toggle .app-sidebar-icon svg {
-  transform: rotate(180deg);
-}
-
 .app-shell-content {
-  padding-left: calc(3.5rem + 28px);
-  padding-right: 14px;
+  padding-left: calc(68px + 16px);
+  padding-right: 16px;
   position: relative;
   z-index: 1;
   animation: shell-reveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
@@ -1705,8 +1617,8 @@ html.lenis, html.lenis body { height: auto; }
 
 .shell-scan-line {
   position: fixed;
-  left: calc(3.5rem + 28px);
-  right: 14px;
+  left: calc(68px + 16px);
+  right: 16px;
   height: 2px;
   top: 0;
   background: linear-gradient(90deg, transparent, rgba(72, 202, 228, 0.9), transparent);
