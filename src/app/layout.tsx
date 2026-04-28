@@ -37,7 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html
+      lang="es"
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Synchronous intro-splash gate — runs before paint so the splash
             never flashes on revisits or for users with reduced motion. */}

@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+
 import { Lightbulb, GitBranch, Eye } from "lucide-react";
 import type { IdeaCardData } from "@/lib/red/types";
 
@@ -20,17 +21,25 @@ interface IdeaCardProps {
 }
 
 export default function IdeaCard({ idea, onOpen }: IdeaCardProps) {
-  const handleClick = (e: React.MouseEvent) => {
-    if (!onOpen) return;
-    e.preventDefault();
-    onOpen(idea.slug);
+  const handleActivate = () => {
+    if (onOpen) onOpen(idea.slug);
   };
 
   return (
-    <Link
-      href={`/red/ideas?i=${idea.slug}`}
-      onClick={handleClick}
-      className="glass-night p-5 block group transition-transform hover:-translate-y-0.5"
+    <article
+      role={onOpen ? "button" : undefined}
+      tabIndex={onOpen ? 0 : -1}
+      onClick={onOpen ? handleActivate : undefined}
+      onKeyDown={(e) => {
+        if (!onOpen) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleActivate();
+        }
+      }}
+      className={`glass-night p-5 block group transition-transform ${
+        onOpen ? "cursor-pointer hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[rgba(59,130,246,0.45)]" : ""
+      }`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <p className="kicker text-white/45 flex items-center gap-2">
@@ -71,6 +80,6 @@ export default function IdeaCard({ idea, onOpen }: IdeaCardProps) {
           <Eye size={12} /> {idea.followers_count}
         </span>
       </div>
-    </Link>
+    </article>
   );
 }

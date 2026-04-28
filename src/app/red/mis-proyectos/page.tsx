@@ -4,40 +4,45 @@ import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import RedHeader from "@/components/red/RedHeader";
 import ProjectCard from "@/components/red/ProjectCard";
+import ProjectSheet from "@/components/red/ProjectSheet";
+import NewProjectDialog from "@/components/red/NewProjectDialog";
 import { listMyProjects } from "@/lib/red/queries";
+import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
+import { useSheetUrlSync } from "@/lib/red/useSheetUrlSync";
 import type { ProjectCardData } from "@/lib/red/types";
-import { createClient } from "@/lib/supabase/client";
-import { IS_MOCK, mockUser } from "@/lib/devMock";
 
 export default function MyProjectsPage() {
+  const userId = useCurrentUserId();
   const [projects, setProjects] = useState<ProjectCardData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [creatingOpen, setCreatingOpen] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const slug = new URL(window.location.href).searchParams.get("p");
+    if (slug) setOpenSlug(slug);
+  }, []);
+
+  useSheetUrlSync("p", openSlug);
+
+  useEffect(() => {
+    if (!userId) {
+      setProjects([]);
+      setLoading(false);
+      return;
+    }
     let cancelled = false;
-    const load = async () => {
-      let userId = mockUser.id;
-      if (!IS_MOCK) {
-        const supabase = createClient();
-        const { data } = await supabase.auth.getUser();
-        userId = data?.user?.id ?? "";
-      }
-      if (!userId) {
-        setProjects([]);
-        setLoading(false);
-        return;
-      }
-      const rows = await listMyProjects(userId);
+    listMyProjects(userId).then((rows) => {
       if (!cancelled) {
         setProjects(rows);
         setLoading(false);
       }
-    };
-    load();
+    });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [userId]);
 
   return (
     <main className="max-w-6xl mx-auto px-2 sm:px-4 py-10">
@@ -48,9 +53,9 @@ export default function MyProjectsPage() {
         action={
           <button
             type="button"
-            className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
-            disabled
-            title="Próximamente — etapa 2"
+            onClick={() => setCreatingOpen(true)}
+            disabled={!userId}
+            className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2 disabled:opacity-50"
           >
             <Plus size={14} /> Nuevo proyecto
           </button>
@@ -73,10 +78,21 @@ export default function MyProjectsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((p) => (
-            <ProjectCard key={p.id} project={p} />
+            <ProjectCard key={p.id} project={p} onOpen={setOpenSlug} />
           ))}
         </div>
       )}
+
+      <ProjectSheet slug={openSlug} onClose={() => setOpenSlug(null)} />
+      <NewProjectDialog
+        open={creatingOpen}
+        onClose={() => setCreatingOpen(false)}
+        userId={userId}
+        onCreated={(p) => {
+          setProjects((prev) => [p, ...prev]);
+          setOpenSlug(p.slug);
+        }}
+      />
     </main>
   );
 }

@@ -4,15 +4,22 @@ import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import RedHeader from "@/components/red/RedHeader";
 import IdeaCard from "@/components/red/IdeaCard";
+import IdeaSheet from "@/components/red/IdeaSheet";
+import NewIdeaDialog from "@/components/red/NewIdeaDialog";
 import { listIdeas } from "@/lib/red/queries";
+import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
+import { useSheetUrlSync } from "@/lib/red/useSheetUrlSync";
 import type { IdeaCardData } from "@/lib/red/types";
 
 type FilterMode = "all" | "following" | "mine";
 
 export default function IdeasPage() {
+  const userId = useCurrentUserId();
   const [ideas, setIdeas] = useState<IdeaCardData[]>([]);
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState<FilterMode>("all");
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [creatingOpen, setCreatingOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -26,6 +33,14 @@ export default function IdeasPage() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const slug = new URL(window.location.href).searchParams.get("i");
+    if (slug) setOpenSlug(slug);
+  }, []);
+
+  useSheetUrlSync("i", openSlug);
 
   // Filtering by following / mine is a noop until we wire up auth & follower
   // tables (etapa 2). For now the toggle only updates the chosen visual.
@@ -44,9 +59,9 @@ export default function IdeasPage() {
         action={
           <button
             type="button"
-            className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
-            disabled
-            title="Próximamente — etapa 2"
+            onClick={() => setCreatingOpen(true)}
+            disabled={!userId}
+            className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2 disabled:opacity-50"
           >
             <Plus size={14} /> Nueva idea
           </button>
@@ -83,10 +98,21 @@ export default function IdeasPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {visible.map((i) => (
-            <IdeaCard key={i.id} idea={i} />
+            <IdeaCard key={i.id} idea={i} onOpen={setOpenSlug} />
           ))}
         </div>
       )}
+
+      <IdeaSheet slug={openSlug} onClose={() => setOpenSlug(null)} />
+      <NewIdeaDialog
+        open={creatingOpen}
+        onClose={() => setCreatingOpen(false)}
+        userId={userId}
+        onCreated={(i) => {
+          setIdeas((prev) => [i, ...prev]);
+          setOpenSlug(i.slug);
+        }}
+      />
     </main>
   );
 }

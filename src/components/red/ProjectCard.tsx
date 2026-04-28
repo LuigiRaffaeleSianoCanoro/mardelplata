@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+
 import { GitBranch, ExternalLink, Users, Eye } from "lucide-react";
 import type { ProjectCardData } from "@/lib/red/types";
 
@@ -20,18 +21,31 @@ interface ProjectCardProps {
   onOpen?: (slug: string) => void;
 }
 
+// The card itself acts like a button (opens the sheet), but the inner
+// repo/demo affordances need to remain real <a> tags. <a> inside <a> is
+// invalid HTML and triggers a hydration error in Next 15, so the outer
+// element is an <article role="button"> instead of a Link.
+
 export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
-  const handleClick = (e: React.MouseEvent) => {
-    if (!onOpen) return;
-    e.preventDefault();
-    onOpen(project.slug);
+  const handleActivate = () => {
+    if (onOpen) onOpen(project.slug);
   };
 
   return (
-    <Link
-      href={`/red?p=${project.slug}`}
-      onClick={handleClick}
-      className="glass-night p-5 block group transition-transform hover:-translate-y-0.5"
+    <article
+      role={onOpen ? "button" : undefined}
+      tabIndex={onOpen ? 0 : -1}
+      onClick={onOpen ? handleActivate : undefined}
+      onKeyDown={(e) => {
+        if (!onOpen) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleActivate();
+        }
+      }}
+      className={`glass-night p-5 block group transition-transform ${
+        onOpen ? "cursor-pointer hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[rgba(59,130,246,0.45)]" : ""
+      }`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <p className="kicker text-white/45 flex items-center gap-2">
@@ -81,6 +95,6 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
           </a>
         )}
       </div>
-    </Link>
+    </article>
   );
 }

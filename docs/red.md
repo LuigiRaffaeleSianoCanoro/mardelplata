@@ -323,24 +323,39 @@ project_comments
 
 ## Etapas de implementación
 
-### Etapa 1 — schema + UI base
-- migrations: projects, project_*, ideas, idea_*, project_comments
-- páginas: `/red`, `/red/mis-proyectos`, `/red/ideas`
-- componentes: ProjectCard, IdeaCard, formularios crear-proyecto / crear-idea
-- follow / unfollow + sumarse como contributor
+### Etapa 1 — schema + UI base ✅
+- ✅ migration `scripts/006_red.sql` — projects, project_followers/contributors/changes/comments,
+  ideas, idea_followers, idea_projects + triggers (`idea_status_from_links`,
+  `touch_updated_at`, `project_creator_as_contributor`) + helpers SECURITY DEFINER + RLS.
+- ✅ tipos en `src/lib/red/types.ts` mirroreando schema.
+- ✅ queries en `src/lib/red/queries.ts` con mock fallback (`MOCK_PROJECTS`, `MOCK_IDEAS`,
+  `MOCK_CONTRIBUTORS`, `MOCK_COMMENTS`, `MOCK_CHANGES`, `MOCK_LINKS`).
+- ✅ páginas: `/red`, `/red/mis-proyectos`, `/red/ideas` + `RedHeader`, `ProjectCard`,
+  `IdeaCard`.
 
-### Etapa 2 — sheet + interacciones
-- componente `BottomSheet` (custom, animación slide-up 90vh)
-- `ProjectSheet` con sus 6 tabs
-- `IdeaSheet` con sus 3 tabs
-- linkear idea ↔ project
-- comments con threading 1-nivel
+### Etapa 2 — sheets + interacciones ✅
+- ✅ `BottomSheet` custom (slide-up 90vh, sticky header + sticky toolbar + scrollable body,
+  portal a `document.body` para escapar el `backdrop-filter` del sidebar).
+- ✅ `ProjectSheet` con 6 tabs: Overview, Construyendo, Módulos (placeholder etapa 3),
+  Ideas linkeadas, Cambios, Discusión.
+- ✅ `IdeaSheet` con 2 tabs: Descripción, Proyectos linkeados.
+- ✅ Mutations: `toggleFollowProject`, `joinAsContributor`, `toggleFollowIdea`,
+  `linkIdeaToProject`, `createProject`, `createIdea`, `addProjectChange`,
+  `addProjectComment`, `updateProjectComment`, `deleteProjectComment` (soft).
+- ✅ Header CTAs funcionales (Seguir/Siguiendo, Sumarme/Contributor/Maintainer)
+  con optimistic UI.
+- ✅ Comentarios con threading 1-nivel + edit/delete inline para los propios.
+- ✅ Realtime de comentarios via canal `project_comments:<id>` (no-op en mock).
+- ✅ Modales: `NewProjectDialog`, `NewIdeaDialog`, `NewChangeDialog`, `LinkProjectDialog`.
+- ✅ URL sync ↔ sheet con `useSheetUrlSync` (`history.replaceState` para `?p=` y `?i=`).
+- ✅ Loading skeleton por sheet (header + toolbar + body).
 
 ### Etapa 3 — módulos
-- migrations: modules, module_usages
-- `/red/modulos` registry
-- tab Módulos del ProjectSheet
-- flow "importar módulo"
+- migration: agregar tablas `modules` + `module_usages` a `006_red.sql`.
+- tipos + queries (`listModules`, `getModuleBySlug`, `useModuleInProject`).
+- página `/red/modulos` con cards.
+- tab Módulos del ProjectSheet wireado al registry.
+- flujo "importar módulo" (cómo un proyecto declara que usa un módulo).
 
 ---
 
