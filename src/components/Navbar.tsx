@@ -15,7 +15,7 @@ export default function Navbar() {
   const isHome = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -23,133 +23,125 @@ export default function Navbar() {
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user);
-    });
-
+    supabase.auth.getUser().then(({ data: { user } }) => setUser(user));
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
-
     return () => subscription.unsubscribe();
   }, []);
 
   const close = () => setMenuOpen(false);
-
   const prefix = isHome ? "" : "/";
-  const navLinks = [
+  const links = [
     { href: `${prefix}#inicio`, label: "Inicio" },
-    { href: "/bolsa", label: "Bolsa de Trabajo" },
+    { href: "/bolsa", label: "Bolsa" },
     { href: "/primer-trabajo", label: "Primer Trabajo OS" },
     { href: "/reglamento", label: "Reglamento" },
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 py-4 px-6 transition-all duration-300 ${
-        scrolled
-          ? "bg-ocean-800/95 backdrop-blur-md shadow-[0_2px_24px_rgba(0,0,0,0.35)]"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-40 px-4 pt-4">
+      <nav
+        className={`mx-auto max-w-5xl flex items-center justify-between gap-2 px-3 py-2 rounded-full transition-all duration-500 ${
+          scrolled ? "glass-pill" : "bg-transparent border border-transparent"
+        }`}
+      >
         {/* Logo */}
-        <a href={`${prefix}#inicio`} className="flex items-center gap-2.5 group">
+        <Link href={`${prefix}#inicio`} className="flex items-center gap-2.5 pl-1 group">
           <Image
             src="/mdpdev.png"
-            alt="MdPDev logo"
-            width={40}
-            height={40}
-            className="rounded-2xl shadow-lg shadow-ocean-700/40 group-hover:scale-105 transition-transform"
+            alt="MdPDev"
+            width={32}
+            height={32}
+            className="rounded-xl shadow-md shadow-ocean-700/40 group-hover:scale-105 transition-transform"
           />
-          <span className="font-display font-bold text-xl text-white tracking-tight">MarDelPlata.dev.ar</span>
-        </a>
+          <span className="font-display font-bold text-white text-[0.95rem] tracking-tight hidden sm:inline">
+            mardelplata<span className="text-ocean-300">.dev</span>
+          </span>
+        </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-7 text-sm font-medium">
-          {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="text-ocean-200 hover:text-white transition-colors">
-              {l.label}
-            </a>
+        <ul className="hidden md:flex items-center gap-1 text-sm">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                className="px-3.5 py-1.5 rounded-full text-ocean-100/80 hover:text-white hover:bg-white/5 transition-colors"
+              >
+                {l.label}
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* CTA + hamburger */}
-        <div className="flex items-center gap-3">
+        {/* CTA */}
+        <div className="flex items-center gap-2">
           {user ? (
             <Link
               href="/perfil"
-              className="hidden md:inline-flex items-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-ocean-400/40"
+              className="hidden sm:inline-flex items-center gap-1.5 bg-ocean-400 hover:bg-ocean-300 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-colors"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M20 21a8 8 0 1 0-16 0"/>
-              </svg>
-              Mi Perfil
+              Mi perfil
             </Link>
           ) : (
             <Link
               href="/auth/login"
-              className="hidden md:inline-flex items-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-ocean-400/40"
+              className="hidden sm:inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/15 text-white text-sm font-medium px-4 py-1.5 rounded-full transition-colors border border-white/15"
             >
               Ingresar
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
             </Link>
           )}
           <button
             onClick={() => setMenuOpen((o) => !o)}
-            className="md:hidden text-white p-2 rounded-lg hover:bg-ocean-800/50 transition-colors"
+            className="md:hidden text-white p-2 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Abrir menú"
           >
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              {menuOpen ? (
-                <path d="M18 6 6 18M6 6l12 12" />
-              ) : (
-                <path d="M3 6h18M3 12h18M3 18h18" />
-              )}
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              {menuOpen ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M3 6h18M3 12h18M3 18h18" />}
             </svg>
           </button>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="md:hidden mt-3 mx-2 bg-ocean-900/97 backdrop-blur-xl rounded-2xl p-4 border border-ocean-700/40 shadow-2xl">
-          <div className="flex flex-col gap-1 text-sm">
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={close}
-                className="text-ocean-200 hover:text-white hover:bg-ocean-800/60 px-4 py-2.5 rounded-xl transition-all"
-              >
-                {l.label}
-              </a>
+        <div className="md:hidden mx-auto max-w-5xl mt-2 glass-pill rounded-3xl p-3">
+          <ul className="flex flex-col text-sm">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  onClick={close}
+                  className="block px-4 py-3 rounded-xl text-ocean-100/85 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  {l.label}
+                </a>
+              </li>
             ))}
-            {user ? (
-              <Link
-                href="/perfil"
-                onClick={close}
-                className="mt-2 flex items-center justify-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-5 py-3 rounded-xl font-semibold transition-all"
-              >
-                Mi Perfil
-              </Link>
-            ) : (
-              <Link
-                href="/auth/login"
-                onClick={close}
-                className="mt-2 flex items-center justify-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-5 py-3 rounded-xl font-semibold transition-all"
-              >
-                Ingresar
-              </Link>
-            )}
-          </div>
+            <li className="mt-2 pt-2 border-t border-white/10">
+              {user ? (
+                <Link
+                  href="/perfil"
+                  onClick={close}
+                  className="block text-center bg-ocean-400 text-white font-semibold py-3 rounded-xl"
+                >
+                  Mi perfil
+                </Link>
+              ) : (
+                <Link
+                  href="/auth/login"
+                  onClick={close}
+                  className="block text-center bg-ocean-400 text-white font-semibold py-3 rounded-xl"
+                >
+                  Ingresar
+                </Link>
+              )}
+            </li>
+          </ul>
         </div>
       )}
-    </nav>
+    </header>
   );
 }
