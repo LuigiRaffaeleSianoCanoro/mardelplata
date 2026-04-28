@@ -1,33 +1,44 @@
 import Image from "next/image";
+import { BigWhale } from "./OceanDoodles";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-ocean-900 overflow-hidden">
-      {/* Top accent — thin gradient line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-ocean-300/40 to-transparent" />
+    <footer className="relative bg-[#0A0A0F] overflow-hidden">
+      {/* Top accent — sapphire hairline */}
+      <div className="h-px bg-gradient-to-r from-transparent via-[rgba(59,130,246,0.40)] to-transparent" />
 
-      {/* Aurora behind the wordmark */}
-      <div className="absolute inset-x-0 -bottom-40 h-[500px] pointer-events-none">
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[120%] h-full rounded-[50%] bg-ocean-400/10 blur-[120px]" />
+      {/* Atmosphere — sapphire spotlight + magenta accent + faint grid */}
+      <div className="absolute inset-x-0 -top-20 h-[460px] pointer-events-none">
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[120%] h-full rounded-[50%] bg-[rgba(59,130,246,0.10)] blur-[120px]" />
+        <div className="absolute right-0 bottom-0 w-[420px] h-[420px] rounded-full bg-[rgba(255,45,170,0.05)] blur-[140px]" />
+      </div>
+      <div className="absolute inset-0 tx-grid opacity-20 [mask-image:radial-gradient(ellipse_70%_55%_at_50%_50%,#000_30%,transparent_92%)] pointer-events-none" />
+
+      {/* Decorative big whale floating in the back */}
+      <div className="absolute right-[4%] top-[60px] w-[420px] pointer-events-none text-[#6b8593]/35 swim-bob">
+        <BigWhale className="w-full h-auto" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-12">
+        {/* Coord strip */}
+        <p className="coord-line mb-12">
+          BEARING 270° <span className="sep">·</span>
+          <span className="num">38°00&apos;S 057°33&apos;W</span> <span className="sep">·</span>
+          ATLÁNTICO SUR
+        </p>
+
         <div className="grid grid-cols-12 gap-8">
           {/* Brand block */}
           <div className="col-span-12 lg:col-span-5">
             <a href="#inicio" className="inline-flex items-center gap-3 group">
-              <Image
-                src="/mdpdev.png"
-                alt="MdPDev logo"
-                width={44}
-                height={44}
-                className="rounded-2xl shadow-lg group-hover:scale-105 transition-transform"
-              />
-              <span className="font-display font-bold text-2xl text-white tracking-tight">
-                mardelplata<span className="text-ocean-300">.dev</span>
+              <span className="metal-chip w-12 h-12 rounded-2xl group-hover:scale-105 transition-transform">
+                <Image src="/mdpdev.png" alt="MdPDev logo" width={28} height={28} loading="lazy" className="opacity-90" />
+              </span>
+              <span className="display-thin text-2xl text-white tracking-[0.02em]">
+                mardelplata<span className="text-[#3B82F6]/85">.dev</span>
               </span>
             </a>
-            <p className="text-ocean-200/70 text-base leading-relaxed max-w-md mt-6">
+            <p className="text-white/55 text-base leading-relaxed max-w-md mt-6 font-light">
               Comunidad tech de Mar del Plata. Conectamos developers, diseñadores y emprendedores
               que construyen el ecosistema digital de la costa atlántica.
             </p>
@@ -82,33 +93,30 @@ export default function Footer() {
                 { label: "Quiénes somos", href: "/#staff" },
               ]}
             />
-            <p className="text-xs text-ocean-300/60 mt-6 leading-relaxed">
-              Hecho con orgullo en Mar del Plata. Open community, sin fines de lucro.
+            <p className="kicker text-white/40 mt-6 leading-relaxed">
+              hecho con orgullo en mar del plata · open community
             </p>
           </div>
         </div>
 
-        {/* Editorial wordmark — clamp leans small to avoid overflow on phones */}
-        <div className="mt-20 mb-8 overflow-hidden">
+        {/* Editorial wordmark — thin display, gradient accent */}
+        <div className="mt-20 mb-8">
           <p
-            className="font-display font-black text-white/95 leading-none select-none whitespace-nowrap"
-            style={{
-              fontSize: "clamp(2rem, 14vw, 12rem)",
-              letterSpacing: "-0.05em",
-            }}
+            className="display-thin text-white/90 leading-[0.95] select-none whitespace-nowrap tracking-[-0.02em]"
+            style={{ fontSize: "clamp(2rem, 10.5vw, 9rem)" }}
           >
-            mardelplata<span className="text-ocean-300">.dev</span>
+            mardelplata<span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">.dev</span>
           </p>
         </div>
 
-        <div className="border-t border-ocean-300/15 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
-          <p className="text-ocean-300/60">© 2026 MdPDev — Todos los derechos reservados.</p>
+        <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+          <p className="kicker text-white/40">© 2026 mdpdev · all rights reserved</p>
           <a
             href="#inicio"
-            className="inline-flex items-center gap-2 text-ocean-300/70 hover:text-white transition-colors"
+            className="kicker inline-flex items-center gap-2 text-white/55 hover:text-white transition-colors"
           >
             Volver arriba
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M12 19V5M5 12l7-7 7 7" />
             </svg>
           </a>
@@ -125,7 +133,7 @@ function SocialBtn({ href, label, children }: { href: string; label: string; chi
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-10 h-10 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] hover:border-ocean-300/40 flex items-center justify-center text-ocean-200/80 hover:text-white transition-all"
+      className="w-10 h-10 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.06] hover:border-[rgba(59,130,246,0.32)] flex items-center justify-center text-white/65 hover:text-white transition-all"
     >
       {children}
     </a>
@@ -141,9 +149,7 @@ function FooterColumn({
 }) {
   return (
     <>
-      <h4 className="text-xs uppercase tracking-[0.2em] text-ocean-300/60 mb-4 font-semibold">
-        {title}
-      </h4>
+      <h4 className="kicker text-white/40 mb-4">{title}</h4>
       <ul className="space-y-2.5 text-sm">
         {links.map((l) => (
           <li key={l.label}>
@@ -151,7 +157,7 @@ function FooterColumn({
               href={l.href}
               target={l.external ? "_blank" : undefined}
               rel={l.external ? "noopener noreferrer" : undefined}
-              className="text-ocean-200/85 hover:text-white transition-colors"
+              className="text-white/70 hover:text-white transition-colors font-light"
             >
               {l.label}
             </a>

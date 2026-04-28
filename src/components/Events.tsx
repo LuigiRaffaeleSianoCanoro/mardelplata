@@ -1,3 +1,5 @@
+import { FishSchool } from "./OceanDoodles";
+
 interface Event {
   id: string;
   title: string;
@@ -54,6 +56,23 @@ export default function Events({ events }: EventsProps) {
       {/* Background drift glow */}
       <div className="absolute top-1/3 -left-32 w-[500px] h-[500px] rounded-full bg-ocean-100/60 blur-[120px] pointer-events-none boat-drift-soft parallax-rise" />
       <div className="absolute bottom-1/4 -right-32 w-[420px] h-[420px] rounded-full bg-sand-200/60 blur-[120px] pointer-events-none boat-drift-soft parallax-back" style={{ animationDelay: "-7s" }} />
+
+      {/* Fish schools — multiple floating across the section */}
+      <div className="absolute right-[10%] top-[120px] w-[200px] pointer-events-none text-[#6b8593]/55 boat-drift-soft">
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-[140px] w-[160px] pointer-events-none text-[#7090a0]/45 boat-drift-soft" style={{ animationDelay: "-4s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute left-[8%] top-[280px] w-[140px] pointer-events-none text-[#6b8593]/45 boat-drift-soft" style={{ animationDelay: "-2s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute right-[28%] top-[420px] w-[120px] pointer-events-none text-[#7090a0]/40 boat-drift-soft" style={{ animationDelay: "-7s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute left-[24%] bottom-[60px] w-[110px] pointer-events-none text-[#6b8593]/35 boat-drift-soft" style={{ animationDelay: "-10s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
 
       <div className="relative max-w-6xl mx-auto">
         {/* Section header — editorial */}

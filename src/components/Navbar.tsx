@@ -50,25 +50,21 @@ export default function Navbar() {
       >
         {/* Logo */}
         <Link href={`${prefix}#inicio`} className="flex items-center gap-2.5 pl-1 group">
-          <Image
-            src="/mdpdev.png"
-            alt="MdPDev"
-            width={32}
-            height={32}
-            className="rounded-xl shadow-md shadow-ocean-700/40 group-hover:scale-105 transition-transform"
-          />
-          <span className="font-display font-bold text-white text-[0.95rem] tracking-tight hidden sm:inline">
-            mardelplata<span className="text-ocean-300">.dev</span>
+          <span className="metal-chip w-8 h-8 rounded-xl group-hover:scale-105 transition-transform">
+            <Image src="/mdpdev.png" alt="MdPDev" width={20} height={20} className="opacity-90" priority />
+          </span>
+          <span className="font-display text-white text-[1rem] font-medium hidden sm:inline">
+            mardelplata<span className="text-[#3B82F6]">.dev</span>
           </span>
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-1 text-sm">
+        <ul className="hidden md:flex items-center gap-0.5 text-[0.875rem]">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="px-3.5 py-1.5 rounded-full text-ocean-100/80 hover:text-white hover:bg-white/5 transition-colors"
+                className="px-3.5 py-1.5 rounded-full text-white/75 hover:text-white hover:bg-white/[0.05] transition-colors"
               >
                 {l.label}
               </a>
@@ -79,26 +75,20 @@ export default function Navbar() {
         {/* CTA */}
         <div className="flex items-center gap-2">
           {user ? (
-            <Link
-              href="/perfil"
-              className="hidden sm:inline-flex items-center gap-1.5 bg-ocean-400 hover:bg-ocean-300 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-colors"
-            >
+            <Link href="/perfil" className="btn-app-primary hidden sm:inline-flex !text-[0.78rem] !py-1.5 !px-4">
               Mi perfil
             </Link>
           ) : (
-            <Link
-              href="/auth/login"
-              className="hidden sm:inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/15 text-white text-sm font-medium px-4 py-1.5 rounded-full transition-colors border border-white/15"
-            >
+            <Link href="/auth/login" className="btn-app-ghost hidden sm:inline-flex !text-[0.78rem] !py-1.5 !px-4">
               Ingresar
             </Link>
           )}
           <button
             onClick={() => setMenuOpen((o) => !o)}
-            className="md:hidden text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+            className="md:hidden text-white/85 p-2 rounded-full hover:bg-white/[0.06] transition-colors"
             aria-label="Abrir menú"
           >
-            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
               {menuOpen ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M3 6h18M3 12h18M3 18h18" />}
             </svg>
           </button>
@@ -114,27 +104,19 @@ export default function Navbar() {
                 <a
                   href={l.href}
                   onClick={close}
-                  className="block px-4 py-3 rounded-xl text-ocean-100/85 hover:text-white hover:bg-white/5 transition-colors"
+                  className="block px-4 py-3 rounded-xl text-white/70 hover:text-white hover:bg-white/[0.04] transition-colors font-light"
                 >
                   {l.label}
                 </a>
               </li>
             ))}
-            <li className="mt-2 pt-2 border-t border-white/10">
+            <li className="mt-2 pt-2 border-t border-white/[0.06]">
               {user ? (
-                <Link
-                  href="/perfil"
-                  onClick={close}
-                  className="block text-center bg-ocean-400 text-white font-semibold py-3 rounded-xl"
-                >
+                <Link href="/perfil" onClick={close} className="btn-app-primary w-full">
                   Mi perfil
                 </Link>
               ) : (
-                <Link
-                  href="/auth/login"
-                  onClick={close}
-                  className="block text-center bg-ocean-400 text-white font-semibold py-3 rounded-xl"
-                >
+                <Link href="/auth/login" onClick={close} className="btn-app-primary w-full">
                   Ingresar
                 </Link>
               )}

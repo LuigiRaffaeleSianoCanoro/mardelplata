@@ -6,7 +6,6 @@ import CommunityPlatforms from "@/components/CommunityPlatforms";
 import Events from "@/components/Events";
 import Team from "@/components/Team";
 import CodeOfConduct from "@/components/CodeOfConduct";
-import WaveDivider from "@/components/WaveDivider";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabase/server";
 
@@ -61,25 +60,18 @@ export default async function Home() {
   return (
     <>
       <IntroSplash />
-      <Navbar />
-      <main>
-        <Hero />
-
-        <Collaborators members={communityMembers ?? []} />
-
-        <WaveDivider tone="light-to-tint" />
-        <CommunityPlatforms />
-        <WaveDivider tone="tint-to-light" />
-
-        <Events events={events ?? []} />
-
-        <WaveDivider tone="light-to-tint" />
-        <Team members={orderedFounders} />
-        <WaveDivider tone="tint-to-light" />
-
-        <CodeOfConduct />
-      </main>
-      <Footer />
+      <div className="page-after-intro">
+        <Navbar />
+        <main>
+          <Hero />
+          <Collaborators members={communityMembers ?? []} />
+          <CommunityPlatforms />
+          <Events events={events ?? []} />
+          <Team members={orderedFounders} />
+          <CodeOfConduct />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

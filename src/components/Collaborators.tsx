@@ -1,5 +1,6 @@
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 import { normalizeExternalUrl } from "@/lib/urls";
+import { Whale, Splash, FishSchool } from "./OceanDoodles";
 
 interface CommunityMember {
   id: string;
@@ -16,16 +17,48 @@ export default function Collaborators({ members = [] }: { members?: CommunityMem
 
   return (
     <section id="colaboradores" className="relative py-28 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+      {/* Reveal mask — opaque black at top of page, fades to transparent as
+          user scrolls past the hero. Driven by --reveal-progress (1 → 0). */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[40] bg-[#0A0A0F]"
+        style={{ opacity: "var(--reveal-progress, 1)" }}
+      />
+
+      {/* Whale resting on the right-mid area (soft teal-gray) */}
+      <div className="absolute right-[8%] top-[220px] w-[260px] pointer-events-none text-[#6b8593]/55 swim-bob">
+        <Whale className="w-full h-auto" />
+      </div>
+      {/* Splash slightly to the inner-right of the whale */}
+      <div className="absolute right-[24%] top-[180px] w-12 h-12 pointer-events-none text-[#7090a0]/55 splash-pop">
+        <Splash className="w-full h-full" />
+      </div>
+      {/* Floating fish schools */}
+      <div className="absolute left-[40%] top-[140px] w-[140px] pointer-events-none text-[#6b8593]/45 boat-drift-soft">
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute right-[14%] bottom-[120px] w-[120px] pointer-events-none text-[#7090a0]/45 boat-drift-soft" style={{ animationDelay: "-3s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute left-[10%] bottom-[200px] w-[100px] pointer-events-none text-[#6b8593]/40 boat-drift-soft" style={{ animationDelay: "-6s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
+
+      <div className="relative max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-12 gap-6 items-end mb-14">
           <div className="col-span-12 md:col-span-8">
-            <span className="eyebrow">Comunidad</span>
-            <h2 className="display-h2 mt-5 text-ocean-900 text-[clamp(2.5rem,6vw,5rem)]">
-              Quienes <span className="gradient-text">la habitan.</span>
+            <p className="kicker text-ocean-700/80 mb-4 flex items-center gap-2">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full bg-[#3B82F6]"
+                style={{ boxShadow: "0 0 8px rgba(59,130,246,0.7)" }}
+              />
+              comunidad · habitantes
+            </p>
+            <h2 className="display-thin text-ocean-900 text-[clamp(2.5rem,6vw,5rem)] leading-[1.05]">
+              Quienes <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-ocean-700 to-[#FF2DAA]">la habitan.</span>
             </h2>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right">
-            <p className="text-slate-500 text-base leading-relaxed">
+            <p className="text-slate-500 text-base leading-relaxed font-light">
               Devs, diseñadores, founders, QAs. Todos suman al ecosistema. Acá una muestra de quiénes están.
             </p>
           </div>
@@ -34,7 +67,7 @@ export default function Collaborators({ members = [] }: { members?: CommunityMem
 
       {members.length === 0 ? (
         <div className="max-w-3xl mx-auto px-6">
-          <div className="bento-card p-10 text-center text-slate-500">
+          <div className="bento-tile text-center text-slate-500">
             Todavía no hay perfiles públicos para mostrar — sé el primero en sumarte.
           </div>
         </div>
@@ -44,7 +77,7 @@ export default function Collaborators({ members = [] }: { members?: CommunityMem
             {loopMembers.map((member, index) => (
               <article
                 key={`${member.id}-${index}`}
-                className="bento-card w-[260px] p-6 flex-shrink-0 flex flex-col items-center text-center"
+                className="bento-tile w-[260px] flex-shrink-0 flex flex-col items-center text-center"
               >
                 <div className="w-20 h-20 rounded-2xl overflow-hidden border border-ocean-200 shadow-md shadow-ocean-700/10 mb-4 bg-white">
                   <img

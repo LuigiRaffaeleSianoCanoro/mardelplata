@@ -1,4 +1,5 @@
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
+import { SeaLion, Splash, FishSchool } from "./OceanDoodles";
 
 interface TeamMember {
   full_name: string | null;
@@ -34,6 +35,25 @@ export default function Team({ members = [] }: { members?: TeamMember[] }) {
     <section id="staff" className="relative py-28 px-6 ocean-tint overflow-hidden">
       {/* Drifting glow — boat metaphor + scroll parallax */}
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-ocean-200/40 blur-[120px] pointer-events-none boat-drift-soft parallax-back" />
+
+      {/* Sea lion — perched mid-right, gentle bob */}
+      <div className="absolute right-[12%] top-[80px] w-[200px] pointer-events-none text-[#6b8593]/55 swim-bob">
+        <SeaLion className="w-full h-auto" />
+      </div>
+      {/* Small splash inner to the lion */}
+      <div className="absolute right-[30%] top-[180px] w-12 h-12 pointer-events-none text-[#7090a0]/55 splash-pop">
+        <Splash className="w-full h-full" />
+      </div>
+      {/* Floating fish schools around the team grid */}
+      <div className="absolute left-[8%] top-[120px] w-[130px] pointer-events-none text-[#6b8593]/45 boat-drift-soft">
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute left-[42%] bottom-[120px] w-[140px] pointer-events-none text-[#7090a0]/40 boat-drift-soft" style={{ animationDelay: "-5s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
+      <div className="absolute right-[8%] bottom-[80px] w-[120px] pointer-events-none text-[#6b8593]/40 boat-drift-soft" style={{ animationDelay: "-9s" }}>
+        <FishSchool className="w-full h-auto" />
+      </div>
 
       <div className="relative max-w-6xl mx-auto">
         <div className="grid grid-cols-12 gap-6 items-end mb-14">
