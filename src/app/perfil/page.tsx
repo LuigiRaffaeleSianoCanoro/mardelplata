@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import ProfileClient from "./ProfileClient";
 import type { User } from "@supabase/supabase-js";
 import { IS_MOCK, mockUser, mockProfile } from "@/lib/devMock";
+import AppShell from "@/components/app/AppShell";
 
 export default function PerfilPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -56,8 +57,17 @@ export default function PerfilPage() {
 
   if (loading || !user) {
     return (
-      <div className="min-h-screen hero-bg flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border-4 border-ocean-500 border-t-transparent animate-spin" />
+      <div className="min-h-screen app-canvas flex flex-col items-center justify-center gap-5">
+        <div className="sonar-loader">
+          <span className="grid" />
+          <span className="sweep" />
+          <span className="ring" />
+          <span className="ring delay" />
+          <span className="core" />
+        </div>
+        <p className="coord-line">
+          PINGING <span className="sep">·</span> <span className="num">38°00&apos;S 057°33&apos;W</span> <span className="sep">·</span> <span className="num">DEPTH&nbsp;1200m</span>
+        </p>
       </div>
     );
   }
@@ -94,5 +104,11 @@ export default function PerfilPage() {
     );
   }
 
-  return <ProfileClient user={user} profile={profile} onRefresh={loadProfile} />;
+  const isAdmin = Boolean((profile as { is_admin?: boolean } | null)?.is_admin);
+
+  return (
+    <AppShell isAdmin={isAdmin}>
+      <ProfileClient user={user} profile={profile} onRefresh={loadProfile} />
+    </AppShell>
+  );
 }
