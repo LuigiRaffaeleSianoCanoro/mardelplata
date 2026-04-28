@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
+import { Button, GlassCard, PageHeader } from "@/components/ui";
 
 interface Event {
   id: string;
@@ -59,46 +60,58 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
   };
 
   return (
-    <div className="min-h-screen bg-ocean-900">
-      {/* Header */}
-      <header className="bg-ocean-800 border-b border-ocean-700/50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/">
-              <Image src="/mdpdev.png" alt="MdPDev logo" width={40} height={40} className="rounded-xl" />
-            </Link>
-            <div>
-              <h1 className="font-display font-bold text-white text-lg">Admin Panel</h1>
-              <p className="text-ocean-400 text-xs">MdPDev Content Management</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/perfil" className="text-ocean-300 hover:text-white transition-colors text-sm">
-              Mi Perfil
-            </Link>
-            <button onClick={handleLogout} className="text-ocean-400 hover:text-white transition-colors text-sm">
+    <div className="min-h-screen app-canvas">
+      <header className="border-b border-ocean-300/10 backdrop-blur-md bg-ocean-900/40 sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <Image
+              src="/mdpdev.png"
+              alt="MdPDev logo"
+              width={32}
+              height={32}
+              className="rounded-xl shadow-md shadow-ocean-700/40 group-hover:scale-105 transition-transform"
+            />
+            <span className="font-display font-semibold text-white text-[0.95rem] tracking-tight">
+              mardelplata<span className="text-ocean-300">.dev</span>
+              <span className="text-ocean-400/70 font-mono text-[0.7rem] ml-2">/ admin</span>
+            </span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <Button href="/perfil" variant="ghost" size="sm">
+              Mi perfil
+            </Button>
+            <Button onClick={handleLogout} variant="ghost" size="sm">
               Salir
-            </button>
+            </Button>
           </div>
         </div>
       </header>
 
-      {/* Tabs */}
-      <div className="bg-ocean-800/50 border-b border-ocean-700/30">
+      <div className="max-w-7xl mx-auto px-4 pt-10">
+        <PageHeader
+          eyebrow="/ Panel admin"
+          title={<>Centro de <span className="gradient-text">control</span></>}
+          description="Eventos, miembros y escáner QR para los meetups."
+        />
+      </div>
+
+      <div className="border-b border-ocean-300/10">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex gap-1 overflow-x-auto whitespace-nowrap">
+          <div className="flex gap-1 overflow-x-auto whitespace-nowrap" role="tablist">
             {[
               { id: "events" as Tab, label: "Eventos", icon: CalendarIcon },
               { id: "users" as Tab, label: "Usuarios", icon: UsersIcon },
-              { id: "scanner" as Tab, label: "Escaner QR", icon: QrIcon },
+              { id: "scanner" as Tab, label: "Escáner QR", icon: QrIcon },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
+                role="tab"
+                aria-selected={activeTab === tab.id}
                 className={`flex flex-shrink-0 items-center gap-2 px-3 sm:px-5 py-3 text-sm font-medium transition-all border-b-2 ${
                   activeTab === tab.id
-                    ? "text-white border-ocean-400 bg-ocean-700/30"
-                    : "text-ocean-400 border-transparent hover:text-white hover:bg-ocean-700/20"
+                    ? "text-white border-ocean-300"
+                    : "text-ocean-300/60 border-transparent hover:text-white hover:border-ocean-400/30"
                 }`}
               >
                 <tab.icon />
@@ -177,21 +190,21 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
   };
 
   return (
-    <div>
+    <div className="fade-up">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-display font-bold text-white">Gestión de Eventos</h2>
-        <button
-          onClick={onNew}
-          className="flex items-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <div>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 01 · Eventos</p>
+          <h2 className="text-xl font-display font-bold text-white mt-1">Gestión de eventos</h2>
+        </div>
+        <Button onClick={onNew} variant="primary" size="sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M12 5v14M5 12h14"/>
           </svg>
-          Nuevo Evento
-        </button>
+          Nuevo evento
+        </Button>
       </div>
 
-      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-x-auto">
+      <GlassCard className="overflow-x-auto">
         <table className="w-full min-w-[760px]">
           <thead>
             <tr className="border-b border-ocean-700/30">
@@ -262,13 +275,13 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
             {events.length === 0 && (
               <tr>
                 <td colSpan={4} className="px-4 sm:px-6 py-12 text-center text-ocean-400">
-                  No hay eventos. Crea el primero!
+                  No hay eventos. Creá el primero.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
-      </div>
+      </GlassCard>
     </div>
   );
 }
@@ -297,13 +310,16 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
   };
 
   return (
-    <div>
+    <div className="fade-up">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-display font-bold text-white">Gestión de Usuarios</h2>
-        <div className="text-ocean-400 text-sm">{profiles.length} usuarios registrados</div>
+        <div>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 02 · Comunidad</p>
+          <h2 className="text-xl font-display font-bold text-white mt-1">Gestión de usuarios</h2>
+        </div>
+        <div className="text-ocean-300/70 text-xs font-mono">{profiles.length} registrados</div>
       </div>
 
-      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-x-auto">
+      <GlassCard className="overflow-x-auto">
         <table className="w-full min-w-[900px]">
           <thead>
             <tr className="border-b border-ocean-700/30">
@@ -383,30 +399,33 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
             ))}
           </tbody>
         </table>
-      </div>
+      </GlassCard>
     </div>
   );
 }
 
 function ScannerTab() {
   return (
-    <div className="text-center py-12">
-      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-ocean-700/50 flex items-center justify-center">
+    <GlassCard className="text-center py-14 fade-up">
+      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-ocean-700/40 border border-ocean-300/15 flex items-center justify-center">
         <QrIcon size={40} />
       </div>
-      <h2 className="text-xl font-display font-bold text-white mb-2">Escaner QR</h2>
-      <p className="text-ocean-400 mb-6">Escanea los QR de los miembros en eventos</p>
+      <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 03 · Presencia</p>
+      <h2 className="text-xl font-display font-bold text-white mt-1 mb-2">Escáner QR</h2>
+      <p className="text-ocean-300/80 text-sm mb-6 max-w-md mx-auto">
+        Escaneá los QR de los miembros para registrar asistencia en eventos.
+      </p>
       <Link
         href="/admin/scanner"
-        className="inline-flex items-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-6 py-3 rounded-xl font-medium transition-all"
+        className="btn-app-primary shimmer-x-target inline-flex"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
           <circle cx="12" cy="13" r="4"/>
         </svg>
-        Abrir Escaner
+        Abrir escáner
       </Link>
-    </div>
+    </GlassCard>
   );
 }
 
@@ -589,16 +608,12 @@ function EventModal({ event, onClose, onSave }: { event: Event | null; onClose: 
               <span className="text-ocean-200">Publicar evento</span>
             </label>
             <div className="flex gap-3">
-              <button type="button" onClick={onClose} className="px-4 py-2 text-ocean-300 hover:text-white transition-colors">
+              <Button type="button" onClick={onClose} variant="ghost" size="sm">
                 Cancelar
-              </button>
-              <button
-                type="submit"
-                disabled={loading}
-                className="bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 text-white font-medium py-2 px-6 rounded-xl transition-all"
-              >
-                {loading ? "Guardando..." : "Guardar"}
-              </button>
+              </Button>
+              <Button type="submit" loading={loading} variant="primary" size="sm">
+                Guardar
+              </Button>
             </div>
           </div>
         </form>
@@ -674,16 +689,12 @@ function UserModal({ user, onClose, onSave }: { user: Profile; onClose: () => vo
             </label>
           </div>
           <div className="flex justify-end gap-3 pt-4">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-ocean-300 hover:text-white transition-colors">
+            <Button type="button" onClick={onClose} variant="ghost" size="sm">
               Cancelar
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 text-white font-medium py-2 px-6 rounded-xl transition-all"
-            >
-              {loading ? "Guardando..." : "Guardar"}
-            </button>
+            </Button>
+            <Button type="submit" loading={loading} variant="primary" size="sm">
+              Guardar
+            </Button>
           </div>
         </form>
       </div>

@@ -16,6 +16,7 @@ import {
   isRetiredPresetAvatarUrl,
   resolveAvatarDisplayUrl,
 } from "@/lib/avatarPresets";
+import { Button, GlassCard, PageHeader, StaggerReveal } from "@/components/ui";
 
 interface Profile {
   id: string;
@@ -222,57 +223,71 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     : "";
 
   return (
-    <div className="min-h-screen hero-bg">
-      {/* Header */}
-      <header className="bg-ocean-800/80 backdrop-blur-md border-b border-ocean-600/30">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/mdpdev.png" alt="MdPDev logo" width={40} height={40} className="rounded-xl" />
-            <span className="font-display font-bold text-white">MdPDev</span>
+    <div className="min-h-screen app-canvas">
+      {/* App top bar */}
+      <header className="border-b border-ocean-300/10 backdrop-blur-md bg-ocean-900/40 sticky top-0 z-30">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <Image
+              src="/mdpdev.png"
+              alt="MdPDev logo"
+              width={32}
+              height={32}
+              className="rounded-xl shadow-md shadow-ocean-700/40 group-hover:scale-105 transition-transform"
+            />
+            <span className="font-display font-semibold text-white text-[0.95rem] tracking-tight">
+              mardelplata<span className="text-ocean-300">.dev</span>
+            </span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {currentProfile?.is_admin && (
-              <Link
-                href="/admin"
-                className="flex items-center gap-2 bg-ocean-600/50 hover:bg-ocean-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
+              <Button href="/admin" variant="ghost" size="sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5" />
+                  <path d="M2 12l10 5 10-5" />
                 </svg>
                 Admin
-              </Link>
+              </Button>
             )}
-            <button
-              onClick={handleLogout}
-              className="text-ocean-300 hover:text-white transition-colors text-sm"
-            >
+            <Button onClick={handleLogout} variant="ghost" size="sm">
               Cerrar sesión
-            </button>
+            </Button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <main className="max-w-6xl mx-auto px-4 py-10">
+        <div className="fade-up" style={{ animationDelay: "0ms" }}>
+          <PageHeader
+            eyebrow="/ Mi perfil"
+            title={
+              <>
+                Hola, <span className="gradient-text">{currentProfile?.full_name?.split(" ")[0] || "comunidad"}</span>.
+              </>
+            }
+            description="Gestioná tu información, avatar y QR de miembro. Tu QR se mantiene estable aunque edites el resto."
+            actions={
+              !isEditing ? (
+                <Button onClick={() => setIsEditing(true)} variant="ghost" size="sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
+                  Editar
+                </Button>
+              ) : null
+            }
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Profile Card */}
-          <div className="lg:col-span-2">
-            <div className="bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-8 border border-ocean-600/30 shadow-2xl">
-              <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-3 mb-6">
-                <h1 className="text-2xl font-display font-bold text-white">Mi Perfil</h1>
-                {!isEditing && (
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="flex items-center gap-2 text-ocean-400 hover:text-ocean-200 transition-colors text-sm font-medium"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                    Editar
-                  </button>
-                )}
+          <GlassCard className="lg:col-span-2 p-8 fade-up" style={{ animationDelay: "120ms" }}>
+              <div className="mb-6 flex items-center justify-between gap-3">
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">
+                  / 01 · Datos
+                </p>
               </div>
 
               <div className="flex flex-col md:flex-row gap-6">
@@ -455,20 +470,16 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           />
                         </div>
                       </div>
-                      <div className="flex gap-3 pt-2">
-                        <button
-                          onClick={handleSave}
-                          disabled={loading}
-                          className="bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 text-white font-medium py-2 px-6 rounded-xl transition-all"
-                        >
-                          {loading ? "Guardando..." : "Guardar"}
-                        </button>
-                        <button
+                      <div className="flex flex-wrap gap-3 pt-2">
+                        <Button onClick={handleSave} loading={loading} variant="primary">
+                          Guardar
+                        </Button>
+                        <Button
                           onClick={() => { setIsEditing(false); setSaveError(null); }}
-                          className="text-ocean-300 hover:text-white transition-colors"
+                          variant="ghost"
                         >
                           Cancelar
-                        </button>
+                        </Button>
                       </div>
                       {saveError && (
                         <div className="bg-red-500/20 border border-red-500/40 text-red-200 px-4 py-3 rounded-xl text-sm">
@@ -514,15 +525,14 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                   )}
                 </div>
               </div>
-            </div>
-          </div>
+          </GlassCard>
 
-          {/* QR Card */}
-          <div>
-            <div className="bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-6 border border-ocean-600/30 shadow-2xl">
-              <h2 className="text-lg font-display font-bold text-white mb-4 text-center">
-                Tu QR de Miembro
-              </h2>
+          {/* QR + Stats column */}
+          <div className="space-y-6">
+            <GlassCard className="p-6 fade-up" style={{ animationDelay: "240ms" }}>
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70 mb-4 text-center">
+                / 02 · QR de miembro
+              </p>
               <div className="bg-white rounded-2xl p-4 mx-auto w-fit max-w-full">
                 {currentProfile?.qr_code ? (
                   <QRCodeSVG
@@ -545,29 +555,30 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
               <p className="text-ocean-300 text-xs text-center mt-4">
                 Mostrá este código en los eventos de la comunidad
               </p>
-              <div className="mt-4 bg-ocean-900/50 rounded-xl p-3 text-center">
+              <div className="mt-4 bg-ocean-950/60 rounded-xl p-3 text-center border border-ocean-700/30">
                 <span className="text-ocean-400 font-mono text-xs break-all block px-1">
                   {currentProfile?.qr_code}
                 </span>
               </div>
-            </div>
+            </GlassCard>
 
-            {/* Stats */}
-            <div className="mt-6 bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-6 border border-ocean-600/30">
-              <h3 className="text-lg font-display font-bold text-white mb-4">Estadísticas</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-ocean-300">Miembro desde</span>
-                  <span className="text-white font-medium">
+            <GlassCard className="p-6 fade-up" style={{ animationDelay: "320ms" }}>
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70 mb-4">
+                / 03 · Estadísticas
+              </p>
+              <StaggerReveal animation="count-up" baseDelay={420} stagger={90}>
+                <div className="flex justify-between items-baseline border-b border-ocean-300/10 pb-3">
+                  <span className="text-ocean-300 text-sm">Miembro desde</span>
+                  <span className="text-white font-display font-semibold">
                     {currentProfile?.created_at ? new Date(currentProfile.created_at).toLocaleDateString("es-AR", { month: "short", year: "numeric" }) : "-"}
                   </span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-ocean-300">Eventos asistidos</span>
-                  <span className="text-white font-medium">0</span>
+                <div className="flex justify-between items-baseline pt-3">
+                  <span className="text-ocean-300 text-sm">Eventos asistidos</span>
+                  <span className="text-white font-display font-semibold text-lg">{attendanceCount}</span>
                 </div>
-              </div>
-            </div>
+              </StaggerReveal>
+            </GlassCard>
           </div>
         </div>
       </main>

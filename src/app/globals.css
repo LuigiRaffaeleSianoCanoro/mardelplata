@@ -410,6 +410,176 @@ html { scroll-behavior: smooth; }
 }
 
 /* ────────────────────────────────────────────────────────────
+   Dashboard UI — primitives for the authenticated app surface.
+   Inspired by Spectra (CSS-only, stagger-friendly) with ocean tokens.
+   ──────────────────────────────────────────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes count-up {
+  from { opacity: 0; transform: scale(0.85); filter: blur(6px); }
+  to   { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+@keyframes sidebar-tab-in {
+  from { opacity: 0; transform: translateX(-8px) scale(0.92); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes shimmer-x {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.fade-up        { animation: fade-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.count-up       { animation: count-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.tab-in         { animation: sidebar-tab-in 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+
+/* Liquid glass card — ocean tones port of Spectra's liquid-glass */
+.glass-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(72, 202, 228, 0.04) 0%, rgba(2, 0, 48, 0.0) 80%),
+    rgba(2, 4, 30, 0.45);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(72, 202, 228, 0.15);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 1px 1px rgba(202, 240, 248, 0.10),
+    0 0 30px rgba(0, 119, 182, 0.05);
+  overflow: hidden;
+}
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(72, 202, 228, 0.30) 0%,
+    rgba(202, 240, 248, 0.10) 30%,
+    transparent 50%,
+    transparent 70%,
+    rgba(202, 240, 248, 0.06) 90%,
+    rgba(0, 119, 182, 0.20) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.glass-card-tight { border-radius: 18px; }
+
+/* App buttons — gradient solid with neon glow (Spectra btn-primary) */
+.btn-app-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: -0.005em;
+  color: white;
+  background: linear-gradient(180deg, #00B4D8 0%, #0077B6 50%, #00B4D8 100%);
+  border-radius: 9999px;
+  border: 1px solid rgba(202, 240, 248, 0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 18px rgba(0, 180, 216, 0.32),
+    0 0 48px rgba(0, 119, 182, 0.12);
+  transition: box-shadow 0.25s ease, transform 0.18s ease, filter 0.18s ease;
+  cursor: pointer;
+}
+.btn-app-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 26px rgba(0, 180, 216, 0.45),
+    0 0 64px rgba(0, 119, 182, 0.22);
+}
+.btn-app-primary:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+.btn-app-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-app-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: rgba(202, 240, 248, 0.85);
+  background: rgba(2, 0, 48, 0.4);
+  border: 1px solid rgba(72, 202, 228, 0.22);
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+  cursor: pointer;
+}
+.btn-app-ghost:hover:not(:disabled) {
+  color: white;
+  border-color: rgba(72, 202, 228, 0.55);
+  background: rgba(2, 0, 48, 0.6);
+  transform: translateY(-1px);
+}
+.btn-app-ghost:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+.btn-app-ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-app-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: white;
+  background: linear-gradient(180deg, #f87171 0%, #dc2626 100%);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 100, 100, 0.4);
+  box-shadow: 0 0 18px rgba(220, 38, 38, 0.3);
+  transition: box-shadow 0.25s ease, transform 0.18s ease, filter 0.18s ease;
+  cursor: pointer;
+}
+.btn-app-danger:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 0 26px rgba(220, 38, 38, 0.45);
+}
+.btn-app-danger:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+
+/* Subtle shimmer that sweeps across an element on hover */
+.shimmer-x-target {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-x-target::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(202, 240, 248, 0.18) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+.shimmer-x-target:hover::after {
+  transform: translateX(100%);
+}
+
+/* App-shell canvas — used by /perfil, /admin, /proyectos */
+.app-canvas {
+  background:
+    radial-gradient(70% 50% at 80% 0%, rgba(0, 180, 216, 0.18) 0%, transparent 60%),
+    radial-gradient(60% 50% at 0% 100%, rgba(72, 202, 228, 0.12) 0%, transparent 60%),
+    linear-gradient(180deg, #020030 0%, #03045E 50%, #023E8A 100%);
+}
+
+/* ────────────────────────────────────────────────────────────
    Preview variants — mono (Vercel/Basehub) + motion
    ──────────────────────────────────────────────────────────── */
 
@@ -494,6 +664,8 @@ html { scroll-behavior: smooth; }
   .boat-bob-1, .boat-bob-2, .boat-bob-3,
   .boat-bob-deep-1, .boat-bob-deep-2, .boat-bob-deep-3,
   .boat-roll-soft, .boat-roll-slow, .boat-drift-soft,
+  .fade-up, .count-up, .tab-in,
+  .shimmer-x-target::after,
   .wave-layer-deep, .wave-layer-mid, .wave-layer-fore,
   .wave-drift, .community-marquee,
   .float-1, .float-2, .float-3, .pulse-dot, .aurora,
