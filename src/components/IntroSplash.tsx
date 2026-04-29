@@ -32,7 +32,7 @@ export default function IntroSplash() {
       <div className="absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 px-6">
         <pre className="font-mono text-[0.78rem] sm:text-sm leading-7 text-white/85 text-center">
           <span className="term-line block kicker text-white/40 mb-3" style={{ animationDelay: "0ms" }}>
-            // initiating handshake
+            {"// initiating handshake"}
           </span>
           <span className="term-line block" style={{ animationDelay: "120ms" }}>
             <span className="text-[#3B82F6]">[ ✓ ]</span>
