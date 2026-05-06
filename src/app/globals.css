@@ -265,14 +265,304 @@
 
 html.intro-seen .intro-splash { display: none !important; }
 
-/* Page reveal — page contents stay invisible until the intro finishes (1.3s),
-   then fade in. Skipped for repeat visits (html.intro-seen) and reduced motion. */
+/* Modifier: variante "extendida" del splash usada en intro3 (y ahora la
+   home). El CONTAINER corre 2800ms con un keyframe propio que mantiene
+   bg negro 0-86% (= 0-2408ms) y recién hace fade 86-100% (2408-2800ms).
+   Las animaciones internas (content fade, iris) corren 2200ms — terminan
+   a 1892-2200ms y dejan ~500ms de pantalla negra antes de que el
+   container y la home crossfadeen. */
+.intro-splash--ext { animation: splash-out-iris-ext 2800ms cubic-bezier(0.55, 0.06, 0.18, 1) forwards; }
+.intro-splash--ext > .absolute:not(.splash-iris) { animation-duration: 2200ms; }
+.intro-splash--ext .iris-line { animation-duration: 2200ms; }
+
+@keyframes splash-out-iris-ext {
+  0%, 86%   { opacity: 1; }
+  100%      { opacity: 0; visibility: hidden; }
+}
+
+/* "Boot polygons" — triángulos low-poly con el degrade violeta→azul que
+   aparecen tras el iris (~1990ms), holdean brillando y se desvanecen
+   junto al bg del splash. Conceptualmente "prenden la pantalla" antes
+   de que la home aparezca. */
+.splash-boot-poly {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.boot-tri {
+  fill: rgba(168, 85, 247, 0.07);
+  stroke: url(#lpd-grad-boot);
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+  stroke-opacity: 0;
+  fill-opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.85))
+          drop-shadow(0 0 18px rgba(99, 102, 241, 0.45));
+  animation: boot-tri-pulse 2800ms cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Timeline (2800ms = duración del container):
+     0-71%  (0-1988ms)    : oculto (durante content fade + iris)
+     71-76% (1988-2128ms) : draw-in (140ms)
+     76-85% (2128-2380ms) : hold brillante
+     85-100% (2380-2800ms): fade out junto al bg y home crossfade */
+@keyframes boot-tri-pulse {
+  0%, 71%   { stroke-opacity: 0; fill-opacity: 0; }
+  76%       { stroke-opacity: 1; fill-opacity: 1; }
+  85%       { stroke-opacity: 0.95; fill-opacity: 0.85; }
+  100%      { stroke-opacity: 0; fill-opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-tri { animation: none !important; opacity: 0 !important; }
+}
+
+/* Glitch secuenciado para intro3. Dos olas cronológicas:
+   1) intro3-glitch-shell — la consola glitchea PRIMERO (18-30% / 396-660ms)
+   2) intro3-glitch-rest  — olas + HUD glitchean DESPUÉS (34-46% / 748-1012ms)
+   Ambas terminan antes de que splash-content-fade arranque el TV-off
+   chromatic warning a 50% (1100ms). */
+
+/* Dying neon flicker — sin colores, sin transforms, sin clip-path. Sólo
+   opacity + brightness + sutiles glows blanco que simulan el gas del tubo
+   prendiéndose y apagándose erráticamente como un neón a punto de morir.
+   Usa steps(1, end) → cada valor "snapea" en seco, no interpola. */
+@keyframes intro3-glitch-shell {
+  0%, 17%   { opacity: 1; filter: none; text-shadow: none; }
+  /* arranca a fallar — apaga, tantea, casi se va */
+  18%       { opacity: 0.18; filter: brightness(0.3); }
+  19%       { opacity: 0.6;  filter: brightness(0.65); }
+  19.6%     { opacity: 0.08; filter: brightness(0.18); }
+  /* sobretensión: vuelve más brillante de lo normal por un instante */
+  20.3%     { opacity: 1; filter: brightness(1.55); text-shadow: 0 0 6px rgba(220, 235, 250, 0.7); }
+  20.9%     { opacity: 1; filter: brightness(1); text-shadow: none; }
+  /* segunda muerte: parpadeos más cortos */
+  22%       { opacity: 0.15; filter: brightness(0.25); }
+  22.7%     { opacity: 1; filter: brightness(1.35); text-shadow: 0 0 5px rgba(220, 235, 250, 0.6); }
+  23.4%     { opacity: 0.4; filter: brightness(0.55); text-shadow: none; }
+  /* tres flicks finales más cortos, va estabilizando */
+  24.5%     { opacity: 1; filter: brightness(1); }
+  25.6%     { opacity: 0.5; filter: brightness(0.6); }
+  26.5%     { opacity: 1; filter: brightness(1.1); }
+  27.5%     { opacity: 0.75; filter: brightness(0.85); }
+  28.5%     { opacity: 1; filter: brightness(1); }
+  29.3%     { opacity: 0.9; filter: brightness(0.95); }
+  /* recupera */
+  30%, 100% { opacity: 1; filter: none; text-shadow: none; }
+}
+
+@keyframes intro3-glitch-rest {
+  0%, 33%   { transform: none; filter: none; clip-path: none; }
+  35%       { transform: translate(8px, -2px); filter: hue-rotate(55deg) saturate(1.8) contrast(1.2); clip-path: inset(18% 0 62% 0); }
+  38%       { transform: translate(-9px, 3px); filter: hue-rotate(-95deg) saturate(2.2) contrast(1.4); clip-path: inset(60% 0 12% 0); }
+  40%       { transform: none; filter: none; clip-path: none; }
+  43%       { transform: translate(11px, 0); filter: invert(0.35) hue-rotate(180deg); clip-path: inset(44% 0 36% 0); }
+  46%       { transform: translate(-4px, 1px); filter: brightness(1.6) saturate(0.4); clip-path: inset(0 32% 0 28%); }
+  48%, 100% { transform: none; filter: none; clip-path: none; }
+}
+
+.intro3-glitch-shell {
+  animation: intro3-glitch-shell 2200ms steps(1, end) forwards;
+  will-change: transform, filter, clip-path, text-shadow, opacity;
+}
+
+.intro3-glitch-rest {
+  animation: intro3-glitch-rest 2200ms steps(1, end) forwards;
+  will-change: transform, filter, clip-path;
+}
+
+/* La consola tiene su propia animación de fade-in (lpd-term-frame-in).
+   La clase .intro3-glitch-shell sobrescribe el `animation` shorthand,
+   así que recomponemos las dos en un selector más específico. */
+.lpd-terminal.intro3-glitch-shell {
+  animation:
+    lpd-term-frame-in 0.32s ease-out 0.05s forwards,
+    intro3-glitch-shell 2200ms steps(1, end) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro3-glitch-shell,
+  .intro3-glitch-rest,
+  .lpd-terminal.intro3-glitch-shell { animation: none !important; }
+}
+
+/* Sacudón del HUD — corre en sincro con el shell glitch (18-30%). Sólo
+   transforms, sin filter/clip-path/text-shadow → no parece "glitch",
+   parece impacto. Combina translate + rotate + scale no uniforme para
+   que el HUD oscile como cabina sobre amortiguadores: bandazos con
+   compresión y tilt, no sólo desplazamiento rígido. */
+@keyframes intro3-shake-hud {
+  0%, 17%   { transform: translate(0, 0) rotate(0deg) scale(1, 1); }
+  19%       { transform: translate(9px, -5px)   rotate(0.4deg)  scale(1.005, 0.997); }
+  20.5%     { transform: translate(-11px, 6px)  rotate(-0.5deg) scale(0.995, 1.005); }
+  22%       { transform: translate(8px, -4px)   rotate(0.5deg)  scale(1.004, 0.996); }
+  23.5%     { transform: translate(-10px, 5px)  rotate(-0.55deg) scale(0.994, 1.005); }
+  25%       { transform: translate(7px, 4px)    rotate(0.4deg)  scale(1.003, 0.997); }
+  26.5%     { transform: translate(-8px, -3px)  rotate(-0.4deg) scale(0.996, 1.003); }
+  28%       { transform: translate(5px, 2px)    rotate(0.2deg)  scale(1.002, 0.999); }
+  30%, 100% { transform: translate(0, 0) rotate(0deg) scale(1, 1); }
+}
+
+.intro3-shake-hud {
+  animation: intro3-shake-hud 2200ms cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro3-shake-hud { animation: none !important; }
+}
+
+/* ─── HUD intro3 — Pacific Rim mech / submarine periscope ────────────────
+   Capa fina de telemetría sobre toda la pantalla: corner brackets, bearing
+   scale, depth ladder, signal bars, time + coords vivos. Acompaña al
+   terminal central y al sonar (que queda como widget RADAR en esquina). */
+
+.hud-corner {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-color: rgba(110, 140, 200, 0.45);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+}
+.hud-corner--tl { top: 16px;    left: 16px;  border-top-width: 1px;    border-left-width: 1px; }
+.hud-corner--tr { top: 16px;    right: 16px; border-top-width: 1px;    border-right-width: 1px; }
+.hud-corner--bl { bottom: 16px; left: 16px;  border-bottom-width: 1px; border-left-width: 1px; }
+.hud-corner--br { bottom: 16px; right: 16px; border-bottom-width: 1px; border-right-width: 1px; }
+
+.hud-label {
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: rgba(180, 210, 235, 0.65);
+  text-transform: uppercase;
+}
+.hud-label--dim {
+  color: rgba(140, 170, 200, 0.4);
+}
+.hud-accent { color: rgba(96, 165, 250, 0.95); }
+.hud-ok     { color: rgba(110, 230, 170, 0.95); }
+.hud-warn   { color: rgba(245, 158, 11, 0.9); }
+
+.hud-status-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(110, 230, 170, 0.95);
+  box-shadow: 0 0 6px rgba(80, 220, 150, 0.55);
+  margin-right: 0.5em;
+  vertical-align: 1px;
+  animation: hud-status-pulse 1.4s ease-in-out infinite;
+}
+@keyframes hud-status-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+
+/* Bearing scale top-center: 270 280 290 N 010 020 030 */
+.hud-bearing {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(140, 170, 200, 0.45);
+}
+.hud-bearing > .n { color: rgba(96, 165, 250, 1); font-weight: 600; }
+.hud-bearing-tick {
+  width: 1px;
+  height: 12px;
+  background: rgba(96, 165, 250, 0.95);
+  box-shadow: 0 0 6px rgba(96, 165, 250, 0.6);
+  margin: 4px auto 0;
+}
+
+/* Depth ladder (right side) y signal bars (left side) — verticales con
+   tick marks y labels en mono. */
+.hud-rail {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(140, 170, 200, 0.45);
+}
+.hud-rail--right { right: 28px; align-items: flex-end; }
+.hud-rail--left  { left: 28px; align-items: flex-start; }
+.hud-rail-row { display: flex; align-items: center; gap: 8px; }
+.hud-rail-tick {
+  width: 14px;
+  height: 1px;
+  background: rgba(110, 140, 200, 0.55);
+}
+.hud-rail-tick--mark { background: rgba(96, 165, 250, 0.9); width: 22px; }
+
+/* Signal bars (segmented) */
+.hud-bars {
+  display: inline-flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 10px;
+}
+.hud-bars > span {
+  display: block;
+  width: 3px;
+  background: rgba(110, 230, 170, 0.9);
+  box-shadow: 0 0 4px rgba(80, 220, 150, 0.45);
+}
+
+/* Crosshair central detrás del terminal — ancla visual sutil. */
+.hud-crosshair {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hud-crosshair::before,
+.hud-crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(110, 140, 200, 0.18);
+}
+.hud-crosshair::before { width: 100vw; height: 1px; }
+.hud-crosshair::after  { height: 100vh; width: 1px; }
+.hud-crosshair-dot {
+  width: 6px; height: 6px;
+  border: 1px solid rgba(96, 165, 250, 0.7);
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sonar más chico + label "RADAR" para que se lea como widget integrado */
+.hud-radar-frame {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Page reveal — la home arranca invisible y entra con fade durante el
+   black hold + crossfade del container (2300-2800ms). Así la pantalla
+   queda negra al terminar el contenido del splash (~1900ms) y la home
+   aparece suavemente debajo cuando el bg del splash empieza a fadear. */
 @keyframes page-reveal-in {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 .page-after-intro {
-  animation: page-reveal-in 0.4s ease-out 1100ms both;
+  animation: page-reveal-in 0.42s ease-out 2380ms both;
 }
 html.intro-seen .page-after-intro { animation: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -2105,3 +2395,960 @@ html.lenis, html.lenis body { height: auto; }
     animation: none !important;
   }
 }
+
+/* ============================================================
+   LowPolyDissolveIntro — malla que se desarma para revelar el océano
+   ============================================================ */
+
+.lpd-root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 38%, rgba(20, 36, 76, 0.85) 0%, rgba(8, 12, 30, 0.95) 60%),
+    linear-gradient(180deg, #050714 0%, #060a22 60%, #03050f 100%);
+}
+
+/* Halo muy suave — apenas un velo de luz lunar sobre los reflejos. */
+.lpd-mesh {
+  filter: drop-shadow(0 0 1.5px rgba(180, 210, 240, 0.25));
+}
+
+.lpd-mesh polygon {
+  fill: transparent;
+  stroke: url(#lpd-grad);
+  stroke-opacity: 0;
+  stroke-width: 0.85;
+  stroke-linejoin: round;
+  will-change: stroke-opacity;
+}
+
+.lpd-mesh polygon.lpd-tri-crest {
+  stroke-width: 1.1;
+}
+
+.lpd-mesh polygon.lpd-tri-glint {
+  stroke-width: 0.95;
+}
+
+/* El movimiento de las olas se calcula en JS y se escribe directo a los
+   atributos `points` y `cy` (ver LowPolyDissolveIntro). Los triángulos
+   vecinos comparten los mismos vértices → no hay separación visual. */
+
+/* Línea blanca: la "señal de activación" que el shell emite cuando completa
+   el boot. Emerge desde la izquierda (lado del shell) y se traza hacia la
+   derecha — narrativa: el shell activa la mesh y la onda viaja por la línea. */
+.lpd-horizon {
+  stroke: rgba(210, 240, 255, 0.95);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 4px rgba(140, 210, 255, 0.85));
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+  opacity: 0;
+}
+
+.lpd-building .lpd-horizon {
+  animation: lpd-horizon-draw 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.95s;
+}
+
+@keyframes lpd-horizon-draw {
+  0%   { opacity: 0; transform: scaleX(0); }
+  18%  { opacity: 1; }
+  100% { opacity: 0.45; transform: scaleX(1); }
+}
+
+.lpd-pulsing .lpd-horizon { opacity: 0.18; transition: opacity 0.35s; }
+.lpd-out .lpd-horizon,
+.lpd-done .lpd-horizon { opacity: 0; transition: opacity 0.5s; }
+
+/* La opacidad de cada polígono la dispara el "reflejo": una banda lumínica
+   que cruza la pantalla una sola vez y enciende los triángulos a su paso.
+   El JS escribe directamente el atributo stroke-opacity por frame. */
+.lpd-done .lpd-mesh polygon { stroke-opacity: 0; }
+
+/* Nodos = vértices brillantes. Pop-in justo antes de la cresta y fade-out
+   después, encadenado al mismo wave-delay del triángulo. */
+.lpd-nodes {
+  filter: drop-shadow(0 0 2px rgba(190, 220, 245, 0.4))
+          drop-shadow(0 0 5px rgba(140, 180, 230, 0.18));
+}
+
+.lpd-nodes circle {
+  fill: rgba(190, 235, 255, 0.95);
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: opacity, transform;
+}
+
+.lpd-node-hot {
+  fill: rgba(225, 245, 255, 1);
+}
+
+/* Nodos: la mayoría queda casi invisible. Solo hot + glints son
+   reflejos visibles. Las animaciones de fase tocan opacity, el swell
+   toca transform → corren en paralelo sin chocar. */
+.lpd-nodes circle {
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: opacity, transform;
+  /* Reflejo lunar: ambient casi gone, glint/hot apenas presentes. */
+  --lpd-node-base: 0.03;
+}
+
+.lpd-nodes circle.lpd-node-hot {
+  --lpd-node-base: calc(0.32 + var(--lpd-bright, 0.5) * 0.32);
+}
+
+.lpd-nodes circle.lpd-node-glint {
+  --lpd-node-base: 0.22;
+}
+
+.lpd-done .lpd-nodes circle { opacity: 0; }
+
+/* Panel terminal sysadmin: bottom-left, tipo ventana de tmux con header
+   de tres dots, líneas que aparecen escalonadas mientras la red se arma. */
+.lpd-terminal {
+  position: absolute;
+  left: clamp(1rem, 3vw, 2.5rem);
+  bottom: clamp(1.25rem, 4vh, 3rem);
+  pointer-events: none;
+  z-index: 2;
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+  line-height: 1.55;
+  color: rgba(180, 210, 235, 0.78);
+  background: linear-gradient(180deg, rgba(10, 14, 28, 0.78) 0%, rgba(6, 10, 22, 0.62) 100%);
+  border: 1px solid rgba(110, 140, 200, 0.18);
+  border-radius: 6px;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 8px 32px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(140, 180, 240, 0.04) inset;
+  width: clamp(320px, 32vw, 460px);
+  max-width: calc(100vw - 2rem);
+  overflow: hidden;
+  opacity: 0;
+  animation: lpd-term-frame-in 0.32s ease-out forwards 0.05s;
+}
+
+.lpd-term-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-bottom: 1px solid rgba(110, 140, 200, 0.12);
+  background: rgba(8, 12, 26, 0.55);
+}
+
+.lpd-term-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(120, 130, 150, 0.4);
+}
+.lpd-term-dot--r { background: rgba(255, 95, 86, 0.7); }
+.lpd-term-dot--y { background: rgba(255, 189, 46, 0.7); }
+.lpd-term-dot--g { background: rgba(39, 201, 63, 0.7); }
+
+.lpd-term-title {
+  margin-left: 8px;
+  color: rgba(150, 175, 210, 0.6);
+  font-size: 0.7em;
+  letter-spacing: 0.04em;
+}
+
+.lpd-term-body {
+  padding: 10px 14px 12px;
+  white-space: nowrap;
+}
+
+.lpd-term-line {
+  opacity: 0;
+  transform: translateX(-4px);
+  animation: lpd-term-line-in 0.22s ease-out forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.lpd-term-prompt {
+  color: rgba(168, 85, 247, 0.95);
+  font-weight: 600;
+  margin-right: 0.2em;
+}
+
+.lpd-term-mark {
+  color: rgba(110, 230, 170, 0.95);
+  margin-right: 0.2em;
+  font-weight: 600;
+}
+
+.lpd-term-bullet {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+.lpd-term-bullet--ok {
+  color: rgba(110, 230, 170, 0.95);
+  text-shadow: 0 0 6px rgba(80, 220, 150, 0.45);
+}
+
+.lpd-term-meta {
+  color: rgba(140, 165, 200, 0.5);
+  margin-left: 0.4em;
+}
+
+.lpd-term-line--ok {
+  color: rgba(200, 230, 250, 0.92);
+}
+
+.lpd-term-caret {
+  display: inline-block;
+  margin-left: 0.35em;
+  color: rgba(168, 85, 247, 0.95);
+  animation: lpd-caret-blink 0.85s steps(1) infinite;
+}
+
+@keyframes lpd-term-frame-in {
+  to { opacity: 1; }
+}
+
+@keyframes lpd-term-line-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes lpd-caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Break: las líneas titilan con un chromatic shift violeta+azul — eco
+   visual del reflejo que acaba de cruzar la mesh. Mismo tinte que el
+   gradiente de los polígonos, así shell y red se "leen" como un sistema. */
+.lpd-pulsing .lpd-term-line {
+  animation: lpd-term-line-flick 0.22s steps(3) 3;
+}
+
+@keyframes lpd-term-line-flick {
+  0%, 60% {
+    opacity: 1;
+    transform: translateX(0);
+    color: rgba(180, 210, 235, 0.78);
+    text-shadow: none;
+  }
+  30% {
+    opacity: 0.45;
+    transform: translateX(2px);
+    color: rgba(220, 220, 245, 0.95);
+    text-shadow:
+      -1.2px 0 rgba(168, 85, 247, 0.85),
+      1.2px 0 rgba(59, 130, 246, 0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    color: rgba(180, 210, 235, 0.78);
+    text-shadow: none;
+  }
+}
+
+/* Out: el panel colapsa fluidamente (scaleY → 0 + fade), no blur burdo. */
+.lpd-out .lpd-terminal {
+  animation: lpd-term-collapse 0.45s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+  transform-origin: bottom left;
+}
+
+.lpd-done .lpd-terminal { opacity: 0; }
+
+@keyframes lpd-term-collapse {
+  0%   { opacity: 1; transform: scaleY(1) translateY(0); }
+  60%  { opacity: 0.6; transform: scaleY(0.6) translateY(2px); }
+  100% { opacity: 0; transform: scaleY(0.05) translateY(6px); }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .lpd-mesh polygon,
+  .lpd-nodes circle {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* ============================================================
+   Navbar wave-tech v2 — strip compacto con módulos hexagonales y
+   flujos de energía. Paleta cyan → violeta → magenta.
+   ============================================================ */
+
+:root {
+  --wt-cyan:    rgba(140, 195, 240, 1);
+  --wt-violet:  rgba(170, 130, 255, 1);
+  --wt-magenta: rgba(230, 130, 220, 1);
+  --wt-gradient: linear-gradient(
+    90deg,
+    var(--wt-cyan) 0%,
+    var(--wt-violet) 55%,
+    var(--wt-magenta) 100%
+  );
+  --wt-bg-deep: rgba(8, 10, 24, 0.78);
+  --wt-bg-module: rgba(18, 20, 45, 0.55);
+  --wt-bg-cta: rgba(30, 18, 50, 0.7);
+}
+
+/* Tira contenedora — completamente transparente, sin pill ni clip exterior.
+   Solo aloja los módulos individuales que cada uno tiene su propio outline. */
+.nav-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0;
+  background: transparent;
+  position: relative;
+  isolation: isolate;
+  width: max-content;
+  max-width: calc(100vw - 1.5rem);
+  transition: filter 0.4s ease;
+}
+.nav-strip.is-scrolled {
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.45));
+}
+
+.nav-strip-row {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------- Módulo genérico (link/cta): polígono chanfered con
+   stroke gradient implementado vía mask-composite. ---------- */
+.nav-link,
+.nav-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  isolation: isolate;
+  font-family: var(--font-space-grotesk), ui-monospace, monospace;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+  white-space: nowrap;
+  transition: color 0.25s ease, transform 0.3s ease;
+}
+
+/* Outline-only ring: usa mask-composite para sustraer el interior del fill,
+   dejando solo un anillo de 1px alrededor del clip-path hex. Cada módulo
+   define su propio --ring-grad. Centro completamente transparente. */
+.nav-link-bg,
+.nav-cta-bg,
+.nav-chip-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  background: var(--ring-grad, linear-gradient(90deg, rgba(140, 195, 240, 0.55), rgba(170, 130, 255, 0.55)));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 30%,
+    100% 70%,
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 70%,
+    0 30%
+  );
+  transition: background 0.3s ease, filter 0.3s ease;
+}
+
+/* ---------- Link modules ---------- */
+.nav-link {
+  padding: 0.55rem 0.95rem;
+  font-size: 0.72rem;
+  color: rgba(220, 230, 245, 0.78);
+}
+.nav-link-bg {
+  --ring-grad: linear-gradient(
+    90deg,
+    rgba(140, 195, 240, 0.4),
+    rgba(170, 130, 255, 0.4)
+  );
+}
+.nav-link:hover { color: rgba(240, 250, 255, 1); }
+.nav-link:hover .nav-link-bg {
+  --ring-grad: linear-gradient(
+    90deg,
+    rgba(170, 220, 255, 0.85),
+    rgba(195, 160, 255, 0.85)
+  );
+}
+.nav-link.is-active { color: rgba(220, 200, 255, 1); }
+.nav-link.is-active .nav-link-bg {
+  --ring-grad: linear-gradient(
+    90deg,
+    rgba(140, 195, 240, 0.9),
+    rgba(170, 130, 255, 0.9),
+    rgba(230, 130, 220, 0.75)
+  );
+}
+
+/* ---------- Center chip (logo + wordmark) ---------- */
+.nav-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1.1rem;
+  margin: -0.45rem 0;
+  isolation: isolate;
+  transition: transform 0.35s ease;
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 25%,
+    100% 75%,
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 75%,
+    0 25%
+  );
+}
+.nav-chip-bg {
+  --ring-grad: linear-gradient(
+    90deg,
+    rgba(140, 195, 240, 0.85) 0%,
+    rgba(170, 130, 255, 0.85) 55%,
+    rgba(230, 130, 220, 0.7) 100%
+  );
+}
+.nav-chip:hover { transform: translateY(-1px); }
+.nav-chip:hover .nav-chip-bg {
+  --ring-grad: linear-gradient(
+    90deg,
+    rgba(180, 220, 255, 1) 0%,
+    rgba(195, 160, 255, 1) 55%,
+    rgba(255, 165, 230, 0.9) 100%
+  );
+}
+.nav-chip-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  filter: drop-shadow(0 0 4px rgba(170, 130, 255, 0.35));
+}
+.nav-chip-wordmark {
+  font-family: var(--font-space-grotesk), ui-monospace, monospace;
+  font-size: 0.84rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(235, 240, 255, 0.95);
+}
+.nav-chip-wordmark-accent {
+  background: var(--wt-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 0.05em;
+  font-weight: 500;
+}
+
+/* ---------- CTA (ingresar / perfil) ---------- */
+.nav-cta {
+  padding: 0.5rem 0.95rem;
+  font-size: 0.72rem;
+  color: rgba(245, 235, 255, 1);
+  gap: 0.45rem;
+  font-weight: 500;
+}
+.nav-cta-bg {
+  --ring-grad: linear-gradient(
+    90deg,
+    rgba(170, 130, 255, 0.85),
+    rgba(230, 130, 220, 0.85)
+  );
+}
+.nav-cta:hover {
+  transform: translateY(-1px);
+  color: rgba(255, 245, 255, 1);
+}
+.nav-cta:hover .nav-cta-bg {
+  --ring-grad: linear-gradient(
+    90deg,
+    rgba(195, 160, 255, 1),
+    rgba(255, 165, 230, 0.95)
+  );
+}
+.nav-cta-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  color: rgba(230, 130, 220, 0.9);
+}
+.nav-cta:hover .nav-cta-arrow {
+  transform: translateX(2px);
+  color: rgba(255, 175, 235, 1);
+}
+
+/* ---------- Burger circular (mobile only) ---------- */
+.nav-burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-left: 0.4rem;
+  border-radius: 50%;
+  border: 1px solid rgba(170, 130, 255, 0.55);
+  background: transparent;
+  color: rgba(230, 220, 255, 0.9);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.nav-burger:hover {
+  border-color: rgba(230, 130, 220, 0.85);
+  color: rgba(255, 245, 255, 1);
+}
+@media (min-width: 768px) {
+  .nav-burger { display: none; }
+}
+
+/* ---------- Flow (dashed line + dot que viaja) ---------- */
+.nav-flow {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 12px;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+.nav-flow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(140, 195, 240, 0.3) 0,
+    rgba(140, 195, 240, 0.3) 2px,
+    transparent 2px,
+    transparent 5px
+  );
+  transform: translateY(-50%);
+}
+.nav-flow-dot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(220, 230, 255, 1) 0%,
+    rgba(170, 130, 255, 0.85) 60%,
+    rgba(170, 130, 255, 0) 100%
+  );
+  filter: drop-shadow(0 0 3px rgba(170, 130, 255, 0.7));
+  transform: translate(-50%, -50%);
+  animation: nav-flow-travel 2.6s linear infinite;
+}
+@keyframes nav-flow-travel {
+  0%   { left: 0;    opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+/* Desfase entre flows adyacentes para sensación de circuito vivo */
+.nav-strip > *:nth-child(2)  .nav-flow-dot,
+.nav-strip-row > *:nth-child(2)  .nav-flow-dot { animation-delay: 0.5s; }
+.nav-strip > *:nth-child(4)  .nav-flow-dot,
+.nav-strip-row > *:nth-child(4)  .nav-flow-dot { animation-delay: 1.0s; }
+.nav-strip > *:nth-child(6)  .nav-flow-dot,
+.nav-strip-row > *:nth-child(6)  .nav-flow-dot { animation-delay: 1.5s; }
+
+/* ---------- Mobile dropdown ---------- */
+.nav-mobile-panel {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(8, 10, 24, 0.92);
+  border: 1px solid rgba(170, 130, 255, 0.18);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  max-width: 22rem;
+  clip-path: polygon(
+    0 12px,
+    12px 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0 calc(100% - 12px)
+  );
+}
+.nav-mobile-panel ul { list-style: none; margin: 0; padding: 0; }
+.nav-mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--font-space-grotesk), ui-monospace, monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: rgba(220, 230, 245, 0.78);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.nav-mobile-link:hover,
+.nav-mobile-link.is-active {
+  color: rgba(220, 200, 255, 1);
+  background: rgba(170, 130, 255, 0.08);
+}
+.nav-mobile-prompt {
+  color: rgba(230, 130, 220, 0.85);
+  font-weight: 500;
+}
+
+/* ---------- Glitch mesh + chromatic aberration ---------- */
+
+/* Mini-mesh triangulado superpuesto al módulo. Default invisible; al hover
+   del padre, los polígonos pulsan con stroke alternando cyan / magenta.
+   Respeta el chamfer del módulo via clip-path. */
+.nav-glitch-mesh {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  mix-blend-mode: screen;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 30%,
+    100% 70%,
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 70%,
+    0 30%
+  );
+}
+.nav-chip .nav-glitch-mesh {
+  /* El chip tiene un clip-path con proporciones distintas */
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 25%,
+    100% 75%,
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 75%,
+    0 25%
+  );
+}
+.nav-glitch-mesh polygon {
+  fill: transparent;
+  stroke: rgba(140, 195, 240, 0.7);
+  stroke-width: 0.4;
+  stroke-dasharray: 1.4 2.2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+}
+.nav-glitch-mesh polygon:nth-child(odd) {
+  stroke: rgba(230, 130, 220, 0.7);
+}
+
+.nav-link:hover .nav-glitch-mesh,
+.nav-cta:hover .nav-glitch-mesh,
+.nav-chip:hover .nav-glitch-mesh {
+  opacity: 1;
+}
+.nav-link:hover .nav-glitch-mesh polygon,
+.nav-cta:hover .nav-glitch-mesh polygon,
+.nav-chip:hover .nav-glitch-mesh polygon {
+  animation: nav-glitch-pulse 0.55s cubic-bezier(0.4, 0, 0.4, 1);
+}
+/* Stagger por hijo — el mesh se "imprime" en barrido */
+.nav-glitch-mesh polygon:nth-child(2)  { animation-delay: 0.02s; }
+.nav-glitch-mesh polygon:nth-child(3)  { animation-delay: 0.04s; }
+.nav-glitch-mesh polygon:nth-child(4)  { animation-delay: 0.06s; }
+.nav-glitch-mesh polygon:nth-child(5)  { animation-delay: 0.08s; }
+.nav-glitch-mesh polygon:nth-child(6)  { animation-delay: 0.10s; }
+.nav-glitch-mesh polygon:nth-child(7)  { animation-delay: 0.12s; }
+.nav-glitch-mesh polygon:nth-child(8)  { animation-delay: 0.05s; }
+.nav-glitch-mesh polygon:nth-child(9)  { animation-delay: 0.07s; }
+.nav-glitch-mesh polygon:nth-child(10) { animation-delay: 0.09s; }
+.nav-glitch-mesh polygon:nth-child(11) { animation-delay: 0.11s; }
+.nav-glitch-mesh polygon:nth-child(12) { animation-delay: 0.13s; }
+.nav-glitch-mesh polygon:nth-child(13) { animation-delay: 0.15s; }
+
+@keyframes nav-glitch-pulse {
+  0%   { opacity: 0; }
+  35%  { opacity: 1; }
+  100% { opacity: 0.35; }
+}
+
+/* Chromatic aberration: el texto principal se mantiene blanco y dos copias
+   (cyan + magenta) aparecen levemente desplazadas al hover. Implementado
+   con ::before y ::after que usan data-text como contenido. */
+.nav-link-text,
+.nav-cta-text,
+.nav-chip-wordmark {
+  position: relative;
+  display: inline-block;
+}
+.nav-link-text::before,
+.nav-link-text::after,
+.nav-cta-text::before,
+.nav-cta-text::after,
+.nav-chip-wordmark::before,
+.nav-chip-wordmark::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.nav-link-text::before,
+.nav-cta-text::before,
+.nav-chip-wordmark::before {
+  color: rgba(140, 195, 240, 0.95);
+  /* La copia cyan se va a la izquierda */
+  transform: translateX(-1.5px);
+  mix-blend-mode: screen;
+}
+.nav-link-text::after,
+.nav-cta-text::after,
+.nav-chip-wordmark::after {
+  color: rgba(230, 130, 220, 0.95);
+  /* La copia magenta se va a la derecha */
+  transform: translateX(1.5px);
+  mix-blend-mode: screen;
+}
+/* Solo en hover del módulo padre */
+.nav-link:hover .nav-link-text::before,
+.nav-link:hover .nav-link-text::after,
+.nav-cta:hover .nav-cta-text::before,
+.nav-cta:hover .nav-cta-text::after,
+.nav-chip:hover .nav-chip-wordmark::before,
+.nav-chip:hover .nav-chip-wordmark::after {
+  opacity: 1;
+  animation: nav-aberration-jitter 0.5s steps(3);
+}
+@keyframes nav-aberration-jitter {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-2.5px); }
+  50%  { transform: translateX(2px); }
+  75%  { transform: translateX(-1px); }
+  100% { transform: translateX(var(--ab-rest, 0)); }
+}
+/* Reset al final — cyan a la izquierda, magenta a la derecha */
+.nav-link:hover .nav-link-text::before,
+.nav-cta:hover .nav-cta-text::before,
+.nav-chip:hover .nav-chip-wordmark::before { --ab-rest: -1.5px; }
+.nav-link:hover .nav-link-text::after,
+.nav-cta:hover .nav-cta-text::after,
+.nav-chip:hover .nav-chip-wordmark::after  { --ab-rest:  1.5px; }
+
+/* ---------- Mobile responsive ---------- */
+@media (max-width: 767px) {
+  .nav-strip {
+    padding: 0.4rem 0.5rem;
+    gap: 0.3rem;
+  }
+  .nav-chip {
+    padding: 0.5rem 0.85rem;
+  }
+  .nav-chip-wordmark { display: none; }
+  .nav-cta-text { display: none; }
+  .nav-cta { padding: 0.5rem 0.7rem; }
+}
+
+/* ============================================================
+   Hero v2 — imagen ciudad bg + palabras titilantes
+   ============================================================ */
+
+.hero-section {
+  background-color: #050714;
+}
+
+/* El bg layer carga la imagen si existe. Mientras no esté en /public/hero-bg.jpg,
+   un fallback gradient diagonal simula la atmósfera ciudad-atardecer. */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 85% 75%,
+      rgba(255, 130, 60, 0.22) 0%,
+      transparent 60%),
+    radial-gradient(ellipse 50% 50% at 70% 40%,
+      rgba(170, 130, 255, 0.18) 0%,
+      transparent 65%),
+    radial-gradient(ellipse 40% 60% at 25% 90%,
+      rgba(140, 195, 240, 0.12) 0%,
+      transparent 70%),
+    linear-gradient(180deg,
+      #050714 0%,
+      #0a0e22 50%,
+      #1a1228 80%,
+      #2a1a30 100%);
+}
+
+.hero-bg {
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  z-index: 1; /* Encima del fallback */
+}
+
+/* Overlay legibilidad multi-capa:
+   1) horizontal: muy oscuro a la izquierda (texto), atenuado en el medio para
+      dejar respirar la imagen, y vuelve a oscurecerse hacia la derecha donde
+      están los annotations sobre el neón.
+   2) vertical: leve dim arriba para que la navbar lea, transparente en el
+      medio, y un fade fuerte al color base al final para empalmar con la
+      siguiente sección.
+   3) vignette diagonal: oscurece la esquina inferior izquierda (zona del
+      heading) sin tocar la imagen del faro/ciudad. */
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 7, 20, 0.92) 0%,
+      rgba(5, 7, 20, 0.7) 28%,
+      rgba(5, 7, 20, 0.25) 55%,
+      rgba(5, 7, 20, 0.45) 80%,
+      rgba(5, 7, 20, 0.65) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(5, 7, 20, 0.35) 0%,
+      rgba(5, 7, 20, 0.05) 22%,
+      transparent 50%,
+      rgba(5, 7, 20, 0.4) 78%,
+      #050714 100%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 0% 100%,
+      rgba(5, 7, 20, 0.55) 0%,
+      transparent 60%
+    );
+}
+
+/* Annotation labels estilo sci-fi infographic. Cada uno: leader line a la
+   izquierda + título en mayúsculas + descripción multilinea. Aparecen sobre
+   la zona derecha del hero (donde va la imagen) con efecto breathe. */
+.hero-annot {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-family: var(--font-space-grotesk), ui-monospace, monospace;
+  animation: hero-annot-breathe 5s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 6px rgba(170, 130, 255, 0.18))
+    drop-shadow(0 1px 8px rgba(5, 7, 20, 0.85));
+  text-shadow: 0 1px 12px rgba(5, 7, 20, 0.9);
+}
+
+.hero-annot-line {
+  display: inline-block;
+  width: 56px;
+  height: 1px;
+  margin-top: 0.55rem;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(170, 130, 255, 0.55) 30%,
+    rgba(170, 130, 255, 0.85) 100%
+  );
+}
+
+.hero-annot-title {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 252, 255, 1);
+  margin-bottom: 0.4rem;
+}
+
+.hero-annot-desc {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  color: rgba(230, 228, 245, 0.85);
+}
+
+/* Posiciones aproximadas — apuntan a tres zonas del cityscape */
+.hero-annot-1 {
+  top: 22%;
+  right: 28%;
+  animation-delay: 0s;
+}
+.hero-annot-1 .hero-annot-line {
+  background: linear-gradient(90deg, transparent, rgba(140, 195, 240, 0.85));
+}
+.hero-annot-2 {
+  top: 32%;
+  right: 6%;
+  animation-delay: 1.4s;
+}
+.hero-annot-2 .hero-annot-line {
+  background: linear-gradient(90deg, transparent, rgba(170, 130, 255, 0.85));
+}
+.hero-annot-3 {
+  bottom: 28%;
+  right: 4%;
+  animation-delay: 2.8s;
+}
+.hero-annot-3 .hero-annot-line {
+  background: linear-gradient(90deg, transparent, rgba(230, 130, 220, 0.85));
+}
+
+/* Punto en el extremo de la línea — el "anchor" */
+.hero-annot-line::after {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  margin-left: -2px;
+  margin-top: -2px;
+}
+
+/* Breathe: opacidad y leve translate horizontal */
+@keyframes hero-annot-breathe {
+  0%, 100% { opacity: 0.55; transform: translateX(0); }
+  50%      { opacity: 1;    transform: translateX(-2px); }
+}
+
+@media (max-width: 1023px) {
+  /* En tablet/mobile, los annotations se sacarían del flujo del contenido */
+  .hero-annots { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-annot { animation: none; opacity: 0.7; }
+}
+

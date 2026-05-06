@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import IntroSplash from "@/components/IntroSplash";
+import IntroSplashWaves from "@/components/IntroSplashWaves";
 import Hero from "@/components/Hero";
 import Collaborators from "@/components/Collaborators";
 import CommunityPlatforms from "@/components/CommunityPlatforms";
@@ -59,7 +59,7 @@ export default async function Home() {
 
   return (
     <>
-      <IntroSplash />
+      <IntroSplashWaves />
       <div className="page-after-intro">
         <Navbar />
         <main>
