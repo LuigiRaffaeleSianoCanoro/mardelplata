@@ -1,36 +1,72 @@
+// CodeOfConduct — directive panel. Centro de la pantalla, panel
+// bordeado con corner brackets, lista de protocols mono y CTA.
+
+import SectionWaveMesh from "./SectionWaveMesh";
+
+const PROTOCOLS = [
+  "Respeto mutuo",
+  "Cero discriminación",
+  "Colaboración",
+  "Aprendizaje compartido",
+  "Crítica constructiva",
+  "Datos personales protegidos",
+  "Espacio libre de spam",
+];
+
 export default function CodeOfConduct() {
   return (
-    <section id="reglamento" className="relative py-28 px-6 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <div className="relative bento-card overflow-hidden p-10 md:p-16">
-          {/* Subtle accent — diagonal sand stroke (boat-drift + parallax) */}
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sand-300/40 blur-[80px] pointer-events-none boat-drift-soft parallax-back" />
-          <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-ocean-200/40 blur-[80px] pointer-events-none boat-drift-soft parallax-rise" style={{ animationDelay: "-4s" }} />
+    <section className="panel-section" id="reglamento">
+      <SectionWaveMesh
+        variant="scatter"
+        id="mesh-grad-protocol"
+        className="section-wave-mesh--scatter"
+        opacity={0.12}
+      />
+      <div className="panel-section-inner" style={{ maxWidth: 1080 }}>
+        <div className="directive-panel">
+          <div className="directive-panel-grid" />
+          <div className="directive-corner directive-corner--tl" />
+          <div className="directive-corner directive-corner--tr" />
+          <div className="directive-corner directive-corner--bl" />
+          <div className="directive-corner directive-corner--br" />
 
-          <div className="relative grid grid-cols-12 gap-8 items-center">
-            <div className="col-span-12 md:col-span-7">
-              <span className="eyebrow">Cómo nos llevamos</span>
-              <h2 className="display-h2 mt-5 text-ocean-900 text-[clamp(2.2rem,5vw,4rem)]">
-                Un espacio <br />
-                <span className="gradient-text">seguro e inclusivo.</span>
-              </h2>
-              <p className="text-slate-600 text-base md:text-lg leading-relaxed mt-6 max-w-xl">
-                Respeto mutuo, colaboración y aprendizaje compartido. Eso es todo lo que pedimos para que
-                la comunidad funcione. Las 7 reglas están escritas en simple y se respetan.
-              </p>
-            </div>
+          <div className="relative">
+            <span className="directive-id">Directive 06 / Protocol</span>
+            <h2 className="directive-title">
+              Un espacio <em>seguro</em> e inclusivo.
+            </h2>
+            <p
+              className="font-serif-display"
+              style={{
+                fontStyle: "italic",
+                fontSize: "1.15rem",
+                color: "var(--c-text-dim)",
+                marginTop: "0.5em",
+                maxWidth: 580,
+                lineHeight: 1.6,
+                fontVariationSettings: '"opsz" 60',
+              }}
+            >
+              Respeto mutuo, colaboración y aprendizaje compartido. Eso es
+              todo lo que pedimos para que la comunidad funcione. Las 7
+              reglas están escritas en simple y se respetan.
+            </p>
 
-            <div className="col-span-12 md:col-span-5 flex md:justify-end">
-              <a
-                href="/reglamento"
-                className="cta-primary"
-              >
-                Leer reglamento
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
+            <ul className="directive-list">
+              {PROTOCOLS.map((p, i) => (
+                <li key={p}>
+                  <span style={{ color: "var(--c-text-mute)" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+
+            <a href="/reglamento" className="directive-cta">
+              Leer protocolo completo
+              <span className="directive-cta-arrow">→</span>
+            </a>
           </div>
         </div>
       </div>

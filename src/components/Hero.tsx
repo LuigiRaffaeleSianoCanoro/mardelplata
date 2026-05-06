@@ -1,114 +1,126 @@
-import Link from "next/link";
+"use client";
 
-// Hero v2: imagen ciudad-mar-atardecer como bg + tres palabras gigantes
-// titilando ("aprende / conecta / crea") como pulso de la comunidad. Sin sun
-// animation ni LowPolyWave layers — más liviano y limpio.
+// Hero v4: atmosfera + tipografía. Sin imagen fullscreen — la imagen
+// del lobo va al Manifesto como polaroid. Acá: aurora violeta arriba,
+// línea de horizonte sapphire al medio, malla low-poly debajo.
+// Tagline serif italic con respiración. HUD overlay completo.
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import SectionWaveMesh from "./SectionWaveMesh";
 
 export default function Hero() {
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setNow(new Date());
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section
       id="inicio"
-      className="hero-section relative overflow-hidden min-h-screen flex flex-col justify-center pt-28 pb-32"
+      className="hero-v4 relative min-h-screen overflow-hidden"
     >
-      {/* Imagen de fondo: ciudad-faro-mar al atardecer. Va detrás de todo.
-          Sin overlay aquí — el oscurecimiento lo aporta .hero-section::after. */}
-      <div
-        className="hero-bg absolute inset-0 z-0 pointer-events-none"
-        style={{
-          backgroundImage: "url('/hero-bg.png')",
-        }}
-      />
+      {/* Capa 1 — gradient atmosférico (aurora violet arriba, deep navy abajo) */}
+      <div className="hero-v4-bg-atmosphere absolute inset-0 z-0" />
 
-      {/* Annotation labels — estilo "sci-fi infographic" sobre la zona derecha
-          del hero (donde está la imagen). Cada uno: leader line + título +
-          descripción, con efecto breathe out-of-sync. */}
-      <div className="hero-annots absolute inset-0 z-[3] pointer-events-none select-none">
-        <div className="hero-annot hero-annot-1">
-          <span className="hero-annot-line" />
-          <span className="hero-annot-title">aprende</span>
-          <span className="hero-annot-desc">talleres, charlas<br />y workshops</span>
-        </div>
-        <div className="hero-annot hero-annot-2">
-          <span className="hero-annot-line" />
-          <span className="hero-annot-title">conecta</span>
-          <span className="hero-annot-desc">personas, ideas<br />y proyectos</span>
-        </div>
-        <div className="hero-annot hero-annot-3">
-          <span className="hero-annot-line" />
-          <span className="hero-annot-title">crea</span>
-          <span className="hero-annot-desc">construimos el futuro<br />desde la comunidad</span>
+      {/* Capa 2 — orbes sapphire/violet drifteando */}
+      <div className="hero-v4-orbs absolute inset-0 z-0 pointer-events-none">
+        <span className="hero-v4-orb hero-v4-orb--1" />
+        <span className="hero-v4-orb hero-v4-orb--2" />
+        <span className="hero-v4-orb hero-v4-orb--3" />
+      </div>
+
+      {/* Capa 3 — sun/moon disc apenas visible al horizonte (sunset hint) */}
+      <div className="hero-v4-sun absolute z-0 pointer-events-none" />
+
+      {/* Capa 4 — línea de horizonte sapphire */}
+      <div className="hero-v4-horizon absolute z-[1] pointer-events-none" />
+
+      {/* Capa 5 — wave mesh low-poly llenando la mitad inferior */}
+      <div className="hero-v4-mesh-wrapper absolute z-[1] pointer-events-none">
+        <SectionWaveMesh
+          variant="horizon"
+          id="hero-v4-mesh"
+          opacity={0.5}
+        />
+      </div>
+
+      {/* HUD overlay: corners + bearing scale */}
+      <div className="hero-v4-hud absolute inset-0 z-10 pointer-events-none">
+        <div className="hud-corner hud-corner--tl" />
+        <div className="hud-corner hud-corner--tr" />
+        <div className="hud-corner hud-corner--bl" />
+        <div className="hud-corner hud-corner--br" />
+
+        <div className="hero-v3-bearing">
+          <span>270</span>
+          <span>280</span>
+          <span>290</span>
+          <span className="n">N</span>
+          <span>010</span>
+          <span>020</span>
+          <span>030</span>
         </div>
       </div>
 
-      {/* Contenido principal */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 w-full">
-        {/* Coord strip */}
-        <p className="reveal-up coord-line mb-5 text-white/55" style={{ animationDelay: "1500ms" }}>
-          BEARING 270° <span className="sep">·</span>
-          <span className="num">38°00&apos;S 057°33&apos;W</span> <span className="sep">·</span>
-          ATLÁNTICO SUR
+      {/* Contenido principal centrado */}
+      <div className="hero-v4-content relative z-20 max-w-6xl mx-auto px-6 py-32 min-h-screen flex flex-col items-start justify-center">
+        <p className="hero-v3-eyebrow hud-label">
+          <span className="hud-status-dot" />
+          MARDELPLATA.DEV <span className="hud-label--dim">·</span>{" "}
+          <span className="hud-ok">LIVE NODE</span>
         </p>
 
-        {/* Eyebrow */}
-        <div
-          className="reveal-up mb-12 flex flex-wrap items-center gap-3"
-          style={{ animationDelay: "1580ms" }}
-        >
-          <span className="kicker text-white/70 flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]">
-            <span className="dot-amber" />
-            comunidad tech · mar del plata
-          </span>
-          <a
-            href="#eventos"
-            className="kicker inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.08] hover:border-[rgba(170,130,255,0.45)] hover:bg-white/[0.04] transition-colors text-white/65"
-          >
-            <span className="relative flex w-1.5 h-1.5">
-              <span className="absolute inset-0 rounded-full bg-[rgba(170,130,255,0.85)] opacity-75 animate-ping" />
-              <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[rgba(170,130,255,0.95)]" />
-            </span>
-            próximo evento
-            <span className="text-white/85">ver agenda</span>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
-
-        {/* Heading — ahora full-width sin párrafo descriptivo redundante */}
-        <h1
-          className="display-thin text-white text-[clamp(2.6rem,9vw,8rem)] leading-[1.0] reveal-up max-w-5xl"
-          style={{ animationDelay: "1680ms" }}
-        >
-          El club tech
-          <br />
-          <span className="text-white/45">de la costa</span>{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[rgba(140,195,240,1)] via-[rgba(170,130,255,1)] to-[rgba(230,130,220,1)]">
-            atlántica.
-          </span>
+        <h1 className="hero-v3-tagline">
+          <span className="hero-word hero-word--1">aprende</span>
+          <span className="hero-dot">·</span>
+          <span className="hero-word hero-word--2">conecta</span>
+          <span className="hero-dot">·</span>
+          <span className="hero-word hero-word--3">crea</span>
         </h1>
 
-        {/* CTAs */}
-        <div
-          className="mt-14 flex flex-wrap gap-3 reveal-up"
-          style={{ animationDelay: "1960ms" }}
-        >
+        <p className="hero-v3-tagline-sub">
+          La comunidad tech de la costa atlántica. Talleres, charlas,
+          open source y proyectos donde aprendemos construyendo —
+          desde Mar del Plata para todo el sur.
+        </p>
+
+        <div className="hero-v3-ctas">
           <a
             href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-app-primary"
+            className="hero-v3-cta-primary"
           >
-            Unirse a la comunidad
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
+            <span className="hud-status-dot" />
+            UNIRME A LA COMUNIDAD
+            <span className="hero-cta-arrow">→</span>
           </a>
-          <Link href="/primer-trabajo" className="btn-app-ghost">
-            Primer Trabajo OS
+          <Link href="/red" className="hero-v3-cta-ghost">
+            EXPLORAR LA RED
           </Link>
-          <Link href="/bolsa" className="btn-app-ghost">
-            Bolsa de trabajo
+          <Link href="/bolsa" className="hero-v3-cta-ghost">
+            BOLSA DE TRABAJO
           </Link>
+        </div>
+      </div>
+
+      {/* Footer HUD */}
+      <div className="hero-v3-footer-hud absolute inset-x-0 bottom-8 z-10 px-10 flex justify-between items-center pointer-events-none flex-wrap gap-3">
+        <div className="hud-label">
+          <span className="hud-label--dim">POSITION </span>
+          38°00&apos;18.4&quot;S{" "}
+          <span className="hud-label--dim">·</span> 057°33&apos;09.7&quot;W{" "}
+          <span className="hud-label--dim">·</span> ATLÁNTICO SUR
+        </div>
+        <div className="hud-label">
+          <span className="hud-label--dim">UTC </span>
+          <span className="hud-accent">
+            {now ? now.toISOString().slice(11, 19) : "00:00:00"}
+          </span>
         </div>
       </div>
     </section>

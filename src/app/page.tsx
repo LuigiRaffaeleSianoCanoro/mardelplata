@@ -1,12 +1,14 @@
 import Navbar from "@/components/Navbar";
 import IntroSplashWaves from "@/components/IntroSplashWaves";
 import Hero from "@/components/Hero";
+import TransmissionBar from "@/components/TransmissionBar";
+import Manifesto from "@/components/Manifesto";
 import Collaborators from "@/components/Collaborators";
 import CommunityPlatforms from "@/components/CommunityPlatforms";
 import Events from "@/components/Events";
-import Team from "@/components/Team";
 import CodeOfConduct from "@/components/CodeOfConduct";
 import Footer from "@/components/Footer";
+import ScrollDriver from "@/components/ScrollDriver";
 import { createClient } from "@/lib/supabase/server";
 
 const COFOUNDER_FULL_NAMES = new Set(["luigi canoro", "franco petruccelli"]);
@@ -61,13 +63,15 @@ export default async function Home() {
     <>
       <IntroSplashWaves />
       <div className="page-after-intro">
+        <ScrollDriver />
         <Navbar />
         <main>
           <Hero />
-          <Collaborators members={communityMembers ?? []} />
+          <TransmissionBar />
+          <Manifesto />
           <CommunityPlatforms />
           <Events events={events ?? []} />
-          <Team members={orderedFounders} />
+          <Collaborators members={communityMembers ?? []} />
           <CodeOfConduct />
         </main>
         <Footer />

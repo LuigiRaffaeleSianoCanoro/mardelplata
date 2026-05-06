@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ParallaxProvider from "@/components/ParallaxProvider";
 import RouteGlitch from "@/components/RouteGlitch";
@@ -12,6 +12,22 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+});
+
+// Fraunces — serif variable con eje SOFT y OPTL. Le da gravitas
+// editorial / nautica a los titulares y rompe del tropo "tech sans"
+// genérico. Lo usamos como display principal en la home.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  axes: ["SOFT", "WONK", "opsz"],
+});
+
+// JetBrains Mono explícito — reemplaza el ui-monospace fallback en
+// los chrome HUD para tener métrica consistente.
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -39,7 +55,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -52,7 +68,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-white text-slate-800 antialiased">
+      <body className="bg-[#06070d] text-white/85 antialiased">
         <ParallaxProvider />
         <RouteGlitch />
         {children}
