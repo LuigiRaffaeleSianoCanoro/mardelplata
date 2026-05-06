@@ -345,7 +345,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       id: "inicio",
       label: "Inicio",
       icon: Home,
-      basePath: "/dashboard",
+      basePath: "/",
       accent: "#3B82F6",
       tabs: [],
       navigate: true,
@@ -397,7 +397,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
   // landing on something we don't recognize so a useful tab list shows up.
   const detectedPillar =
     pillars.find((p) => p.id !== "inicio" && pathname.startsWith(p.basePath)) ??
-    (pathname.startsWith("/dashboard") ? pillars[0] : null) ??
+    (pathname === "/" ? pillars[0] : null) ??
     pillars[1];
 
   const [selectedId, setSelectedId] = useState<string>(detectedPillar.id);

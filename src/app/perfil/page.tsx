@@ -74,28 +74,26 @@ export default function PerfilPage() {
 
   if (dbError) {
     return (
-      <div className="min-h-screen hero-bg flex items-center justify-center px-4">
-        <div className="max-w-lg w-full bg-ocean-800/60 backdrop-blur-xl rounded-3xl p-8 border border-red-500/40 shadow-2xl text-center space-y-4">
-          <div className="text-red-300 text-4xl">⚠️</div>
-          <h2 className="text-xl font-bold text-white">Error de base de datos</h2>
-          <p className="text-ocean-200 text-sm">
-            La tabla de perfiles no está configurada correctamente. Por favor ejecutá el script
-            de configuración en el{" "}
-            <strong>SQL Editor de Supabase</strong> y recargá la página.
+      <div className="perfil-x-error">
+        <div className="shell-card perfil-x-error-card">
+          <span className="perfil-x-error-icon" aria-hidden>⚠</span>
+          <h2 className="shell-title" style={{ fontSize: "1.4rem" }}>Error de base de datos</h2>
+          <p className="shell-lead" style={{ fontSize: "0.92rem" }}>
+            La tabla de perfiles no está configurada correctamente. Ejecutá el script de
+            configuración en el <strong>SQL Editor de Supabase</strong> y recargá la página.
           </p>
-          <pre className="bg-ocean-900/70 text-red-300 text-xs rounded-xl px-4 py-3 text-left overflow-x-auto whitespace-pre-wrap break-words">
-            {dbError}
-          </pre>
-          <p className="text-ocean-300 text-xs">
-            Archivo: <code className="text-ocean-200">scripts/001_create_profiles_and_events.sql</code>
+          <pre className="perfil-x-error-pre">{dbError}</pre>
+          <p className="perfil-x-error-hint">
+            Archivo: <code>scripts/001_create_profiles_and_events.sql</code>
           </p>
           <button
+            type="button"
             onClick={async () => {
               setDbError(null);
               setLoading(true);
               await loadProfile();
             }}
-            className="mt-2 bg-ocean-500 hover:bg-ocean-400 text-white font-medium py-2 px-6 rounded-xl transition-all"
+            className="shell-btn-primary"
           >
             Reintentar
           </button>

@@ -542,50 +542,7 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
           (que se aplica a .intro-splash > .absolute:not(.splash-iris)). */}
       <div className="splash-iris">
         <span className="iris-line" />
-        {size && (
-          <svg
-            className="splash-boot-poly"
-            viewBox={`0 0 ${size.w} ${size.h}`}
-            preserveAspectRatio="none"
-            width="100%"
-            height="100%"
-          >
-            <defs>
-              <linearGradient
-                id="lpd-grad-boot"
-                gradientUnits="userSpaceOnUse"
-                x1={0}
-                y1={size.h * 0.2}
-                x2={size.w}
-                y2={size.h * 0.9}
-              >
-                <stop offset="0%" stopColor="#a855f7" />
-                <stop offset="35%" stopColor="#6366f1" />
-                <stop offset="65%" stopColor="#3b82f6" />
-                <stop offset="100%" stopColor="#dbeafe" />
-              </linearGradient>
-            </defs>
-            {[
-              // Más grandes y más cantidad — distribución que cubra los
-              // cuatro cuadrantes + centro, así da sensación de "constelación
-              // de polígonos prendiendo la pantalla".
-              { points: `${size.w * 0.08},${size.h * 0.18} ${size.w * 0.32},${size.h * 0.32} ${size.w * 0.14},${size.h * 0.5}`, d: 0 },
-              { points: `${size.w * 0.68},${size.h * 0.12} ${size.w * 0.94},${size.h * 0.32} ${size.w * 0.7},${size.h * 0.42}`, d: 90 },
-              { points: `${size.w * 0.4},${size.h * 0.36} ${size.w * 0.62},${size.h * 0.5} ${size.w * 0.36},${size.h * 0.6}`, d: 180 },
-              { points: `${size.w * 0.1},${size.h * 0.62} ${size.w * 0.3},${size.h * 0.78} ${size.w * 0.06},${size.h * 0.9}`, d: 130 },
-              { points: `${size.w * 0.62},${size.h * 0.66} ${size.w * 0.92},${size.h * 0.74} ${size.w * 0.78},${size.h * 0.94}`, d: 60 },
-              { points: `${size.w * 0.34},${size.h * 0.72} ${size.w * 0.5},${size.h * 0.86} ${size.w * 0.42},${size.h * 0.96}`, d: 220 },
-              { points: `${size.w * 0.54},${size.h * 0.18} ${size.w * 0.66},${size.h * 0.3} ${size.w * 0.5},${size.h * 0.34}`, d: 240 },
-            ].map((t, i) => (
-              <polygon
-                key={i}
-                className="boot-tri"
-                points={t.points}
-                style={{ "--d": `${t.d}ms` } as React.CSSProperties}
-              />
-            ))}
-          </svg>
-        )}
+        {/* boot-tri polygons removidos */}
       </div>
     </div>
   );

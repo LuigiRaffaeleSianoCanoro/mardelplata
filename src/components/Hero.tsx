@@ -59,23 +59,6 @@ export default function Hero() {
             </Link>
           </div>
 
-          <div className="hero-x-social-proof">
-            <p className="hero-x-social-proof-label">
-              Conectá con la comunidad
-            </p>
-            <div className="hero-x-avatars">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <span
-                  key={i}
-                  className="hero-x-avatar"
-                  style={{
-                    backgroundImage: `linear-gradient(135deg, hsl(${250 + i * 18}, 70%, 60%), hsl(${200 + i * 12}, 70%, 50%))`,
-                  }}
-                />
-              ))}
-              <span className="hero-x-avatar-count">+1200</span>
-            </div>
-          </div>
         </div>
 
         {/* Floating cards sobre la imagen */}

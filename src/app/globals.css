@@ -558,11 +558,21 @@ html.intro-seen .intro-splash { display: none !important; }
    queda negra al terminar el contenido del splash (~1900ms) y la home
    aparece suavemente debajo cuando el bg del splash empieza a fadear. */
 @keyframes page-reveal-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  /* flicker/teleport sincronizado con los frames de glitch del intro
+     (35-46% de la animación de 2200ms = 770-1012ms desde assets-ready) */
+  0%        { opacity: 0; transform: scale(1.04); filter: blur(14px) saturate(0.8); }
+  20%       { opacity: 0; transform: scale(1.04); filter: blur(14px) saturate(0.8); }
+  25%       { opacity: 0.55; transform: scale(1.02) translateX(6px); filter: blur(8px) hue-rotate(40deg) saturate(1.4); }
+  28%       { opacity: 0; }
+  32%       { opacity: 0.45; transform: scale(1.015) translateX(-4px); filter: blur(6px) hue-rotate(-25deg); }
+  35%       { opacity: 0; }
+  40%       { opacity: 0.7; transform: scale(1.005) translateX(3px); filter: blur(3px) hue-rotate(180deg) brightness(1.2); }
+  43%       { opacity: 0.25; }
+  48%       { opacity: 0.85; transform: scale(1) translateX(0); filter: blur(1.5px); }
+  60%, 100% { opacity: 1; transform: scale(1); filter: none; }
 }
 .page-after-intro {
-  animation: page-reveal-in 0.42s ease-out 2380ms both;
+  animation: page-reveal-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 1100ms both;
 }
 html.intro-seen .page-after-intro { animation: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -7731,20 +7741,66 @@ a.shell-card:hover {
 
 /* Burger */
 .nav-x-burger {
+  position: relative;
   width: 36px;
   height: 36px;
   border-radius: 50%;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(220, 230, 250, 0.85);
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: background 0.18s, border-color 0.18s;
+  transition: background 0.22s, border-color 0.22s, transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+  padding: 0;
 }
 .nav-x-burger:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(168, 85, 247, 0.08);
   border-color: rgba(168, 85, 247, 0.4);
+}
+.nav-x-burger.is-open {
+  background: rgba(168, 85, 247, 0.18);
+  border-color: rgba(168, 85, 247, 0.6);
+  transform: rotate(180deg);
+}
+.nav-x-burger-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 1.5px;
+  background: linear-gradient(90deg, #c4b5fd, #67e8f9);
+  border-radius: 2px;
+  transform-origin: center;
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1),
+    width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease;
+}
+/* 3 barras horizontales */
+.nav-x-burger-bar:nth-child(1) {
+  transform: translate(-50%, -7px);
+}
+.nav-x-burger-bar:nth-child(2) {
+  transform: translate(-50%, -50%);
+  width: 11px;
+}
+.nav-x-burger-bar:nth-child(3) {
+  transform: translate(-50%, 5px);
+  width: 14px;
+}
+/* Estado abierto: forman una X */
+.nav-x-burger.is-open .nav-x-burger-bar:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 18px;
+}
+.nav-x-burger.is-open .nav-x-burger-bar:nth-child(2) {
+  opacity: 0;
+  width: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+.nav-x-burger.is-open .nav-x-burger-bar:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 18px;
 }
 
 /* Mobile menu */
@@ -7784,7 +7840,6 @@ a.shell-card:hover {
 /* Reset old nav-hud presence (queda en CSS pero ya no se usa) */
 .nav-hud { display: none !important; }
 
-html, body { overflow-x: hidden; max-width: 100%; }
 
 /* ════════════════════════════════════════════════════════════════════
    REGLAMENTO — page-specific layout
@@ -8557,4 +8612,258 @@ html, body { overflow-x: hidden; max-width: 100%; }
   width: 100%;
   justify-content: center;
   padding: 0.85rem 1rem !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PERFIL X — light touch (only error state for now)
+   ════════════════════════════════════════════════════════════════════ */
+
+.perfil-x-error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1rem 2rem;
+  background: var(--shell-bg);
+}
+.perfil-x-error-card {
+  max-width: 520px;
+  text-align: center;
+  align-items: center;
+  border-color: rgba(244, 63, 94, 0.4);
+  padding: 2.2rem 1.8rem;
+  gap: 1rem;
+}
+.perfil-x-error-icon {
+  font-size: 2.4rem;
+  color: rgba(253, 164, 175, 0.95);
+}
+.perfil-x-error-pre {
+  width: 100%;
+  font-family: var(--shell-font-mono);
+  font-size: 11px;
+  color: rgba(253, 164, 175, 0.85);
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow: auto;
+}
+.perfil-x-error-hint {
+  font-family: var(--shell-font-mono);
+  font-size: 11px;
+  color: var(--shell-fg-dim);
+  margin: 0;
+}
+.perfil-x-error-hint code {
+  color: rgba(196, 181, 253, 0.85);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   EVENTOS PAGE — listing
+   ════════════════════════════════════════════════════════════════════ */
+
+.eventos-x {
+  min-height: 100vh;
+  padding-top: 5rem;
+  background: var(--shell-bg);
+}
+.eventos-x-section-title {
+  font-family: var(--shell-font-display);
+  font-size: 1.4rem;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--shell-fg);
+  margin: 0 0 1.5rem;
+}
+.eventos-x-section-title--muted {
+  color: var(--shell-fg-muted);
+  margin-top: 3rem;
+}
+.eventos-x-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.eventos-x-card--past {
+  opacity: 0.65;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   CHANNELS — 3 cards de canales sociales (WhatsApp, X, Instagram)
+   ════════════════════════════════════════════════════════════════════ */
+
+.channels-x {
+  padding: 4rem 0;
+}
+.channels-x-head {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.channels-x-head .shell-eyebrow,
+.channels-x-head .shell-title {
+  margin-left: auto;
+  margin-right: auto;
+}
+.channels-x-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.channel-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.4rem 1.4rem;
+  text-decoration: none;
+}
+.channel-card-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.channel-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+.channel-card-title {
+  font-family: var(--shell-font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--shell-fg);
+  margin: 0;
+}
+.channel-card-desc {
+  font-family: var(--shell-font-body);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--shell-fg-muted);
+  margin: 0;
+}
+.channel-card-arrow {
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: rgba(196, 181, 253, 0.6);
+  transition: transform 0.18s, color 0.18s;
+  margin-top: 0.4rem;
+}
+.channel-card:hover .channel-card-arrow {
+  transform: translateX(4px);
+  color: rgba(196, 181, 253, 1);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   NAV X — esconder durante intro (matchea pattern de page-after-intro)
+   El navbar tiene position:fixed + backdrop-filter, lo cual rompe el
+   render del SVG mesh del intro si está presente. Lo escondemos hasta
+   que termina el intro.
+   ════════════════════════════════════════════════════════════════════ */
+
+.nav-x {
+  opacity: 0;
+  pointer-events: none;
+  animation: nav-x-fade-in 0.5s ease-out 2900ms both;
+}
+.nav-x.is-fade-done,
+.nav-x[data-ready="true"] {
+  pointer-events: auto;
+}
+@keyframes nav-x-fade-in {
+  from { opacity: 0; pointer-events: none; }
+  to   { opacity: 1; pointer-events: auto; }
+}
+html.intro-seen .nav-x {
+  opacity: 1;
+  pointer-events: auto;
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-x {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    animation: none !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ASSETS GATE — pausa intro fade-out + home reveal hasta que las
+   imágenes críticas estén cargadas. Setea por <AssetsGate>.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Pausar fade-out del intro hasta assets-ready */
+.intro-splash--ext {
+  animation-play-state: paused;
+}
+html.assets-ready .intro-splash--ext {
+  animation-play-state: running;
+}
+
+/* Pausar reveal de la home hasta assets-ready */
+.page-after-intro {
+  animation-play-state: paused;
+}
+html.assets-ready .page-after-intro {
+  animation-play-state: running;
+}
+
+/* En modo intro-seen (revisita / reduced-motion), AssetsGate setea
+   assets-ready de inmediato — pero por si la clase no se aplica,
+   garantizamos que el usuario no queda colgado. */
+html.intro-seen .intro-splash--ext,
+html.intro-seen .page-after-intro {
+  animation-play-state: running;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ASSETS GATE — extender pausa a las animaciones internas del intro
+   (shell + glitch + content collapse). El mesh JS sigue corriendo
+   independientemente porque usa requestAnimationFrame, no CSS.
+   ════════════════════════════════════════════════════════════════════ */
+
+.intro3-glitch-shell,
+.intro3-glitch-rest,
+.intro3-shake-hud,
+.lpd-terminal.intro3-glitch-shell,
+.intro-splash > .absolute:not(.splash-iris) {
+  animation-play-state: paused;
+}
+
+html.assets-ready .intro3-glitch-shell,
+html.assets-ready .intro3-glitch-rest,
+html.assets-ready .intro3-shake-hud,
+html.assets-ready .lpd-terminal.intro3-glitch-shell,
+html.assets-ready .intro-splash > .absolute:not(.splash-iris) {
+  animation-play-state: running;
+}
+
+html.intro-seen .intro3-glitch-shell,
+html.intro-seen .intro3-glitch-rest,
+html.intro-seen .intro3-shake-hud,
+html.intro-seen .lpd-terminal.intro3-glitch-shell,
+html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
+  animation-play-state: running;
+}
+
+/* Scope overflow-x containment a .page-after-intro para evitar scrollbar
+   horizontal causado por animaciones que escalan/desplazan bg images,
+   sin afectar al intro fixed que está afuera de este wrapper. */
+.page-after-intro {
+  overflow-x: clip;
+}
+@supports not (overflow-x: clip) {
+  .page-after-intro { overflow-x: hidden; }
 }

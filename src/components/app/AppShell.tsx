@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import AppSidebar, { type AppSidebarUser } from "./AppSidebar";
 import CommandPalette from "./CommandPalette";
 import { createClient } from "@/lib/supabase/client";
@@ -19,6 +19,7 @@ interface AppShellProps {
 
 export default function AppShell({ isAdmin, user: userProp, children }: AppShellProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [scanning, setScanning] = useState(true);
   const [user, setUser] = useState<AppSidebarUser | null>(userProp ?? null);
   const [resolvedAdmin, setResolvedAdmin] = useState<boolean>(Boolean(isAdmin));
@@ -61,7 +62,13 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
         const supabase = createClient();
         const { data: auth } = await supabase.auth.getUser();
         const authUser = auth?.user;
-        if (!authUser) return;
+        if (!authUser) {
+          // Rutas públicas: /red (open source comunidad)
+          if (!pathname.startsWith("/red")) {
+            router.replace("/auth/login");
+          }
+          return;
+        }
         const { data } = await supabase
           .from("profiles")
           .select("full_name, email, qr_code, is_admin, created_at")

@@ -1,7 +1,9 @@
 import Navbar from "@/components/Navbar";
 import IntroSplashWaves from "@/components/IntroSplashWaves";
+import AssetsGate from "@/components/AssetsGate";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
+import Channels from "@/components/Channels";
 import Manifesto from "@/components/Manifesto";
 import Community from "@/components/Community";
 import Pillars from "@/components/Pillars";
@@ -62,6 +64,7 @@ export default async function Home() {
   return (
     <>
       <IntroSplashWaves />
+      <AssetsGate />
       <div className="page-after-intro">
         <ScrollDriver />
         <Navbar />
@@ -70,6 +73,7 @@ export default async function Home() {
           <Reveal delay={0}><Pillars /></Reveal>
           <Reveal delay={120}><Events events={events ?? []} /></Reveal>
           <Reveal delay={120}><Community members={communityMembers ?? []} /></Reveal>
+          <Reveal delay={120}><Channels /></Reveal>
           <Reveal delay={120}><Manifesto /></Reveal>
           <Reveal delay={120}><Opportunities /></Reveal>
         </main>
