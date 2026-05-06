@@ -1,17 +1,16 @@
 "use client";
 
-// Navbar HUD — tira fina mono-style con brand + status dot a la izq,
-// links centrales separados por puntos, UTC + perfil/ingresar a la der.
-// Lenguaje visual unificado con la intro (mono labels, sapphire accents,
-// thin borders).
+// Navbar — pill horizontal centrado tipo command palette.
+// Logo + links + search + Ingresar + Sumate. Glassmorph dark con
+// active-dot indicator debajo del link activo.
 
-import { Fragment, useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
-type NavLink = { href: string; label: string };
+type NavLink = { href: string; label: string; match?: (path: string) => boolean };
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,112 +28,126 @@ export default function Navbar() {
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data: { user } }) => setUser(user));
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => setUser(session?.user ?? null),
+    );
     return () => subscription.unsubscribe();
   }, []);
 
   const links: NavLink[] = [
-    { href: "/red", label: "RED" },
-    { href: "/bolsa", label: "BOLSA" },
-    { href: "/primer-trabajo", label: "TRABAJO" },
-    { href: "/reglamento", label: "REGLAMENTO" },
+    { href: "/", label: "Inicio", match: (p) => p === "/" },
+    { href: "/red", label: "Comunidad" },
+    { href: "/primer-trabajo", label: "Aprendizaje" },
+    { href: "/bolsa", label: "Empleos" },
   ];
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/");
+  const isActive = (l: NavLink) => {
+    if (l.match) return l.match(pathname);
+    return pathname === l.href || pathname.startsWith(l.href + "/");
+  };
 
   return (
-    <header className={`nav-hud ${scrolled ? "is-scrolled" : ""}`}>
-      <div className="nav-hud-inner">
-        <Link href="/#inicio" className="nav-hud-brand" aria-label="Inicio">
-          <span className="hud-status-dot" />
-          <span className="nav-hud-brand-text">
-            mardelplata<span className="nav-hud-brand-accent">.dev</span>
+    <header className={`nav-x ${scrolled ? "is-scrolled" : ""}`}>
+      <div className="nav-x-pill">
+        <Link href="/" className="nav-x-brand" aria-label="Inicio">
+          <span className="nav-x-brand-mark" aria-hidden>&lt;/&gt;</span>
+          <span className="nav-x-brand-text">
+            mardelplata<span className="nav-x-brand-accent">.dev</span>
           </span>
         </Link>
 
-        <nav className="nav-hud-links hidden md:flex" aria-label="Principal">
-          {links.map((l, i) => (
-            <Fragment key={l.href}>
-              <Link
-                href={l.href}
-                className={`nav-hud-link ${isActive(l.href) ? "is-active" : ""}`}
-              >
-                {l.label}
-              </Link>
-              {i < links.length - 1 && (
-                <span className="nav-hud-sep" aria-hidden>
-                  ·
-                </span>
-              )}
-            </Fragment>
+        <nav className="nav-x-links hidden lg:flex" aria-label="Principal">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`nav-x-link ${isActive(l) ? "is-active" : ""}`}
+            >
+              {l.label}
+            </Link>
           ))}
+          <Link href="/reglamento" className="nav-x-link">
+            Recursos <ChevronIcon />
+          </Link>
         </nav>
 
-        <Link
-          href={user ? "/perfil" : "/auth/login"}
-          className="nav-hud-cta hidden md:inline-flex"
-        >
-          {user ? "PERFIL" : "INGRESAR"}
-          <span className="nav-hud-arrow" aria-hidden>
-            →
-          </span>
-        </Link>
-
-        <button
-          className="nav-hud-burger md:hidden"
-          aria-label="Abrir menú"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
+        <div className="nav-x-end">
+          <button className="nav-x-icon-btn hidden sm:inline-flex" aria-label="Buscar">
+            <SearchIcon />
+          </button>
+          <Link href={user ? "/perfil" : "/auth/login"} className="nav-x-ingresar hidden sm:inline-flex">
+            {user ? "Perfil" : "Ingresar"}
+          </Link>
+          <a
+            href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-x-sumate"
           >
-            {menuOpen ? (
-              <path d="M12 4 4 12M4 4l8 8" />
-            ) : (
-              <path d="M2 5h12M2 8h12M2 11h12" />
-            )}
-          </svg>
-        </button>
+            Sumate
+          </a>
+          <button
+            className="nav-x-burger lg:hidden"
+            aria-label="Menú"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            {menuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
       </div>
 
       {menuOpen && (
-        <div className="nav-hud-mobile">
+        <div className="nav-x-mobile">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setMenuOpen(false)}
-              className={`nav-hud-mobile-link ${
-                isActive(l.href) ? "is-active" : ""
-              }`}
+              className={`nav-x-mobile-link ${isActive(l) ? "is-active" : ""}`}
             >
-              <span className="nav-hud-mobile-prompt" aria-hidden>
-                ›
-              </span>
               {l.label}
             </Link>
           ))}
           <Link
             href={user ? "/perfil" : "/auth/login"}
             onClick={() => setMenuOpen(false)}
-            className="nav-hud-mobile-cta"
+            className="nav-x-mobile-link"
           >
-            {user ? "PERFIL" : "INGRESAR"} <span aria-hidden>→</span>
+            {user ? "Perfil" : "Ingresar"}
           </Link>
         </div>
       )}
     </header>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 4 }}>
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
+function SearchIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
+  );
+}
+function MenuIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  );
+}
+function CloseIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
   );
 }

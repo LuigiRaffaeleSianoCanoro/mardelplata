@@ -301,31 +301,24 @@ function BolsaInner() {
   if (authLoading) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
-        <div className="w-10 h-10 rounded-full border-2 border-ocean-500 border-t-transparent animate-spin" />
+        <div className="bolsa-x-spinner" />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center bolsa-paper rounded-2xl border border-ocean-300/40 p-8 shadow-sm">
-        <h2 className="font-display text-xl font-bold text-slate-900 mb-3">Bolsa de trabajo</h2>
-        <p className="text-slate-600 text-sm mb-6 leading-relaxed">
-          Para ver los clasificados, publicar avisos y votar, necesitás iniciar sesión con tu cuenta de MdPDev.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href="/auth/login"
-            className="inline-flex justify-center items-center px-6 py-3 rounded-full bg-ocean-600 hover:bg-ocean-500 text-white text-sm font-semibold transition-colors"
-          >
-            Ingresar
-          </a>
-          <a
-            href="/auth/registro"
-            className="inline-flex justify-center items-center px-6 py-3 rounded-full border border-ocean-600 text-ocean-700 hover:bg-ocean-50 text-sm font-semibold transition-colors"
-          >
-            Crear cuenta
-          </a>
+      <div className="shell-section">
+        <div className="shell-inner shell-inner--narrow bolsa-x-gate">
+          <p className="shell-eyebrow">BOLSA · ACCESO REQUERIDO</p>
+          <h2 className="shell-title">Bolsa de <em>trabajo.</em></h2>
+          <p className="shell-lead">
+            Para ver los clasificados, publicar avisos y votar, necesitás iniciar sesión con tu cuenta.
+          </p>
+          <div className="bolsa-x-gate-actions">
+            <a href="/auth/login" className="shell-btn-primary">Ingresar <span aria-hidden>→</span></a>
+            <a href="/auth/registro" className="shell-btn-ghost">Crear cuenta</a>
+          </div>
         </div>
       </div>
     );
@@ -333,52 +326,42 @@ function BolsaInner() {
 
   return (
     <>
-      <div className="bolsa-open bolsa-paper max-w-6xl mx-auto px-4 py-8 sm:py-10 rounded-2xl border border-ocean-300/35 shadow-md">
-        <header className="mb-8 border-b border-ocean-600/25 pb-5">
-          <h1 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            Bolsa de trabajo
-          </h1>
-          <p className="text-slate-600 text-sm mt-2 max-w-2xl">
-            Ofertas laborales y servicios freelance de la comunidad. Avisos de 30 días; estilo clasificados.
-          </p>
-          <div className="flex flex-wrap gap-2 mt-4">
+      <div className="shell-section">
+        <div className="shell-inner">
+        <header className="bolsa-x-header">
+          <div>
+            <p className="shell-eyebrow">BOLSA · COMUNIDAD</p>
+            <h1 className="shell-title">Ofertas y <em>freelance.</em></h1>
+            <p className="shell-lead" style={{ marginTop: "0.6rem" }}>
+              Ofertas laborales y servicios freelance de la comunidad. Avisos de 30 días, estilo clasificados.
+            </p>
+          </div>
+          <div className="bolsa-x-filter">
             <button
               type="button"
               onClick={() => setFilterKind("all")}
-              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
-                filterKind === "all"
-                  ? "bg-ocean-700 text-white border-ocean-700 shadow-sm"
-                  : "border-ocean-300/60 text-slate-700 hover:bg-white/80"
-              }`}
+              className={`bolsa-x-pill ${filterKind === "all" ? "is-active" : ""}`}
             >
               Todos
             </button>
             <button
               type="button"
               onClick={() => setFilterKind("job")}
-              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
-                filterKind === "job"
-                  ? "bg-ocean-700 text-white border-ocean-700 shadow-sm"
-                  : "border-ocean-300/60 text-slate-700 hover:bg-white/80"
-              }`}
+              className={`bolsa-x-pill ${filterKind === "job" ? "is-active" : ""}`}
             >
               Trabajos
             </button>
             <button
               type="button"
               onClick={() => setFilterKind("freelance")}
-              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
-                filterKind === "freelance"
-                  ? "bg-ocean-700 text-white border-ocean-700 shadow-sm"
-                  : "border-ocean-300/60 text-slate-700 hover:bg-white/80"
-              }`}
+              className={`bolsa-x-pill ${filterKind === "freelance" ? "is-active" : ""}`}
             >
               Freelance
             </button>
             <button
               type="button"
               onClick={() => setPublishOpen(true)}
-              className="text-xs px-4 py-2 ml-auto inline-flex items-center bg-ocean-400 hover:bg-ocean-300 text-white font-semibold rounded-full shadow-md shadow-ocean-500/25 transition-colors"
+              className="shell-btn-primary bolsa-x-publish"
             >
               + Publicar
             </button>
@@ -386,21 +369,21 @@ function BolsaInner() {
         </header>
 
         {loadError && (
-          <p className="text-red-800 text-sm mb-4">
+          <p className="bolsa-x-errmsg">
             Error al cargar: {loadError}. Si acabás de crear las tablas, ejecutá el script SQL en Supabase.
           </p>
         )}
 
         {dataLoading && listings.length === 0 ? (
           <div className="flex justify-center py-12">
-            <div className="w-10 h-10 rounded-full border-2 border-ocean-500 border-t-transparent animate-spin" />
+            <div className="bolsa-x-spinner" />
           </div>
         ) : filtered.length === 0 ? (
-          <p className="text-slate-600 text-sm text-center py-12 border border-dashed border-ocean-300/50 rounded-xl bg-white/40">
+          <p className="bolsa-x-empty">
             No hay avisos en esta categoría todavía. ¡Sé el primero en publicar!
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+          <div className="bolsa-x-grid">
             {filtered.map((l) => {
               const v = voteAgg(l.id);
               return (
@@ -419,6 +402,7 @@ function BolsaInner() {
             })}
           </div>
         )}
+      </div>
       </div>
 
       {modalListing && (
@@ -449,7 +433,7 @@ export default function BolsaClient() {
     <Suspense
       fallback={
         <div className="min-h-[40vh] flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full border-2 border-ocean-500 border-t-transparent animate-spin" />
+          <div className="bolsa-x-spinner" />
         </div>
       }
     >
