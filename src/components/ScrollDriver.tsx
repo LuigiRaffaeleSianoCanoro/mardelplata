@@ -10,11 +10,10 @@ import { useEffect, useState } from "react";
 
 const CHAPTERS = [
   { id: "inicio", label: "Inicio", num: "00" },
-  { id: "manifiesto", label: "Manifiesto", num: "01" },
-  { id: "comunidad", label: "Canales", num: "02" },
-  { id: "eventos", label: "Schedule", num: "03" },
-  { id: "colaboradores", label: "Habitantes", num: "04" },
-  { id: "reglamento", label: "Protocol", num: "06" },
+  { id: "eventos", label: "Eventos", num: "01" },
+  { id: "colaboradores", label: "Comunidad", num: "02" },
+  { id: "manifiesto", label: "Manifiesto", num: "03" },
+  { id: "empleos", label: "Empleos", num: "04" },
 ];
 
 export default function ScrollDriver() {

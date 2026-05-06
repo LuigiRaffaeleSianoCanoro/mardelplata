@@ -1,128 +1,263 @@
 "use client";
 
-// Hero v4: atmosfera + tipografía. Sin imagen fullscreen — la imagen
-// del lobo va al Manifesto como polaroid. Acá: aurora violeta arriba,
-// línea de horizonte sapphire al medio, malla low-poly debajo.
-// Tagline serif italic con respiración. HUD overlay completo.
+// Hero v5 — layout estilo mock: imagen panorámica del lobo + faro + skyline
+// + mesh ocean a la derecha, texto a la izquierda. Cards glassmorph
+// flotando sobre la imagen (Eventos, Empleos, Aprendizaje, Comunidad,
+// Marea de talento). Avatar stack + scroll cue al pie.
 
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import SectionWaveMesh from "./SectionWaveMesh";
 
 export default function Hero() {
-  const [now, setNow] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setNow(new Date());
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
-  }, []);
-
   return (
-    <section
-      id="inicio"
-      className="hero-v4 relative min-h-screen overflow-hidden"
-    >
-      {/* Capa 1 — gradient atmosférico (aurora violet arriba, deep navy abajo) */}
-      <div className="hero-v4-bg-atmosphere absolute inset-0 z-0" />
-
-      {/* Capa 2 — orbes sapphire/violet drifteando */}
-      <div className="hero-v4-orbs absolute inset-0 z-0 pointer-events-none">
-        <span className="hero-v4-orb hero-v4-orb--1" />
-        <span className="hero-v4-orb hero-v4-orb--2" />
-        <span className="hero-v4-orb hero-v4-orb--3" />
-      </div>
-
-      {/* Capa 3 — sun/moon disc apenas visible al horizonte (sunset hint) */}
-      <div className="hero-v4-sun absolute z-0 pointer-events-none" />
-
-      {/* Capa 4 — línea de horizonte sapphire */}
-      <div className="hero-v4-horizon absolute z-[1] pointer-events-none" />
-
-      {/* Capa 5 — wave mesh low-poly llenando la mitad inferior */}
-      <div className="hero-v4-mesh-wrapper absolute z-[1] pointer-events-none">
-        <SectionWaveMesh
-          variant="horizon"
-          id="hero-v4-mesh"
-          opacity={0.5}
+    <section className="hero-x" id="inicio">
+      {/* Imagen wide cinematic — panorama lobo + faro + skyline */}
+      <div className="hero-x-bg">
+        <Image
+          src="/hero-wide.png"
+          alt="Mar del Plata al atardecer con lobo programador"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-x-bg-img"
         />
+        <div className="hero-x-bg-overlay" />
+        <div className="hero-x-bg-fade" />
       </div>
 
-      {/* HUD overlay: corners + bearing scale */}
-      <div className="hero-v4-hud absolute inset-0 z-10 pointer-events-none">
-        <div className="hud-corner hud-corner--tl" />
-        <div className="hud-corner hud-corner--tr" />
-        <div className="hud-corner hud-corner--bl" />
-        <div className="hud-corner hud-corner--br" />
+      <div className="hero-x-inner">
+        {/* Texto izquierda */}
+        <div className="hero-x-text">
+          <p className="hero-x-eyebrow">
+            <span className="hero-x-eyebrow-dot" />
+            COMUNIDAD IT · MAR DEL PLATA
+          </p>
 
-        <div className="hero-v3-bearing">
-          <span>270</span>
-          <span>280</span>
-          <span>290</span>
-          <span className="n">N</span>
-          <span>010</span>
-          <span>020</span>
-          <span>030</span>
+          <h1 className="hero-x-title">
+            Donde el <em>talento</em> de
+            <br />
+            Mar del Plata se <em>encuentra.</em>
+          </h1>
+
+          <p className="hero-x-sub">
+            Aprendemos, creamos y construimos juntos el futuro tecnológico
+            de Mar del Plata y la costa atlántica.
+          </p>
+
+          <div className="hero-x-ctas">
+            <a
+              href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-x-cta-primary"
+            >
+              Sumate a la comunidad
+              <span aria-hidden>→</span>
+            </a>
+            <Link href="#manifiesto" className="hero-x-cta-ghost">
+              Conocé más
+            </Link>
+          </div>
+
+          <div className="hero-x-social-proof">
+            <p className="hero-x-social-proof-label">
+              Conectá con la comunidad
+            </p>
+            <div className="hero-x-avatars">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <span
+                  key={i}
+                  className="hero-x-avatar"
+                  style={{
+                    backgroundImage: `linear-gradient(135deg, hsl(${250 + i * 18}, 70%, 60%), hsl(${200 + i * 12}, 70%, 50%))`,
+                  }}
+                />
+              ))}
+              <span className="hero-x-avatar-count">+1200</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating cards sobre la imagen */}
+        <FloatingCard
+          className="hero-x-card hero-x-card--events"
+          icon={<CalendarIcon />}
+          label="Eventos"
+          text={"Próximo meetup\n24 de mayo"}
+          glowColor="violet"
+        />
+        <FloatingCard
+          className="hero-x-card hero-x-card--jobs"
+          icon={<BriefcaseIcon />}
+          label="Empleos"
+          text={"+23 oportunidades\nactivas"}
+          glowColor="cyan"
+        />
+        <FloatingCard
+          className="hero-x-card hero-x-card--learning"
+          icon={<BookIcon />}
+          label="Aprendizaje"
+          text={"Cursos, talleres\ny recursos"}
+          glowColor="violet"
+        />
+        <FloatingCard
+          className="hero-x-card hero-x-card--community"
+          icon={<PeopleIcon />}
+          label="Comunidad"
+          text={"+1200 miembros\nactivos"}
+          glowColor="cyan"
+        />
+
+        {/* Card especial — chart "Marea de talento" */}
+        <div className="hero-x-card hero-x-card--chart">
+          <div className="hero-x-card-chart-head">
+            <span className="hero-x-card-label">Marea de talento</span>
+            <span className="hero-x-card-arrow">→</span>
+          </div>
+          <MiniWaveChart />
+          <p className="hero-x-card-text" style={{ fontSize: 11 }}>
+            En crecimiento
+          </p>
         </div>
       </div>
 
-      {/* Contenido principal centrado */}
-      <div className="hero-v4-content relative z-20 max-w-6xl mx-auto px-6 py-32 min-h-screen flex flex-col items-start justify-center">
-        <p className="hero-v3-eyebrow hud-label">
-          <span className="hud-status-dot" />
-          MARDELPLATA.DEV <span className="hud-label--dim">·</span>{" "}
-          <span className="hud-ok">LIVE NODE</span>
-        </p>
-
-        <h1 className="hero-v3-tagline">
-          <span className="hero-word hero-word--1">aprende</span>
-          <span className="hero-dot">·</span>
-          <span className="hero-word hero-word--2">conecta</span>
-          <span className="hero-dot">·</span>
-          <span className="hero-word hero-word--3">crea</span>
-        </h1>
-
-        <p className="hero-v3-tagline-sub">
-          La comunidad tech de la costa atlántica. Talleres, charlas,
-          open source y proyectos donde aprendemos construyendo —
-          desde Mar del Plata para todo el sur.
-        </p>
-
-        <div className="hero-v3-ctas">
-          <a
-            href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hero-v3-cta-primary"
-          >
-            <span className="hud-status-dot" />
-            UNIRME A LA COMUNIDAD
-            <span className="hero-cta-arrow">→</span>
-          </a>
-          <Link href="/red" className="hero-v3-cta-ghost">
-            EXPLORAR LA RED
-          </Link>
-          <Link href="/bolsa" className="hero-v3-cta-ghost">
-            BOLSA DE TRABAJO
-          </Link>
-        </div>
-      </div>
-
-      {/* Footer HUD */}
-      <div className="hero-v3-footer-hud absolute inset-x-0 bottom-8 z-10 px-10 flex justify-between items-center pointer-events-none flex-wrap gap-3">
-        <div className="hud-label">
-          <span className="hud-label--dim">POSITION </span>
-          38°00&apos;18.4&quot;S{" "}
-          <span className="hud-label--dim">·</span> 057°33&apos;09.7&quot;W{" "}
-          <span className="hud-label--dim">·</span> ATLÁNTICO SUR
-        </div>
-        <div className="hud-label">
-          <span className="hud-label--dim">UTC </span>
-          <span className="hud-accent">
-            {now ? now.toISOString().slice(11, 19) : "00:00:00"}
-          </span>
-        </div>
+      {/* Scroll cue */}
+      <div className="hero-x-scroll" aria-hidden>
+        <span>SCROLL PARA EXPLORAR</span>
+        <span className="hero-x-scroll-line" />
       </div>
     </section>
+  );
+}
+
+/* ─── Floating card ─── */
+
+function FloatingCard({
+  className,
+  icon,
+  label,
+  text,
+  glowColor,
+}: {
+  className?: string;
+  icon: React.ReactNode;
+  label: string;
+  text: string;
+  glowColor?: "violet" | "cyan";
+}) {
+  return (
+    <div className={className} data-glow={glowColor}>
+      <span className="hero-x-card-icon">{icon}</span>
+      <div className="hero-x-card-body">
+        <span className="hero-x-card-label">{label}</span>
+        <p className="hero-x-card-text">
+          {text.split("\n").map((line, i) => (
+            <span key={i}>
+              {line}
+              {i === 0 ? <br /> : null}
+            </span>
+          ))}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Iconos inline (basados en el icon-pack de referencia) ─── */
+
+function CalendarIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="16" rx="2.5" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+      <circle cx="8" cy="14" r="0.7" fill="currentColor" />
+      <circle cx="12" cy="14" r="0.7" fill="currentColor" />
+      <circle cx="16" cy="14" r="0.7" fill="currentColor" />
+      <circle cx="8" cy="17.5" r="0.7" fill="currentColor" />
+      <circle cx="12" cy="17.5" r="0.7" fill="currentColor" />
+    </svg>
+  );
+}
+
+function BriefcaseIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7" />
+      <path d="M3 12h18" />
+    </svg>
+  );
+}
+
+function BookIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" />
+      <path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" />
+      <path d="M11 4v16M7 9h2M7 12h2M15 9h2M15 12h2" />
+    </svg>
+  );
+}
+
+function PeopleIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="9" r="3.2" />
+      <path d="M3 19c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+      <circle cx="17" cy="8" r="2.4" />
+      <path d="M15.5 13.6c2.5.4 4.5 2.6 4.5 5.4" />
+    </svg>
+  );
+}
+
+/* ─── Mini wave chart para la card "Marea de talento" ─── */
+
+function MiniWaveChart() {
+  // Curva sinusoidal con tendencia al alza
+  const points = [
+    [0, 22],
+    [12, 18],
+    [24, 24],
+    [36, 16],
+    [48, 22],
+    [60, 14],
+    [72, 18],
+    [84, 10],
+    [96, 14],
+    [108, 6],
+    [120, 8],
+  ];
+  const path = points
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`)
+    .join(" ");
+  const area = `${path} L 120 32 L 0 32 Z`;
+
+  return (
+    <svg
+      width="120"
+      height="32"
+      viewBox="0 0 120 32"
+      className="hero-x-card-chart"
+    >
+      <defs>
+        <linearGradient id="chart-stroke" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+        <linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(34, 211, 238, 0.4)" />
+          <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
+        </linearGradient>
+      </defs>
+      <path d={area} fill="url(#chart-fill)" />
+      <path
+        d={path}
+        fill="none"
+        stroke="url(#chart-stroke)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

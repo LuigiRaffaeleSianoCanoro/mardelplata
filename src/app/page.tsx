@@ -1,12 +1,12 @@
 import Navbar from "@/components/Navbar";
 import IntroSplashWaves from "@/components/IntroSplashWaves";
 import Hero from "@/components/Hero";
-import TransmissionBar from "@/components/TransmissionBar";
+import Reveal from "@/components/Reveal";
 import Manifesto from "@/components/Manifesto";
-import Collaborators from "@/components/Collaborators";
-import CommunityPlatforms from "@/components/CommunityPlatforms";
+import Community from "@/components/Community";
+import Pillars from "@/components/Pillars";
 import Events from "@/components/Events";
-import CodeOfConduct from "@/components/CodeOfConduct";
+import Opportunities from "@/components/Opportunities";
 import Footer from "@/components/Footer";
 import ScrollDriver from "@/components/ScrollDriver";
 import { createClient } from "@/lib/supabase/server";
@@ -67,12 +67,11 @@ export default async function Home() {
         <Navbar />
         <main>
           <Hero />
-          <TransmissionBar />
-          <Manifesto />
-          <CommunityPlatforms />
-          <Events events={events ?? []} />
-          <Collaborators members={communityMembers ?? []} />
-          <CodeOfConduct />
+          <Reveal delay={0}><Pillars /></Reveal>
+          <Reveal delay={120}><Events events={events ?? []} /></Reveal>
+          <Reveal delay={120}><Community members={communityMembers ?? []} /></Reveal>
+          <Reveal delay={120}><Manifesto /></Reveal>
+          <Reveal delay={120}><Opportunities /></Reveal>
         </main>
         <Footer />
       </div>

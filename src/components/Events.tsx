@@ -1,8 +1,9 @@
-// Events — vertical depth-ladder timeline. Cada evento es un "ping" en
-// la línea, con tick marker, depth marker (-005m, -010m...) y la info
-// del evento. Mystery events con borde dashed violeta.
+"use client";
 
-import SectionWaveMesh from "./SectionWaveMesh";
+// Events — "Lo que se viene en la costa". Layout horizontal con 4 cards
+// minimalistas: date strip (DD/MMM big), título, hora + ubicación, tag pill.
+
+import Link from "next/link";
 
 interface Event {
   id: string;
@@ -24,21 +25,15 @@ interface EventsProps {
   events: Event[];
 }
 
-function isPast(dateStr: string) {
-  return new Date(dateStr) < new Date();
+function formatDay(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("es-AR", { day: "2-digit" });
 }
-
-function formatBadge(dateStr: string) {
-  const d = new Date(dateStr);
-  return d
-    .toLocaleDateString("es-AR", {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-    })
+function formatMonth(dateStr: string) {
+  return new Date(dateStr)
+    .toLocaleDateString("es-AR", { month: "short" })
+    .replace(".", "")
     .toUpperCase();
 }
-
 function formatTime(dateStr: string) {
   return new Date(dateStr).toLocaleTimeString("es-AR", {
     hour: "2-digit",
@@ -46,159 +41,140 @@ function formatTime(dateStr: string) {
   });
 }
 
+function getTagFlavor(tags: string[]): { label: string; color: "violet" | "cyan" | "amber" | "rose" } {
+  const t = (tags?.[0] ?? "meetup").toLowerCase();
+  if (t.includes("taller") || t.includes("workshop")) return { label: "TALLER", color: "cyan" };
+  if (t.includes("charla") || t.includes("talk")) return { label: "CHARLA", color: "violet" };
+  if (t.includes("hackat")) return { label: "HACKATÓN", color: "rose" };
+  if (t.includes("meetup")) return { label: "MEETUP", color: "violet" };
+  return { label: t.toUpperCase(), color: "amber" };
+}
+
 export default function Events({ events }: EventsProps) {
-  const all = [...events];
+  const now = Date.now();
+  const upcoming = [...events]
+    .filter((e) => new Date(e.date).getTime() >= now)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 4);
 
   return (
-    <section className="panel-section" id="eventos">
-      <SectionWaveMesh
-        variant="horizon"
-        id="mesh-grad-events"
-        className="section-wave-mesh--horizon"
-        opacity={0.14}
-      />
-      <div className="panel-section-inner">
-        <header className="panel-header">
-          <div>
-            <span className="panel-id">03 / Schedule</span>
-            <h2 className="panel-title">
-              Lo que se viene{" "}
-              <em>en La Feliz</em>.
-            </h2>
-          </div>
-          <p className="panel-aside">
-            Meetups, hackathons y encuentros pensados para conectar a
-            quienes ya están construyendo desde la costa. Sin aforo
-            mínimo — venís y armás.
-          </p>
+    <section className="events-x" id="eventos">
+      <div className="events-x-inner">
+        <header className="events-x-header">
+          <h2 className="events-x-title">
+            Lo que se viene en la <em>costa.</em>
+          </h2>
+          <Link href="#" className="events-x-link">
+            Ver calendario completo <span aria-hidden>→</span>
+          </Link>
         </header>
 
-        {events.length === 0 ? (
-          <EmptySchedule />
-        ) : (
-          <div className="depth-timeline">
-            {all.map((event, i) => (
-              <DepthEvent
-                key={event.id}
-                event={event}
-                depth={(i + 1) * 5}
-              />
-            ))}
+        <div className="events-x-rail">
+          <button className="events-x-nav events-x-nav--left" aria-label="Anterior">
+            <ArrowIcon dir="left" />
+          </button>
+
+          <div className="events-x-track">
+            {upcoming.length === 0 ? (
+              <EmptyState />
+            ) : (
+              upcoming.map((event) => <EventCard key={event.id} event={event} />)
+            )}
           </div>
-        )}
+
+          <button className="events-x-nav events-x-nav--right" aria-label="Siguiente">
+            <ArrowIcon dir="right" />
+          </button>
+        </div>
       </div>
     </section>
   );
 }
 
-function EmptySchedule() {
-  return (
-    <div className="depth-timeline">
-      <div className="depth-event">
-        <span
-          className="depth-event-depth"
-          style={{ color: "var(--c-text-mute)" }}
-        >
-          −005m
-        </span>
-        <p className="depth-event-meta">
-          <span className="depth-event-status-dot" />
-          // EMPTY SCHEDULE · COCINANDO
-        </p>
-        <h3 className="depth-event-title">
-          Estamos cocinando el próximo encuentro.
-        </h3>
-        <p className="depth-event-desc">
-          Seguinos en redes para enterarte cuando se anuncie. Si tenés
-          ganas de organizar algo, escribinos al WhatsApp.
-        </p>
+function EventCard({ event }: { event: Event }) {
+  const day = formatDay(event.date);
+  const month = formatMonth(event.date);
+  const time = formatTime(event.date);
+  const tag = getTagFlavor(event.tags);
+  const isMystery = event.is_mystery;
+
+  const inner = (
+    <>
+      <div className="event-card-date">
+        <span className="event-card-day">{day}</span>
+        <span className="event-card-month">{month}</span>
       </div>
+      <div className="event-card-body">
+        <h3 className="event-card-title">
+          {isMystery ? event.codename ?? event.title : event.title}
+        </h3>
+        <p className="event-card-meta">
+          <ClockIcon /> {time}
+          {event.location && (
+            <>
+              <span className="event-card-meta-sep">·</span>
+              <PinIcon /> {event.location}
+            </>
+          )}
+        </p>
+        <span className="event-card-tag" data-flavor={tag.color}>
+          {tag.label}
+        </span>
+      </div>
+    </>
+  );
+
+  if (event.registration_url) {
+    return (
+      <a
+        href={event.registration_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="event-card"
+      >
+        {inner}
+      </a>
+    );
+  }
+  return <article className="event-card">{inner}</article>;
+}
+
+function EmptyState() {
+  return (
+    <div className="events-x-empty">
+      <p className="events-x-empty-eyebrow">// SCHEDULE EN PAUSA</p>
+      <h3 className="events-x-empty-title">
+        Estamos cocinando el próximo encuentro.
+      </h3>
+      <p className="events-x-empty-desc">
+        Seguinos en redes para enterarte cuando se anuncie.
+      </p>
     </div>
   );
 }
 
-function DepthEvent({ event, depth }: { event: Event; depth: number }) {
-  const past = isPast(event.date);
-  const depthLabel = `−${String(depth).padStart(3, "0")}m`;
-
-  if (event.is_mystery) {
-    return (
-      <article className="depth-event">
-        <span className="depth-event-depth">{depthLabel}</span>
-        <div className="depth-event-classified">
-          <p className="depth-event-meta">
-            <span className="depth-event-status-dot" />
-            // CLASSIFIED · COMING SOON
-          </p>
-          <h3 className="depth-event-title">
-            {event.codename ?? event.title}
-          </h3>
-          {event.teaser && <p className="depth-event-desc">{event.teaser}</p>}
-          <a
-            href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="terminal-log-cta"
-            style={{ marginTop: "1.2em", display: "inline-flex" }}
-          >
-            Avisarme
-            <span className="terminal-log-cta-arrow">→</span>
-          </a>
-        </div>
-      </article>
-    );
-  }
-
+function ArrowIcon({ dir }: { dir: "left" | "right" }) {
   return (
-    <article className="depth-event">
-      <span className="depth-event-depth">{depthLabel}</span>
-      <p className="depth-event-meta">
-        {past ? (
-          <>
-            <span
-              className="depth-event-status-dot"
-              style={{ background: "var(--c-text-mute)", boxShadow: "none" }}
-            />
-            // FINALIZADO
-          </>
-        ) : (
-          <>
-            <span className="depth-event-status-dot" />
-            {formatBadge(event.date)} · {formatTime(event.date)}
-          </>
-        )}
-      </p>
-      <h3 className="depth-event-title">{event.title}</h3>
-      {event.subtitle && (
-        <p className="depth-event-subtitle">{event.subtitle}</p>
-      )}
-      {event.description && (
-        <p className="depth-event-desc">{event.description}</p>
-      )}
-      <div className="depth-event-footer">
-        {event.location && (
-          <span className="depth-event-footer-item">
-            <span style={{ color: "var(--c-sky)" }}>◉</span> {event.location}
-          </span>
-        )}
-        {event.tags?.slice(0, 3).map((tag) => (
-          <span key={tag} className="depth-event-footer-item">
-            #{tag}
-          </span>
-        ))}
-        {event.registration_url && !past && (
-          <a
-            href={event.registration_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="terminal-log-cta"
-            style={{ marginLeft: "auto" }}
-          >
-            Registrarme
-            <span className="terminal-log-cta-arrow">→</span>
-          </a>
-        )}
-      </div>
-    </article>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      {dir === "left" ? <path d="m15 18-6-6 6-6" /> : <path d="m9 18 6-6-6-6" />}
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s-7-7-7-12a7 7 0 1 1 14 0c0 5-7 12-7 12z" />
+      <circle cx="12" cy="10" r="2.4" />
+    </svg>
   );
 }

@@ -1,102 +1,75 @@
-// Manifesto — bloque editorial entre la transmission bar y los channels.
-// Tres líneas serif que respiran (animation-delay desfasado), con la
-// foto del lobo como retrato HUD-framed al costado y bajada con
-// telemetría mono.
-
+// Manifesto — "Tecnología con propósito, comunidad con valores".
+// Layout: bloque con eyebrow + título serif a la izquierda y 4 valores
+// inline (icono + título + bajada) a la derecha, con onda decorativa.
 import Image from "next/image";
-import SectionWaveMesh from "./SectionWaveMesh";
+
+type Valor = {
+  title: string;
+  desc: string;
+  icon: string;
+  glow: "violet" | "cyan" | "emerald" | "sky";
+};
 
 export default function Manifesto() {
+  const valores: Valor[] = [
+    {
+      title: "Inclusiva",
+      desc: "Espacio seguro y diverso donde todas las voces suman.",
+      icon: "/icons/icon-heart-community.png",
+      glow: "cyan",
+    },
+    {
+      title: "Abierta",
+      desc: "Compartimos conocimiento y recursos sin fronteras ni barreras.",
+      icon: "/icons/icon-book.png",
+      glow: "violet",
+    },
+    {
+      title: "Sostenible",
+      desc: "Construimos soluciones que cuidan nuestra ciudad y el planeta.",
+      icon: "/icons/icon-wave.png",
+      glow: "emerald",
+    },
+    {
+      title: "Local y global",
+      desc: "Raíces en Mar del Plata, mirada puesta en el mundo.",
+      icon: "/icons/icon-lighthouse.png",
+      glow: "sky",
+    },
+  ];
+
   return (
-    <section className="manifesto" id="manifiesto">
-      <SectionWaveMesh
-        variant="horizon"
-        id="mesh-grad-manifest"
-        className="section-wave-mesh--horizon"
-        opacity={0.14}
-      />
-      <div className="manifesto-inner">
-        <span className="manifesto-eyebrow">01 / Manifiesto</span>
-
-        <div className="manifesto-grid">
-          <div>
-            <h2 className="manifesto-headline">
-              <span className="manifesto-line">
-                Una comunidad de la costa.
-              </span>
-              <span className="manifesto-line">
-                Una <em>red</em> que late en el atlántico.
-              </span>
-              <span className="manifesto-line">
-                Una excusa para <em>construir</em> juntos.
-              </span>
-            </h2>
-          </div>
-
-          {/* Retrato del lobo — frame HUD con corner brackets, glow violeta */}
-          <figure className="hud-portrait">
-            <span className="hud-portrait-corner hud-portrait-corner--tl" />
-            <span className="hud-portrait-corner hud-portrait-corner--tr" />
-            <span className="hud-portrait-corner hud-portrait-corner--bl" />
-            <span className="hud-portrait-corner hud-portrait-corner--br" />
-            <div className="hud-portrait-image">
-              <Image
-                src="/hero-mdp-lobo.png"
-                alt="Lobo marino programador en Mar del Plata"
-                fill
-                sizes="(max-width: 768px) 90vw, 480px"
-                className="object-cover"
-              />
-              <span className="hud-portrait-scan" />
-            </div>
-            <figcaption className="hud-portrait-caption">
-              <span className="hud-portrait-caption-id">
-                // SPECIMEN A · MDP-EDGE
-              </span>
-              <span className="hud-portrait-caption-title">
-                Lobo marino programador · the locals
-              </span>
-              <span className="hud-portrait-caption-meta">
-                <span>38°00&apos;S</span>
-                <span className="dim">·</span>
-                <span>057°33&apos;W</span>
-                <span className="dim">·</span>
-                <span>2024</span>
-              </span>
-            </figcaption>
-          </figure>
+    <section className="manifesto-x" id="manifiesto">
+      <div className="manifesto-x-inner">
+        <div className="manifesto-x-wave" aria-hidden>
+          <Image
+            src="/manifesto-bg.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="manifesto-x-wave-img"
+          />
         </div>
-
-        <div className="manifesto-body">
-          <div className="manifesto-body-aside">
-            <div className="manifesto-body-aside-row">
-              <span>Inicio · Operación</span>
-              <span>2024</span>
-            </div>
-            <div className="manifesto-body-aside-row">
-              <span>Base</span>
-              <span>Mar del Plata</span>
-            </div>
-            <div className="manifesto-body-aside-row">
-              <span>Frecuencia</span>
-              <span>Permanente</span>
-            </div>
-            <div className="manifesto-body-aside-row">
-              <span>Modelo</span>
-              <span>Open · Comunidad</span>
-            </div>
-            <div className="manifesto-body-aside-row">
-              <span>Acceso</span>
-              <span>Libre</span>
-            </div>
+        <div className="manifesto-x-content">
+          <header className="manifesto-x-header">
+            <p className="manifesto-x-eyebrow">NUESTRO MANIFESTO</p>
+            <h2 className="manifesto-x-title">
+              Tecnología con propósito,
+              <br />
+              comunidad con <em>valores.</em>
+            </h2>
+          </header>
+          <div className="manifesto-x-values">
+            {valores.map((v) => (
+              <div key={v.title} className="valor-card" data-glow={v.glow}>
+                <span className="valor-card-icon">
+                  <Image src={v.icon} alt="" width={52} height={52} className="valor-card-icon-img" />
+                </span>
+                <h3 className="valor-card-title">{v.title}</h3>
+                <p className="valor-card-desc">{v.desc}</p>
+              </div>
+            ))}
           </div>
-          <p className="manifesto-body-text">
-            MdPDev nace como una excusa para juntar a los que escriben código
-            en la ciudad. Desde 2024 transmitimos desde la costa atlántica:
-            talleres, charlas, hackathons, proyectos open source y una bolsa
-            de trabajo que de a poco se llena. Si sos dev, diseñador,
-            founder, QA o curiosx — esta también es tu radio.
-          </p>
         </div>
       </div>
     </section>
