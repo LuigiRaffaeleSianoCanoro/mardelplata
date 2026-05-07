@@ -1,4 +1,4 @@
-# mardelplata.dev
+# mardelplata.dev.ar
 
 > El hub tech de la costa atlántica — la plataforma de la comunidad de devs de Mar del Plata.
 
