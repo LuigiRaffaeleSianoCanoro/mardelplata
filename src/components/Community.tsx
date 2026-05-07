@@ -1,9 +1,13 @@
+"use client";
+
 // Community — "Nuestra comunidad". Grid de 5 miembros + 1 CTA card
 // "Sumate vos también". Cada miembro: avatar, nombre, rol, ubicación,
 // y links sociales (GitHub / LinkedIn / Twitter) si los declaró en el
-// perfil. Si la DB tiene profiles los usa, si no muestra placeholders.
+// perfil. Si hay > 5 miembros en DB, rotamos los visibles cada 5s
+// (pausa on hover) para que no se vean siempre los mismos.
 
 import Image from "next/image";
+import { useEffect, useMemo, useState } from "react";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 
 interface CommunityMember {
@@ -49,24 +53,50 @@ function shortName(name: string | null): string {
   return parts[0] + " " + parts[parts.length - 1].charAt(0) + ".";
 }
 
+const VISIBLE = 5;
+const ROTATE_MS = 5000;
+
+function toDisplay(m: CommunityMember): DisplayMember {
+  return {
+    id: m.id,
+    name: shortName(m.full_name),
+    role: extractRole(m.bio),
+    location: "MDQ",
+    avatar: resolveAvatarDisplayUrl(m.avatar_url) ?? null,
+    github: m.github_url,
+    linkedin: m.linkedin_url,
+    twitter: m.twitter_url,
+  };
+}
+
 export default function Community({
   members = [],
 }: {
   members?: CommunityMember[];
 }) {
-  const display: DisplayMember[] =
-    members.length >= 5
-      ? members.slice(0, 5).map((m) => ({
-          id: m.id,
-          name: shortName(m.full_name),
-          role: extractRole(m.bio),
-          location: "MDQ",
-          avatar: resolveAvatarDisplayUrl(m.avatar_url) ?? null,
-          github: m.github_url,
-          linkedin: m.linkedin_url,
-          twitter: m.twitter_url,
-        }))
-      : PLACEHOLDER_MEMBERS;
+  const [offset, setOffset] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  // Rotacion: si hay mas miembros de los visibles, avanza el offset cada
+  // ROTATE_MS milisegundos. Pausa on hover. Si no hay suficientes, no hay
+  // rotacion y mostramos lo que tengamos.
+  useEffect(() => {
+    if (members.length <= VISIBLE || paused) return;
+    const id = setInterval(() => {
+      setOffset((o) => (o + 1) % members.length);
+    }, ROTATE_MS);
+    return () => clearInterval(id);
+  }, [members.length, paused]);
+
+  const display: DisplayMember[] = useMemo(() => {
+    if (members.length === 0) return PLACEHOLDER_MEMBERS;
+    if (members.length <= VISIBLE) return members.map(toDisplay);
+    const out: DisplayMember[] = [];
+    for (let i = 0; i < VISIBLE; i++) {
+      out.push(toDisplay(members[(offset + i) % members.length]));
+    }
+    return out;
+  }, [members, offset]);
 
   return (
     <section className="community-x" id="colaboradores">
@@ -78,7 +108,11 @@ export default function Community({
           </span>
         </header>
 
-        <div className="community-x-grid">
+        <div
+          className="community-x-grid"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
           {display.map((m) => {
             const socials = [
               m.github && { kind: "github" as const, url: m.github, label: "GitHub" },
