@@ -26,9 +26,23 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const pathname = usePathname();
   const resourcesRef = useRef<HTMLDivElement | null>(null);
+  const profileRef = useRef<HTMLDivElement | null>(null);
+
+  const initial = user
+    ? (user.user_metadata?.full_name as string | undefined)?.trim().charAt(0).toUpperCase()
+      ?? user.email?.trim().charAt(0).toUpperCase()
+      ?? "·"
+    : "";
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setProfileOpen(false);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -64,6 +78,25 @@ export default function Navbar() {
       document.removeEventListener("keydown", onKey);
     };
   }, [resourcesOpen]);
+
+  // Cerrar dropdown Perfil al click fuera o Escape
+  useEffect(() => {
+    if (!profileOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (!profileRef.current?.contains(e.target as Node)) {
+        setProfileOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setProfileOpen(false);
+    };
+    document.addEventListener("click", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("click", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [profileOpen]);
 
   // Cmd+K / Ctrl+K abre el palette
   useEffect(() => {
@@ -153,9 +186,49 @@ export default function Navbar() {
           >
             <SearchIcon />
           </button>
-          <Link href={user ? "/perfil" : "/auth/login"} className="nav-x-ingresar hidden sm:inline-flex">
-            {user ? "Perfil" : "Ingresar"}
-          </Link>
+          {user ? (
+            <div className="nav-x-profile" ref={profileRef}>
+              <button
+                type="button"
+                className={`nav-x-profile-btn hidden sm:inline-flex ${profileOpen ? "is-open" : ""}`}
+                aria-haspopup="menu"
+                aria-expanded={profileOpen}
+                aria-label="Perfil"
+                onClick={() => setProfileOpen((o) => !o)}
+              >
+                {initial}
+              </button>
+              {profileOpen && (
+                <div className="nav-x-profile-menu" role="menu">
+                  <p className="nav-x-profile-meta">
+                    {(user.user_metadata?.full_name as string | undefined)
+                      ?? user.email
+                      ?? "Tu perfil"}
+                  </p>
+                  <Link
+                    href="/perfil"
+                    role="menuitem"
+                    className="nav-x-profile-item"
+                    onClick={() => setProfileOpen(false)}
+                  >
+                    Mi perfil
+                  </Link>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className="nav-x-profile-item nav-x-profile-item--danger"
+                    onClick={handleSignOut}
+                  >
+                    Cerrar sesión
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link href="/auth/login" className="nav-x-ingresar hidden sm:inline-flex">
+              Ingresar
+            </Link>
+          )}
           <a
             href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
             target="_blank"
@@ -202,13 +275,35 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-          <Link
-            href={user ? "/perfil" : "/auth/login"}
-            onClick={() => setMenuOpen(false)}
-            className="nav-x-mobile-link"
-          >
-            {user ? "Perfil" : "Ingresar"}
-          </Link>
+          {user ? (
+            <>
+              <Link
+                href="/perfil"
+                onClick={() => setMenuOpen(false)}
+                className="nav-x-mobile-link"
+              >
+                Mi perfil
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  handleSignOut();
+                }}
+                className="nav-x-mobile-link nav-x-mobile-link--danger"
+              >
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/auth/login"
+              onClick={() => setMenuOpen(false)}
+              className="nav-x-mobile-link"
+            >
+              Ingresar
+            </Link>
+          )}
         </div>
       )}
     </header>

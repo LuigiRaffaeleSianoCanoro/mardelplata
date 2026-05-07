@@ -6,7 +6,6 @@
 // piedra-en-agua (MagicRings) como puente al home.
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import MagicRings from "./MagicRings";
 
 interface IntroSplashWavesProps {
   onComplete?: () => void;
@@ -124,20 +123,6 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
     const t = setTimeout(() => onComplete(), 2900);
     return () => clearTimeout(t);
   }, [onComplete]);
-
-  // "Piedra en el agua" — los anillos arrancan ~1100ms (despues del
-  // glitch existente) y duran ~1800ms. Mientras se expanden, el
-  // intro fadea (CSS) y el home asoma debajo.
-  const [ringsActive, setRingsActive] = useState(false);
-  useEffect(() => {
-    if (skip) return;
-    const t1 = setTimeout(() => setRingsActive(true), 1100);
-    const t2 = setTimeout(() => setRingsActive(false), 2900);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
-  }, [skip]);
 
   const horizonY = size ? size.h * 0.42 : 0;
 
@@ -286,11 +271,6 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
       aria-hidden="true"
       className="intro-splash intro-splash--ext fixed inset-0 z-[100] bg-[#0A0A0F] pointer-events-none overflow-hidden"
     >
-      {/* Aurora — sapphire glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="splash-aurora absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vmin] h-[100vmin] rounded-full bg-[rgba(59,130,246,0.18)] blur-[160px]" />
-      </div>
-
       {/* Malla de olas low-poly — reemplaza el tx-grid del splash original.
           El mask radial mantiene el viñeteado del piso original. */}
       <div className="absolute inset-0 opacity-90 [mask-image:radial-gradient(ellipse_75%_60%_at_50%_50%,#000_30%,transparent_92%)]">
@@ -593,31 +573,6 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
         {/* boot-tri polygons removidos */}
       </div>
 
-      {/* Piedra en el agua — anillos concentricos via shader. Solo
-          existe en el DOM durante la ventana 1100-2900ms para que el
-          shader no consuma GPU innecesariamente. z-index encima del
-          resto del intro asi se ven los anillos sobre el HUD/mesh. */}
-      {ringsActive && (
-        <div className="intro-rings-stage" aria-hidden="true">
-          <MagicRings
-            color="#fbbf24"
-            colorTwo="#dbeafe"
-            ringCount={5}
-            speed={1.4}
-            attenuation={7}
-            lineThickness={2.2}
-            baseRadius={0.02}
-            radiusStep={0.06}
-            scaleRate={0.85}
-            opacity={0.7}
-            blur={0}
-            noiseAmount={0.04}
-            ringGap={1.4}
-            fadeIn={0.35}
-            fadeOut={0.7}
-          />
-        </div>
-      )}
     </div>
     )}
 
