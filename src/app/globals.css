@@ -6492,6 +6492,40 @@ a.event-card:hover {
   font-size: 11px;
 }
 
+/* Social links de cada member-card — reemplaza al placeholder de skills.
+   Cada link es un anchor a github / linkedin / twitter del perfil. Solo
+   se renderizan los que el miembro declaro. */
+.member-card-socials {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  justify-content: center;
+}
+.member-social {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  display: grid;
+  place-items: center;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.member-social:hover {
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.4);
+  color: rgba(220, 210, 255, 1);
+  transform: translateY(-1px);
+}
+.member-social:focus-visible {
+  outline: 2px solid rgba(168, 85, 247, 0.7);
+  outline-offset: 2px;
+}
+
 /* CTA card */
 .member-card--cta {
   background: linear-gradient(165deg, rgba(168, 85, 247, 0.22) 0%, rgba(99, 102, 241, 0.16) 100%);
