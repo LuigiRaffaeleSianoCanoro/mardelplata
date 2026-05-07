@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import ParallaxProvider from "@/components/ParallaxProvider";
 import RouteGlitch from "@/components/RouteGlitch";
 
 const inter = Inter({
@@ -64,12 +63,11 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var k='mdpdev-intro-v5-seen';var r=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var c=navigator.connection||{};var lo=c.saveData||c.effectiveType==='slow-2g'||c.effectiveType==='2g';if(r||lo||sessionStorage.getItem(k)==='1'){document.documentElement.classList.add('intro-seen')}else{sessionStorage.setItem(k,'1')}}catch(e){}",
+              "try{var k='mdpdev-intro-v5-seen';var r=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var c=navigator.connection||{};var lo=c.saveData||c.effectiveType==='slow-2g'||c.effectiveType==='2g';if(r||lo||localStorage.getItem(k)==='1'){document.documentElement.classList.add('intro-seen')}else{localStorage.setItem(k,'1')}}catch(e){}",
           }}
         />
       </head>
       <body className="bg-[#06070d] text-white/85 antialiased">
-        <ParallaxProvider />
         <RouteGlitch />
         {children}
       </body>

@@ -44,7 +44,46 @@ export default function ScrollDriver() {
     };
   }, []);
 
-  // 2) IntersectionObserver para detectar capítulo activo
+  // 2) Anchor warp: click en una tick del rail (o cualquier link in-page)
+  //    NO salta de golpe — overlay glitch + teleport instantaneo cuando el
+  //    overlay esta a full opacity. Antes vivia en ParallaxProvider con
+  //    Lenis; ahora standalone con scrollTo nativo.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      const t = e.target as HTMLElement | null;
+      const link = t?.closest('a[href*="#"]') as HTMLAnchorElement | null;
+      if (!link) return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+      if (url.pathname !== window.location.pathname) return;
+      const id = url.hash.slice(1);
+      if (!id) return;
+      const dest = document.getElementById(id);
+      if (!dest) return;
+      e.preventDefault();
+
+      const overlay = document.createElement("div");
+      overlay.className = "glitch-jump-overlay";
+      document.body.appendChild(overlay);
+
+      // Teleport mid-glitch (180ms) — la opacidad esta saturada y enmascara
+      // el salto. Despues remueve el overlay cuando termina la animacion.
+      window.setTimeout(() => {
+        const top = dest.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top, behavior: "instant" as ScrollBehavior });
+        history.replaceState(null, "", `#${id}`);
+      }, 180);
+
+      window.setTimeout(() => {
+        overlay.remove();
+      }, 520);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
+  // 3) IntersectionObserver para detectar capítulo activo
   useEffect(() => {
     const targets = CHAPTERS
       .map((c) => document.getElementById(c.id))

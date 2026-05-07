@@ -8867,3 +8867,317 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
 @supports not (overflow-x: clip) {
   .page-after-intro { overflow-x: hidden; }
 }
+
+/* ================================================================
+   INTRO v8 — sin fade del intro. Los rings + lighthouse beam son
+   las animaciones protagonistas; el intro queda visible debajo
+   hasta que termina la coreografia, y ahi snap-cut al home.
+
+   Cambios vs v7:
+   - Quitado intro-child-fadeout: los hijos NO fadean. La terminal,
+     el HUD y el mesh quedan en pantalla mientras corren rings+beam.
+   - Quitado splash-bg-fade: el bg negro del intro NO fadea durante
+     la animacion — asi los rings/beam se ven claros sobre el bg
+     oscuro y no compiten con un fade que los tapa.
+   - Snap-out al final: a 2900ms (cuando los rings terminan), el
+     intro hace visibility:hidden + bg transparent en una transicion
+     corta de 250ms para evitar el corte seco.
+   ================================================================ */
+
+/* MESH "la red" — solo power-on al inicio. Sin fadeout encadenado. */
+.intro-splash--ext > .absolute:nth-child(2):not(.splash-iris) {
+  opacity: 0;
+  animation: red-power-on 800ms steps(1, end) 100ms forwards;
+  animation-play-state: running !important;
+  will-change: opacity, filter;
+}
+
+@keyframes red-power-on {
+  0%   { opacity: 0;    filter: brightness(0.2); }
+  8%   { opacity: 0.35; filter: brightness(0.5)  saturate(0.6); }
+  12%  { opacity: 0;    filter: brightness(0.1); }
+  22%  { opacity: 0.7;  filter: brightness(1.3)  saturate(1.4); }
+  28%  { opacity: 0.15; filter: brightness(0.3); }
+  36%  { opacity: 0.9;  filter: brightness(1.8)  saturate(1.6); }
+  42%  { opacity: 0.4;  filter: brightness(0.6); }
+  52%  { opacity: 1;    filter: brightness(2.4)  saturate(2)    hue-rotate(10deg); }
+  62%  { opacity: 0.65; filter: brightness(1)    saturate(1.2); }
+  72%  { opacity: 1;    filter: brightness(1.5); }
+  82%  { opacity: 0.85; filter: brightness(0.95); }
+  92%  { opacity: 1;    filter: brightness(1.1); }
+  100% { opacity: 1;    filter: none; }
+}
+
+/* Hijos comunes — SIN fade. Quedan visibles hasta el snap-out final. */
+.intro-splash--ext > .absolute:not(.splash-iris) {
+  animation: none;
+}
+
+/* Stage de los rings */
+.intro-rings-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  pointer-events: none;
+  animation: rings-stage-life 1800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: opacity, filter;
+}
+
+@keyframes rings-stage-life {
+  0%   { opacity: 0;    filter: blur(0); }
+  20%  { opacity: 1;    filter: blur(0); }
+  60%  { opacity: 1;    filter: blur(0); }
+  90%  { opacity: 0.55; filter: blur(2px); }
+  100% { opacity: 0;    filter: blur(4px); }
+}
+
+/* LIGHTHOUSE BEAM — sibling del intro */
+.lighthouse-beam-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 115;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lighthouse-beam-core {
+  position: absolute;
+  left: 85%;
+  top: 12%;
+  width: 1px;
+  height: 1px;
+  background:
+    radial-gradient(circle 22vw at center,
+      rgba(255, 248, 220, 0.95) 0%,
+      rgba(255, 220, 140, 0.7) 18%,
+      rgba(251, 191, 36, 0.45) 40%,
+      rgba(217, 119, 6, 0.18) 65%,
+      transparent 85%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  animation: lighthouse-core 2400ms cubic-bezier(0.4, 0, 0.2, 1) 1100ms forwards;
+  will-change: opacity, transform;
+}
+
+.lighthouse-beam-spread {
+  position: absolute;
+  left: 85%;
+  top: 12%;
+  width: 1px;
+  height: 1px;
+  background:
+    radial-gradient(ellipse 60vw 50vh at center,
+      rgba(255, 235, 175, 0.55) 0%,
+      rgba(255, 210, 130, 0.35) 25%,
+      rgba(251, 191, 36, 0.18) 50%,
+      transparent 75%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: lighthouse-spread 2800ms cubic-bezier(0.4, 0, 0.2, 1) 1300ms forwards;
+  will-change: opacity, transform;
+  filter: blur(20px);
+}
+
+@keyframes lighthouse-core {
+  0%   { opacity: 0;    transform: translate(-50%, -50%) scale(0.4);  filter: blur(8px); }
+  15%  { opacity: 0.6;  transform: translate(-50%, -50%) scale(0.7);  filter: blur(4px); }
+  35%  { opacity: 1;    transform: translate(-50%, -50%) scale(1);    filter: blur(0); }
+  60%  { opacity: 0.95; transform: translate(-50%, -50%) scale(1.15); filter: blur(2px); }
+  85%  { opacity: 0.4;  transform: translate(-50%, -50%) scale(1.4);  filter: blur(8px); }
+  100% { opacity: 0;    transform: translate(-50%, -50%) scale(1.6);  filter: blur(14px); }
+}
+
+@keyframes lighthouse-spread {
+  0%   { opacity: 0;    transform: translate(-50%, -50%) scale(0.5); }
+  20%  { opacity: 0.5;  transform: translate(-50%, -50%) scale(1.3); }
+  45%  { opacity: 0.9;  transform: translate(-50%, -50%) scale(2.1); }
+  70%  { opacity: 0.7;  transform: translate(-50%, -50%) scale(2.7); }
+  90%  { opacity: 0.25; transform: translate(-50%, -50%) scale(3.2); }
+  100% { opacity: 0;    transform: translate(-50%, -50%) scale(3.5); }
+}
+
+/* CONTAINER — sin fade durante la animacion. Solo un snap-out al
+   final: hold opaco hasta 91% (~2640ms de los 2900ms totales),
+   despues una transicion corta a transparent + visibility hidden
+   en los ultimos 260ms. Asi el intro no compite visualmente con
+   los rings/beam y desaparece al final con un corte limpio. */
+@keyframes splash-snap-out {
+  0%, 91% { background-color: rgba(10, 10, 15, 1); visibility: visible; }
+  100%    { background-color: transparent;          visibility: hidden; }
+}
+.intro-splash--ext {
+  animation: splash-snap-out 2900ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: background-color, visibility;
+}
+
+.intro-splash--ext .iris-line { display: none; }
+
+/* Home: el stagger interno (.hero-x-*, .nav-x) hace el reveal */
+@supports selector(:has(*)) {
+  body:has(.intro-splash--ext) .page-after-intro { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-splash--ext { animation: none !important; }
+  .intro-splash--ext > .absolute:nth-child(2):not(.splash-iris) {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .intro-rings-stage,
+  .lighthouse-beam-overlay { display: none !important; }
+}
+
+/* ================================================================
+   NAVBAR — Recursos dropdown + helpers cmdk extra.
+   ================================================================ */
+
+.nav-x-resources {
+  position: relative;
+  display: inline-flex;
+}
+
+.nav-x-link-button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+}
+
+.nav-x-link-button.is-open svg {
+  transform: rotate(180deg);
+}
+.nav-x-link-button svg {
+  transition: transform 200ms ease;
+}
+
+.nav-x-resources-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 280px;
+  padding: 0.4rem;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(59, 130, 246, 0.10), rgba(20, 22, 28, 0.97) 60%),
+    rgba(20, 22, 28, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 18px 60px -16px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  z-index: 60;
+  animation: nav-x-resources-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes nav-x-resources-in {
+  from { opacity: 0; transform: translate(-50%, -6px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.nav-x-resources-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.55rem 0.75rem;
+  border-radius: 9px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.85);
+  transition: background 120ms ease;
+}
+
+.nav-x-resources-item:hover {
+  background: rgba(59, 130, 246, 0.10);
+}
+
+.nav-x-resources-item-label {
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.nav-x-resources-item-desc {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+/* Mobile section dentro del nav-x-mobile menu */
+.nav-x-mobile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.4rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 0.4rem;
+}
+
+.nav-x-mobile-section-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  padding: 0.4rem 1rem 0.2rem;
+}
+
+.nav-x-mobile-link-sub {
+  padding-left: 1.5rem;
+  font-size: 0.85rem;
+}
+
+/* CMDK helpers extra usados por el palette publico */
+.cmdk-hint {
+  padding: 1.2rem 1rem;
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 300;
+}
+
+.cmdk-hint-link {
+  color: rgba(186, 200, 255, 0.85);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cmdk-hint-link:hover {
+  color: rgba(220, 230, 255, 1);
+}
+
+.cmdk-empty {
+  padding: 1.2rem 1rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+.cmdk-item-title {
+  flex: 1;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cmdk-item-meta {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+.cmdk-item-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -4,19 +4,31 @@
 // Logo + links + search + Ingresar + Sumate. Glassmorph dark con
 // active-dot indicator debajo del link activo.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import CommandPalette from "./CommandPalette";
 
 type NavLink = { href: string; label: string; match?: (path: string) => boolean };
+type ResourceLink = { href: string; label: string; description: string };
+
+const RESOURCES: ResourceLink[] = [
+  { href: "/blog",          label: "Blog",          description: "Lo que la red está leyendo" },
+  { href: "/reglamento",    label: "Reglamento",    description: "Cómo nos organizamos" },
+  { href: "/brand",         label: "Brand kit",     description: "Logo, paleta, assets" },
+  { href: "/marketing-kit", label: "Marketing kit", description: "Para sponsors y partners" },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const pathname = usePathname();
+  const resourcesRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -34,6 +46,37 @@ export default function Navbar() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Cerrar dropdown Recursos al click fuera o Escape
+  useEffect(() => {
+    if (!resourcesOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (!resourcesRef.current?.contains(e.target as Node)) {
+        setResourcesOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourcesOpen(false);
+    };
+    document.addEventListener("click", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("click", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourcesOpen]);
+
+  // Cmd+K / Ctrl+K abre el palette
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   const links: NavLink[] = [
     { href: "/", label: "Inicio", match: (p) => p === "/" },
     { href: "/red", label: "Comunidad" },
@@ -46,7 +89,12 @@ export default function Navbar() {
     return pathname === l.href || pathname.startsWith(l.href + "/");
   };
 
+  const resourcesActive = RESOURCES.some(
+    (r) => pathname === r.href || pathname.startsWith(r.href + "/"),
+  );
+
   return (
+    <>
     <header className={`nav-x ${scrolled ? "is-scrolled" : ""}`}>
       <div className="nav-x-pill">
         <Link href="/" className="nav-x-brand" aria-label="Inicio">
@@ -66,13 +114,43 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link href="/reglamento" className="nav-x-link">
-            Recursos <ChevronIcon />
-          </Link>
+
+          <div className="nav-x-resources" ref={resourcesRef}>
+            <button
+              type="button"
+              className={`nav-x-link nav-x-link-button ${resourcesActive ? "is-active" : ""} ${resourcesOpen ? "is-open" : ""}`}
+              aria-haspopup="menu"
+              aria-expanded={resourcesOpen}
+              onClick={() => setResourcesOpen((o) => !o)}
+            >
+              Recursos <ChevronIcon />
+            </button>
+            {resourcesOpen && (
+              <div className="nav-x-resources-menu" role="menu">
+                {RESOURCES.map((r) => (
+                  <Link
+                    key={r.href}
+                    href={r.href}
+                    role="menuitem"
+                    className="nav-x-resources-item"
+                    onClick={() => setResourcesOpen(false)}
+                  >
+                    <span className="nav-x-resources-item-label">{r.label}</span>
+                    <span className="nav-x-resources-item-desc">{r.description}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
 
         <div className="nav-x-end">
-          <button className="nav-x-icon-btn hidden sm:inline-flex" aria-label="Buscar">
+          <button
+            type="button"
+            className="nav-x-icon-btn hidden sm:inline-flex"
+            aria-label="Buscar (Cmd+K)"
+            onClick={() => setSearchOpen(true)}
+          >
             <SearchIcon />
           </button>
           <Link href={user ? "/perfil" : "/auth/login"} className="nav-x-ingresar hidden sm:inline-flex">
@@ -111,6 +189,19 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
+          <div className="nav-x-mobile-section">
+            <span className="nav-x-mobile-section-title">Recursos</span>
+            {RESOURCES.map((r) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                onClick={() => setMenuOpen(false)}
+                className="nav-x-mobile-link nav-x-mobile-link-sub"
+              >
+                {r.label}
+              </Link>
+            ))}
+          </div>
           <Link
             href={user ? "/perfil" : "/auth/login"}
             onClick={() => setMenuOpen(false)}
@@ -121,6 +212,9 @@ export default function Navbar() {
         </div>
       )}
     </header>
+
+    <CommandPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
+    </>
   );
 }
 

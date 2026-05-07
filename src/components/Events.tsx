@@ -142,7 +142,7 @@ function EventCard({ event }: { event: Event }) {
 function EmptyState() {
   return (
     <div className="events-x-empty">
-      <p className="events-x-empty-eyebrow">// SCHEDULE EN PAUSA</p>
+      <p className="events-x-empty-eyebrow">{"// SCHEDULE EN PAUSA"}</p>
       <h3 className="events-x-empty-title">
         Estamos cocinando el próximo encuentro.
       </h3>

@@ -2,9 +2,11 @@
 
 // Variante de IntroSplash con la malla cyan reemplazada por la malla de
 // olas low-poly de LowPolyDissolveIntro. Mantiene aurora, sonar, CLI,
-// coord footer e iris collapse — sólo cambia el "piso".
+// coord footer — y reemplaza el iris collapse por una onda tipo
+// piedra-en-agua (MagicRings) como puente al home.
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import MagicRings from "./MagicRings";
 
 interface IntroSplashWavesProps {
   onComplete?: () => void;
@@ -40,8 +42,14 @@ type T = {
   baseAlpha: number;
 };
 
+// Default deterministico para SSR — sin esto el SVG mesh nunca aparece
+// hasta que React hidrate y el useEffect de setSize fire. Como ambos
+// SSR y cliente arrancan con esto, no hay hydration mismatch; despues
+// del mount el useEffect lo reemplaza con dimensiones reales.
+const SSR_DEFAULT_SIZE = { w: 1920, h: 1080 };
+
 export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) {
-  const [size, setSize] = useState<{ w: number; h: number } | null>(null);
+  const [size, setSize] = useState<{ w: number; h: number }>(SSR_DEFAULT_SIZE);
   const polyRefs = useRef<(SVGPolygonElement | null)[]>([]);
   // Si el head script ya marcó <html class="intro-seen"> (revisita,
   // reduced-motion o slow connection), salteamos toda la intro. Evita
@@ -65,6 +73,28 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
   const [sog, setSog] = useState(7.4);
   const [xte, setXte] = useState(0.04);
 
+  // Lifecycle del splash:
+  // - active=false a 2950ms (post snap-out): para rAF del mesh +
+  //   setInterval del HUD y desmonta el splash entero (saca SVG con
+  //   624 polygons del render tree).
+  // - beamMounted=false a 4200ms: la luz del faro completa su CSS
+  //   animation y desmontamos el overlay tambien.
+  const [active, setActive] = useState(true);
+  const [beamMounted, setBeamMounted] = useState(true);
+  useEffect(() => {
+    if (skip) {
+      setActive(false);
+      setBeamMounted(false);
+      return;
+    }
+    const t1 = setTimeout(() => setActive(false), 2950);
+    const t2 = setTimeout(() => setBeamMounted(false), 4200);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [skip]);
+
   useEffect(() => {
     const update = () => setSize({ w: window.innerWidth, h: window.innerHeight });
     update();
@@ -73,6 +103,7 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
   }, []);
 
   useEffect(() => {
+    if (!active) return;
     setNow(new Date());
     const id = setInterval(() => {
       setNow(new Date());
@@ -83,7 +114,7 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
       setXte((v) => Math.max(-0.2, Math.min(0.2, v + (Math.random() - 0.5) * 0.01)));
     }, 50);
     return () => clearInterval(id);
-  }, []);
+  }, [active]);
 
   // Variante extendida: animaciones internas 2200ms, container 2800ms
   // (con black hold + crossfade al final). onComplete dispara a 2900ms
@@ -93,6 +124,20 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
     const t = setTimeout(() => onComplete(), 2900);
     return () => clearTimeout(t);
   }, [onComplete]);
+
+  // "Piedra en el agua" — los anillos arrancan ~1100ms (despues del
+  // glitch existente) y duran ~1800ms. Mientras se expanden, el
+  // intro fadea (CSS) y el home asoma debajo.
+  const [ringsActive, setRingsActive] = useState(false);
+  useEffect(() => {
+    if (skip) return;
+    const t1 = setTimeout(() => setRingsActive(true), 1100);
+    const t2 = setTimeout(() => setRingsActive(false), 2900);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [skip]);
 
   const horizonY = size ? size.h * 0.42 : 0;
 
@@ -186,7 +231,7 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
   }, [size]);
 
   useEffect(() => {
-    if (!size || verts.length === 0) return;
+    if (!size || verts.length === 0 || !active) return;
     const start = performance.now();
     let raf = 0;
     const xBuf = new Float32Array(verts.length);
@@ -230,11 +275,13 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
 
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [size, verts, tris]);
+  }, [size, verts, tris, active]);
 
   if (skip) return null;
 
   return (
+    <>
+    {active && (
     <div
       aria-hidden="true"
       className="intro-splash intro-splash--ext fixed inset-0 z-[100] bg-[#0A0A0F] pointer-events-none overflow-hidden"
@@ -255,6 +302,7 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
             width="100%"
             height="100%"
             style={{ position: "absolute", inset: 0 }}
+            suppressHydrationWarning
           >
             <defs>
               {/* El id debe ser exactamente "lpd-grad" — el CSS .lpd-mesh
@@ -544,6 +592,44 @@ export default function IntroSplashWaves({ onComplete }: IntroSplashWavesProps) 
         <span className="iris-line" />
         {/* boot-tri polygons removidos */}
       </div>
+
+      {/* Piedra en el agua — anillos concentricos via shader. Solo
+          existe en el DOM durante la ventana 1100-2900ms para que el
+          shader no consuma GPU innecesariamente. z-index encima del
+          resto del intro asi se ven los anillos sobre el HUD/mesh. */}
+      {ringsActive && (
+        <div className="intro-rings-stage" aria-hidden="true">
+          <MagicRings
+            color="#fbbf24"
+            colorTwo="#dbeafe"
+            ringCount={5}
+            speed={1.4}
+            attenuation={7}
+            lineThickness={2.2}
+            baseRadius={0.02}
+            radiusStep={0.06}
+            scaleRate={0.85}
+            opacity={0.7}
+            blur={0}
+            noiseAmount={0.04}
+            ringGap={1.4}
+            fadeIn={0.35}
+            fadeOut={0.7}
+          />
+        </div>
+      )}
     </div>
+    )}
+
+    {/* Luz del faro — overlay sibling del splash. Sigue vivo mientras
+        el splash ya desmontado, asi su animacion CSS termina limpia.
+        beamMounted=false a 4200ms saca el overlay del DOM. */}
+    {beamMounted && (
+      <div className="lighthouse-beam-overlay" aria-hidden="true">
+        <div className="lighthouse-beam-core" />
+        <div className="lighthouse-beam-spread" />
+      </div>
+    )}
+    </>
   );
 }

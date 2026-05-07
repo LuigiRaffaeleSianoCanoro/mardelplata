@@ -12,16 +12,17 @@ export const metadata: Metadata = {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="inline-flex items-center gap-2 bg-ocean-50 text-ocean-700 rounded-full px-4 py-2 text-sm font-semibold mb-4">
+    <p className="kicker text-white/45 mb-3 flex items-center justify-center gap-2">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#FFB070]" />
       {children}
-    </div>
+    </p>
   );
 }
 
 function Section({
   id,
   children,
-  className = "bg-white",
+  className = "bg-transparent",
 }: {
   id: string;
   children: React.ReactNode;
@@ -46,11 +47,11 @@ function SectionHeading({
   return (
     <div className="text-center mb-12">
       <SectionLabel>{label}</SectionLabel>
-      <h2 className="font-display font-bold text-4xl md:text-5xl text-ocean-900 mb-4">
+      <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90 mb-4">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-slate-500 text-lg max-w-2xl mx-auto">{subtitle}</p>
+        <p className="text-white/65 text-lg max-w-2xl mx-auto">{subtitle}</p>
       )}
     </div>
   );
@@ -69,22 +70,22 @@ function CopyCard({
   tags?: string[];
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-      <div className="flex items-center justify-between px-5 py-3 bg-slate-50 border-b border-slate-200">
+    <div className="bg-white/[0.03] rounded-2xl border border-white/12 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+      <div className="flex items-center justify-between px-5 py-3 bg-white/5 border-b border-white/12">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-ocean-700 bg-ocean-100 rounded-full px-2.5 py-1">
+          <span className="text-xs font-semibold text-sky-300 bg-sky-500/15 rounded-full px-2.5 py-1">
             {platform}
           </span>
-          <span className="text-xs text-slate-400">{context}</span>
+          <span className="text-xs text-white/60">{context}</span>
         </div>
-        <span className="text-xs text-slate-300 font-mono">{text.length} chars</span>
+        <span className="text-xs text-white/65 font-mono">{text.length} chars</span>
       </div>
       <div className="p-5">
-        <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{text}</p>
+        <p className="text-sm text-white/85 leading-relaxed whitespace-pre-line">{text}</p>
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-4">
             {tags.map((t) => (
-              <span key={t} className="text-xs text-ocean-500 font-medium">
+              <span key={t} className="text-xs text-sky-300 font-medium">
                 {t}
               </span>
             ))}
@@ -98,9 +99,9 @@ function CopyCard({
 // Stat card for the press kit
 function StatCard({ value, label }: { value: string; label: string }) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 p-6 text-center shadow-sm">
-      <p className="font-display font-bold text-3xl text-ocean-700 mb-1">{value}</p>
-      <p className="text-sm text-slate-500">{label}</p>
+    <div className="bg-white/[0.03] rounded-2xl border border-white/10 p-6 text-center shadow-sm">
+      <p className="font-display font-bold text-3xl text-sky-300 mb-1">{value}</p>
+      <p className="text-sm text-white/65">{label}</p>
     </div>
   );
 }
@@ -117,12 +118,12 @@ function PitchFeature({
 }) {
   return (
     <div className="flex items-start gap-4">
-      <div className="w-11 h-11 rounded-xl bg-ocean-100 flex items-center justify-center flex-shrink-0">
+      <div className="w-11 h-11 rounded-xl bg-sky-500/15 flex items-center justify-center flex-shrink-0">
         {icon}
       </div>
       <div>
-        <p className="font-display font-semibold text-ocean-900 text-sm">{title}</p>
-        <p className="text-slate-500 text-sm leading-relaxed mt-0.5">{desc}</p>
+        <p className="font-display font-semibold text-white/90 text-sm">{title}</p>
+        <p className="text-white/65 text-sm leading-relaxed mt-0.5">{desc}</p>
       </div>
     </div>
   );
@@ -137,18 +138,20 @@ export default function MarketingKitPage() {
       <main>
 
         {/* ── Hero ─────────────────────────────────────────────────── */}
-        <section className="hero-bg relative overflow-hidden min-h-[50vh] flex flex-col justify-center pt-20">
-          <div className="absolute inset-0 pointer-events-none opacity-[0.04] dots-bg" />
-          <div className="max-w-5xl mx-auto px-6 py-24 relative z-10 w-full">
-            <div className="inline-flex items-center gap-2.5 bg-ocean-800/70 border border-ocean-500/30 backdrop-blur-sm rounded-full px-5 py-2 text-ocean-200 text-sm font-medium mb-8">
-              <span className="w-2.5 h-2.5 rounded-full bg-ocean-300 pulse-dot flex-shrink-0" />
-              Comunicación y difusión
-            </div>
-            <h1 className="font-display font-bold text-5xl md:text-6xl text-white leading-[1.1] mb-6">
-              Marketing Kit<br />
-              <span className="gradient-text">MdPDev</span>
+        <section className="relative overflow-hidden pt-32 pb-12">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <p className="kicker text-white/65 mb-3 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB070]" />
+              comunicación y difusión
+            </p>
+            <h1 className="display-thin text-white text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-[-0.01em] mb-4">
+              Marketing Kit{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">
+                MdPDev
+              </span>
+              .
             </h1>
-            <p className="text-ocean-200 text-xl max-w-2xl leading-relaxed mb-8">
+            <p className="text-white/60 font-light leading-relaxed text-lg max-w-2xl mb-8">
               Templates de copy, recursos para redes sociales, materiales para prensa
               y pitch para colaboradores. Todo listo para usar y adaptar.
             </p>
@@ -163,7 +166,7 @@ export default function MarketingKitPage() {
                 <a
                   key={href}
                   href={href}
-                  className="inline-flex items-center border border-ocean-400/50 text-ocean-200 hover:bg-ocean-800/60 hover:text-white hover:border-ocean-300 px-5 py-2.5 rounded-full text-sm font-semibold transition-all backdrop-blur-sm"
+                  className="inline-flex items-center border border-white/12 text-white/65 hover:bg-white/[0.05] hover:text-white hover:border-white/30 px-5 py-2.5 rounded-full text-sm font-semibold transition-all backdrop-blur-sm"
                 >
                   {label}
                 </a>
@@ -190,21 +193,21 @@ export default function MarketingKitPage() {
 
           {/* Descripción oficial */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            <div className="bg-ocean-900 rounded-2xl p-8 text-white">
-              <p className="text-xs text-ocean-300 font-semibold uppercase tracking-widest mb-3">
+            <div className="bg-white/[0.04] rounded-2xl p-8 text-white">
+              <p className="text-xs text-white/55 font-semibold uppercase tracking-widest mb-3">
                 Descripción corta (tweet / bio)
               </p>
-              <p className="text-ocean-100 leading-relaxed text-lg">
+              <p className="text-white/85 leading-relaxed text-lg">
                 MdPDev es la comunidad tech de Mar del Plata. Conectamos desarrolladores,
                 diseñadores y emprendedores de la costa atlántica.
               </p>
-              <p className="text-xs text-ocean-500 font-mono mt-4">136 caracteres</p>
+              <p className="text-xs text-sky-300 font-mono mt-4">136 caracteres</p>
             </div>
-            <div className="bg-slate-50 rounded-2xl p-8 border border-slate-100">
-              <p className="text-xs text-ocean-600 font-semibold uppercase tracking-widest mb-3">
+            <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
+              <p className="text-xs text-sky-300 font-semibold uppercase tracking-widest mb-3">
                 Descripción larga (artículos / presentaciones)
               </p>
-              <p className="text-slate-700 leading-relaxed text-sm">
+              <p className="text-white/85 leading-relaxed text-sm">
                 MdPDev es la comunidad de tecnología y desarrollo de Mar del Plata, Argentina.
                 Fundada en 2026 por Franco Petruccelli y Luigi Canoro, dos QA Engineers marplatenses,
                 la comunidad nació con el objetivo de conectar el talento tech local y construir
@@ -219,7 +222,7 @@ export default function MarketingKitPage() {
 
           {/* Fundadores */}
           <div>
-            <h3 className="font-display font-bold text-xl text-ocean-900 mb-6">Co-fundadores</h3>
+            <h3 className="font-display font-bold text-xl text-white/90 mb-6">Co-fundadores</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 {
@@ -241,7 +244,7 @@ export default function MarketingKitPage() {
               ].map((f) => (
                 <div
                   key={f.name}
-                  className="flex items-start gap-4 bg-white rounded-2xl border border-slate-100 p-6 shadow-sm"
+                  className="flex items-start gap-4 bg-white/[0.03] rounded-2xl border border-white/10 p-6 shadow-sm"
                 >
                   <div
                     className={`w-14 h-14 rounded-full bg-gradient-to-br ${f.from} ${f.to} flex items-center justify-center text-white font-display font-bold text-lg flex-shrink-0 shadow-lg`}
@@ -249,9 +252,9 @@ export default function MarketingKitPage() {
                     {f.initials}
                   </div>
                   <div>
-                    <p className="font-display font-bold text-slate-800">{f.name}</p>
-                    <p className="text-ocean-600 text-xs font-medium mb-2">{f.role}</p>
-                    <p className="text-slate-500 text-sm leading-relaxed">{f.bio}</p>
+                    <p className="font-display font-bold text-white/90">{f.name}</p>
+                    <p className="text-sky-300 text-xs font-medium mb-2">{f.role}</p>
+                    <p className="text-white/65 text-sm leading-relaxed">{f.bio}</p>
                   </div>
                 </div>
               ))}
@@ -260,7 +263,7 @@ export default function MarketingKitPage() {
         </Section>
 
         {/* ── 2. Redes sociales ────────────────────────────────────── */}
-        <Section id="social" className="ocean-tint">
+        <Section id="social" className="bg-transparent">
           <SectionHeading
             label="02 — Redes sociales"
             title={<>Templates para<br /><span className="gradient-text">redes sociales</span></>}
@@ -275,7 +278,7 @@ export default function MarketingKitPage() {
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
               </div>
-              <h3 className="font-display font-bold text-xl text-ocean-900">LinkedIn</h3>
+              <h3 className="font-display font-bold text-xl text-white/90">LinkedIn</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <CopyCard
@@ -337,7 +340,7 @@ Si todavía no estás, ¿qué esperás?
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
                 </svg>
               </div>
-              <h3 className="font-display font-bold text-xl text-ocean-900">Instagram</h3>
+              <h3 className="font-display font-bold text-xl text-white/90">Instagram</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <CopyCard
@@ -392,7 +395,7 @@ MdPDev · El hub tech de la costa atlántica 🌊`}
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
                 </svg>
               </div>
-              <h3 className="font-display font-bold text-xl text-ocean-900">WhatsApp</h3>
+              <h3 className="font-display font-bold text-xl text-white/90">WhatsApp</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <CopyCard
@@ -514,7 +517,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
           </div>
 
           {/* Checklist pre-evento */}
-          <div className="bg-ocean-900 rounded-2xl p-8">
+          <div className="bg-white/[0.04] rounded-2xl p-8">
             <h3 className="font-display font-bold text-lg text-white mb-6">
               Checklist de comunicación pre-evento
             </h3>
@@ -530,8 +533,8 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
                 <div key={tiempo} className="flex items-start gap-3">
                   <span className="text-ocean-400 flex-shrink-0 mt-0.5">✓</span>
                   <div>
-                    <p className="text-ocean-300 text-xs font-semibold">{tiempo}</p>
-                    <p className="text-ocean-200 text-sm">{accion}</p>
+                    <p className="text-white/55 text-xs font-semibold">{tiempo}</p>
+                    <p className="text-white/65 text-sm">{accion}</p>
                   </div>
                 </div>
               ))}
@@ -540,7 +543,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
         </Section>
 
         {/* ── 4. Pitch para colaboradores ──────────────────────────── */}
-        <Section id="pitch" className="ocean-tint">
+        <Section id="pitch" className="bg-transparent">
           <SectionHeading
             label="04 — Colaboradores"
             title={<>Pitch para<br /><span className="gradient-text">colaboradores y sponsors</span></>}
@@ -548,15 +551,15 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
           />
 
           {/* One-pager de la propuesta */}
-          <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm mb-8">
-            <div className="hero-bg px-8 py-10">
-              <p className="text-xs text-ocean-300 font-semibold uppercase tracking-widest mb-2">
+          <div className="bg-white/[0.03] rounded-2xl border border-white/10 overflow-hidden shadow-sm mb-8">
+            <div className="bg-transparent px-8 py-10">
+              <p className="text-xs text-white/55 font-semibold uppercase tracking-widest mb-2">
                 Propuesta de colaboración
               </p>
               <h3 className="font-display font-bold text-2xl text-white mb-3">
                 Impulsá el tech de la costa atlántica
               </h3>
-              <p className="text-ocean-200 text-base leading-relaxed max-w-2xl">
+              <p className="text-white/65 text-base leading-relaxed max-w-2xl">
                 MdPDev es la comunidad de referencia tech en Mar del Plata. Ser parte
                 de nuestra red significa visibilidad directa frente al talento local,
                 conexión con el ecosistema digital de la ciudad y un impacto real
@@ -600,7 +603,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
               </div>
 
               {/* Formas de colaborar */}
-              <h4 className="font-display font-semibold text-ocean-900 mb-4">¿Cómo podemos colaborar?</h4>
+              <h4 className="font-display font-semibold text-white/90 mb-4">¿Cómo podemos colaborar?</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 {[
                   ["🎤", "Ser sponsor de un evento MdPDev"],
@@ -610,9 +613,9 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
                   ["🌐", "Aparecer como colaborador en el sitio web"],
                   ["💬", "Compartir expertise con la comunidad"],
                 ].map(([icon, text]) => (
-                  <div key={text} className="flex items-center gap-3 bg-slate-50 rounded-xl px-4 py-3 border border-slate-100">
+                  <div key={text} className="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-3 border border-white/10">
                     <span className="text-xl">{icon}</span>
-                    <p className="text-sm text-slate-700">{text}</p>
+                    <p className="text-sm text-white/85">{text}</p>
                   </div>
                 ))}
               </div>
@@ -633,7 +636,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
 
           {/* Email de pitch */}
           <div>
-            <h3 className="font-display font-bold text-xl text-ocean-900 mb-5">Template de email / DM</h3>
+            <h3 className="font-display font-bold text-xl text-white/90 mb-5">Template de email / DM</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <CopyCard
                 platform="Email / DM"

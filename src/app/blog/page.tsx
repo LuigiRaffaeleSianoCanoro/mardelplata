@@ -1,22 +1,46 @@
 import { Rss } from "lucide-react";
 import FeedCard from "@/components/blog/FeedCard";
-import { getAggregatedFeed } from "@/lib/feeds/fetch";
-import { FEED_SOURCES } from "@/lib/feeds/sources";
+import type { FeedItem } from "@/lib/feeds/types";
 
-// Server component — la timeline de blog la calcula el server con cache de
-// 30 min (configurable en sources.ts). El cliente solo recibe HTML estático
-// con los cards. Cero peso para el bundle JS.
+// Server component. Por ahora hay solo dos lecturas curadas — items
+// hardcodeados aca. Cuando haya mas voces locales republicando volvemos
+// al agregador (getAggregatedFeed + FEED_SOURCES).
 
 export const revalidate = 1800;
 
 export const metadata = {
   title: "Lectura · mardelplata.dev",
   description:
-    "Un feed editorial agregado de Medium, Substack, Dev.to y otras voces que la red de mar del plata sigue leyendo.",
+    "Lecturas curadas de la red de mar del plata.",
 };
 
+const ITEMS: FeedItem[] = [
+  {
+    source: "xmcp",
+    sourceLabel: "xmcp",
+    sourceKind: "rss",
+    title: "How to build an MCP App",
+    url: "https://xmcp.dev/blog/mcp-apps",
+    publishedAt: "2026-04-15T00:00:00.000Z",
+    excerpt:
+      "Learn how to build an MCP app using xmcp out-of-the-box support.",
+  },
+  {
+    source: "luigipavla",
+    sourceLabel: "Substack",
+    sourceKind: "substack",
+    title:
+      "Pavla: la plataforma argentina que está transformando la gestión clínica de psicólogos con IA",
+    url: "https://luigipavla.substack.com/p/pavla-la-plataforma-argentina-que",
+    publishedAt: "2026-04-10T00:00:00.000Z",
+    excerpt:
+      "En un contexto donde los profesionales de la salud mental enfrentan cada vez más carga administrativa, Pavla emerge como una solución tecnológica diseñada para optimizar el tiempo clínico de psicólog@s y permitirles concentrarse en lo que realmente importa.",
+    author: "Luigi Pavla",
+  },
+];
+
 export default async function BlogPage() {
-  const items = await getAggregatedFeed();
+  const items = ITEMS;
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
@@ -33,19 +57,14 @@ export default async function BlogPage() {
           .
         </h1>
         <p className="text-white/60 font-light leading-relaxed">
-          Un feed editorial agregado — sin almacenar nada, traemos en vivo posts y
-          releases desde {FEED_SOURCES.length} fuente{FEED_SOURCES.length === 1 ? "" : "s"} y los
-          ordenamos por fecha. Click te lleva al original.
+          Lecturas curadas de la red. Click te lleva al original.
         </p>
       </header>
 
       {items.length === 0 ? (
         <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-10 text-center">
           <p className="text-white/65 font-light mb-2">
-            No pudimos traer las fuentes en este momento.
-          </p>
-          <p className="text-white/40 text-sm font-light">
-            Probá de nuevo en unos minutos. Las fuentes externas a veces tardan.
+            Por ahora no hay lecturas curadas.
           </p>
         </div>
       ) : (
@@ -57,10 +76,7 @@ export default async function BlogPage() {
       )}
 
       <footer className="mt-14 pt-6 border-t border-white/[0.06] flex items-center justify-between gap-4 text-[0.72rem] text-white/45 font-light">
-        <span>actualizado cada 30 min · sin DB</span>
-        <span className="hidden sm:inline">
-          fuentes: {FEED_SOURCES.map((s) => s.label).join(" · ")}
-        </span>
+        <span>{items.length} lecturas curadas</span>
       </footer>
     </main>
   );
