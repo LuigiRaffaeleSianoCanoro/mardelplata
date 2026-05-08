@@ -63,8 +63,12 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
         const { data: auth } = await supabase.auth.getUser();
         const authUser = auth?.user;
         if (!authUser) {
-          // Rutas públicas: /red (open source comunidad)
-          if (!pathname.startsWith("/red")) {
+          // Rutas públicas que se renderizan dentro del AppShell sin auth.
+          const publicPrefixes = ["/red", "/eventos"];
+          const isPublic = publicPrefixes.some((p) =>
+            pathname === p || pathname.startsWith(p + "/"),
+          );
+          if (!isPublic) {
             router.replace("/auth/login");
           }
           return;

@@ -1,5 +1,4 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import AppShell from "@/components/app/AppShell";
 import Reveal from "@/components/Reveal";
 import { createClient } from "@/lib/supabase/server";
 
@@ -64,8 +63,7 @@ export default async function EventosPage() {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
-    <>
-      <Navbar />
+    <AppShell>
       <main className="eventos-x">
         <header className="shell-section shell-section--lg">
           <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
@@ -112,8 +110,7 @@ export default async function EventosPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+    </AppShell>
   );
 }
 

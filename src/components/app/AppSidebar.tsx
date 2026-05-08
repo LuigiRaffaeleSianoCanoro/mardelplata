@@ -359,7 +359,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       tabs: [
         { href: "/perfil", label: "Mi perfil", icon: UserCircle2 },
         { label: "Mi QR", icon: QrCode, action: "qr" },
-        { href: "/perfil#asistencias", label: "Asistencias", icon: CalendarCheck },
+        { href: "/asistencias", label: "Asistencias", icon: CalendarCheck, matchPrefix: "/asistencias" },
         { href: "/eventos", label: "Eventos", icon: CalendarDays, matchPrefix: "/eventos" },
       ],
     },

@@ -33,7 +33,7 @@ export default function RouteGlitch() {
     // skips the boot-terminal — the shell itself stays put, only the content
     // pane swaps with a soft fade. The terminal is reserved for crossings
     // between the public landing and the app.
-    const APP_ROUTE_PREFIXES = ["/perfil", "/admin", "/red", "/eventos", "/dashboard"];
+    const APP_ROUTE_PREFIXES = ["/perfil", "/admin", "/red", "/eventos", "/asistencias", "/dashboard"];
     const isAppRoute = (p: string) =>
       APP_ROUTE_PREFIXES.some((prefix) => p === prefix || p.startsWith(prefix + "/") || p.startsWith(prefix + "#"));
 
