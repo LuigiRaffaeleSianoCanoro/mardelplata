@@ -12,6 +12,12 @@ import { useEffect, useRef, useState } from "react";
 
 type Phase = "idle" | "out" | "in";
 
+// Flag module-level: se resetea solo en hard reload. La transicion con
+// terminal de routing se muestra una vez por sesion como entry-experience;
+// las navegaciones siguientes fluyen nativas via Next.js Link sin overlay
+// (review Luigi PR #26 punto 5).
+let firstNavSeen = false;
+
 export default function RouteGlitch() {
   const router = useRouter();
   const pathname = usePathname();
@@ -56,6 +62,11 @@ export default function RouteGlitch() {
       const fromApp = isAppRoute(window.location.pathname);
       const toApp = isAppRoute(url.pathname);
       if (fromApp && toApp) return;
+
+      // Solo en la primera nav de la sesion mostramos el terminal completo.
+      // Las siguientes vuelven a flow nativo (sin overlay full-screen).
+      if (firstNavSeen) return;
+      firstNavSeen = true;
 
       e.preventDefault();
       e.stopPropagation();
