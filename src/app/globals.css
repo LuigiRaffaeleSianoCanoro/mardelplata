@@ -2077,7 +2077,7 @@ html.lenis, html.lenis body { height: auto; }
 .red-dialog-root {
   position: fixed;
   inset: 0;
-  z-index: 130;
+  z-index: 190;
   display: flex;
   align-items: center;
   justify-content: center;
