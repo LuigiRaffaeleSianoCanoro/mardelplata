@@ -5,6 +5,7 @@
 // con links legales y copyright.
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Footer() {
@@ -100,8 +101,8 @@ export default function Footer() {
 
         <div className="footer-x-legal">
           <ul className="footer-x-legal-links">
-            <li><a href="/#manifiesto">Código de conducta</a></li>
-            <li><a href="/reglamento">Reglamento</a></li>
+            <li><Link href="/#manifiesto">Código de conducta</Link></li>
+            <li><Link href="/reglamento">Reglamento</Link></li>
           </ul>
           <span className="footer-x-copy">
             © {new Date().getFullYear()} mardelplata.dev
