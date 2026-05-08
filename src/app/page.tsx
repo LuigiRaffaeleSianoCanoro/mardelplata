@@ -50,6 +50,36 @@ export default async function Home() {
     .order("created_at", { ascending: false })
     .limit(30);
 
+  // Métricas reales para las cards del Hero (review Luigi PR #26 punto 6).
+  const { count: membersCount } = await supabase
+    .from("profiles")
+    .select("*", { count: "exact", head: true })
+    .not("full_name", "is", null);
+
+  const nowIso = new Date().toISOString();
+  const { data: nextEventRows } = await supabase
+    .from("events")
+    .select("id, title, date")
+    .eq("is_published", true)
+    .gt("date", nowIso)
+    .order("date", { ascending: true })
+    .limit(1);
+  const nextEvent = nextEventRows?.[0] ?? null;
+
+  const { data: jobsRaw } = await supabase
+    .from("classified_listings")
+    .select("id, kind, title, description, external_url, tags, created_at, author:profiles!author_id(full_name, avatar_url)")
+    .eq("kind", "job")
+    .gt("expires_at", nowIso)
+    .order("created_at", { ascending: false })
+    .limit(4);
+  // El embed devuelve author como objeto unico — Supabase lo tipa como array
+  // por defecto, asi que normalizamos para Opportunities.tsx.
+  const jobs = (jobsRaw ?? []).map((j) => ({
+    ...j,
+    author: Array.isArray(j.author) ? j.author[0] ?? null : j.author ?? null,
+  }));
+
   const orderedFounders = founders.slice().sort((a, b) => {
     const aName = normalizeFullName(a.full_name) ?? "";
     const bName = normalizeFullName(b.full_name) ?? "";
@@ -69,13 +99,17 @@ export default async function Home() {
         <ScrollDriver />
         <Navbar />
         <main>
-          <Hero />
+          <Hero
+            nextEvent={nextEvent}
+            membersCount={membersCount ?? 0}
+            jobsCount={jobs.length}
+          />
           <Reveal delay={0}><Pillars /></Reveal>
           <Reveal delay={120}><Events events={events ?? []} /></Reveal>
           <Reveal delay={120}><Community members={communityMembers ?? []} /></Reveal>
           <Reveal delay={120}><Channels /></Reveal>
           <Reveal delay={120}><Manifesto /></Reveal>
-          <Reveal delay={120}><Opportunities /></Reveal>
+          <Reveal delay={120}><Opportunities jobs={jobs} /></Reveal>
         </main>
         <Footer />
       </div>

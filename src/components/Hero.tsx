@@ -8,7 +8,32 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Hero() {
+export interface HeroProps {
+  nextEvent: { id: string; title: string; date: string } | null;
+  membersCount: number;
+  jobsCount: number;
+}
+
+function formatNextEventText(ev: HeroProps["nextEvent"]) {
+  if (!ev) return "Próximo meetup\nen agenda pronto";
+  const d = new Date(ev.date);
+  const day = d.getDate();
+  const month = d.toLocaleDateString("es-AR", { month: "long" });
+  return `Próximo meetup\n${day} de ${month}`;
+}
+
+function formatJobsText(n: number) {
+  if (n === 0) return "Sumate o publicá\nuna búsqueda";
+  if (n === 1) return "1 oportunidad\nactiva";
+  return `+${n} oportunidades\nactivas`;
+}
+
+function formatMembersText(n: number) {
+  if (n === 0) return "Comunidad\nen formación";
+  return `+${n} miembros\nactivos`;
+}
+
+export default function Hero({ nextEvent, membersCount, jobsCount }: HeroProps) {
   return (
     <section className="hero-x" id="inicio">
       {/* Imagen wide cinematic — panorama lobo + faro + skyline */}
@@ -66,14 +91,14 @@ export default function Hero() {
           className="hero-x-card hero-x-card--events"
           icon={<CalendarIcon />}
           label="Eventos"
-          text={"Próximo meetup\n24 de mayo"}
+          text={formatNextEventText(nextEvent)}
           glowColor="violet"
         />
         <FloatingCard
           className="hero-x-card hero-x-card--jobs"
           icon={<BriefcaseIcon />}
           label="Empleos"
-          text={"+23 oportunidades\nactivas"}
+          text={formatJobsText(jobsCount)}
           glowColor="cyan"
         />
         <FloatingCard
@@ -87,7 +112,7 @@ export default function Hero() {
           className="hero-x-card hero-x-card--community"
           icon={<PeopleIcon />}
           label="Comunidad"
-          text={"+1200 miembros\nactivos"}
+          text={formatMembersText(membersCount)}
           glowColor="cyan"
         />
 
