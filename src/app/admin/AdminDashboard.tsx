@@ -37,15 +37,24 @@ interface Profile {
   created_at: string;
 }
 
+interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  source: string | null;
+  status: "pending" | "confirmed" | "unsubscribed";
+  created_at: string;
+}
+
 interface AdminDashboardProps {
   events: Event[];
   profiles: Profile[];
+  subscribers: NewsletterSubscriber[];
   currentUserId: string;
 }
 
-type Tab = "events" | "users" | "scanner";
+type Tab = "events" | "users" | "scanner" | "newsletter";
 
-export default function AdminDashboard({ events, profiles, currentUserId }: AdminDashboardProps) {
+export default function AdminDashboard({ events, profiles, subscribers, currentUserId }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<Tab>("events");
   const [showEventModal, setShowEventModal] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
@@ -91,7 +100,7 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
         <PageHeader
           eyebrow="/ Panel admin"
           title={<>Centro de <span className="gradient-text">control</span></>}
-          description="Eventos, miembros y escáner QR para los meetups."
+          description="Eventos, miembros, escáner QR y suscriptores del newsletter."
         />
       </div>
 
@@ -102,6 +111,7 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
               { id: "events" as Tab, label: "Eventos", icon: CalendarIcon },
               { id: "users" as Tab, label: "Usuarios", icon: UsersIcon },
               { id: "scanner" as Tab, label: "Escáner QR", icon: QrIcon },
+              { id: "newsletter" as Tab, label: "Newsletter", icon: MailIcon },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -140,6 +150,9 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
         )}
         {activeTab === "scanner" && (
           <ScannerTab />
+        )}
+        {activeTab === "newsletter" && (
+          <NewsletterTab subscribers={subscribers} />
         )}
       </main>
 
@@ -733,5 +746,152 @@ function QrIcon({ size = 16 }: { size?: number }) {
       <rect x="14" y="14" width="7" height="7"/>
       <rect x="3" y="14" width="7" height="7"/>
     </svg>
+  );
+}
+
+function MailIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
+
+function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] }) {
+  const [list, setList] = useState<NewsletterSubscriber[]>(subscribers);
+  const [filter, setFilter] = useState("");
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  const filtered = list.filter((s) =>
+    !filter ||
+    s.email.toLowerCase().includes(filter.toLowerCase()) ||
+    (s.source ?? "").toLowerCase().includes(filter.toLowerCase()),
+  );
+
+  const handleExport = () => {
+    const header = ["email", "source", "status", "created_at"].join(",");
+    const escape = (v: string) => {
+      if (/[",\n]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+      return v;
+    };
+    const rows = list.map((s) =>
+      [escape(s.email), escape(s.source ?? ""), s.status, s.created_at].join(","),
+    );
+    const csv = [header, ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    const ts = new Date().toISOString().slice(0, 10);
+    a.download = `newsletter-subscribers-${ts}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("¿Eliminar este suscriptor? No se puede deshacer.")) return;
+    setBusyId(id);
+    const supabase = createClient();
+    const { error } = await supabase
+      .from("newsletter_subscribers")
+      .delete()
+      .eq("id", id);
+    setBusyId(null);
+    if (error) {
+      alert("No se pudo eliminar: " + error.message);
+      return;
+    }
+    setList((l) => l.filter((s) => s.id !== id));
+  };
+
+  return (
+    <GlassCard tone="default" className="p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div>
+          <h2 className="text-xl font-bold text-white">Suscriptores</h2>
+          <p className="text-ocean-300/60 text-sm font-light">
+            {list.length} {list.length === 1 ? "persona" : "personas"} en la lista.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="search"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            placeholder="Filtrar por email o fuente"
+            className="bg-ocean-950/40 border border-ocean-300/10 rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-ocean-300/35 focus:outline-none focus:border-ocean-400/40"
+          />
+          <Button onClick={handleExport} variant="ghost" size="sm" disabled={list.length === 0}>
+            Exportar CSV
+          </Button>
+        </div>
+      </div>
+
+      {list.length === 0 ? (
+        <p className="text-ocean-300/60 text-sm font-light py-8 text-center">
+          Todavía no hay suscriptores. Cuando alguien complete el formulario del footer aparece acá.
+        </p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-left text-ocean-300/55 text-xs uppercase tracking-wider border-b border-ocean-300/10">
+              <tr>
+                <th className="py-2 pr-4 font-medium">Email</th>
+                <th className="py-2 pr-4 font-medium">Fuente</th>
+                <th className="py-2 pr-4 font-medium">Estado</th>
+                <th className="py-2 pr-4 font-medium">Creado</th>
+                <th className="py-2 pr-4 font-medium text-right">·</th>
+              </tr>
+            </thead>
+            <tbody className="text-white/85">
+              {filtered.map((s) => (
+                <tr key={s.id} className="border-b border-ocean-300/5 hover:bg-ocean-900/30">
+                  <td className="py-2 pr-4 font-mono text-[0.78rem]">{s.email}</td>
+                  <td className="py-2 pr-4 text-ocean-300/70">{s.source ?? "—"}</td>
+                  <td className="py-2 pr-4">
+                    <span
+                      className={
+                        s.status === "confirmed"
+                          ? "text-emerald-300"
+                          : s.status === "unsubscribed"
+                            ? "text-rose-300/80"
+                            : "text-amber-300/85"
+                      }
+                    >
+                      {s.status}
+                    </span>
+                  </td>
+                  <td className="py-2 pr-4 text-ocean-300/70 text-[0.78rem]">
+                    {new Date(s.created_at).toLocaleDateString("es-AR", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
+                  <td className="py-2 pr-4 text-right">
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(s.id)}
+                      disabled={busyId === s.id}
+                      className="text-rose-300/65 hover:text-rose-200 text-xs font-medium disabled:opacity-50"
+                    >
+                      {busyId === s.id ? "Borrando…" : "Borrar"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {filtered.length === 0 && (
+            <p className="text-ocean-300/55 text-sm font-light py-6 text-center">
+              No hay coincidencias para “{filter}”.
+            </p>
+          )}
+        </div>
+      )}
+    </GlassCard>
   );
 }
