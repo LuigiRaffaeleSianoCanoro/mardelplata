@@ -14,11 +14,11 @@ import CommandPalette from "./CommandPalette";
 type NavLink = { href: string; label: string; match?: (path: string) => boolean };
 type ResourceLink = { href: string; label: string; description: string };
 
+// Brand kit + Marketing kit quedan accesibles por URL pero no expuestos en
+// la nav (review Luigi PR #26 punto 4).
 const RESOURCES: ResourceLink[] = [
-  { href: "/blog",          label: "Blog",          description: "Lo que la red está leyendo" },
-  { href: "/reglamento",    label: "Reglamento",    description: "Cómo nos organizamos" },
-  { href: "/brand",         label: "Brand kit",     description: "Logo, paleta, assets" },
-  { href: "/marketing-kit", label: "Marketing kit", description: "Para sponsors y partners" },
+  { href: "/blog",       label: "Blog",       description: "Lo que la red está leyendo" },
+  { href: "/reglamento", label: "Reglamento", description: "Cómo nos organizamos" },
 ];
 
 export default function Navbar() {

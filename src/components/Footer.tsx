@@ -100,12 +100,8 @@ export default function Footer() {
 
         <div className="footer-x-legal">
           <ul className="footer-x-legal-links">
-            <li><a href="/sobre-nosotros">Sobre nosotros</a></li>
-            <li><a href="#manifiesto">Código de conducta</a></li>
-            <li><a href="/contacto">Contacto</a></li>
-            <li><a href="/prensa">Prensa</a></li>
-            <li><a href="/terminos">Términos</a></li>
-            <li><a href="/privacidad">Privacidad</a></li>
+            <li><a href="/#manifiesto">Código de conducta</a></li>
+            <li><a href="/reglamento">Reglamento</a></li>
           </ul>
           <span className="footer-x-copy">
             © {new Date().getFullYear()} mardelplata.dev

@@ -1,24 +1,16 @@
 "use client";
 
-// ScrollDriver — escucha el scroll y publica `--scroll-progress` (0→1) en
-// el documentElement. La home usa esa variable para mutar acentos del
-// violeta al sapphire a medida que avanzas. Además dibuja un side-rail
-// 3D con chapter ticks y un current-chapter label que se actualiza por
-// IntersectionObserver.
+// ScrollDriver — efectos sin UI. Publica `--scroll-progress` (0→1) en el
+// documentElement (la home muta acentos a partir de esa var) e intercepta
+// clicks en links con hash para hacer un anchor-warp con overlay glitch.
+//
+// Antes ademas dibujaba un side-rail con chapter ticks y un IntersectionObserver
+// para resaltar el capitulo activo. Lo removimos en la review del PR #26
+// porque se solapaba con el contenido y generaba missclicks.
 
-import { useEffect, useState } from "react";
-
-const CHAPTERS = [
-  { id: "inicio", label: "Inicio", num: "00" },
-  { id: "eventos", label: "Eventos", num: "01" },
-  { id: "colaboradores", label: "Comunidad", num: "02" },
-  { id: "manifiesto", label: "Manifiesto", num: "03" },
-  { id: "empleos", label: "Empleos", num: "04" },
-];
+import { useEffect } from "react";
 
 export default function ScrollDriver() {
-  const [activeChapter, setActiveChapter] = useState<string>("inicio");
-
   // 1) Escuchar scroll → escribir --scroll-progress en :root
   useEffect(() => {
     let raf = 0;
@@ -44,10 +36,8 @@ export default function ScrollDriver() {
     };
   }, []);
 
-  // 2) Anchor warp: click en una tick del rail (o cualquier link in-page)
-  //    NO salta de golpe — overlay glitch + teleport instantaneo cuando el
-  //    overlay esta a full opacity. Antes vivia en ParallaxProvider con
-  //    Lenis; ahora standalone con scrollTo nativo.
+  // 2) Anchor warp: click en cualquier link in-page → overlay glitch +
+  //    teleport instantaneo cuando la opacidad esta saturada.
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
@@ -67,8 +57,6 @@ export default function ScrollDriver() {
       overlay.className = "glitch-jump-overlay";
       document.body.appendChild(overlay);
 
-      // Teleport mid-glitch (180ms) — la opacidad esta saturada y enmascara
-      // el salto. Despues remueve el overlay cuando termina la animacion.
       window.setTimeout(() => {
         const top = dest.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top, behavior: "instant" as ScrollBehavior });
@@ -83,48 +71,5 @@ export default function ScrollDriver() {
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  // 3) IntersectionObserver para detectar capítulo activo
-  useEffect(() => {
-    const targets = CHAPTERS
-      .map((c) => document.getElementById(c.id))
-      .filter((el): el is HTMLElement => el != null);
-    if (targets.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Tomamos el que tiene mayor intersection ratio
-        const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length === 0) return;
-        const top = visible.reduce((a, b) =>
-          a.intersectionRatio > b.intersectionRatio ? a : b,
-        );
-        const id = top.target.getAttribute("id");
-        if (id) setActiveChapter(id);
-      },
-      { rootMargin: "-30% 0px -30% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
-    );
-    targets.forEach((t) => observer.observe(t));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div className="scroll-driver" aria-hidden>
-      {/* Rail 3D vertical con chapter ticks */}
-      <div className="scroll-driver-rail">
-        <div className="scroll-driver-rail-fill" />
-        {CHAPTERS.map((c, i) => (
-          <a
-            key={c.id}
-            href={`#${c.id}`}
-            className={`scroll-driver-tick ${activeChapter === c.id ? "is-active" : ""}`}
-            style={{ top: `${(i / (CHAPTERS.length - 1)) * 100}%` }}
-          >
-            <span className="scroll-driver-tick-num">{c.num}</span>
-            <span className="scroll-driver-tick-label">{c.label}</span>
-            <span className="scroll-driver-tick-dot" />
-          </a>
-        ))}
-      </div>
-    </div>
-  );
+  return null;
 }

@@ -1,4 +1,6 @@
 import { Rss } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import FeedCard from "@/components/blog/FeedCard";
 import type { FeedItem } from "@/lib/feeds/types";
 
@@ -43,7 +45,9 @@ export default async function BlogPage() {
   const items = ITEMS;
 
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <>
+      <Navbar />
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 pt-32 sm:pt-32">
       <header className="mb-10 sm:mb-14 max-w-2xl">
         <p className="kicker text-white/45 mb-3 flex items-center gap-2">
           <Rss size={11} className="text-[#FFB070]" />
@@ -78,6 +82,8 @@ export default async function BlogPage() {
       <footer className="mt-14 pt-6 border-t border-white/[0.06] flex items-center justify-between gap-4 text-[0.72rem] text-white/45 font-light">
         <span>{items.length} lecturas curadas</span>
       </footer>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface Profile {
   full_name: string | null;
@@ -171,14 +173,18 @@ function MemberContent() {
 
 export default function MiembroPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen hero-bg flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full border-4 border-ocean-500 border-t-transparent animate-spin" />
-        </div>
-      }
-    >
-      <MemberContent />
-    </Suspense>
+    <>
+      <Navbar />
+      <Suspense
+        fallback={
+          <div className="min-h-screen hero-bg flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full border-4 border-ocean-500 border-t-transparent animate-spin" />
+          </div>
+        }
+      >
+        <MemberContent />
+      </Suspense>
+      <Footer />
+    </>
   );
 }

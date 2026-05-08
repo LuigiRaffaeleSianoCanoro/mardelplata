@@ -7791,6 +7791,12 @@ a.shell-card:hover {
   background: rgba(168, 85, 247, 0.08);
   border-color: rgba(168, 85, 247, 0.4);
 }
+/* Hamburger es solo mobile — la utility lg:hidden de Tailwind queda
+   pisada por .nav-x-burger { display: grid }, asi que forzamos el hide
+   con un media query directo. */
+@media (min-width: 1024px) {
+  .nav-x-burger { display: none; }
+}
 .nav-x-burger.is-open {
   background: rgba(168, 85, 247, 0.18);
   border-color: rgba(168, 85, 247, 0.6);
