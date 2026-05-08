@@ -8,17 +8,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+type SubmitState = "idle" | "loading" | "ok" | "error";
+
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [state, setState] = useState<SubmitState>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    // TODO: hook a /api/newsletter o similar
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setEmail("");
+    if (!email || state === "loading") return;
+    setState("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "footer" }),
+      });
+      if (res.ok) {
+        setState("ok");
+        setEmail("");
+      } else {
+        setState("error");
+      }
+    } catch {
+      setState("error");
+    }
+    window.setTimeout(() => setState("idle"), 3000);
   };
 
   return (
@@ -92,8 +107,10 @@ export default function Footer() {
                 type="submit"
                 className="footer-x-newsletter-submit"
                 aria-label="Suscribir"
+                disabled={state === "loading"}
+                data-state={state}
               >
-                {submitted ? "✓" : "→"}
+                {state === "ok" ? "✓" : state === "error" ? "!" : state === "loading" ? "…" : "→"}
               </button>
             </div>
           </form>
