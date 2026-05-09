@@ -112,7 +112,9 @@ export default function Navbar() {
 
   const links: NavLink[] = [
     { href: "/", label: "Inicio", match: (p) => p === "/" },
-    { href: "/red", label: "Comunidad" },
+    // /proyectos es la entrada publica al directorio (Navbar landing).
+    // /red sigue existiendo como app shell para usuarios autenticados.
+    { href: "/proyectos", label: "Comunidad", match: (p) => p === "/proyectos" || p.startsWith("/red") },
     { href: "/primer-trabajo", label: "Aprendizaje" },
     { href: "/bolsa", label: "Empleos" },
   ];
