@@ -1910,6 +1910,45 @@ html.lenis, html.lenis body { height: auto; }
   animation: sidebar-slide-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
+/* Mobile bottom bar — la sidebar se acuesta abajo en row con todos los
+   iconos en linea (pillars + tabs + search/config). Scroll horizontal
+   por si no entran en pantalla angosta. */
+@media (max-width: 760px) {
+  .app-sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    animation: none;
+    padding: 8px 10px max(8px, env(safe-area-inset-bottom)) 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    scrollbar-width: none;
+  }
+  .app-sidebar::-webkit-scrollbar { display: none; }
+  /* Logo + dividers fuera de la barra mobile */
+  .app-sidebar > a[title="mardelplata.dev"],
+  .app-sidebar > div.w-8 {
+    display: none;
+  }
+  /* Pillars y tabs y footer todos en row, sin gap vertical */
+  .app-sidebar > nav,
+  .app-sidebar > div:last-of-type {
+    flex-direction: row !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+    padding-bottom: 0 !important;
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────────
    Bottom sheet — Aeterna-style. Slides up from the bottom, 90vh,
    sticky header + sticky toolbar + scrollable content. Used for
@@ -1968,8 +2007,10 @@ html.lenis, html.lenis body { height: auto; }
   .bottom-sheet-panel {
     left: 0;
     right: 0;
-    height: 95vh;
-    max-height: 95vh;
+    /* Restamos el alto del bottom bar para que no quede tapado */
+    bottom: calc(56px + env(safe-area-inset-bottom));
+    height: calc(92vh - 56px);
+    max-height: calc(92vh - 56px);
     border-radius: 18px 18px 0 0;
   }
 }
@@ -2366,6 +2407,15 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 1;
 }
 
+@media (max-width: 760px) {
+  .app-shell-content {
+    padding-left: 12px;
+    padding-right: 12px;
+    /* Reservar alto del bottom bar (icono ~36px + padding ~16px + safe-area) */
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
+
 /* Soft per-route content transition. Re-fires every time the wrapper's
    `key={pathname}` changes (set by AppShell), so route swaps inside the
    shell get a quick fade-in without disturbing the sidebar skeleton. */
@@ -2388,6 +2438,10 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 60;
   pointer-events: none;
   animation: shell-scan-once 0.95s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@media (max-width: 760px) {
+  .shell-scan-line { left: 0; right: 0; }
 }
 @keyframes shell-scan-once {
   0%   { top: 0;       opacity: 0; }
