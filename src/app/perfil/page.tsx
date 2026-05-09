@@ -3,14 +3,17 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import ProfileClient from "./ProfileClient";
+import ProfileClient, { type Profile } from "./ProfileClient";
 import type { User } from "@supabase/supabase-js";
 import { IS_MOCK, mockUser, mockProfile } from "@/lib/devMock";
 import AppShell from "@/components/app/AppShell";
 
 export default function PerfilPage() {
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState(null);
+  // Antes era useState(null) y compilaba porque select("*") devolvia
+  // tipo `any`. Al pasar a columnas explicitas el tipo se vuelve
+  // concreto y hay que tiparlo explicito.
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [dbError, setDbError] = useState<string | null>(null);
   const router = useRouter();
