@@ -9,7 +9,7 @@
 
 import { useEffect } from "react";
 
-const CRITICAL_IMAGES = ["/hero-wide.png"];
+const CRITICAL_IMAGES = ["/hero-wide.webp"];
 const MIN_INTRO_MS = 2200;
 
 export default function AssetsGate() {

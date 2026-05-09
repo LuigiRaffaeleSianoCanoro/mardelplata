@@ -43,7 +43,7 @@ export default function Manifesto() {
       <div className="manifesto-x-inner">
         <div className="manifesto-x-wave" aria-hidden>
           <Image
-            src="/manifesto-bg.png"
+            src="/manifesto-bg.webp"
             alt=""
             fill
             sizes="100vw"
