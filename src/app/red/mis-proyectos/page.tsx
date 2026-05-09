@@ -7,24 +7,28 @@ import ProjectCard from "@/components/red/ProjectCard";
 import ProjectSheet from "@/components/red/ProjectSheet";
 import NewProjectDialog from "@/components/red/NewProjectDialog";
 import { listMyProjects } from "@/lib/red/queries";
-import { useCurrentUserId } from "@/lib/red/useCurrentUserId";
+import { useCurrentUser } from "@/lib/red/useCurrentUserId";
 import { useSheetSlugParam } from "@/lib/red/useSheetUrlSync";
 import type { ProjectCardData } from "@/lib/red/types";
 
 export default function MyProjectsPage() {
-  const userId = useCurrentUserId();
+  const { id: userId, ready: authReady } = useCurrentUser();
   const [projects, setProjects] = useState<ProjectCardData[]>([]);
   const [loading, setLoading] = useState(true);
   const [openSlug, setOpenSlug] = useSheetSlugParam("p");
   const [creatingOpen, setCreatingOpen] = useState(false);
 
   useEffect(() => {
+    // Mientras auth resuelve, mantenemos loading=true para evitar el
+    // flash de empty state antes de que sepamos si hay sesion.
+    if (!authReady) return;
     if (!userId) {
       setProjects([]);
       setLoading(false);
       return;
     }
     let cancelled = false;
+    setLoading(true);
     listMyProjects(userId).then((rows) => {
       if (!cancelled) {
         setProjects(rows);
@@ -34,7 +38,7 @@ export default function MyProjectsPage() {
     return () => {
       cancelled = true;
     };
-  }, [userId]);
+  }, [authReady, userId]);
 
   return (
     <main className="max-w-6xl mx-auto px-2 sm:px-4 py-10">
