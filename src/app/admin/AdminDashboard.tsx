@@ -4,7 +4,6 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 import { Button, GlassCard, PageHeader } from "@/components/ui";
 
@@ -62,39 +61,12 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
   const router = useRouter();
   const supabase = createClient();
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  };
-
   return (
-    <div className="min-h-screen app-canvas">
-      <header className="border-b border-ocean-300/10 backdrop-blur-md bg-ocean-900/40 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <Image
-              src="/mdpdev.png"
-              alt="MdPDev logo"
-              width={32}
-              height={32}
-              className="rounded-xl shadow-md shadow-ocean-700/40 group-hover:scale-105 transition-transform"
-            />
-            <span className="font-display font-semibold text-white text-[0.95rem] tracking-tight">
-              mardelplata<span className="text-ocean-300">.dev</span>
-              <span className="text-ocean-400/70 font-mono text-[0.7rem] ml-2">/ admin</span>
-            </span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <Button href="/perfil" variant="ghost" size="sm">
-              Mi perfil
-            </Button>
-            <Button onClick={handleLogout} variant="ghost" size="sm">
-              Salir
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div>
+      {/* Header propio removido — el AppShell ya provee logo / perfil /
+          logout via el sidebar (mobile bottom bar). Antes habia un
+          header sticky con mardelplata.dev + Mi perfil + Salir que
+          duplicaba esa funcionalidad. */}
 
       <div className="max-w-7xl mx-auto px-4 pt-10">
         <PageHeader

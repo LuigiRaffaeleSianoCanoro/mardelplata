@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { IS_MOCK } from "@/lib/devMock";
+import AppShell from "@/components/app/AppShell";
 
 export default function AdminLayout({
   children,
@@ -55,5 +56,8 @@ export default function AdminLayout({
     );
   }
 
-  return <>{children}</>;
+  // Envolvemos en AppShell para tener el bottom bar mobile coherente
+  // con /perfil y /red. isAdmin=true porque el chequeo de arriba ya
+  // garantiza que estamos en /admin como admin.
+  return <AppShell isAdmin>{children}</AppShell>;
 }

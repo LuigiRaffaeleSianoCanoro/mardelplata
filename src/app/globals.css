@@ -1895,7 +1895,11 @@ html.lenis, html.lenis body { height: auto; }
   bottom: 0;
   left: 0;
   width: 68px;
-  z-index: 50;
+  /* z-index alto para quedar encima de .bottom-sheet-root (z-index: 180)
+     y .red-dialog-root, que tienen position:fixed y aunque sean invisibles
+     cuando no estan abiertos, en mobile pueden interferir con el render
+     del bottom bar (paso en /red — el bottom bar no aparecia). */
+  z-index: 220;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 8%),
     var(--color-app-rail);
@@ -1939,10 +1943,14 @@ html.lenis, html.lenis body { height: auto; }
   .app-sidebar > div.w-8 {
     display: none;
   }
-  /* Pillars y tabs y footer todos en row, sin gap vertical */
-  /* Pillars nav (la primera <nav> hija) flex-direction: row para
-     que las 4 pillars queden en horizontal. */
-  .app-sidebar > nav:first-of-type {
+  /* En mobile el bottom bar muestra UNO de los dos navs a la vez
+     (pillars o tabs del pillar activo). El componente setea
+     data-mobile-mode en el <aside> y aca elegimos cual mostrar.
+     Hacerlo via CSS (no via render condicional en JS) evita flashes
+     de hidracion donde durante un instante ningun nav termina visible
+     — paso en /red el 2026-05-09. */
+  .app-sidebar-pillars,
+  .app-sidebar-tabs {
     flex-direction: row !important;
     gap: 6px !important;
     flex: 0 0 auto !important;
@@ -1950,14 +1958,19 @@ html.lenis, html.lenis body { height: auto; }
     width: 100%;
     justify-content: space-around !important;
   }
-  /* Por ahora escondemos tabs y footer en mobile (no entran junto con
-     pillars en pantalla angosta). En sub-pages la nav contextual la
-     hacemos despues como parte del layout de cada seccion. */
-  .app-sidebar > nav:nth-of-type(2),
+  .app-sidebar[data-mobile-mode="tabs"] .app-sidebar-pillars { display: none !important; }
+  .app-sidebar[data-mobile-mode="pillars"] .app-sidebar-tabs { display: none !important; }
+  /* Back chip solo en mobile (en desktop seguimos viendo pillars y
+     tabs juntas, no hace falta back). */
+  .app-sidebar-back-chip { display: flex !important; }
+  /* Footer (Buscar, Configuracion, Cerrar sesion) no entra en mobile
+     — esas acciones viven dentro del perfil/menu. */
   .app-sidebar > div:last-of-type {
     display: none !important;
   }
 }
+/* Default desktop: el back chip no se muestra (no hay toggle de modos). */
+.app-sidebar-back-chip { display: none; }
 
 /* ─────────────────────────────────────────────────────────────────
    Bottom sheet — Aeterna-style. Slides up from the bottom, 90vh,
@@ -1969,8 +1982,15 @@ html.lenis, html.lenis body { height: auto; }
   inset: 0;
   z-index: 180;
   pointer-events: none;
+  /* Cuando no esta abierto NO existe visualmente — antes era invisible
+     pero ocupaba el viewport y en /red interfería con el render del
+     bottom bar AppSidebar en mobile. */
+  display: none;
 }
-.bottom-sheet-root.is-open { pointer-events: auto; }
+.bottom-sheet-root.is-open {
+  pointer-events: auto;
+  display: block;
+}
 
 .bottom-sheet-backdrop {
   position: absolute;
@@ -2339,14 +2359,23 @@ html.lenis, html.lenis body { height: auto; }
   transform-origin: left center;
 }
 /* En mobile el popover se centra y ocupa casi todo el viewport.
-   Override del style inline de left/top/width via !important. */
+   Override del style inline de left/top/width via !important.
+   IMPORTANTE: el keyframe qr-popover-in termina en translateX(0),
+   lo cual pisaria el translate(-50%, -50%) y el popover se desbordaria
+   al lado derecho. Usamos un keyframe mobile-specific que mantiene
+   el centrado en el frame final. */
+@keyframes qr-popover-in-mobile {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.94); filter: blur(3px); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0); }
+}
 @media (max-width: 760px) {
   .qr-popover {
     left: 50% !important;
     top: 50% !important;
-    transform: translate(-50%, -50%);
     width: calc(100vw - 24px) !important;
     max-width: 380px;
+    animation: qr-popover-in-mobile 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    transform-origin: center center;
   }
   .qr-popover-arrow { display: none; }
 }
@@ -2434,6 +2463,9 @@ html.lenis, html.lenis body { height: auto; }
   .app-shell-content {
     padding-left: 12px;
     padding-right: 12px;
+    /* Respiro arriba — sin Navbar pill arriba en AppShell, el contenido
+       quedaba pegado al top de viewport al entrar a una pillar. */
+    padding-top: 16px;
     /* Reservar alto del bottom bar (icono ~36px + padding ~16px + safe-area) */
     padding-bottom: calc(64px + env(safe-area-inset-bottom));
   }
