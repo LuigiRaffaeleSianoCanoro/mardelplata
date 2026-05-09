@@ -46,6 +46,7 @@ export default function Manifesto() {
             src="/manifesto-bg.webp"
             alt=""
             fill
+            quality={65}
             sizes="100vw"
             className="manifesto-x-wave-img"
           />

@@ -43,6 +43,7 @@ export default function Footer() {
           src="/footer-wave.webp"
           alt=""
           fill
+          quality={65}
           sizes="100vw"
           className="object-cover"
           style={{ objectPosition: "center center" }}

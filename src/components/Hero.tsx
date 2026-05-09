@@ -43,6 +43,7 @@ export default function Hero({ nextEvent, membersCount, jobsCount }: HeroProps) 
           alt="Mar del Plata al atardecer con lobo programador"
           fill
           priority
+          quality={65}
           sizes="100vw"
           className="hero-x-bg-img"
         />
