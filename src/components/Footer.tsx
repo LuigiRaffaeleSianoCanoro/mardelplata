@@ -40,7 +40,7 @@ export default function Footer() {
     <footer className="footer-x">
       <div className="footer-x-wave" aria-hidden>
         <Image
-          src="/footer-wave.png"
+          src="/footer-wave.webp"
           alt=""
           fill
           sizes="100vw"
