@@ -2,92 +2,92 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const TOOLS = [
+  {
+    href: "/primer-trabajo/diagnostico",
+    title: "Diagnóstico",
+    desc: "Preguntas con misiones (Silver Dev, EF SET, GitHub, certificados, portfolio, contacto a reclutadores, LeetCode), reglas duras y modo reclutador simulado.",
+    icon: "🔍",
+    glow: "violet" as const,
+    featured: true,
+  },
+  {
+    href: "/primer-trabajo/entrevista-hr",
+    title: "Simulador Recursos Humanos",
+    desc: "Preguntas tipo screening con feedback; el puntaje actualiza la señal de entrevista en el diagnóstico.",
+    icon: "🎤",
+    glow: "cyan" as const,
+  },
+  {
+    href: "/primer-trabajo/plan",
+    title: "Plan de acción",
+    desc: "Checklist con mal/bien, rewrites y foco semanal. Progreso guardado en el navegador.",
+    icon: "✅",
+    glow: "emerald" as const,
+  },
+  {
+    href: "/primer-trabajo/guia/cv",
+    title: "Guía CV",
+    desc: "Patrones mal/bien, mirada de quien selecciona y pasos de mejora enlazados al diagnóstico.",
+    icon: "📄",
+    glow: "amber" as const,
+  },
+  {
+    href: "/primer-trabajo/guia/linkedin",
+    title: "Guía LinkedIn",
+    desc: "Titular, resumen del perfil, experiencia y coherencia con el CV — sin humo motivacional.",
+    icon: "💼",
+    glow: "sky" as const,
+  },
+  {
+    href: "/primer-trabajo/empresas",
+    title: "Empresas (directorio)",
+    desc: "Referencias de Mar del Plata y remotas en Argentina.",
+    icon: "📍",
+    glow: "rose" as const,
+    wide: true,
+  },
+];
+
 export default function PrimerTrabajoPage() {
   return (
     <>
       <Navbar />
-      <main className="ocean-tint min-h-screen pt-24 pb-16">
-        <div className="max-w-3xl mx-auto px-6">
-          <p className="text-ocean-700 text-sm font-semibold uppercase tracking-widest mb-3">Herramienta Mar del Plata Devs</p>
-          <h1 className="font-display font-bold text-4xl md:text-5xl text-ocean-900 leading-tight mb-4">Primer Trabajo OS</h1>
-          <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            No es un curso: es un sistema para evaluar cómo te ven quienes seleccionan candidatos en Argentina y qué corregir primero. Tono
-            directo, foco en CV, LinkedIn, portfolio, búsqueda y mercado local.
-          </p>
+      <main className="primer-trabajo-x">
+        <div className="shell-section shell-section--lg">
+          <div className="shell-inner shell-inner--narrow">
+            <p className="shell-eyebrow">HERRAMIENTA · MARDELPLATA.DEV</p>
+            <h1 className="shell-title shell-title--xl">
+              Primer Trabajo <em>OS.</em>
+            </h1>
+            <p className="shell-lead">
+              No es un curso: es un sistema para evaluar cómo te ven quienes seleccionan
+              candidatos en Argentina y qué corregir primero. Tono directo, foco en CV,
+              LinkedIn, portfolio, búsqueda y mercado local.
+            </p>
 
-          <div className="grid gap-4 sm:grid-cols-2 mb-12">
-            <Link
-              href="/primer-trabajo/diagnostico"
-              className="group rounded-2xl border-2 border-ocean-400 bg-white p-6 shadow-sm hover:shadow-md hover:border-ocean-500 transition-all"
-            >
-              <span className="text-2xl mb-2 block" aria-hidden>
-                🔍
-              </span>
-              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Diagnóstico</h2>
-              <p className="text-sm text-slate-600">
-                Preguntas con misiones (Silver Dev, EF SET, GitHub, certificados, portfolio, contacto a reclutadores, LeetCode), reglas duras y
-                modo reclutador simulado.
-              </p>
-            </Link>
-            <Link
-              href="/primer-trabajo/entrevista-hr"
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-ocean-300 transition-all"
-            >
-              <span className="text-2xl mb-2 block" aria-hidden>
-                🎤
-              </span>
-              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Simulador Recursos Humanos</h2>
-              <p className="text-sm text-slate-600">
-                Preguntas tipo screening con feedback; el puntaje actualiza la señal de entrevista en el diagnóstico.
-              </p>
-            </Link>
-            <Link
-              href="/primer-trabajo/plan"
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-ocean-300 transition-all"
-            >
-              <span className="text-2xl mb-2 block" aria-hidden>
-                ✅
-              </span>
-              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Plan de acción</h2>
-              <p className="text-sm text-slate-600">Checklist con mal/bien, rewrites y foco semanal. Progreso guardado en el navegador.</p>
-            </Link>
-            <Link
-              href="/primer-trabajo/guia/cv"
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-ocean-300 transition-all"
-            >
-              <span className="text-2xl mb-2 block" aria-hidden>
-                📄
-              </span>
-              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Guía CV</h2>
-              <p className="text-sm text-slate-600">Patrones mal/bien, mirada de quien selecciona y pasos de mejora enlazados al diagnóstico.</p>
-            </Link>
-            <Link
-              href="/primer-trabajo/guia/linkedin"
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-ocean-300 transition-all"
-            >
-              <span className="text-2xl mb-2 block" aria-hidden>
-                💼
-              </span>
-              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Guía LinkedIn</h2>
-              <p className="text-sm text-slate-600">Titular, resumen del perfil, experiencia y coherencia con el CV — sin humo motivacional.</p>
-            </Link>
-            <Link
-              href="/primer-trabajo/empresas"
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-ocean-300 transition-all sm:col-span-2"
-            >
-              <span className="text-2xl mb-2 block" aria-hidden>
-                📍
-              </span>
-              <h2 className="font-display font-bold text-ocean-900 text-lg mb-1 group-hover:text-ocean-700">Empresas (directorio)</h2>
-              <p className="text-sm text-slate-600">Referencias de Mar del Plata y remotas en Argentina.</p>
-            </Link>
+            <div className="primer-trabajo-grid">
+              {TOOLS.map((t) => (
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  className={`shell-card primer-trabajo-card ${t.featured ? "primer-trabajo-card--featured" : ""} ${t.wide ? "primer-trabajo-card--wide" : ""}`}
+                  data-glow={t.glow}
+                >
+                  <span className="primer-trabajo-card-icon" aria-hidden>{t.icon}</span>
+                  <h2 className="primer-trabajo-card-title">{t.title}</h2>
+                  <p className="primer-trabajo-card-desc">{t.desc}</p>
+                  <span className="primer-trabajo-card-arrow" aria-hidden>→</span>
+                </Link>
+              ))}
+            </div>
+
+            <p className="primer-trabajo-back">
+              <Link href="/" className="shell-link">
+                <span aria-hidden>←</span> Volver al inicio
+              </Link>
+            </p>
           </div>
-
-          <p className="text-center text-slate-500 text-sm">
-            <Link href="/" className="text-ocean-600 font-medium hover:underline">
-              ← Volver al inicio
-            </Link>
-          </p>
         </div>
       </main>
       <Footer />

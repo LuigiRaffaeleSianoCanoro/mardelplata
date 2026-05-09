@@ -6,7 +6,7 @@ export default function BolsaPage() {
   return (
     <>
       <Navbar />
-      <main className="ocean-tint min-h-screen pt-20 pb-12">
+      <main className="bolsa-x">
         <BolsaClient />
       </main>
       <Footer />

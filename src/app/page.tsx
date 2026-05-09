@@ -1,14 +1,18 @@
 import Navbar from "@/components/Navbar";
+import IntroSplashWaves from "@/components/IntroSplashWaves";
+import AssetsGate from "@/components/AssetsGate";
 import Hero from "@/components/Hero";
-import Collaborators from "@/components/Collaborators";
-import CommunityPlatforms from "@/components/CommunityPlatforms";
+import Reveal from "@/components/Reveal";
+import Channels from "@/components/Channels";
+import Manifesto from "@/components/Manifesto";
+import Community from "@/components/Community";
+import Pillars from "@/components/Pillars";
 import Events from "@/components/Events";
-import Team from "@/components/Team";
-import CodeOfConduct from "@/components/CodeOfConduct";
+import Opportunities from "@/components/Opportunities";
 import Footer from "@/components/Footer";
+import ScrollDriver from "@/components/ScrollDriver";
 import { createClient } from "@/lib/supabase/server";
 
-/** Full names that may appear in "Quiénes Somos" as co-founders (normalized). */
 const COFOUNDER_FULL_NAMES = new Set(["luigi canoro", "franco petruccelli"]);
 
 function normalizeFullName(name: string | null): string | null {
@@ -20,16 +24,6 @@ function normalizeFullName(name: string | null): string | null {
 function isCofounderProfile(fullName: string | null): boolean {
   const n = normalizeFullName(fullName);
   return n != null && COFOUNDER_FULL_NAMES.has(n);
-}
-
-function WaveDown({ from, to, d = "M0,30 C360,55 1080,5 1440,30 L1440,60 L0,60 Z" }: { from: string; to: string; d?: string }) {
-  return (
-    <div className={`relative overflow-hidden ${from}`} style={{ height: 60 }}>
-      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="absolute bottom-0 w-full h-full">
-        <path d={d} className={to} />
-      </svg>
-    </div>
-  );
 }
 
 export default async function Home() {
@@ -56,6 +50,36 @@ export default async function Home() {
     .order("created_at", { ascending: false })
     .limit(30);
 
+  // Métricas reales para las cards del Hero (review Luigi PR #26 punto 6).
+  const { count: membersCount } = await supabase
+    .from("profiles")
+    .select("*", { count: "exact", head: true })
+    .not("full_name", "is", null);
+
+  const nowIso = new Date().toISOString();
+  const { data: nextEventRows } = await supabase
+    .from("events")
+    .select("id, title, date")
+    .eq("is_published", true)
+    .gt("date", nowIso)
+    .order("date", { ascending: true })
+    .limit(1);
+  const nextEvent = nextEventRows?.[0] ?? null;
+
+  const { data: jobsRaw } = await supabase
+    .from("classified_listings")
+    .select("id, kind, title, description, external_url, tags, created_at, author:profiles!author_id(full_name, avatar_url)")
+    .eq("kind", "job")
+    .gt("expires_at", nowIso)
+    .order("created_at", { ascending: false })
+    .limit(4);
+  // El embed devuelve author como objeto unico — Supabase lo tipa como array
+  // por defecto, asi que normalizamos para Opportunities.tsx.
+  const jobs = (jobsRaw ?? []).map((j) => ({
+    ...j,
+    author: Array.isArray(j.author) ? j.author[0] ?? null : j.author ?? null,
+  }));
+
   const orderedFounders = founders.slice().sort((a, b) => {
     const aName = normalizeFullName(a.full_name) ?? "";
     const bName = normalizeFullName(b.full_name) ?? "";
@@ -69,29 +93,26 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar />
-      <main>
-        <Hero />
-
-        <Collaborators members={communityMembers ?? []} />
-
-        <WaveDown from="bg-white" to="fill-[#f0f9ff]" d="M0,30 C360,55 1080,5 1440,30 L1440,60 L0,60 Z" />
-
-        <CommunityPlatforms />
-
-        <WaveDown from="[background:linear-gradient(180deg,#f0f9ff_0%,#e0f4fb_100%)]" to="fill-white" d="M0,20 C480,55 960,0 1440,30 L1440,60 L0,60 Z" />
-
-        <Events events={events ?? []} />
-
-        <WaveDown from="bg-white" to="fill-[#f0f9ff]" d="M0,40 C360,10 1080,55 1440,20 L1440,60 L0,60 Z" />
-
-        <Team members={orderedFounders} />
-
-        <WaveDown from="[background:linear-gradient(180deg,#f0f9ff_0%,#e0f4fb_100%)]" to="fill-white" d="M0,20 C720,55 1080,5 1440,35 L1440,60 L0,60 Z" />
-
-        <CodeOfConduct />
-      </main>
-      <Footer />
+      <IntroSplashWaves />
+      <AssetsGate />
+      <div className="page-after-intro">
+        <ScrollDriver />
+        <Navbar />
+        <main>
+          <Hero
+            nextEvent={nextEvent}
+            membersCount={membersCount ?? 0}
+            jobsCount={jobs.length}
+          />
+          <Reveal delay={0}><Pillars /></Reveal>
+          <Reveal delay={120}><Events events={events ?? []} /></Reveal>
+          <Reveal delay={120}><Community members={communityMembers ?? []} /></Reveal>
+          <Reveal delay={120}><Channels /></Reveal>
+          <Reveal delay={120}><Manifesto /></Reveal>
+          <Reveal delay={120}><Opportunities jobs={jobs} /></Reveal>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

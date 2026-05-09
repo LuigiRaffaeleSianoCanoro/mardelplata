@@ -1,3 +1,10 @@
+"use client";
+
+// Events — "Lo que se viene en la costa". Layout horizontal con 4 cards
+// minimalistas: date strip (DD/MMM big), título, hora + ubicación, tag pill.
+
+import Link from "next/link";
+
 interface Event {
   id: string;
   title: string;
@@ -18,174 +25,156 @@ interface EventsProps {
   events: Event[];
 }
 
-function isPast(dateStr: string) {
-  return new Date(dateStr) < new Date();
+function formatDay(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("es-AR", { day: "2-digit" });
 }
-
-function formatBadge(dateStr: string) {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("es-AR", {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
+function formatMonth(dateStr: string) {
+  return new Date(dateStr)
+    .toLocaleDateString("es-AR", { month: "short" })
+    .replace(".", "")
+    .toUpperCase();
+}
+function formatTime(dateStr: string) {
+  return new Date(dateStr).toLocaleTimeString("es-AR", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 }
 
-function formatFullDate(dateStr: string) {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("es-AR", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  }) + " · " + d.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
+function getTagFlavor(tags: string[]): { label: string; color: "violet" | "cyan" | "amber" | "rose" } {
+  const t = (tags?.[0] ?? "meetup").toLowerCase();
+  if (t.includes("taller") || t.includes("workshop")) return { label: "TALLER", color: "cyan" };
+  if (t.includes("charla") || t.includes("talk")) return { label: "CHARLA", color: "violet" };
+  if (t.includes("hackat")) return { label: "HACKATÓN", color: "rose" };
+  if (t.includes("meetup")) return { label: "MEETUP", color: "violet" };
+  return { label: t.toUpperCase(), color: "amber" };
 }
 
 export default function Events({ events }: EventsProps) {
-  const confirmed = events.filter((e) => !e.is_mystery);
-  const mystery = events.filter((e) => e.is_mystery);
+  const now = Date.now();
+  const upcoming = [...events]
+    .filter((e) => new Date(e.date).getTime() >= now)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 4);
 
   return (
-    <section id="eventos" className="py-20 px-6 bg-white">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-ocean-50 text-ocean-700 rounded-full px-4 py-2 text-sm font-semibold mb-4">
-            📅 Próximos Eventos
-          </div>
-          <h2 className="font-display font-bold text-4xl md:text-5xl text-ocean-900">
-            Lo que se viene<br />
-            <span className="gradient-text">en La Feliz</span>
+    <section className="events-x" id="eventos">
+      <div className="events-x-inner">
+        <header className="events-x-header">
+          <h2 className="events-x-title">
+            Lo que se viene en la <em>costa.</em>
           </h2>
+          <Link href="#" className="events-x-link">
+            Ver calendario completo <span aria-hidden>→</span>
+          </Link>
+        </header>
+
+        <div className="events-x-rail">
+          <button className="events-x-nav events-x-nav--left" aria-label="Anterior">
+            <ArrowIcon dir="left" />
+          </button>
+
+          <div className="events-x-track">
+            {upcoming.length === 0 ? (
+              <EmptyState />
+            ) : (
+              upcoming.map((event) => <EventCard key={event.id} event={event} />)
+            )}
+          </div>
+
+          <button className="events-x-nav events-x-nav--right" aria-label="Siguiente">
+            <ArrowIcon dir="right" />
+          </button>
         </div>
-
-        {events.length === 0 ? (
-          <div className="text-center py-16 text-slate-400">
-            <p className="text-lg">No hay eventos publicados por el momento.</p>
-            <p className="text-sm mt-2">Seguinos en redes para enterarte cuando se anuncie el próximo.</p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-6">
-            {/* Confirmed events */}
-            {confirmed.map((event) => {
-              const past = isPast(event.date);
-              return (
-                <div
-                  key={event.id}
-                  className="bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm"
-                >
-                  <div className="event-header-hackathon p-6 text-white">
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                      {past ? (
-                        <div className="inline-flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-                          ✓ Finalizado
-                        </div>
-                      ) : (
-                        <div className="inline-flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-                          <span className="w-1.5 h-1.5 rounded-full bg-ocean-300 pulse-dot inline-block" />
-                          {formatBadge(event.date)}
-                        </div>
-                      )}
-                      {event.location && (
-                        <div className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs font-semibold">
-                          📍 {event.location}
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="font-display font-bold text-4xl md:text-5xl tracking-tight leading-none">
-                      {event.title}
-                    </h3>
-                    {event.subtitle && (
-                      <p className="text-ocean-200 text-lg font-medium mt-1">{event.subtitle}</p>
-                    )}
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {past && (
-                        <span className="bg-white/15 border border-white/20 rounded-full px-3 py-0.5 text-xs font-semibold">
-                          Finalizado
-                        </span>
-                      )}
-                      {event.tags?.map((tag) => (
-                        <span
-                          key={tag}
-                          className="bg-white/15 border border-white/20 rounded-full px-3 py-0.5 text-xs font-semibold"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <div className="flex items-center gap-2 text-ocean-600 text-sm font-semibold mb-3">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
-                      </svg>
-                      {formatFullDate(event.date)}
-                    </div>
-                    {event.description && (
-                      <p className="text-slate-500 text-base leading-relaxed mb-6">
-                        {event.description}
-                      </p>
-                    )}
-                    {event.registration_url && !past && (
-                      <div className="flex flex-wrap gap-3">
-                        <a
-                          href={event.registration_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-ocean-600 hover:bg-ocean-700 text-white px-6 py-3 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-ocean-600/30"
-                        >
-                          Registrarme →
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-
-            {/* Mystery events */}
-            {mystery.map((event) => (
-              <div
-                key={event.id}
-                className="bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm"
-              >
-                <div className="event-header-mystery p-6 text-white">
-                  <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase text-slate-400 mb-4">
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />
-                    Próximamente
-                  </div>
-                  <h3 className="font-display font-bold text-4xl md:text-5xl tracking-tight leading-none text-white/90">
-                    {event.codename ?? event.title}
-                  </h3>
-                  <div className="flex gap-2 mt-4">
-                    <span className="bg-white/10 border border-white/10 rounded-full px-10 py-0.5 text-xs mystery-blur text-slate-300">
-                      ████████
-                    </span>
-                    <span className="bg-white/10 border border-white/10 rounded-full px-8 py-0.5 text-xs mystery-blur text-slate-300">
-                      ██████
-                    </span>
-                  </div>
-                </div>
-                <div className="p-8 text-center">
-                  {event.teaser && (
-                    <p className="text-slate-400 text-base leading-relaxed max-w-xl mx-auto mb-6">
-                      {event.teaser}
-                    </p>
-                  )}
-                  <a
-                    href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 border border-slate-200 text-slate-500 hover:border-ocean-300 hover:text-ocean-600 px-6 py-3 rounded-full text-sm font-semibold transition-all"
-                  >
-                    Avisarme cuando se anuncie →
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </section>
+  );
+}
+
+function EventCard({ event }: { event: Event }) {
+  const day = formatDay(event.date);
+  const month = formatMonth(event.date);
+  const time = formatTime(event.date);
+  const tag = getTagFlavor(event.tags);
+  const isMystery = event.is_mystery;
+
+  const inner = (
+    <>
+      <div className="event-card-date">
+        <span className="event-card-day">{day}</span>
+        <span className="event-card-month">{month}</span>
+      </div>
+      <div className="event-card-body">
+        <h3 className="event-card-title">
+          {isMystery ? event.codename ?? event.title : event.title}
+        </h3>
+        <p className="event-card-meta">
+          <ClockIcon /> {time}
+          {event.location && (
+            <>
+              <span className="event-card-meta-sep">·</span>
+              <PinIcon /> {event.location}
+            </>
+          )}
+        </p>
+        <span className="event-card-tag" data-flavor={tag.color}>
+          {tag.label}
+        </span>
+      </div>
+    </>
+  );
+
+  if (event.registration_url) {
+    return (
+      <a
+        href={event.registration_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="event-card"
+      >
+        {inner}
+      </a>
+    );
+  }
+  return <article className="event-card">{inner}</article>;
+}
+
+function EmptyState() {
+  return (
+    <div className="events-x-empty">
+      <p className="events-x-empty-eyebrow">{"// SCHEDULE EN PAUSA"}</p>
+      <h3 className="events-x-empty-title">
+        Estamos cocinando el próximo encuentro.
+      </h3>
+      <p className="events-x-empty-desc">
+        Seguinos en redes para enterarte cuando se anuncie.
+      </p>
+    </div>
+  );
+}
+
+function ArrowIcon({ dir }: { dir: "left" | "right" }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      {dir === "left" ? <path d="m15 18-6-6 6-6" /> : <path d="m9 18 6-6-6-6" />}
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s-7-7-7-12a7 7 0 1 1 14 0c0 5-7 12-7 12z" />
+      <circle cx="12" cy="10" r="2.4" />
+    </svg>
   );
 }

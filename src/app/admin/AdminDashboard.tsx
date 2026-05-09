@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
+import { Button, GlassCard, PageHeader } from "@/components/ui";
 
 interface Event {
   id: string;
@@ -36,15 +37,24 @@ interface Profile {
   created_at: string;
 }
 
+interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  source: string | null;
+  status: "pending" | "confirmed" | "unsubscribed";
+  created_at: string;
+}
+
 interface AdminDashboardProps {
   events: Event[];
   profiles: Profile[];
+  subscribers: NewsletterSubscriber[];
   currentUserId: string;
 }
 
-type Tab = "events" | "users" | "scanner";
+type Tab = "events" | "users" | "scanner" | "newsletter";
 
-export default function AdminDashboard({ events, profiles, currentUserId }: AdminDashboardProps) {
+export default function AdminDashboard({ events, profiles, subscribers, currentUserId }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<Tab>("events");
   const [showEventModal, setShowEventModal] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
@@ -59,46 +69,59 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
   };
 
   return (
-    <div className="min-h-screen bg-ocean-900">
-      {/* Header */}
-      <header className="bg-ocean-800 border-b border-ocean-700/50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/">
-              <Image src="/mdpdev.png" alt="MdPDev logo" width={40} height={40} className="rounded-xl" />
-            </Link>
-            <div>
-              <h1 className="font-display font-bold text-white text-lg">Admin Panel</h1>
-              <p className="text-ocean-400 text-xs">MdPDev Content Management</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/perfil" className="text-ocean-300 hover:text-white transition-colors text-sm">
-              Mi Perfil
-            </Link>
-            <button onClick={handleLogout} className="text-ocean-400 hover:text-white transition-colors text-sm">
+    <div className="min-h-screen app-canvas">
+      <header className="border-b border-ocean-300/10 backdrop-blur-md bg-ocean-900/40 sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <Image
+              src="/mdpdev.png"
+              alt="MdPDev logo"
+              width={32}
+              height={32}
+              className="rounded-xl shadow-md shadow-ocean-700/40 group-hover:scale-105 transition-transform"
+            />
+            <span className="font-display font-semibold text-white text-[0.95rem] tracking-tight">
+              mardelplata<span className="text-ocean-300">.dev</span>
+              <span className="text-ocean-400/70 font-mono text-[0.7rem] ml-2">/ admin</span>
+            </span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <Button href="/perfil" variant="ghost" size="sm">
+              Mi perfil
+            </Button>
+            <Button onClick={handleLogout} variant="ghost" size="sm">
               Salir
-            </button>
+            </Button>
           </div>
         </div>
       </header>
 
-      {/* Tabs */}
-      <div className="bg-ocean-800/50 border-b border-ocean-700/30">
+      <div className="max-w-7xl mx-auto px-4 pt-10">
+        <PageHeader
+          eyebrow="/ Panel admin"
+          title={<>Centro de <span className="gradient-text">control</span></>}
+          description="Eventos, miembros, escáner QR y suscriptores del newsletter."
+        />
+      </div>
+
+      <div className="border-b border-ocean-300/10">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex gap-1 overflow-x-auto whitespace-nowrap">
+          <div className="flex gap-1 overflow-x-auto whitespace-nowrap" role="tablist">
             {[
               { id: "events" as Tab, label: "Eventos", icon: CalendarIcon },
               { id: "users" as Tab, label: "Usuarios", icon: UsersIcon },
-              { id: "scanner" as Tab, label: "Escaner QR", icon: QrIcon },
+              { id: "scanner" as Tab, label: "Escáner QR", icon: QrIcon },
+              { id: "newsletter" as Tab, label: "Newsletter", icon: MailIcon },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
+                role="tab"
+                aria-selected={activeTab === tab.id}
                 className={`flex flex-shrink-0 items-center gap-2 px-3 sm:px-5 py-3 text-sm font-medium transition-all border-b-2 ${
                   activeTab === tab.id
-                    ? "text-white border-ocean-400 bg-ocean-700/30"
-                    : "text-ocean-400 border-transparent hover:text-white hover:bg-ocean-700/20"
+                    ? "text-white border-ocean-300"
+                    : "text-ocean-300/60 border-transparent hover:text-white hover:border-ocean-400/30"
                 }`}
               >
                 <tab.icon />
@@ -127,6 +150,9 @@ export default function AdminDashboard({ events, profiles, currentUserId }: Admi
         )}
         {activeTab === "scanner" && (
           <ScannerTab />
+        )}
+        {activeTab === "newsletter" && (
+          <NewsletterTab subscribers={subscribers} />
         )}
       </main>
 
@@ -177,21 +203,21 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
   };
 
   return (
-    <div>
+    <div className="fade-up">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-display font-bold text-white">Gestión de Eventos</h2>
-        <button
-          onClick={onNew}
-          className="flex items-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <div>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 01 · Eventos</p>
+          <h2 className="text-xl font-display font-bold text-white mt-1">Gestión de eventos</h2>
+        </div>
+        <Button onClick={onNew} variant="primary" size="sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M12 5v14M5 12h14"/>
           </svg>
-          Nuevo Evento
-        </button>
+          Nuevo evento
+        </Button>
       </div>
 
-      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-x-auto">
+      <GlassCard className="overflow-x-auto">
         <table className="w-full min-w-[760px]">
           <thead>
             <tr className="border-b border-ocean-700/30">
@@ -262,13 +288,13 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
             {events.length === 0 && (
               <tr>
                 <td colSpan={4} className="px-4 sm:px-6 py-12 text-center text-ocean-400">
-                  No hay eventos. Crea el primero!
+                  No hay eventos. Creá el primero.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
-      </div>
+      </GlassCard>
     </div>
   );
 }
@@ -297,13 +323,16 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
   };
 
   return (
-    <div>
+    <div className="fade-up">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-display font-bold text-white">Gestión de Usuarios</h2>
-        <div className="text-ocean-400 text-sm">{profiles.length} usuarios registrados</div>
+        <div>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 02 · Comunidad</p>
+          <h2 className="text-xl font-display font-bold text-white mt-1">Gestión de usuarios</h2>
+        </div>
+        <div className="text-ocean-300/70 text-xs font-mono">{profiles.length} registrados</div>
       </div>
 
-      <div className="bg-ocean-800/50 rounded-2xl border border-ocean-700/30 overflow-x-auto">
+      <GlassCard className="overflow-x-auto">
         <table className="w-full min-w-[900px]">
           <thead>
             <tr className="border-b border-ocean-700/30">
@@ -383,30 +412,33 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
             ))}
           </tbody>
         </table>
-      </div>
+      </GlassCard>
     </div>
   );
 }
 
 function ScannerTab() {
   return (
-    <div className="text-center py-12">
-      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-ocean-700/50 flex items-center justify-center">
+    <GlassCard className="text-center py-14 fade-up">
+      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-ocean-700/40 border border-ocean-300/15 flex items-center justify-center">
         <QrIcon size={40} />
       </div>
-      <h2 className="text-xl font-display font-bold text-white mb-2">Escaner QR</h2>
-      <p className="text-ocean-400 mb-6">Escanea los QR de los miembros en eventos</p>
+      <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 03 · Presencia</p>
+      <h2 className="text-xl font-display font-bold text-white mt-1 mb-2">Escáner QR</h2>
+      <p className="text-ocean-300/80 text-sm mb-6 max-w-md mx-auto">
+        Escaneá los QR de los miembros para registrar asistencia en eventos.
+      </p>
       <Link
         href="/admin/scanner"
-        className="inline-flex items-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-6 py-3 rounded-xl font-medium transition-all"
+        className="btn-app-primary shimmer-x-target inline-flex"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
           <circle cx="12" cy="13" r="4"/>
         </svg>
-        Abrir Escaner
+        Abrir escáner
       </Link>
-    </div>
+    </GlassCard>
   );
 }
 
@@ -589,16 +621,12 @@ function EventModal({ event, onClose, onSave }: { event: Event | null; onClose: 
               <span className="text-ocean-200">Publicar evento</span>
             </label>
             <div className="flex gap-3">
-              <button type="button" onClick={onClose} className="px-4 py-2 text-ocean-300 hover:text-white transition-colors">
+              <Button type="button" onClick={onClose} variant="ghost" size="sm">
                 Cancelar
-              </button>
-              <button
-                type="submit"
-                disabled={loading}
-                className="bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 text-white font-medium py-2 px-6 rounded-xl transition-all"
-              >
-                {loading ? "Guardando..." : "Guardar"}
-              </button>
+              </Button>
+              <Button type="submit" loading={loading} variant="primary" size="sm">
+                Guardar
+              </Button>
             </div>
           </div>
         </form>
@@ -674,16 +702,12 @@ function UserModal({ user, onClose, onSave }: { user: Profile; onClose: () => vo
             </label>
           </div>
           <div className="flex justify-end gap-3 pt-4">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-ocean-300 hover:text-white transition-colors">
+            <Button type="button" onClick={onClose} variant="ghost" size="sm">
               Cancelar
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 text-white font-medium py-2 px-6 rounded-xl transition-all"
-            >
-              {loading ? "Guardando..." : "Guardar"}
-            </button>
+            </Button>
+            <Button type="submit" loading={loading} variant="primary" size="sm">
+              Guardar
+            </Button>
           </div>
         </form>
       </div>
@@ -722,5 +746,152 @@ function QrIcon({ size = 16 }: { size?: number }) {
       <rect x="14" y="14" width="7" height="7"/>
       <rect x="3" y="14" width="7" height="7"/>
     </svg>
+  );
+}
+
+function MailIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
+
+function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] }) {
+  const [list, setList] = useState<NewsletterSubscriber[]>(subscribers);
+  const [filter, setFilter] = useState("");
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  const filtered = list.filter((s) =>
+    !filter ||
+    s.email.toLowerCase().includes(filter.toLowerCase()) ||
+    (s.source ?? "").toLowerCase().includes(filter.toLowerCase()),
+  );
+
+  const handleExport = () => {
+    const header = ["email", "source", "status", "created_at"].join(",");
+    const escape = (v: string) => {
+      if (/[",\n]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+      return v;
+    };
+    const rows = list.map((s) =>
+      [escape(s.email), escape(s.source ?? ""), s.status, s.created_at].join(","),
+    );
+    const csv = [header, ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    const ts = new Date().toISOString().slice(0, 10);
+    a.download = `newsletter-subscribers-${ts}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("¿Eliminar este suscriptor? No se puede deshacer.")) return;
+    setBusyId(id);
+    const supabase = createClient();
+    const { error } = await supabase
+      .from("newsletter_subscribers")
+      .delete()
+      .eq("id", id);
+    setBusyId(null);
+    if (error) {
+      alert("No se pudo eliminar: " + error.message);
+      return;
+    }
+    setList((l) => l.filter((s) => s.id !== id));
+  };
+
+  return (
+    <GlassCard tone="default" className="p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div>
+          <h2 className="text-xl font-bold text-white">Suscriptores</h2>
+          <p className="text-ocean-300/60 text-sm font-light">
+            {list.length} {list.length === 1 ? "persona" : "personas"} en la lista.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="search"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            placeholder="Filtrar por email o fuente"
+            className="bg-ocean-950/40 border border-ocean-300/10 rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-ocean-300/35 focus:outline-none focus:border-ocean-400/40"
+          />
+          <Button onClick={handleExport} variant="ghost" size="sm" disabled={list.length === 0}>
+            Exportar CSV
+          </Button>
+        </div>
+      </div>
+
+      {list.length === 0 ? (
+        <p className="text-ocean-300/60 text-sm font-light py-8 text-center">
+          Todavía no hay suscriptores. Cuando alguien complete el formulario del footer aparece acá.
+        </p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-left text-ocean-300/55 text-xs uppercase tracking-wider border-b border-ocean-300/10">
+              <tr>
+                <th className="py-2 pr-4 font-medium">Email</th>
+                <th className="py-2 pr-4 font-medium">Fuente</th>
+                <th className="py-2 pr-4 font-medium">Estado</th>
+                <th className="py-2 pr-4 font-medium">Creado</th>
+                <th className="py-2 pr-4 font-medium text-right">·</th>
+              </tr>
+            </thead>
+            <tbody className="text-white/85">
+              {filtered.map((s) => (
+                <tr key={s.id} className="border-b border-ocean-300/5 hover:bg-ocean-900/30">
+                  <td className="py-2 pr-4 font-mono text-[0.78rem]">{s.email}</td>
+                  <td className="py-2 pr-4 text-ocean-300/70">{s.source ?? "—"}</td>
+                  <td className="py-2 pr-4">
+                    <span
+                      className={
+                        s.status === "confirmed"
+                          ? "text-emerald-300"
+                          : s.status === "unsubscribed"
+                            ? "text-rose-300/80"
+                            : "text-amber-300/85"
+                      }
+                    >
+                      {s.status}
+                    </span>
+                  </td>
+                  <td className="py-2 pr-4 text-ocean-300/70 text-[0.78rem]">
+                    {new Date(s.created_at).toLocaleDateString("es-AR", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
+                  <td className="py-2 pr-4 text-right">
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(s.id)}
+                      disabled={busyId === s.id}
+                      className="text-rose-300/65 hover:text-rose-200 text-xs font-medium disabled:opacity-50"
+                    >
+                      {busyId === s.id ? "Borrando…" : "Borrar"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {filtered.length === 0 && (
+            <p className="text-ocean-300/55 text-sm font-light py-6 text-center">
+              No hay coincidencias para “{filter}”.
+            </p>
+          )}
+        </div>
+      )}
+    </GlassCard>
   );
 }

@@ -41,40 +41,40 @@ export default function ClassifiedCard({
     (Date.now() - created.getTime()) / (1000 * 60 * 60 * 24) <= CLASSIFIED_NEW_DAYS;
 
   return (
-    <article className="bolsa-card rounded-xl group flex flex-col p-2 sm:p-2.5">
+    <article className="shell-card classified-card">
       <button
         type="button"
         onClick={onOpen}
-        className="text-left flex-1 min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ocean-500 rounded-lg"
+        className="classified-card-body"
       >
         <div className="flex items-start justify-between gap-1 mb-1">
-          <span className="text-[10px] uppercase tracking-wide text-ocean-700 shrink-0">
+          <span className="classified-card-kind">
             {listing.kind === "job" ? "Trabajo" : "Freelance"}
           </span>
           {isNew && (
-            <span className="text-[9px] font-bold uppercase bg-ocean-700 text-white px-1.5 py-0.5 rounded-full leading-none">
+            <span className="classified-card-new">
               Nuevo
             </span>
           )}
         </div>
-        <h3 className="font-semibold text-slate-900 text-sm leading-snug line-clamp-2 mb-1">
+        <h3 className="classified-card-title">
           {listing.title}
         </h3>
-        <p className="text-[11px] sm:text-xs text-slate-600 leading-snug line-clamp-3 mb-2">
+        <p className="classified-card-desc">
           {previewText(listing.description, 140)}
         </p>
-        <p className="text-[10px] text-slate-500 border-t border-ocean-200/80 pt-1.5">
-          <span className="text-slate-400">Por </span>
+        <p className="classified-card-author">
+          <span className="classified-card-author-prefix">Por </span>
           {authorLabel(listing)}
         </p>
       </button>
 
       {listing.tags && listing.tags.length > 0 && (
-        <div className="flex flex-wrap gap-0.5 mt-1 mb-1">
+        <div className="classified-card-tags">
           {listing.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="text-[9px] px-1.5 py-0.5 rounded-md border border-ocean-200 text-ocean-800 bg-ocean-50/80"
+              className="classified-card-tag"
             >
               {tag}
             </span>
@@ -82,8 +82,8 @@ export default function ClassifiedCard({
         </div>
       )}
 
-      <div className="flex items-center justify-between gap-1 mt-auto pt-1 border-t border-dotted border-ocean-200/90">
-        <div className="flex items-center gap-0.5">
+      <div className="classified-card-footer">
+        <div className="classified-card-votes">
           <button
             type="button"
             onClick={(e) => {
@@ -95,7 +95,7 @@ export default function ClassifiedCard({
             title="Me gusta"
           >
             <span aria-hidden>👍</span>
-            <span className="text-[10px] tabular-nums">{likes}</span>
+            <span className="classified-card-vote-count">{likes}</span>
           </button>
           <button
             type="button"
@@ -108,7 +108,7 @@ export default function ClassifiedCard({
             title="No me gusta"
           >
             <span aria-hidden>👎</span>
-            <span className="text-[10px] tabular-nums">{dislikes}</span>
+            <span className="classified-card-vote-count">{dislikes}</span>
           </button>
         </div>
         {canDelete && (
@@ -118,7 +118,7 @@ export default function ClassifiedCard({
               e.stopPropagation();
               onDelete();
             }}
-            className="text-[10px] text-red-700 hover:text-red-800 hover:underline"
+            className="classified-card-delete"
           >
             Borrar
           </button>

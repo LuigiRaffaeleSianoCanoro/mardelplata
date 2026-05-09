@@ -118,39 +118,39 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
+    <div className="classified-modal-portal">
       <button
         type="button"
-        className="absolute inset-0 bg-ocean-900/45 backdrop-blur-[1px]"
+        className="classified-modal-backdrop"
         aria-label="Cerrar"
         onClick={close}
       />
       <div
-        className="bolsa-modal-zoom relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border border-ocean-300/50 bg-sand-100 shadow-2xl shadow-ocean-900/15 p-4 sm:p-6"
+        className="classified-modal-dialog"
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="font-display text-lg font-bold text-slate-900">Publicar aviso</h2>
+        <div className="wizard-head">
+          <h2 className="wizard-title">Publicar aviso</h2>
           <button
             type="button"
             onClick={close}
-            className="text-slate-500 hover:text-ocean-800 text-xl leading-none rounded-lg hover:bg-white/60 px-1"
+            className="classified-modal-close"
           >
             ×
           </button>
         </div>
 
         {step === 0 && (
-          <div className="space-y-3">
-            <p className="text-sm text-slate-700">¿Qué querés publicar?</p>
+          <div className="wizard-step">
+            <p className="wizard-question">¿Qué querés publicar?</p>
             <button
               type="button"
               onClick={() => {
                 setKind("job");
                 setStep(1);
               }}
-              className="bolsa-choice w-full text-left"
+              className="wizard-choice"
             >
               Estoy ofreciendo un puesto de trabajo
             </button>
@@ -160,7 +160,7 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
                 setKind("freelance");
                 setStep(1);
               }}
-              className="bolsa-choice w-full text-left"
+              className="wizard-choice"
             >
               Estoy ofreciendo servicios freelance
             </button>
@@ -168,71 +168,71 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
         )}
 
         {step === 1 && (
-          <div className="space-y-4">
+          <div className="wizard-step">
             <button
               type="button"
               onClick={() => setStep(0)}
-              className="text-xs font-medium text-ocean-700 hover:text-ocean-600 hover:underline"
+              className="wizard-back-link"
             >
               ← Volver
             </button>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Título</label>
+              <label className="wizard-label">Título</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 maxLength={CLASSIFIED_TITLE_MAX}
-                className="bolsa-input w-full"
+                className="wizard-input"
                 placeholder="Breve y claro"
               />
-              <p className="text-[10px] text-slate-500 mt-0.5">
+              <p className="wizard-hint">
                 {title.length}/{CLASSIFIED_TITLE_MAX}
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Descripción</label>
+              <label className="wizard-label">Descripción</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 maxLength={CLASSIFIED_DESC_MAX}
                 rows={5}
-                className="bolsa-input w-full resize-y min-h-[100px]"
+                className="wizard-input wizard-textarea"
                 placeholder="Requisitos, modalidad, stack…"
               />
-              <p className="text-[10px] text-slate-500 mt-0.5">
+              <p className="wizard-hint">
                 {description.length}/{CLASSIFIED_DESC_MAX}
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="wizard-label">
                 Link externo (opcional)
               </label>
               <input
                 type="url"
                 value={externalUrl}
                 onChange={(e) => setExternalUrl(e.target.value)}
-                className="bolsa-input w-full"
+                className="wizard-input"
                 placeholder="https://…"
               />
             </div>
 
             {kind === "job" && (
-              <div className="space-y-3">
-                <p className="text-xs font-semibold text-slate-800 border-b border-ocean-200 pb-1">
+              <div className="wizard-step">
+                <p className="wizard-positions-label">
                   Posiciones (podés agregar varias)
                 </p>
                 {positions.map((pos, idx) => (
-                  <div key={idx} className="border border-ocean-200 rounded-xl p-2 space-y-2 bg-white/60">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] uppercase text-ocean-700">Puesto {idx + 1}</span>
+                  <div key={idx} className="wizard-position">
+                    <div className="wizard-position-head">
+                      <span className="wizard-position-label">Puesto {idx + 1}</span>
                       {positions.length > 1 && (
                         <button
                           type="button"
-                          className="text-[10px] text-red-700 hover:text-red-800"
+                          className="wizard-position-remove"
                           onClick={() => setPositions((prev) => prev.filter((_, i) => i !== idx))}
                         >
                           Quitar
@@ -240,7 +240,7 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
                       )}
                     </div>
                     <input
-                      className="bolsa-input w-full text-sm"
+                      className="wizard-input wizard-input--sm"
                       placeholder="Título del puesto"
                       value={pos.title}
                       onChange={(e) => {
@@ -251,7 +251,7 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
                       }}
                     />
                     <textarea
-                      className="bolsa-input w-full text-sm resize-y min-h-[60px]"
+                      className="wizard-input wizard-input--sm wizard-textarea"
                       placeholder="Descripción"
                       value={pos.description}
                       onChange={(e) => {
@@ -262,7 +262,7 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
                       }}
                     />
                     <input
-                      className="bolsa-input w-full text-sm"
+                      className="wizard-input wizard-input--sm"
                       placeholder="Link (opcional)"
                       value={pos.link}
                       onChange={(e) => {
@@ -277,7 +277,7 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
                 <button
                   type="button"
                   onClick={() => setPositions((p) => [...p, emptyPosition()])}
-                  className="bolsa-btn-secondary text-xs w-full"
+                  className="wizard-add-position"
                 >
                   + Agregar otra posición
                 </button>
@@ -285,25 +285,25 @@ export default function PublishWizard({ open, onClose, onSubmit }: PublishWizard
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="wizard-label">
                 Tags tech (opcional, separados por coma)
               </label>
               <input
                 type="text"
                 value={tagsRaw}
                 onChange={(e) => setTagsRaw(e.target.value)}
-                className="bolsa-input w-full"
+                className="wizard-input"
                 placeholder="React, Node, remoto…"
               />
             </div>
 
-            {error && <p className="text-xs text-red-700">{error}</p>}
+            {error && <p className="wizard-error">{error}</p>}
 
             <button
               type="button"
               disabled={saving}
               onClick={() => void handleSubmit()}
-              className="w-full bolsa-btn-primary py-2.5 disabled:opacity-50"
+              className="shell-btn-primary wizard-submit"
             >
               {saving ? "Publicando…" : "Publicar"}
             </button>

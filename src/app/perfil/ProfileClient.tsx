@@ -3,10 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
 import type { User } from "@supabase/supabase-js";
-import { QRCodeSVG } from "qrcode.react";
 import {
   FLATICON_AVATARS,
   TECH_AVATARS,
@@ -16,6 +13,8 @@ import {
   isRetiredPresetAvatarUrl,
   resolveAvatarDisplayUrl,
 } from "@/lib/avatarPresets";
+import { Button, PageHeader, StaggerReveal } from "@/components/ui";
+import { IS_MOCK } from "@/lib/devMock";
 
 interface Profile {
   id: string;
@@ -42,7 +41,6 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   const [loading, setLoading] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [currentProfile, setCurrentProfile] = useState<Profile | null>(profile);
-  const [qrSize, setQrSize] = useState(180);
   const [attendanceCount, setAttendanceCount] = useState(0);
   const [activeLockedHint, setActiveLockedHint] = useState<number | null>(null);
   const [enforcingAvatar, setEnforcingAvatar] = useState(false);
@@ -80,17 +78,10 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   }, [currentProfile?.avatar_url, selectedAvatar, currentProfile?.full_name, formData.full_name, user.email]);
 
   useEffect(() => {
-    // Keep the QR card from feeling cramped on very small screens.
-    const update = () => {
-      const w = window.innerWidth;
-      setQrSize(w <= 420 ? 150 : w <= 640 ? 170 : 180);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  useEffect(() => {
+    if (IS_MOCK) {
+      setAttendanceCount(3);
+      return;
+    }
     let cancelled = false;
 
     const loadAttendance = async () => {
@@ -116,6 +107,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
   }, [supabase, user.id]);
 
   useEffect(() => {
+    if (IS_MOCK) return;
     if (photoAuthorized || !currentProfile || enforcingAvatar) return;
     if (!currentProfile.avatar_url || isAllowedPresetAvatarUrl(currentProfile.avatar_url)) return;
 
@@ -217,62 +209,38 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     setLoading(false);
   };
 
-  const qrValue = currentProfile?.qr_code
-    ? `${typeof window !== "undefined" ? window.location.origin : ""}/miembro?code=${currentProfile.qr_code}`
-    : "";
-
   return (
-    <div className="min-h-screen hero-bg">
-      {/* Header */}
-      <header className="bg-ocean-800/80 backdrop-blur-md border-b border-ocean-600/30">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/mdpdev.png" alt="MdPDev logo" width={40} height={40} className="rounded-xl" />
-            <span className="font-display font-bold text-white">MdPDev</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            {currentProfile?.is_admin && (
-              <Link
-                href="/admin"
-                className="flex items-center gap-2 bg-ocean-600/50 hover:bg-ocean-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
-                </svg>
-                Admin
-              </Link>
-            )}
-            <button
-              onClick={handleLogout}
-              className="text-ocean-300 hover:text-white transition-colors text-sm"
-            >
-              Cerrar sesión
-            </button>
-          </div>
+    <main className="max-w-6xl mx-auto px-2 sm:px-4 py-10">
+        <div className="fade-up" style={{ animationDelay: "0ms" }}>
+          <PageHeader
+            eyebrow="/ Mi perfil"
+            title={
+              <>
+                Hola, <span className="gradient-text">{currentProfile?.full_name?.split(" ")[0] || "comunidad"}</span>.
+              </>
+            }
+            description="Gestioná tu información, avatar y QR de miembro. Tu QR se mantiene estable aunque edites el resto."
+            actions={
+              !isEditing ? (
+                <Button onClick={() => setIsEditing(true)} variant="ghost" size="sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
+                  Editar
+                </Button>
+              ) : null
+            }
+          />
         </div>
-      </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Profile Card */}
-          <div className="lg:col-span-2">
-            <div className="bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-8 border border-ocean-600/30 shadow-2xl">
-              <div className="flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-3 mb-6">
-                <h1 className="text-2xl font-display font-bold text-white">Mi Perfil</h1>
-                {!isEditing && (
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="flex items-center gap-2 text-ocean-400 hover:text-ocean-200 transition-colors text-sm font-medium"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                    Editar
-                  </button>
-                )}
+          <div className="glass-night lg:col-span-2 p-7 sm:p-8 fade-up" style={{ animationDelay: "120ms" }}>
+              <div className="mb-6 flex items-center justify-between gap-3">
+                <p className="kicker text-white/40 flex items-center gap-2">
+                  <span className="dot-amber" /> / 01 · Datos
+                </p>
               </div>
 
               <div className="flex flex-col md:flex-row gap-6">
@@ -311,7 +279,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           type="text"
                           value={formData.full_name}
                           onChange={(e) => setFormData(f => ({ ...f, full_name: e.target.value }))}
-                          className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                          className="w-full px-4 py-2.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
                         />
                       </div>
                       <div>
@@ -320,7 +288,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           value={formData.bio}
                           onChange={(e) => setFormData(f => ({ ...f, bio: e.target.value }))}
                           rows={3}
-                          className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400 resize-none"
+                          className="w-full px-4 py-2.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors resize-none"
                           placeholder="Contanos sobre vos..."
                         />
                       </div>
@@ -430,7 +398,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                             type="url"
                             value={formData.github_url}
                             onChange={(e) => setFormData(f => ({ ...f, github_url: e.target.value }))}
-                            className="w-full px-3 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white text-sm placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                            className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
                             placeholder="URL de GitHub"
                           />
                         </div>
@@ -440,7 +408,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                             type="url"
                             value={formData.linkedin_url}
                             onChange={(e) => setFormData(f => ({ ...f, linkedin_url: e.target.value }))}
-                            className="w-full px-3 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white text-sm placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                            className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
                             placeholder="URL de LinkedIn"
                           />
                         </div>
@@ -450,25 +418,21 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                             type="url"
                             value={formData.twitter_url}
                             onChange={(e) => setFormData(f => ({ ...f, twitter_url: e.target.value }))}
-                            className="w-full px-3 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white text-sm placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                            className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
                             placeholder="URL de Twitter"
                           />
                         </div>
                       </div>
-                      <div className="flex gap-3 pt-2">
-                        <button
-                          onClick={handleSave}
-                          disabled={loading}
-                          className="bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 text-white font-medium py-2 px-6 rounded-xl transition-all"
-                        >
-                          {loading ? "Guardando..." : "Guardar"}
-                        </button>
-                        <button
+                      <div className="flex flex-wrap gap-3 pt-2">
+                        <Button onClick={handleSave} loading={loading} variant="primary">
+                          Guardar
+                        </Button>
+                        <Button
                           onClick={() => { setIsEditing(false); setSaveError(null); }}
-                          className="text-ocean-300 hover:text-white transition-colors"
+                          variant="ghost"
                         >
                           Cancelar
-                        </button>
+                        </Button>
                       </div>
                       {saveError && (
                         <div className="bg-red-500/20 border border-red-500/40 text-red-200 px-4 py-3 rounded-xl text-sm">
@@ -514,64 +478,43 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                   )}
                 </div>
               </div>
-            </div>
           </div>
 
-          {/* QR Card */}
-          <div>
-            <div className="bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-6 border border-ocean-600/30 shadow-2xl">
-              <h2 className="text-lg font-display font-bold text-white mb-4 text-center">
-                Tu QR de Miembro
-              </h2>
-              <div className="bg-white rounded-2xl p-4 mx-auto w-fit max-w-full">
-                {currentProfile?.qr_code ? (
-                  <QRCodeSVG
-                    value={qrValue}
-                    size={qrSize}
-                    level="H"
-                    includeMargin={false}
-                    bgColor="#ffffff"
-                    fgColor="#03045E"
-                  />
-                ) : (
-                  <div
-                    className="flex items-center justify-center text-ocean-400 text-xs text-center p-4 aspect-square"
-                    style={{ width: qrSize, height: qrSize }}
-                  >
-                    Guardá tu perfil para generar tu QR
-                  </div>
-                )}
-              </div>
-              <p className="text-ocean-300 text-xs text-center mt-4">
-                Mostrá este código en los eventos de la comunidad
+          {/* Stats column */}
+          <div className="space-y-6">
+            <div className="glass-night p-6 fade-up" style={{ animationDelay: "240ms" }}>
+              <p className="kicker text-white/40 mb-4 flex items-center gap-2">
+                <span className="dot-amber" /> / 02 · Estadísticas
               </p>
-              <div className="mt-4 bg-ocean-900/50 rounded-xl p-3 text-center">
-                <span className="text-ocean-400 font-mono text-xs break-all block px-1">
-                  {currentProfile?.qr_code}
-                </span>
-              </div>
-            </div>
-
-            {/* Stats */}
-            <div className="mt-6 bg-ocean-800/50 backdrop-blur-xl rounded-3xl p-6 border border-ocean-600/30">
-              <h3 className="text-lg font-display font-bold text-white mb-4">Estadísticas</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-ocean-300">Miembro desde</span>
-                  <span className="text-white font-medium">
+              <StaggerReveal animation="count-up" baseDelay={420} stagger={90}>
+                <div className="flex justify-between items-baseline border-b border-white/[0.06] pb-3">
+                  <span className="text-white/55 text-sm font-light">Miembro desde</span>
+                  <span className="text-white display-thin">
                     {currentProfile?.created_at ? new Date(currentProfile.created_at).toLocaleDateString("es-AR", { month: "short", year: "numeric" }) : "-"}
                   </span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-ocean-300">Eventos asistidos</span>
-                  <span className="text-white font-medium">0</span>
+                <div className="flex justify-between items-baseline pt-3">
+                  <span className="text-white/55 text-sm font-light">Eventos asistidos</span>
+                  <span className="text-white display-thin text-2xl">{attendanceCount}</span>
                 </div>
-              </div>
+              </StaggerReveal>
+            </div>
+
+            <div className="glass-night p-6 fade-up" style={{ animationDelay: "320ms" }}>
+              <p className="kicker text-white/40 mb-3 flex items-center gap-2">
+                <span className="dot-amber" /> / 03 · Carnet
+              </p>
+              <p className="text-white/65 text-sm font-light leading-relaxed mb-4">
+                Tu QR de miembro está disponible desde el sidebar — botón <span className="text-white">Mi QR</span>.
+                Se mantiene estable aunque edites el resto del perfil.
+              </p>
+              <p className="coord-line text-white/40">
+                CARNET <span className="sep">·</span> <span className="num">{currentProfile?.qr_code ? "ACTIVO" : "PENDIENTE"}</span>
+              </p>
             </div>
           </div>
         </div>
       </main>
-    </div>
   );
 }
 

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import AdminDashboard from "./AdminDashboard";
+import { IS_MOCK, mockUser, mockEvents, mockProfiles } from "@/lib/devMock";
 
 interface Event {
   id: string;
@@ -33,26 +34,48 @@ interface Profile {
   created_at: string;
 }
 
+interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  source: string | null;
+  status: "pending" | "confirmed" | "unsubscribed";
+  created_at: string;
+}
+
 export default function AdminPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
   const [currentUserId, setCurrentUserId] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
+      if (IS_MOCK) {
+        setEvents(mockEvents as Event[]);
+        setProfiles(mockProfiles as Profile[]);
+        setSubscribers([]);
+        setCurrentUserId(mockUser.id);
+        setLoading(false);
+        return;
+      }
       const supabase = createClient();
 
       const { data: { user } } = await supabase.auth.getUser();
       setCurrentUserId(user?.id || "");
 
-      const [eventsRes, profilesRes] = await Promise.all([
+      const [eventsRes, profilesRes, subsRes] = await Promise.all([
         supabase.from("events").select("*").order("date", { ascending: false }),
         supabase.from("profiles").select("*").order("created_at", { ascending: false }),
+        supabase
+          .from("newsletter_subscribers")
+          .select("id, email, source, status, created_at")
+          .order("created_at", { ascending: false }),
       ]);
 
       setEvents(eventsRes.data || []);
       setProfiles(profilesRes.data || []);
+      setSubscribers((subsRes.data as NewsletterSubscriber[]) || []);
       setLoading(false);
     }
 
@@ -71,6 +94,7 @@ export default function AdminPage() {
     <AdminDashboard
       events={events}
       profiles={profiles}
+      subscribers={subscribers}
       currentUserId={currentUserId}
     />
   );

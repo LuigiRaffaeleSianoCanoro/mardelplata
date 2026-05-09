@@ -1,203 +1,271 @@
+"use client";
+
+// Hero v5 — layout estilo mock: imagen panorámica del lobo + faro + skyline
+// + mesh ocean a la derecha, texto a la izquierda. Cards glassmorph
+// flotando sobre la imagen (Eventos, Empleos, Aprendizaje, Comunidad,
+// Marea de talento). Avatar stack + scroll cue al pie.
+
+import Image from "next/image";
 import Link from "next/link";
 
-export default function Hero() {
+export interface HeroProps {
+  nextEvent: { id: string; title: string; date: string } | null;
+  membersCount: number;
+  jobsCount: number;
+}
+
+function formatNextEventText(ev: HeroProps["nextEvent"]) {
+  if (!ev) return "Próximo meetup\nen agenda pronto";
+  const d = new Date(ev.date);
+  const day = d.getDate();
+  const month = d.toLocaleDateString("es-AR", { month: "long" });
+  return `Próximo meetup\n${day} de ${month}`;
+}
+
+function formatJobsText(n: number) {
+  if (n === 0) return "Sumate o publicá\nuna búsqueda";
+  if (n === 1) return "1 oportunidad\nactiva";
+  return `+${n} oportunidades\nactivas`;
+}
+
+function formatMembersText(n: number) {
+  if (n === 0) return "Comunidad\nen formación";
+  return `+${n} miembros\nactivos`;
+}
+
+export default function Hero({ nextEvent, membersCount, jobsCount }: HeroProps) {
   return (
-    <section id="inicio" className="hero-bg relative overflow-hidden min-h-screen flex flex-col justify-center pt-20">
-      {/* Background decorations */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04] dots-bg" />
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-ocean-400/15 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-ocean-300/10 rounded-full blur-[100px]" />
-        {/* Faro Punta Mogotes silhouette */}
-        <svg
-          className="absolute right-0 bottom-0 h-full opacity-[0.07] hidden lg:block"
-          viewBox="0 0 200 700"
-          fill="white"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Service building at base */}
-          <rect x="55" y="590" width="90" height="75" rx="4" />
-          <rect x="85" y="575" width="30" height="18" rx="3" />
-          {/* Door arch */}
-          <rect x="91" y="615" width="18" height="28" rx="9" fill="#020030" opacity="0.4" />
-
-          {/* Tower platform / base ring */}
-          <rect x="70" y="560" width="60" height="14" rx="3" />
-
-          {/* Main tower body — cylindrical, uniform width */}
-          <rect x="80" y="165" width="40" height="398" />
-
-          {/* Horizontal band pattern (alternating dark = red in reality) */}
-          <rect x="79" y="245" width="42" height="55" fill="#020030" opacity="0.55" />
-          <rect x="79" y="350" width="42" height="55" fill="#020030" opacity="0.55" />
-          <rect x="79" y="455" width="42" height="55" fill="#020030" opacity="0.55" />
-
-          {/* Gallery / balcony at top of tower */}
-          <rect x="66" y="156" width="68" height="13" rx="2" />
-          {/* Railing */}
-          <rect x="68" y="143" width="64" height="16" rx="2" />
-          {/* Railing spindles */}
-          {[72, 80, 88, 96, 104, 112, 120].map((x) => (
-            <rect key={x} x={x} y={143} width="3" height="16" rx="1" fill="#020030" opacity="0.3" />
-          ))}
-
-          {/* Lantern room body */}
-          <rect x="78" y="92" width="44" height="56" rx="3" />
-          {/* Lantern room glass panels (slightly inset) */}
-          <rect x="82" y="96" width="36" height="46" rx="2" fill="#020030" opacity="0.25" />
-
-          {/* Lantern room gallery */}
-          <rect x="68" y="84" width="64" height="11" rx="2" />
-
-          {/* Dome */}
-          <path d="M78,92 Q100,44 122,92 Z" />
-          {/* Dome finial rod */}
-          <rect x="97" y="28" width="6" height="18" rx="2" />
-          {/* Finial ball */}
-          <circle cx="100" cy="26" r="6" />
-
-          {/* Light beam */}
-          <polygon points="100,72 8,300 34,312" opacity="0.3" />
-        </svg>
+    <section className="hero-x" id="inicio">
+      {/* Imagen wide cinematic — panorama lobo + faro + skyline */}
+      <div className="hero-x-bg">
+        <Image
+          src="/hero-wide.png"
+          alt="Mar del Plata al atardecer con lobo programador"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-x-bg-img"
+        />
+        <div className="hero-x-bg-overlay" />
+        <div className="hero-x-bg-fade" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-24 relative z-10 w-full">
-        <div className="text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2.5 bg-ocean-800/70 border border-ocean-500/30 backdrop-blur-sm rounded-full px-5 py-2 text-ocean-200 text-sm font-medium mb-8">
-            <span className="w-2.5 h-2.5 rounded-full bg-ocean-300 pulse-dot flex-shrink-0" />
-            Comunidad marplatense de tecnología
-          </div>
-
-          {/* Headline */}
-          <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-6">
-            El Club tech de la Costa Atlántica
-          </h1>
-
-          <p className="text-ocean-200 text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Crece profesionalmente conectando con quien ya está trabajando en los desafíos que vos tenés
+      <div className="hero-x-inner">
+        {/* Texto izquierda */}
+        <div className="hero-x-text">
+          <p className="hero-x-eyebrow">
+            <span className="hero-x-eyebrow-dot" />
+            COMUNIDAD IT · MAR DEL PLATA
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-16 max-w-4xl mx-auto">
-            <Link
-              href="/primer-trabajo"
-              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
-            >
-              <span className="flex items-center gap-2">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M9 12l2 2 4-4" />
-                  <circle cx="12" cy="12" r="10" />
-                </svg>
-                Primer Trabajo OS
-              </span>
-            </Link>
+          <h1 className="hero-x-title">
+            Donde el <em>talento</em> de
+            <br />
+            Mar del Plata se <em>encuentra.</em>
+          </h1>
+
+          <p className="hero-x-sub">
+            Aprendemos, creamos y construimos juntos el futuro tecnológico
+            de Mar del Plata y la costa atlántica.
+          </p>
+
+          <div className="hero-x-ctas">
             <a
               href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
+              className="hero-x-cta-primary"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-              </svg>
-              Unirse a la comunidad
+              Sumate a la comunidad
+              <span aria-hidden>→</span>
             </a>
-            <a
-              href="#eventos"
-              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              Ver Eventos
-            </a>
-            <Link
-              href="/bolsa"
-              className="inline-flex items-center justify-center gap-2.5 bg-ocean-800/90 hover:bg-ocean-800 border border-ocean-300/60 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-2xl hover:shadow-ocean-400/25 hover:-translate-y-1 backdrop-blur-sm min-w-[250px] text-center"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-              Bolsa de trabajo
+            <Link href="#manifiesto" className="hero-x-cta-ghost">
+              Conocé más
             </Link>
           </div>
 
-          {/* Feature cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-            {[
-              {
-                anim: "float-1",
-                icon: (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#48CAE4" strokeWidth="2" strokeLinecap="round">
-                    <rect x="2" y="7" width="20" height="14" rx="2" />
-                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                  </svg>
-                ),
-                label: "EMPLEOS",
-                desc: "Compartimos ofertas laborales",
-              },
-              {
-                anim: "float-2",
-                icon: (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#48CAE4" strokeWidth="2" strokeLinecap="round">
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                    <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                  </svg>
-                ),
-                label: "CURSOS",
-                desc: "Compartimos recursos educativos",
-              },
-              {
-                anim: "float-3",
-                icon: (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#48CAE4" strokeWidth="2" strokeLinecap="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                  </svg>
-                ),
-                label: "EVENTOS",
-                desc: "Organizamos y difundimos eventos",
-              },
-            ].map((card) => (
-              <div
-                key={card.label}
-                className={`${card.anim} bg-ocean-800/50 backdrop-blur-sm border border-ocean-600/30 rounded-2xl p-5 text-center`}
-              >
-                <div className="w-12 h-12 bg-ocean-600/40 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  {card.icon}
-                </div>
-                <p className="text-ocean-300 text-xs font-semibold uppercase tracking-widest mb-1">{card.label}</p>
-                <p className="text-white font-medium text-sm">{card.desc}</p>
-              </div>
-            ))}
+        </div>
+
+        {/* Floating cards sobre la imagen */}
+        <FloatingCard
+          className="hero-x-card hero-x-card--events"
+          icon={<CalendarIcon />}
+          label="Eventos"
+          text={formatNextEventText(nextEvent)}
+          glowColor="violet"
+        />
+        <FloatingCard
+          className="hero-x-card hero-x-card--jobs"
+          icon={<BriefcaseIcon />}
+          label="Empleos"
+          text={formatJobsText(jobsCount)}
+          glowColor="cyan"
+        />
+        <FloatingCard
+          className="hero-x-card hero-x-card--learning"
+          icon={<BookIcon />}
+          label="Aprendizaje"
+          text={"Cursos, talleres\ny recursos"}
+          glowColor="violet"
+        />
+        <FloatingCard
+          className="hero-x-card hero-x-card--community"
+          icon={<PeopleIcon />}
+          label="Comunidad"
+          text={formatMembersText(membersCount)}
+          glowColor="cyan"
+        />
+
+        {/* Card especial — chart "Marea de talento" */}
+        <div className="hero-x-card hero-x-card--chart">
+          <div className="hero-x-card-chart-head">
+            <span className="hero-x-card-label">Marea de talento</span>
+            <span className="hero-x-card-arrow">→</span>
           </div>
+          <MiniWaveChart />
+          <p className="hero-x-card-text" style={{ fontSize: 11 }}>
+            En crecimiento
+          </p>
         </div>
       </div>
 
-      {/* Animated wave bottom */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none" style={{ height: 80 }}>
-        <div className="wave-drift">
-          <svg
-            viewBox="0 0 2880 80"
-            preserveAspectRatio="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ display: "block", width: "100%", height: 80 }}
-          >
-            <path
-              d="M0,40 C240,70 480,15 720,45 C960,75 1200,10 1440,40 C1680,70 1920,15 2160,45 C2400,75 2640,10 2880,40 L2880,80 L0,80 Z"
-              fill="white"
-            />
-          </svg>
-        </div>
+      {/* Scroll cue */}
+      <div className="hero-x-scroll" aria-hidden>
+        <span>SCROLL PARA EXPLORAR</span>
+        <span className="hero-x-scroll-line" />
       </div>
     </section>
+  );
+}
+
+/* ─── Floating card ─── */
+
+function FloatingCard({
+  className,
+  icon,
+  label,
+  text,
+  glowColor,
+}: {
+  className?: string;
+  icon: React.ReactNode;
+  label: string;
+  text: string;
+  glowColor?: "violet" | "cyan";
+}) {
+  return (
+    <div className={className} data-glow={glowColor}>
+      <span className="hero-x-card-icon">{icon}</span>
+      <div className="hero-x-card-body">
+        <span className="hero-x-card-label">{label}</span>
+        <p className="hero-x-card-text">
+          {text.split("\n").map((line, i) => (
+            <span key={i}>
+              {line}
+              {i === 0 ? <br /> : null}
+            </span>
+          ))}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Iconos inline (basados en el icon-pack de referencia) ─── */
+
+function CalendarIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="16" rx="2.5" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+      <circle cx="8" cy="14" r="0.7" fill="currentColor" />
+      <circle cx="12" cy="14" r="0.7" fill="currentColor" />
+      <circle cx="16" cy="14" r="0.7" fill="currentColor" />
+      <circle cx="8" cy="17.5" r="0.7" fill="currentColor" />
+      <circle cx="12" cy="17.5" r="0.7" fill="currentColor" />
+    </svg>
+  );
+}
+
+function BriefcaseIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7" />
+      <path d="M3 12h18" />
+    </svg>
+  );
+}
+
+function BookIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" />
+      <path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" />
+      <path d="M11 4v16M7 9h2M7 12h2M15 9h2M15 12h2" />
+    </svg>
+  );
+}
+
+function PeopleIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="9" r="3.2" />
+      <path d="M3 19c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+      <circle cx="17" cy="8" r="2.4" />
+      <path d="M15.5 13.6c2.5.4 4.5 2.6 4.5 5.4" />
+    </svg>
+  );
+}
+
+/* ─── Mini wave chart para la card "Marea de talento" ─── */
+
+function MiniWaveChart() {
+  // Curva sinusoidal con tendencia al alza
+  const points = [
+    [0, 22],
+    [12, 18],
+    [24, 24],
+    [36, 16],
+    [48, 22],
+    [60, 14],
+    [72, 18],
+    [84, 10],
+    [96, 14],
+    [108, 6],
+    [120, 8],
+  ];
+  const path = points
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`)
+    .join(" ");
+  const area = `${path} L 120 32 L 0 32 Z`;
+
+  return (
+    <svg
+      width="120"
+      height="32"
+      viewBox="0 0 120 32"
+      className="hero-x-card-chart"
+    >
+      <defs>
+        <linearGradient id="chart-stroke" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#22d3ee" />
+        </linearGradient>
+        <linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(34, 211, 238, 0.4)" />
+          <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
+        </linearGradient>
+      </defs>
+      <path d={area} fill="url(#chart-fill)" />
+      <path
+        d={path}
+        fill="none"
+        stroke="url(#chart-stroke)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
