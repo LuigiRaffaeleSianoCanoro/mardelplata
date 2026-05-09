@@ -1940,12 +1940,22 @@ html.lenis, html.lenis body { height: auto; }
     display: none;
   }
   /* Pillars y tabs y footer todos en row, sin gap vertical */
-  .app-sidebar > nav,
-  .app-sidebar > div:last-of-type {
+  /* Pillars nav (la primera <nav> hija) flex-direction: row para
+     que las 4 pillars queden en horizontal. */
+  .app-sidebar > nav:first-of-type {
     flex-direction: row !important;
     gap: 6px !important;
     flex: 0 0 auto !important;
-    padding-bottom: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+    justify-content: space-around !important;
+  }
+  /* Por ahora escondemos tabs y footer en mobile (no entran junto con
+     pillars en pantalla angosta). En sub-pages la nav contextual la
+     hacemos despues como parte del layout de cada seccion. */
+  .app-sidebar > nav:nth-of-type(2),
+  .app-sidebar > div:last-of-type {
+    display: none !important;
   }
 }
 
@@ -2328,6 +2338,19 @@ html.lenis, html.lenis body { height: auto; }
   animation: qr-popover-in 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
   transform-origin: left center;
 }
+/* En mobile el popover se centra y ocupa casi todo el viewport.
+   Override del style inline de left/top/width via !important. */
+@media (max-width: 760px) {
+  .qr-popover {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 24px) !important;
+    max-width: 380px;
+  }
+  .qr-popover-arrow { display: none; }
+}
+
 .qr-popover-arrow {
   position: absolute;
   left: -7px;
@@ -3579,6 +3602,15 @@ html.lenis, html.lenis body { height: auto; }
 .hero-x-bg-img {
   object-fit: cover;
   object-position: right center;
+}
+
+/* Mobile: re-encuadre del hero. Movemos el focal point a 65% horizontal /
+   30% vertical para mantener faro + lobo visibles, y bajamos la altura
+   minima de la seccion para que el lobo no quede cortado por scroll. */
+@media (max-width: 760px) {
+  .hero-x-bg-img {
+    object-position: 65% 30%;
+  }
 }
 /* Overlay diagonal — oscurece la izquierda para legibilidad del texto,
    se mantiene transparente sobre el lobo / faro */
@@ -7782,11 +7814,13 @@ a.shell-card:hover {
 }
 
 /* Mobile: pill mas compacto, search escondido (sin teclado no se usa
-   Cmd+K), y burger sin gap raro respecto a Sumate. */
+   Cmd+K), y burger sin gap raro respecto a Sumate. Padding derecho
+   simetrico al izquierdo asi el burger no queda pegado al borde
+   (Ariel reporto desde iPhone 14 que el X quedaba "fuera de lugar"). */
 @media (max-width: 760px) {
   .nav-x-pill {
     gap: 0.5rem;
-    padding: 0.45rem 0.55rem 0.45rem 0.85rem;
+    padding: 0.45rem 0.85rem;
   }
   .nav-x-end { gap: 0.3rem; }
   .nav-x-icon-btn { display: none; }
@@ -7863,10 +7897,13 @@ a.shell-card:hover {
 @media (min-width: 1024px) {
   .nav-x-burger { display: none; }
 }
+/* Estado abierto: marcamos con color/borde violeta. La rotacion del
+   contenedor entero (rotate(180deg)) se quito porque visualmente
+   hacia parecer que el X se "descolocaba" — las barras ya forman
+   la X de forma clara sin necesidad de girar el circulo. */
 .nav-x-burger.is-open {
   background: rgba(168, 85, 247, 0.18);
   border-color: rgba(168, 85, 247, 0.6);
-  transform: rotate(180deg);
 }
 .nav-x-burger-bar {
   position: absolute;

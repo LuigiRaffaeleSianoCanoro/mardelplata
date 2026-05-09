@@ -458,7 +458,14 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
             key={p.id}
             pillar={p}
             isActive={isPillarActive(p)}
-            onClick={() => setSelectedId(p.id)}
+            onClick={() => {
+              setSelectedId(p.id);
+              // En mobile el bar solo muestra pillars (sin tabs) — tocarlos
+              // tiene que navegar a la basePath para que el click haga algo.
+              if (typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches) {
+                router.push(p.basePath);
+              }
+            }}
             index={i}
           />
         ))}
