@@ -7,7 +7,8 @@
 // gente pueda ver los proyectos sin entrar al app.
 
 import { useEffect, useState } from "react";
-import { Plus } from "lucide-react";
+import Link from "next/link";
+import { LogIn, Plus } from "lucide-react";
 import RedHeader from "@/components/red/RedHeader";
 import ProjectCard from "@/components/red/ProjectCard";
 import ProjectSheet from "@/components/red/ProjectSheet";
@@ -48,14 +49,22 @@ export default function ProjectsDirectory() {
         }
         description="Proyectos open-source que viven en la red de Mar del Plata. Sumate a uno, seguilo, o creá el tuyo."
         action={
-          <button
-            type="button"
-            onClick={() => setCreatingOpen(true)}
-            disabled={!userId}
-            className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2 disabled:opacity-50"
-          >
-            <Plus size={14} /> Nuevo proyecto
-          </button>
+          userId ? (
+            <button
+              type="button"
+              onClick={() => setCreatingOpen(true)}
+              className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
+            >
+              <Plus size={14} /> Nuevo proyecto
+            </button>
+          ) : (
+            <Link
+              href="/auth/login"
+              className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
+            >
+              <LogIn size={14} /> Iniciá sesión
+            </Link>
+          )
         }
       />
 
