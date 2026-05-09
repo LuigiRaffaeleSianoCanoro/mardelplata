@@ -35,7 +35,7 @@ function MemberContent() {
 
       const supabase = createClient();
       const { data } = await supabase
-        .from("profiles")
+        .from("profiles_public")
         .select("full_name, bio, avatar_url, github_url, linkedin_url, twitter_url, created_at")
         .eq("qr_code", qrCode)
         .single();

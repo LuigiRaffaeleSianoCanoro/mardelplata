@@ -259,7 +259,6 @@ export interface ContributorWithProfile extends ProjectContributor {
   profile: {
     id: string;
     full_name: string | null;
-    email: string | null;
     avatar_url: string | null;
   } | null;
 }
@@ -472,7 +471,7 @@ export async function listProjectContributors(projectId: string): Promise<Contri
   const supabase = createClient();
   const { data, error } = await supabase
     .from("project_contributors")
-    .select(`project_id, user_id, role, joined_at, profile:profiles(id, full_name, email, avatar_url)`)
+    .select(`project_id, user_id, role, joined_at, profile:profiles_public!user_id(id, full_name, avatar_url)`)
     .eq("project_id", projectId)
     .order("joined_at", { ascending: true });
   if (error || !data) return [];
@@ -496,7 +495,7 @@ export async function listProjectComments(projectId: string): Promise<CommentWit
   const supabase = createClient();
   const { data, error } = await supabase
     .from("project_comments")
-    .select(`*, author:profiles(id, full_name, avatar_url)`)
+    .select(`*, author:profiles_public!author_id(id, full_name, avatar_url)`)
     .eq("project_id", projectId)
     .is("deleted_at", null)
     .order("created_at", { ascending: true });
@@ -537,7 +536,7 @@ export async function addProjectComment(args: {
       body: trimmed,
       parent_id: args.parentId ?? null,
     })
-    .select(`*, author:profiles(id, full_name, avatar_url)`)
+    .select(`*, author:profiles_public!author_id(id, full_name, avatar_url)`)
     .maybeSingle();
   if (error || !data) return null;
   return data as unknown as CommentWithAuthor;
@@ -737,7 +736,6 @@ export async function joinAsContributor(
       profile: {
         id: profile.id,
         full_name: profile.full_name,
-        email: profile.email,
         avatar_url: profile.avatar_url,
       },
     });
@@ -859,7 +857,6 @@ export async function createProject(args: {
         profile: {
           id: profile.id,
           full_name: profile.full_name,
-          email: profile.email,
           avatar_url: profile.avatar_url,
         },
       },

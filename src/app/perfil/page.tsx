@@ -31,9 +31,14 @@ export default function PerfilPage() {
       return;
     }
 
+    // Solo traemos las columnas que ProfileClient/AppShell usan, en vez
+    // de select("*") — feedback Franco: el JSON tenia campos sobrantes
+    // (ej. updated_at) y cualquier columna nueva del schema viajaba sola.
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("*")
+      .select(
+        "id, email, full_name, avatar_url, qr_code, bio, github_url, linkedin_url, twitter_url, is_admin, created_at",
+      )
       .eq("id", user.id)
       .single();
 

@@ -38,7 +38,7 @@ export default async function Home() {
     .order("date", { ascending: false });
 
   const { data: foundersRaw } = await supabase
-    .from("profiles")
+    .from("profiles_public")
     .select("id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
     .or(
       "and(full_name.ilike.%luigi%,full_name.ilike.%canoro%),and(full_name.ilike.%franco%,full_name.ilike.%petruccelli%)",
@@ -47,7 +47,7 @@ export default async function Home() {
   const founders = foundersRaw?.filter((p) => isCofounderProfile(p.full_name)) ?? [];
 
   const { data: communityMembers } = await supabase
-    .from("profiles")
+    .from("profiles_public")
     .select("id, full_name, bio, avatar_url, github_url, linkedin_url, twitter_url")
     .not("full_name", "is", null)
     .order("created_at", { ascending: false })
@@ -55,7 +55,7 @@ export default async function Home() {
 
   // Métricas reales para las cards del Hero (review Luigi PR #26 punto 6).
   const { count: membersCount } = await supabase
-    .from("profiles")
+    .from("profiles_public")
     .select("*", { count: "exact", head: true })
     .not("full_name", "is", null);
 
@@ -71,7 +71,7 @@ export default async function Home() {
 
   const { data: jobsRaw } = await supabase
     .from("classified_listings")
-    .select("id, kind, title, description, external_url, tags, created_at, author:profiles!author_id(full_name, avatar_url)")
+    .select("id, kind, title, description, external_url, tags, created_at, author:profiles_public!author_id(full_name, avatar_url)")
     .eq("kind", "job")
     .gt("expires_at", nowIso)
     .order("created_at", { ascending: false })
