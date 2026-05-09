@@ -1,5 +1,8 @@
 import Navbar from "@/components/Navbar";
-import IntroSplashWaves from "@/components/IntroSplashWaves";
+// IntroSplashWaves desactivada momentáneamente — testers reportaron
+// que se siente atascada (pantalla negra prolongada). Cuando se ajuste
+// la duracion + crossfade vuelve a habilitarse.
+// import IntroSplashWaves from "@/components/IntroSplashWaves";
 import AssetsGate from "@/components/AssetsGate";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
@@ -93,7 +96,6 @@ export default async function Home() {
 
   return (
     <>
-      <IntroSplashWaves />
       <AssetsGate />
       <div className="page-after-intro">
         <ScrollDriver />
