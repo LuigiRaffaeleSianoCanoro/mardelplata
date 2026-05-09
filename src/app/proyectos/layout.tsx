@@ -16,7 +16,10 @@ export default function ProyectosLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen hero-bg flex flex-col">
       <Navbar />
-      <div className="flex-1">{children}</div>
+      {/* Padding lateral coherente con el resto del landing + padding-top
+          para no quedar tapado por el Navbar pill (position fixed, ~70px
+          desde top). */}
+      <div className="flex-1 px-4 sm:px-6 lg:px-8 pt-20">{children}</div>
       <Footer />
     </div>
   );

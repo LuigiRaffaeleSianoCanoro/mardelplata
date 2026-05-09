@@ -38,7 +38,7 @@ export default function ProjectsDirectory() {
   }, []);
 
   return (
-    <main className="max-w-6xl mx-auto px-2 sm:px-4 py-10">
+    <main className="max-w-6xl mx-auto py-10">
       <RedHeader
         eyebrow="red · open source"
         title={
