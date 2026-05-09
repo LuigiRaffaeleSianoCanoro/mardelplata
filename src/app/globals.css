@@ -9217,11 +9217,14 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   background: transparent;
   border: 0;
   cursor: pointer;
-  font: inherit;
   color: inherit;
   display: inline-flex;
   align-items: center;
-  padding: 0;
+  /* Sin `font: inherit` ni `padding: 0` — la clase .nav-x-link (que
+     va junto en el mismo <button>) ya define font-* y padding
+     coherentes con los <Link> hermanos. Pisarlo aca hacia que
+     "Recursos" se viera con la fuente del <body> y que el bg de
+     hover quedara apretado al texto en lugar del pill normal. */
 }
 
 .nav-x-link-button.is-open svg {

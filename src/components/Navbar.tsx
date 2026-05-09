@@ -156,7 +156,15 @@ export default function Navbar() {
               className={`nav-x-link nav-x-link-button ${resourcesActive ? "is-active" : ""} ${resourcesOpen ? "is-open" : ""}`}
               aria-haspopup="menu"
               aria-expanded={resourcesOpen}
-              onClick={() => setResourcesOpen((o) => !o)}
+              onClick={(e) => {
+                // stopPropagation para que el click-outside listener
+                // (que el useEffect registra apenas resourcesOpen pasa a
+                // true) NO capture este mismo evento al bubble y cierre
+                // el dropdown inmediatamente. Bug clasico React + click
+                // outside, mas visible despues de tocar el CSS del button.
+                e.stopPropagation();
+                setResourcesOpen((o) => !o);
+              }}
             >
               Recursos <ChevronIcon />
             </button>
