@@ -12,9 +12,11 @@ import Footer from "@/components/Footer";
 // prerender estatico, asi que marcamos la seccion como dinamica.
 export const dynamic = "force-dynamic";
 
+// Sin hero-bg (gradient azul brillante del hero del miembro) — el
+// body ya define bg-[#06070d] coherente con el resto del landing.
 export default function ProyectosLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen hero-bg flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       {/* Padding lateral coherente con el resto del landing + padding-top
           para no quedar tapado por el Navbar pill (position fixed, ~70px
