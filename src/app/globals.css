@@ -4011,8 +4011,14 @@ html.lenis, html.lenis body { height: auto; }
 .hero-x-scroll {
   position: absolute;
   bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* Centrado sin usar `transform: translateX(-50%)` para no romperse
+     con `prefers-reduced-motion: reduce` que aplica `transform: none
+     !important` mas abajo (lo cual desplazaba el elemento al lado
+     izquierdo). */
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
