@@ -16,7 +16,7 @@ import {
 import { Button, PageHeader, StaggerReveal } from "@/components/ui";
 import { IS_MOCK } from "@/lib/devMock";
 
-interface Profile {
+export interface Profile {
   id: string;
   email: string | null;
   full_name: string | null;

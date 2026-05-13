@@ -58,12 +58,17 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Synchronous intro-splash gate — runs before paint so the splash
-            never flashes on revisits or for users with reduced motion. */}
+        {/* Intro splash desactivada momentáneamente: las imagenes de la
+            home cargan progresivamente via Next/Image, no hay gate.
+            Setamos intro-seen + assets-ready en el documentElement
+            para que las reglas CSS que pausan animaciones (.page-after-intro,
+            .intro-splash--ext, etc.) pasen directamente.
+            Cuando IntroSplashWaves vuelva, sacar este script y restaurar
+            el gate original. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var k='mdpdev-intro-v5-seen';var r=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var c=navigator.connection||{};var lo=c.saveData||c.effectiveType==='slow-2g'||c.effectiveType==='2g';if(r||lo||localStorage.getItem(k)==='1'){document.documentElement.classList.add('intro-seen')}else{localStorage.setItem(k,'1')}}catch(e){}",
+              "try{document.documentElement.classList.add('intro-seen','assets-ready');}catch(e){}",
           }}
         />
       </head>

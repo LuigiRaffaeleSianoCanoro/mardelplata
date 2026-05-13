@@ -39,10 +39,11 @@ export default function Hero({ nextEvent, membersCount, jobsCount }: HeroProps) 
       {/* Imagen wide cinematic — panorama lobo + faro + skyline */}
       <div className="hero-x-bg">
         <Image
-          src="/hero-wide.png"
+          src="/hero-wide.webp"
           alt="Mar del Plata al atardecer con lobo programador"
           fill
           priority
+          quality={65}
           sizes="100vw"
           className="hero-x-bg-img"
         />

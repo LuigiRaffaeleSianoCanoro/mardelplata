@@ -26,3 +26,29 @@ export function useCurrentUserId(): string {
 
   return userId;
 }
+
+// Variante con flag `ready` para distinguir "auth aun resolviendo"
+// (ready=false) de "auth resuelto, sin user" (ready=true, id=""). Las
+// paginas que dependen del userId la usan para no mostrar empty state
+// antes de saber si hay sesion.
+export function useCurrentUser(): { id: string; ready: boolean } {
+  const [state, setState] = useState<{ id: string; ready: boolean }>({
+    id: IS_MOCK ? mockUser.id : "",
+    ready: IS_MOCK,
+  });
+
+  useEffect(() => {
+    if (IS_MOCK) return;
+    let cancelled = false;
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      if (cancelled) return;
+      setState({ id: data?.user?.id ?? "", ready: true });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return state;
+}

@@ -487,7 +487,6 @@ function ContributorsTab({ contributors }: { contributors: ContributorWithProfil
             <p className="text-white/90 text-sm font-light truncate">
               {c.profile?.full_name ?? "Sin nombre"}
             </p>
-            <p className="text-white/45 text-[0.72rem] truncate">{c.profile?.email ?? ""}</p>
           </div>
           <span
             className={`kicker px-2 py-0.5 rounded-md ${

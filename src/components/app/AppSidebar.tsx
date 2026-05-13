@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  ArrowLeft,
   Home,
   User,
   Network,
@@ -339,6 +340,10 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
   const router = useRouter();
   const [qrOpen, setQrOpen] = useState(false);
   const [qrAnchorY, setQrAnchorY] = useState<number | null>(null);
+  // Cerrar el popover de QR al cambiar de ruta — sino queda flotante
+  // sobre la nueva pagina (el portal vive en document.body, no se
+  // desmonta con la navegacion).
+  useEffect(() => { setQrOpen(false); }, [pathname]);
 
   const pillars: Pillar[] = [
     {
@@ -408,6 +413,29 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
   }, [detectedPillar.id]);
   const activePillar = pillars.find((p) => p.id === selectedId) ?? detectedPillar;
 
+  // En mobile el bottom bar tiene espacio limitado. Mostramos pillars
+  // (root) o tabs del pillar activo (sub-nav), no ambos. Por default,
+  // si la URL ya esta dentro de un pillar con tabs, arrancamos en
+  // modo "tabs" — asi quien entra directo a /red/ideas ve la nav
+  // contextual sin tener que tocar Red primero.
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileShowingTabs, setMobileShowingTabs] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 760px)");
+    const sync = () => setIsMobile(mql.matches);
+    sync();
+    mql.addEventListener("change", sync);
+    return () => mql.removeEventListener("change", sync);
+  }, []);
+  useEffect(() => {
+    if (!isMobile) {
+      setMobileShowingTabs(false);
+      return;
+    }
+    const inPillarWithTabs = activePillar.id !== "inicio" && activePillar.tabs.length > 0;
+    setMobileShowingTabs(inPillarWithTabs);
+  }, [isMobile, activePillar.id, activePillar.tabs.length]);
+
   const isPillarActive = (p: Pillar) => p.id === selectedId;
 
   const isTabActive = (tab: TabItem) => {
@@ -435,7 +463,11 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
   };
 
   return (
-    <aside className="app-sidebar" aria-label="Navegación principal">
+    <aside
+      className="app-sidebar"
+      aria-label="Navegación principal"
+      data-mobile-mode={mobileShowingTabs ? "tabs" : "pillars"}
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-[rgba(59,130,246,0.04)] to-transparent pointer-events-none" />
 
       {/* Logo */}
@@ -451,14 +483,25 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
 
       <div className="relative z-10 w-8 h-px bg-white/[0.06] mb-4 mx-auto" />
 
-      {/* Pillars */}
-      <nav className="relative z-10 flex flex-col items-center gap-1.5 mb-4">
+      {/* Pillars — siempre en DOM. En mobile la visibilidad la decide
+          el data-mobile-mode del <aside> via CSS (mas robusto que
+          condicionar el render en JS, evita flashes de hidracion donde
+          ningun nav termina visible). */}
+      <nav className="relative z-10 flex flex-col items-center gap-1.5 mb-4 app-sidebar-pillars">
         {pillars.map((p, i) => (
           <PillarButton
             key={p.id}
             pillar={p}
             isActive={isPillarActive(p)}
-            onClick={() => setSelectedId(p.id)}
+            onClick={() => {
+              setSelectedId(p.id);
+              if (isMobile) {
+                router.push(p.basePath);
+                if (p.id !== "inicio" && p.tabs.length > 0) {
+                  setMobileShowingTabs(true);
+                }
+              }
+            }}
             index={i}
           />
         ))}
@@ -466,11 +509,22 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
 
       <div className="relative z-10 w-8 h-px bg-white/[0.06] mb-3 mx-auto" />
 
-      {/* Tabs for active pillar */}
+      {/* Tabs for active pillar — siempre en DOM (ver nota arriba). */}
       <nav
         key={activePillar.id}
-        className="relative z-10 flex flex-col items-center gap-1 flex-1"
+        className="relative z-10 flex flex-col items-center gap-1 flex-1 app-sidebar-tabs"
       >
+        {/* Back chip en mobile — vuelve a mostrar las pillars sin
+            navegar (la URL queda donde esta). Solo visible en mobile
+            via CSS (.app-sidebar-back-chip { display: none } por default). */}
+        <button
+          type="button"
+          onClick={() => setMobileShowingTabs(false)}
+          aria-label="Volver al menú principal"
+          className="app-sidebar-back-chip relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 active:scale-95 text-white/55 hover:text-white"
+        >
+          <ArrowLeft size={18} strokeWidth={1.6} />
+        </button>
         {activePillar.tabs.map((t, i) => (
           <TabButton
             key={t.href ?? t.action ?? t.label}

@@ -2,6 +2,6 @@
 
 import ProjectsDirectory from "@/components/red/ProjectsDirectory";
 
-export default function RedDirectoryPage() {
+export default function ProyectosPage() {
   return <ProjectsDirectory />;
 }

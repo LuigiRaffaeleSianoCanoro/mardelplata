@@ -40,9 +40,10 @@ export default function Footer() {
     <footer className="footer-x">
       <div className="footer-x-wave" aria-hidden>
         <Image
-          src="/footer-wave.png"
+          src="/footer-wave.webp"
           alt=""
           fill
+          quality={65}
           sizes="100vw"
           className="object-cover"
           style={{ objectPosition: "center center" }}
@@ -53,16 +54,9 @@ export default function Footer() {
       <div className="footer-x-main">
         <div className="footer-x-grid">
           <ul className="footer-x-socials">
-            <li>
-              <a href="https://github.com/mardelplata-dev" aria-label="GitHub" target="_blank" rel="noopener">
-                <GithubIcon />
-              </a>
-            </li>
-            <li>
-              <a href="https://discord.gg/mdp-dev" aria-label="Discord" target="_blank" rel="noopener">
-                <DiscordIcon />
-              </a>
-            </li>
+            {/* GitHub / Discord / YouTube ocultos hasta tener URLs reales —
+                los anteriores apuntaban a slugs inexistentes (mardelplata-dev)
+                y rompian segun feedback de Lucas (QA). */}
             <li>
               <a href="https://www.linkedin.com/company/mardelplata-dev" aria-label="LinkedIn" target="_blank" rel="noopener">
                 <LinkedinIcon />
@@ -71,11 +65,6 @@ export default function Footer() {
             <li>
               <a href="https://www.instagram.com/mardelplata.dev.ar/" aria-label="Instagram" target="_blank" rel="noopener">
                 <InstagramIcon />
-              </a>
-            </li>
-            <li>
-              <a href="https://www.youtube.com/@mardelplata-dev" aria-label="YouTube" target="_blank" rel="noopener">
-                <YoutubeIcon />
               </a>
             </li>
           </ul>

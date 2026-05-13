@@ -82,7 +82,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
           .order("date", { ascending: false })
           .limit(5),
         supabase
-          .from("profiles")
+          .from("profiles_public")
           .select("id, full_name, bio, avatar_url")
           .or(`full_name.ilike.${like},bio.ilike.${like}`)
           .limit(5),

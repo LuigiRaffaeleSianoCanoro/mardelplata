@@ -78,7 +78,7 @@ export default function QrDialog({
   // position: fixed for descendants).
   return createPortal(
     <div
-      className="fixed inset-0 z-[200] pointer-events-none"
+      className="fixed inset-0 z-[240] pointer-events-none"
       role="dialog"
       aria-modal="true"
       aria-label="Mi código QR"

@@ -1895,7 +1895,11 @@ html.lenis, html.lenis body { height: auto; }
   bottom: 0;
   left: 0;
   width: 68px;
-  z-index: 50;
+  /* z-index alto para quedar encima de .bottom-sheet-root (z-index: 180)
+     y .red-dialog-root, que tienen position:fixed y aunque sean invisibles
+     cuando no estan abiertos, en mobile pueden interferir con el render
+     del bottom bar (paso en /red — el bottom bar no aparecia). */
+  z-index: 220;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 8%),
     var(--color-app-rail);
@@ -1910,6 +1914,64 @@ html.lenis, html.lenis body { height: auto; }
   animation: sidebar-slide-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
+/* Mobile bottom bar — la sidebar se acuesta abajo en row con todos los
+   iconos en linea (pillars + tabs + search/config). Scroll horizontal
+   por si no entran en pantalla angosta. */
+@media (max-width: 760px) {
+  .app-sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    animation: none;
+    padding: 8px 10px max(8px, env(safe-area-inset-bottom)) 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    scrollbar-width: none;
+  }
+  .app-sidebar::-webkit-scrollbar { display: none; }
+  /* Logo + dividers fuera de la barra mobile */
+  .app-sidebar > a[title="mardelplata.dev"],
+  .app-sidebar > div.w-8 {
+    display: none;
+  }
+  /* En mobile el bottom bar muestra UNO de los dos navs a la vez
+     (pillars o tabs del pillar activo). El componente setea
+     data-mobile-mode en el <aside> y aca elegimos cual mostrar.
+     Hacerlo via CSS (no via render condicional en JS) evita flashes
+     de hidracion donde durante un instante ningun nav termina visible
+     — paso en /red el 2026-05-09. */
+  .app-sidebar-pillars,
+  .app-sidebar-tabs {
+    flex-direction: row !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    width: 100%;
+    justify-content: space-around !important;
+  }
+  .app-sidebar[data-mobile-mode="tabs"] .app-sidebar-pillars { display: none !important; }
+  .app-sidebar[data-mobile-mode="pillars"] .app-sidebar-tabs { display: none !important; }
+  /* Back chip solo en mobile (en desktop seguimos viendo pillars y
+     tabs juntas, no hace falta back). */
+  .app-sidebar-back-chip { display: flex !important; }
+  /* Footer (Buscar, Configuracion, Cerrar sesion) no entra en mobile
+     — esas acciones viven dentro del perfil/menu. */
+  .app-sidebar > div:last-of-type {
+    display: none !important;
+  }
+}
+/* Default desktop: el back chip no se muestra (no hay toggle de modos). */
+.app-sidebar-back-chip { display: none; }
+
 /* ─────────────────────────────────────────────────────────────────
    Bottom sheet — Aeterna-style. Slides up from the bottom, 90vh,
    sticky header + sticky toolbar + scrollable content. Used for
@@ -1920,8 +1982,15 @@ html.lenis, html.lenis body { height: auto; }
   inset: 0;
   z-index: 180;
   pointer-events: none;
+  /* Cuando no esta abierto NO existe visualmente — antes era invisible
+     pero ocupaba el viewport y en /red interfería con el render del
+     bottom bar AppSidebar en mobile. */
+  display: none;
 }
-.bottom-sheet-root.is-open { pointer-events: auto; }
+.bottom-sheet-root.is-open {
+  pointer-events: auto;
+  display: block;
+}
 
 .bottom-sheet-backdrop {
   position: absolute;
@@ -1968,8 +2037,10 @@ html.lenis, html.lenis body { height: auto; }
   .bottom-sheet-panel {
     left: 0;
     right: 0;
-    height: 95vh;
-    max-height: 95vh;
+    /* Restamos el alto del bottom bar para que no quede tapado */
+    bottom: calc(56px + env(safe-area-inset-bottom));
+    height: calc(92vh - 56px);
+    max-height: calc(92vh - 56px);
     border-radius: 18px 18px 0 0;
   }
 }
@@ -2287,6 +2358,28 @@ html.lenis, html.lenis body { height: auto; }
   animation: qr-popover-in 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
   transform-origin: left center;
 }
+/* En mobile el popover se centra y ocupa casi todo el viewport.
+   Override del style inline de left/top/width via !important.
+   IMPORTANTE: el keyframe qr-popover-in termina en translateX(0),
+   lo cual pisaria el translate(-50%, -50%) y el popover se desbordaria
+   al lado derecho. Usamos un keyframe mobile-specific que mantiene
+   el centrado en el frame final. */
+@keyframes qr-popover-in-mobile {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.94); filter: blur(3px); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0); }
+}
+@media (max-width: 760px) {
+  .qr-popover {
+    left: 50% !important;
+    top: 50% !important;
+    width: calc(100vw - 24px) !important;
+    max-width: 380px;
+    animation: qr-popover-in-mobile 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    transform-origin: center center;
+  }
+  .qr-popover-arrow { display: none; }
+}
+
 .qr-popover-arrow {
   position: absolute;
   left: -7px;
@@ -2366,6 +2459,18 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 1;
 }
 
+@media (max-width: 760px) {
+  .app-shell-content {
+    padding-left: 12px;
+    padding-right: 12px;
+    /* Respiro arriba — sin Navbar pill arriba en AppShell, el contenido
+       quedaba pegado al top de viewport al entrar a una pillar. */
+    padding-top: 16px;
+    /* Reservar alto del bottom bar (icono ~36px + padding ~16px + safe-area) */
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
+
 /* Soft per-route content transition. Re-fires every time the wrapper's
    `key={pathname}` changes (set by AppShell), so route swaps inside the
    shell get a quick fade-in without disturbing the sidebar skeleton. */
@@ -2388,6 +2493,10 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 60;
   pointer-events: none;
   animation: shell-scan-once 0.95s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@media (max-width: 760px) {
+  .shell-scan-line { left: 0; right: 0; }
 }
 @keyframes shell-scan-once {
   0%   { top: 0;       opacity: 0; }
@@ -3526,6 +3635,15 @@ html.lenis, html.lenis body { height: auto; }
   object-fit: cover;
   object-position: right center;
 }
+
+/* Mobile: re-encuadre del hero. Movemos el focal point a 65% horizontal /
+   30% vertical para mantener faro + lobo visibles, y bajamos la altura
+   minima de la seccion para que el lobo no quede cortado por scroll. */
+@media (max-width: 760px) {
+  .hero-x-bg-img {
+    object-position: 65% 30%;
+  }
+}
 /* Overlay diagonal — oscurece la izquierda para legibilidad del texto,
    se mantiene transparente sobre el lobo / faro */
 .hero-x-bg-overlay {
@@ -3893,8 +4011,14 @@ html.lenis, html.lenis body { height: auto; }
 .hero-x-scroll {
   position: absolute;
   bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* Centrado sin usar `transform: translateX(-50%)` para no romperse
+     con `prefers-reduced-motion: reduce` que aplica `transform: none
+     !important` mas abajo (lo cual desplazaba el elemento al lado
+     izquierdo). */
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -5957,8 +6081,8 @@ html.lenis, html.lenis body { height: auto; }
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.5rem 1.25rem 1.25rem;
+  gap: 0.55rem;
+  padding: 1.05rem 1rem 0.95rem;
   background: linear-gradient(180deg, rgba(20, 24, 40, 0.55) 0%, rgba(10, 14, 28, 0.4) 100%);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
@@ -5973,9 +6097,9 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .channel-card-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   display: grid;
   place-items: center;
   border: 1px solid;
@@ -7726,6 +7850,20 @@ a.shell-card:hover {
   gap: 0.4rem;
   flex-shrink: 0;
 }
+
+/* Mobile: pill mas compacto, search escondido (sin teclado no se usa
+   Cmd+K), y burger sin gap raro respecto a Sumate. Padding derecho
+   simetrico al izquierdo asi el burger no queda pegado al borde
+   (Ariel reporto desde iPhone 14 que el X quedaba "fuera de lugar"). */
+@media (max-width: 760px) {
+  .nav-x-pill {
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+  }
+  .nav-x-end { gap: 0.3rem; }
+  .nav-x-icon-btn { display: none; }
+  .nav-x-sumate { padding: 0.5rem 0.95rem; font-size: 0.84rem; }
+}
 .nav-x-icon-btn {
   width: 36px;
   height: 36px;
@@ -7797,10 +7935,13 @@ a.shell-card:hover {
 @media (min-width: 1024px) {
   .nav-x-burger { display: none; }
 }
+/* Estado abierto: marcamos con color/borde violeta. La rotacion del
+   contenedor entero (rotate(180deg)) se quito porque visualmente
+   hacia parecer que el X se "descolocaba" — las barras ya forman
+   la X de forma clara sin necesidad de girar el circulo. */
 .nav-x-burger.is-open {
   background: rgba(168, 85, 247, 0.18);
   border-color: rgba(168, 85, 247, 0.6);
-  transform: rotate(180deg);
 }
 .nav-x-burger-bar {
   position: absolute;
@@ -9082,11 +9223,14 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   background: transparent;
   border: 0;
   cursor: pointer;
-  font: inherit;
   color: inherit;
   display: inline-flex;
   align-items: center;
-  padding: 0;
+  /* Sin `font: inherit` ni `padding: 0` — la clase .nav-x-link (que
+     va junto en el mismo <button>) ya define font-* y padding
+     coherentes con los <Link> hermanos. Pisarlo aca hacia que
+     "Recursos" se viera con la fuente del <body> y que el bg de
+     hover quedara apretado al texto en lugar del pill normal. */
 }
 
 .nav-x-link-button.is-open svg {

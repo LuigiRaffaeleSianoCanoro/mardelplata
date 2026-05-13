@@ -202,7 +202,7 @@ export default function ScannerPage() {
     try {
       const { data: profile } = await supabase
         .from("profiles")
-        .select("*")
+        .select("id, full_name, email, avatar_url, qr_code")
         .eq("qr_code", qrCode)
         .single();
 
