@@ -9,8 +9,9 @@ const looksLikePlaceholder = (value: string | undefined) =>
 export const HAS_SUPABASE_CONFIG =
   !looksLikePlaceholder(SUPABASE_URL) && !looksLikePlaceholder(SUPABASE_ANON_KEY);
 
-const explicitlyEnabled = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "1";
 const isDev = process.env.NODE_ENV !== "production";
+const explicitlyEnabled =
+  isDev && process.env.NEXT_PUBLIC_USE_MOCK_DATA === "1";
 const autoEnabled = isDev && !HAS_SUPABASE_CONFIG;
 
 export const IS_MOCK = explicitlyEnabled || autoEnabled;

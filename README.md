@@ -62,8 +62,11 @@ npm install
 cp .env.example .env.local  # (si no existe, ver "Variables de entorno" abajo)
 # Editá .env.local con tus claves de Supabase
 
-# 4. Migraciones de DB (en Supabase SQL Editor)
-# Ver scripts/001_create_profiles_and_events.sql y demás archivos en scripts/
+# 4. Migraciones de DB (en Supabase SQL Editor o via script)
+# Orden base: 001 → 003 → 006 → 007 → 008 → 009
+# Seguridad (obligatorio en prod): 010 → 011 → 012
+#   npm run security:migrate   # requiere DATABASE_URL en .env.local
+#   npm run security:verify    # tests REST post-migración
 
 # 5. Dev
 npm run dev
@@ -78,6 +81,7 @@ Definir en `.env.local`:
 NEXT_PUBLIC_SUPABASE_URL=https://<project>.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>
 SUPABASE_SERVICE_ROLE_KEY=<service-role>     # solo para scripts/seed
+DATABASE_URL=<postgres-connection-string>    # opcional, para npm run security:migrate
 ```
 
 ### Scripts disponibles
@@ -87,6 +91,9 @@ npm run dev      # Next dev server (port 3000)
 npm run build    # Build de producción
 npm run start    # Correr build de producción
 npm run lint     # ESLint
+npm run security:verify     # Auditoría RLS (REST)
+npm run security:regression # Tests de regresión post-migración
+npm run security:migrate    # Aplica 010 + 011 + 012
 ```
 
 ---
