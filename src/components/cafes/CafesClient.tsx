@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 import type { CafeWithScore } from "@/lib/types/cafes";
 import CafeCard from "./CafeCard";
 
@@ -9,9 +11,105 @@ interface Props {
 }
 
 export default function CafesClient({ initialCafes }: Props) {
-  const [cafes] = useState<CafeWithScore[]>(initialCafes);
+  const [cafes, setCafes] = useState<CafeWithScore[]>(initialCafes);
+  const [user, setUser] = useState<User | null>(null);
+  const [myVotes, setMyVotes] = useState<Map<string, 1 | -1>>(new Map());
   const [hood, setHood] = useState<string>("all");
   const [onlyWifi, setOnlyWifi] = useState(false);
+  const supabase = useMemo(() => createClient(), []);
+  const quickVoteInFlight = useRef(false);
+
+  const reloadScores = useCallback(async () => {
+    const { data } = await supabase.from("cafe_scores").select("*");
+    if (!data) return;
+    const map = new Map<string, CafeWithScore["score"]>();
+    for (const s of data) {
+      const { cafe_id, ...rest } = s as { cafe_id: string } & CafeWithScore["score"];
+      map.set(cafe_id, rest);
+    }
+    setCafes((prev) =>
+      prev
+        .map((c) => ({ ...c, score: map.get(c.id) ?? c.score }))
+        .sort(
+          (a, b) =>
+            b.score.net_votes - a.score.net_votes ||
+            b.score.votes_count - a.score.votes_count,
+        ),
+    );
+  }, [supabase]);
+
+  const loadMyVotes = useCallback(
+    async (uid: string) => {
+      const { data } = await supabase
+        .from("cafe_votes")
+        .select("cafe_id, vote")
+        .eq("user_id", uid);
+      const map = new Map<string, 1 | -1>();
+      for (const r of (data ?? []) as { cafe_id: string; vote: 1 | -1 }[]) {
+        map.set(r.cafe_id, r.vote);
+      }
+      setMyVotes(map);
+    },
+    [supabase],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    supabase.auth.getUser().then(({ data: { user: u } }) => {
+      if (cancelled) return;
+      setUser(u);
+      if (u) void loadMyVotes(u.id);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_e, session) => {
+      const u = session?.user ?? null;
+      setUser(u);
+      if (u) void loadMyVotes(u.id);
+      else setMyVotes(new Map());
+    });
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
+  }, [supabase.auth, loadMyVotes]);
+
+  const handleQuickVote = useCallback(
+    async (cafeId: string, dir: 1 | -1) => {
+      if (!user) return;
+      if (quickVoteInFlight.current) return;
+      quickVoteInFlight.current = true;
+      try {
+        if (myVotes.get(cafeId) === dir) {
+          const { error } = await supabase
+            .from("cafe_votes")
+            .delete()
+            .eq("cafe_id", cafeId)
+            .eq("user_id", user.id);
+          if (error) {
+            console.error("[cafes] quick-vote delete", error);
+            return;
+          }
+        } else {
+          const { error } = await supabase
+            .from("cafe_votes")
+            .upsert(
+              { cafe_id: cafeId, user_id: user.id, vote: dir },
+              { onConflict: "cafe_id,user_id" },
+            );
+          if (error) {
+            console.error("[cafes] quick-vote upsert", error);
+            return;
+          }
+        }
+        await loadMyVotes(user.id);
+        await reloadScores();
+      } finally {
+        quickVoteInFlight.current = false;
+      }
+    },
+    [user, myVotes, supabase, loadMyVotes, reloadScores],
+  );
 
   const hoods = useMemo(() => {
     const set = new Set<string>();
@@ -58,6 +156,9 @@ export default function CafesClient({ initialCafes }: Props) {
               />
               Con WiFi confirmado
             </label>
+            {user && (
+              <a href="/cafes/nuevo" className="shell-btn-primary">+ Agregar café</a>
+            )}
           </div>
         </header>
 
@@ -71,12 +172,12 @@ export default function CafesClient({ initialCafes }: Props) {
               <CafeCard
                 key={c.id}
                 cafe={c}
-                myVote={null}
-                canVote={false}
+                myVote={myVotes.get(c.id) ?? null}
+                canVote={!!user}
                 onOpen={() => {
                   window.location.href = `/cafes/${c.id}`;
                 }}
-                onVote={() => {}}
+                onVote={(dir) => void handleQuickVote(c.id, dir)}
               />
             ))}
           </div>
