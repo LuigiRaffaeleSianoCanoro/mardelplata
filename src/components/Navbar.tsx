@@ -117,6 +117,7 @@ export default function Navbar() {
     { href: "/proyectos", label: "Comunidad", match: (p) => p === "/proyectos" || p.startsWith("/red") },
     { href: "/primer-trabajo", label: "Aprendizaje" },
     { href: "/bolsa", label: "Empleos" },
+    { href: "/cafes", label: "Cafés" },
   ];
 
   const isActive = (l: NavLink) => {
