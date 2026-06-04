@@ -49,7 +49,7 @@ ciudad + SEO); puntuar, marcar chips, comentar y agregar cafés requiere login.
 
 ## 4. Modelo de datos (Supabase)
 
-Migración nueva `scripts/006_cafes.sql`, a correr en el SQL Editor de Supabase (convención del repo).
+Migración nueva `scripts/012_cafes.sql`, a correr en el SQL Editor de Supabase (convención del repo).
 Sigue el estilo de `scripts/003_classified_listings.sql`.
 
 ### 4.1 Tabla `cafes`
@@ -196,7 +196,7 @@ El repo no tiene test harness (solo `next lint`). Verificación de la feature:
 
 ## 11. Secuencia de build sugerida
 
-1. `scripts/006_cafes.sql` — tablas, vista, RLS, triggers, grants. Correr en Supabase.
+1. `scripts/012_cafes.sql` — tablas, vista, RLS, triggers, grants. Correr en Supabase.
 2. `src/lib/types/cafes.ts` — tipos.
 3. `/cafes/page.tsx` + `CafesClient` + `CafeCard` — listado de solo-lectura (con datos sembrados a mano para probar).
 4. `VoteWolf` — lobito + chips + comentario (escritura logueada).
