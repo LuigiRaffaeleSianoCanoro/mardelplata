@@ -9530,3 +9530,13 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   background: var(--shell-bg);
 }
 .cafes-x-kind { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; background: rgba(255,255,255,0.1); margin-bottom: 0.45rem; opacity: 0.85; }
+
+.cafes-x-card-addr { opacity: 0.55; font-size: 0.8rem; margin-top: 0.15rem; }
+.cafes-x-card-desc { opacity: 0.8; font-size: 0.85rem; margin-top: 0.7rem; line-height: 1.35; }
+.cafes-x-viewtoggle { display: inline-flex; gap: 0.25rem; }
+.cafes-x-viewbtn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: inherit; border-radius: 0.5rem; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 1rem; line-height: 1; }
+.cafes-x-viewbtn.is-active { background: rgba(255,255,255,0.18); }
+.cafes-x-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.cafes-x-card.is-list { flex-direction: row; align-items: stretch; }
+.cafes-x-card.is-list .cafes-x-card-body { flex: 1; }
+.cafes-x-card.is-list .cafes-x-vote { border-top: none; border-left: 1px solid rgba(255,255,255,0.1); flex-direction: column; padding: 0.6rem 1rem; }

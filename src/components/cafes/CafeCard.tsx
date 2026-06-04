@@ -8,16 +8,18 @@ interface Props {
   onOpen: () => void;
   onVote: (dir: 1 | -1) => void;
   canVote: boolean;
+  view?: "grid" | "list";
 }
 
-export default function CafeCard({ cafe, myVote, onOpen, onVote, canVote }: Props) {
+export default function CafeCard({ cafe, myVote, onOpen, onVote, canVote, view }: Props) {
   const { score } = cafe;
   return (
-    <article className="cafes-x-card">
+    <article className={`cafes-x-card ${view === "list" ? "is-list" : ""}`}>
       <button type="button" className="cafes-x-card-body" onClick={onOpen}>
         <span className="cafes-x-kind">{CAFE_KIND_LABEL[cafe.kind]}</span>
         <h3 className="cafes-x-card-title">{cafe.name}</h3>
         {cafe.neighborhood && <p className="cafes-x-card-hood">{cafe.neighborhood}</p>}
+        {cafe.address && <p className="cafes-x-card-addr">{cafe.address}</p>}
         <div className="cafes-x-chips">
           {CAFE_AMENITIES.map((a) => {
             const n = score[a.countKey];
@@ -29,6 +31,7 @@ export default function CafeCard({ cafe, myVote, onOpen, onVote, canVote }: Prop
             );
           })}
         </div>
+        {cafe.description && <p className="cafes-x-card-desc">{cafe.description}</p>}
         {cafe.source === "community" && (
           <span className="cafes-x-badge">agregado por la comunidad</span>
         )}

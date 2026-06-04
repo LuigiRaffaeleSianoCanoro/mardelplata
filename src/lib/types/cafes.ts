@@ -18,6 +18,7 @@ export interface Cafe {
   google_rating: number | null;
   google_reviews_count: number | null;
   maps_url: string | null;
+  description: string | null;
   source: CafeSource;
   kind: CafeKind;
   added_by: string | null;

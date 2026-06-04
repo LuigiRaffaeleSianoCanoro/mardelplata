@@ -50,6 +50,7 @@ export default function CafeDetail({ cafe, score, comments }: Props) {
           <h1 className="shell-title">{cafe.name}</h1>
           {cafe.neighborhood && <p className="shell-lead">{cafe.neighborhood}</p>}
           {cafe.address && <p className="cafes-x-card-hood">{cafe.address}</p>}
+          {cafe.description && <p className="shell-lead" style={{ marginTop: "0.5rem" }}>{cafe.description}</p>}
           <p className="cafes-x-net">Lobitos netos: {score.net_votes} ({score.votes_count} votos)</p>
           <div className="cafes-x-chips">
             {CAFE_AMENITIES.map((a) => (

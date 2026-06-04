@@ -17,6 +17,7 @@ export default function CafesClient({ initialCafes }: Props) {
   const [myVotes, setMyVotes] = useState<Map<string, 1 | -1>>(new Map());
   const [hood, setHood] = useState<string>("all");
   const [onlyWifi, setOnlyWifi] = useState(false);
+  const [view, setView] = useState<"grid" | "list">("grid");
   const supabase = useMemo(() => createClient(), []);
   const quickVoteInFlight = useRef(false);
 
@@ -147,6 +148,10 @@ export default function CafesClient({ initialCafes }: Props) {
             </p>
           </div>
           <div className="cafes-x-filter">
+            <div className="cafes-x-viewtoggle">
+              <button type="button" className={`cafes-x-viewbtn ${view === "grid" ? "is-active" : ""}`} onClick={() => setView("grid")} aria-label="Vista grilla">▦</button>
+              <button type="button" className={`cafes-x-viewbtn ${view === "list" ? "is-active" : ""}`} onClick={() => setView("list")} aria-label="Vista lista">☰</button>
+            </div>
             <select
               aria-label="Filtrar por barrio"
               className="cafes-x-select"
@@ -177,13 +182,14 @@ export default function CafesClient({ initialCafes }: Props) {
             Todavía no hay cafés cargados. ¡Sé el primero en recomendar uno!
           </p>
         ) : (
-          <div className="cafes-x-grid">
+          <div className={view === "list" ? "cafes-x-list" : "cafes-x-grid"}>
             {filtered.map((c) => (
               <CafeCard
                 key={c.id}
                 cafe={c}
                 myVote={myVotes.get(c.id) ?? null}
                 canVote={!!user}
+                view={view}
                 onOpen={() => {
                   window.location.href = `/cafes/${c.id}`;
                 }}
