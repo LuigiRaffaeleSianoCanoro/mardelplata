@@ -48,7 +48,7 @@ export default function CafeDetail({ cafe, score, comments }: Props) {
               </span>
             ))}
           </div>
-          {cafe.maps_url && (
+          {cafe.maps_url && /^https?:\/\//i.test(cafe.maps_url) && (
             <p style={{ marginTop: "0.8rem" }}>
               <a href={cafe.maps_url} target="_blank" rel="noopener noreferrer" className="shell-btn-ghost">
                 Ver en Google Maps ↗
