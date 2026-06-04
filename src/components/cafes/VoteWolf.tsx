@@ -68,7 +68,7 @@ export default function VoteWolf({ cafeId, userId, onChanged }: Props) {
   if (!userId) {
     return (
       <div className="cafes-x-gate">
-        <p className="shell-lead">Iniciá sesión para votar 🐺 y comentar.</p>
+        <p className="shell-lead">Iniciá sesión para votar 🦭 y comentar.</p>
         <div className="cafes-x-gate-actions">
           <a href="/auth/login" className="shell-btn-primary">Ingresar →</a>
           <a href="/auth/registro" className="shell-btn-ghost">Crear cuenta</a>
@@ -134,7 +134,7 @@ export default function VoteWolf({ cafeId, userId, onChanged }: Props) {
           disabled={saving}
           onClick={() => void save(1)}
         >
-          🐺▲ Apto
+          🦭▲ Apto
         </button>
         <button
           type="button"
@@ -143,7 +143,7 @@ export default function VoteWolf({ cafeId, userId, onChanged }: Props) {
           disabled={saving}
           onClick={() => void save(-1)}
         >
-          🐺▼ No apto
+          🦭▼ No apto
         </button>
       </div>
 

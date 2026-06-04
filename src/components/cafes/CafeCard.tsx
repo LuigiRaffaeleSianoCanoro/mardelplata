@@ -41,7 +41,7 @@ export default function CafeCard({ cafe, myVote, onOpen, onVote, canVote }: Prop
           className={`cafes-x-wolf ${myVote === 1 ? "is-up" : ""}`}
           onClick={() => onVote(1)}
         >
-          🐺▲
+          🦭▲
         </button>
         <span className="cafes-x-net">{score.net_votes}</span>
         <button
@@ -51,7 +51,7 @@ export default function CafeCard({ cafe, myVote, onOpen, onVote, canVote }: Prop
           className={`cafes-x-wolf ${myVote === -1 ? "is-down" : ""}`}
           onClick={() => onVote(-1)}
         >
-          🐺▼
+          🦭▼
         </button>
       </div>
     </article>

@@ -83,7 +83,7 @@ export default function CafeDetail({ cafe, score, comments }: Props) {
             <ul className="cafes-x-comments">
               {comments.map((c) => (
                 <li key={c.user_id} className="cafes-x-commentitem">
-                  <span className="cafes-x-commentvote">{c.vote === 1 ? "🐺▲" : "🐺▼"}</span>
+                  <span className="cafes-x-commentvote">{c.vote === 1 ? "🦭▲" : "🦭▼"}</span>
                   <div>
                     <strong>{c.author_name ?? "Miembro"}</strong>
                     <p>{c.comment}</p>

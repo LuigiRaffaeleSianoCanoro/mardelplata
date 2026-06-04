@@ -136,7 +136,7 @@ export default function Navbar() {
         <Link href="/" className="nav-x-brand" aria-label="Inicio">
           <span className="nav-x-brand-mark" aria-hidden>&lt;/&gt;</span>
           <span className="nav-x-brand-text">
-            mardelplata<span className="nav-x-brand-accent">.dev</span>
+            mardelplata<span className="nav-x-brand-accent">.dev.ar</span>
           </span>
         </Link>
 
