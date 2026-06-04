@@ -1,6 +1,6 @@
 "use client";
 
-import { CAFE_AMENITIES, type CafeWithScore } from "@/lib/types/cafes";
+import { CAFE_AMENITIES, CAFE_KIND_LABEL, type CafeWithScore } from "@/lib/types/cafes";
 
 interface Props {
   cafe: CafeWithScore;
@@ -15,6 +15,7 @@ export default function CafeCard({ cafe, myVote, onOpen, onVote, canVote }: Prop
   return (
     <article className="cafes-x-card">
       <button type="button" className="cafes-x-card-body" onClick={onOpen}>
+        <span className="cafes-x-kind">{CAFE_KIND_LABEL[cafe.kind]}</span>
         <h3 className="cafes-x-card-title">{cafe.name}</h3>
         {cafe.neighborhood && <p className="cafes-x-card-hood">{cafe.neighborhood}</p>}
         <div className="cafes-x-chips">

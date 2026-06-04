@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import {
   CAFE_AMENITIES,
+  CAFE_KIND_LABEL,
   type Cafe,
   type CafeComment,
   type CafeScore,
@@ -45,6 +46,7 @@ export default function CafeDetail({ cafe, score, comments }: Props) {
       <div className="shell-inner shell-inner--narrow">
         <Link href="/cafes" className="shell-btn-ghost">← Volver a cafés</Link>
         <header className="cafes-x-detail-head">
+          <span className="cafes-x-kind">{CAFE_KIND_LABEL[cafe.kind]}</span>
           <h1 className="shell-title">{cafe.name}</h1>
           {cafe.neighborhood && <p className="shell-lead">{cafe.neighborhood}</p>}
           {cafe.address && <p className="cafes-x-card-hood">{cafe.address}</p>}

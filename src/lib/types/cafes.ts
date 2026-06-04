@@ -1,5 +1,12 @@
 export type CafeSource = "seed" | "community";
 
+export type CafeKind = "cafe" | "cowork";
+
+export const CAFE_KIND_LABEL: Record<CafeKind, string> = {
+  cafe: "☕ Café",
+  cowork: "🖥 Cowork",
+};
+
 export interface Cafe {
   id: string;
   name: string;
@@ -12,6 +19,7 @@ export interface Cafe {
   google_reviews_count: number | null;
   maps_url: string | null;
   source: CafeSource;
+  kind: CafeKind;
   added_by: string | null;
   created_at: string;
   updated_at: string;

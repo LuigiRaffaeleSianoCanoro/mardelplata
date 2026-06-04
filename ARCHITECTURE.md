@@ -309,6 +309,7 @@ cafes
   google_reviews_count INT
   maps_url            TEXT
   source              TEXT CHECK ('seed' | 'community')
+  kind                TEXT CHECK ('cafe' | 'cowork') DEFAULT 'cafe'  -- etiqueta café vs cowork puro
   added_by            UUID → profiles(id)      -- null para seed
   created_at, updated_at TIMESTAMPTZ
 

@@ -9529,3 +9529,4 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   padding-top: 5rem;
   background: var(--shell-bg);
 }
+.cafes-x-kind { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; background: rgba(255,255,255,0.1); margin-bottom: 0.45rem; opacity: 0.85; }
