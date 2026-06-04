@@ -18,6 +18,7 @@ export default function CafesClient({ initialCafes }: Props) {
   const [hood, setHood] = useState<string>("all");
   const [onlyWifi, setOnlyWifi] = useState(false);
   const [view, setView] = useState<"grid" | "list">("grid");
+  const [kind, setKind] = useState<"all" | "cafe" | "cowork">("all");
   const supabase = useMemo(() => createClient(), []);
   const quickVoteInFlight = useRef(false);
 
@@ -130,11 +131,12 @@ export default function CafesClient({ initialCafes }: Props) {
 
   const filtered = useMemo(() => {
     return cafes.filter((c) => {
+      if (kind !== "all" && c.kind !== kind) return false;
       if (hood !== "all" && c.neighborhood !== hood) return false;
       if (onlyWifi && c.score.wifi_count === 0) return false;
       return true;
     });
-  }, [cafes, hood, onlyWifi]);
+  }, [cafes, kind, hood, onlyWifi]);
 
   return (
     <div className="shell-section">
@@ -151,6 +153,11 @@ export default function CafesClient({ initialCafes }: Props) {
             <div className="cafes-x-viewtoggle">
               <button type="button" className={`cafes-x-viewbtn ${view === "grid" ? "is-active" : ""}`} onClick={() => setView("grid")} aria-label="Vista grilla">▦</button>
               <button type="button" className={`cafes-x-viewbtn ${view === "list" ? "is-active" : ""}`} onClick={() => setView("list")} aria-label="Vista lista">☰</button>
+            </div>
+            <div className="cafes-x-kindfilter">
+              <button type="button" className={`cafes-x-pill ${kind === "all" ? "is-active" : ""}`} onClick={() => setKind("all")}>Todos</button>
+              <button type="button" className={`cafes-x-pill ${kind === "cafe" ? "is-active" : ""}`} onClick={() => setKind("cafe")}>☕ Café</button>
+              <button type="button" className={`cafes-x-pill ${kind === "cowork" ? "is-active" : ""}`} onClick={() => setKind("cowork")}>🖥 Cowork</button>
             </div>
             <select
               aria-label="Filtrar por barrio"
