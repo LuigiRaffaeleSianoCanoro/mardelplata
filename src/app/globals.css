@@ -7710,7 +7710,7 @@ a.shell-card:hover {
 }
 .shell-grid--auto-180 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .shell-grid--auto-220 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-.shell-grid--auto-280 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.shell-grid--auto-280 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
 
 /* ─── Header pattern ───────────────────────────────────────────────── */
 
@@ -8283,7 +8283,7 @@ a.shell-card:hover {
 
 .bolsa-x-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 1rem;
 }
 
@@ -9489,7 +9489,7 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
 .cafes-x-filter { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
 .cafes-x-select { background: rgba(255,255,255,0.05); color: inherit; border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.4rem 0.7rem; }
 .cafes-x-toggle { display: inline-flex; gap: 0.4rem; align-items: center; font-size: 0.85rem; opacity: 0.85; }
-.cafes-x-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.cafes-x-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 1.25rem; }
 .cafes-x-card { display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.12); border-radius: 1rem; overflow: hidden; background: rgba(255,255,255,0.03); }
 .cafes-x-card-body { text-align: left; padding: 1.1rem; background: none; border: none; color: inherit; cursor: pointer; flex: 1; }
 .cafes-x-card-title { font-weight: 600; font-size: 1.1rem; }
@@ -9540,3 +9540,13 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
 .cafes-x-card.is-list { flex-direction: row; align-items: stretch; }
 .cafes-x-card.is-list .cafes-x-card-body { flex: 1; }
 .cafes-x-card.is-list .cafes-x-vote { border-top: none; border-left: 1px solid rgba(255,255,255,0.1); flex-direction: column; padding: 0.6rem 1rem; }
+
+/* Cafés — ajustes mobile */
+@media (max-width: 640px) {
+  .cafes-x-header { align-items: stretch; gap: 1rem; }
+  .cafes-x-filter { width: 100%; justify-content: space-between; }
+  .cafes-x-select { flex: 1 1 auto; }
+  .cafes-x-grid { grid-template-columns: 1fr; }
+  .cafes-x-card.is-list .cafes-x-vote { padding: 0.5rem 0.65rem; gap: 0.5rem; }
+  .cafes-x-card-body { padding: 0.9rem; }
+}
