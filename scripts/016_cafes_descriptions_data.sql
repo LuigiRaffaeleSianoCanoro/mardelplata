@@ -1,0 +1,25 @@
+-- Descripciones ("qué ofrecen / menú") investigadas en internet por café.
+-- Ejecutar DESPUÉS de 015_cafes_description.sql. Idempotente (UPDATE por nombre).
+
+UPDATE public.cafes SET description = 'Café de especialidad con desayuno, brunch y almuerzo. Avo toast, tostadas, croissants y pastelería. Ambiente luminoso y apto para trabajar.' WHERE name = 'FOLC Coffee Company (Playa Grande)';
+UPDATE public.cafes SET description = 'Café de especialidad con brunch y almuerzo. Bagels, pancakes, avocado toast y pastelería. Opciones veganas y delivery por Rappi y PedidosYa.' WHERE name = 'FOLC Coffee Company (Centro)';
+UPDATE public.cafes SET description = 'Café de especialidad con tostadero propio. Espresso y métodos filtrados. Carta de comidas, coctelería de autor y propuesta nocturna junto a la playa.' WHERE name = 'Kersen (Playa Grande)';
+UPDATE public.cafes SET description = 'Café de especialidad con microtostadero Batuta. Espresso, V60, Chemex y prensa francesa. Pastelería, avocado toast y opciones de almuerzo.' WHERE name = 'Kersen (Centro)';
+UPDATE public.cafes SET description = 'Café de especialidad dentro de un espacio de yoga/bienestar. Pastelería vegana, cold brew, cócteles de café e iced tea. Ambiente tranquilo con patio exterior.' WHERE name = 'No Coffee No Prana';
+UPDATE public.cafes SET description = 'Café de especialidad en el centro de Mar del Plata. Propuesta para desayuno y merienda con café de calidad. Abre de lunes a domingo.' WHERE name = 'Tempo Café';
+UPDATE public.cafes SET description = 'Café de especialidad con espresso, flat white y cappuccino, pastelería artesanal, panes de masa madre y almuerzo del día. Espacio cultural con teatro, música y cine.' WHERE name = 'Chauvin Centro de Creación';
+UPDATE public.cafes SET description = 'Tradicional cafetería marplatense frente al mar con desayunos, medialunas, sandwiches, menú ejecutivo y opciones vegetarianas. Más de 60 años de trayectoria.' WHERE name = 'La Fonte D''Oro (Playa Grande)';
+UPDATE public.cafes SET description = 'Sucursal de la histórica cadena marplatense con desayunos, meriendas, medialunas, sandwiches y menú de almuerzo. Ambiente cómodo con opción de trabajo remoto.' WHERE name = 'La Fonte D''Oro (La Perla)';
+UPDATE public.cafes SET description = 'Café de autor especializado en desayunos y brunch con opciones vegetarianas y veganas. Conocido por su buen café, sandwiches y ambiente acogedor con terraza.' WHERE name = 'Weiss Break & Brunch';
+UPDATE public.cafes SET description = 'Café de especialidad con blend propio de Brasil, Perú y Colombia. Deco retro 80/90 con TVs vintage. Sirve tortas, cookies y medialunas. Ambiente nostálgico y cuidado.' WHERE name = 'ATC — Acá Tomamos Café';
+UPDATE public.cafes SET description = 'Primer coworking cultural del país: café, espacio de trabajo compartido, talleres y arte. Se puede quedarse a trabajar tomando un café. Alquila salas para eventos.' WHERE name = 'Bendito Pedro';
+UPDATE public.cafes SET description = 'Café de especialidad en Bartolomé Mitre 500, con librería integrada. Café de autor, ambiente tranquilo, ideal para trabajar o leer.' WHERE name = 'Café Delirante';
+UPDATE public.cafes SET description = 'Cadena de cafetería argentina en zona Güemes. Ofrece desayunos, medialunas, tostadas, tortas, capuchinos, cold brew y menú de merienda.' WHERE name = 'Café Martínez (Güemes)';
+UPDATE public.cafes SET description = 'Petit bistrot francés en Alvarado 1702. Viennoserie, croissants, moelleux, brunch y café de especialidad Borana. Todo hecho en casa (fait maison).' WHERE name = 'Dinette Bistrot';
+UPDATE public.cafes SET description = 'Pastelería francesa en Alem 3480. Croissants, macarons, pain au chocolat, croque mademoiselle y café. Segunda sede de Dinette, frente a Playa Grande.' WHERE name = 'Mademoiselle Dinette';
+UPDATE public.cafes SET description = 'Café y espacio de coworking cerca de Plaza Mitre. Menú accesible, buen WiFi, ambiente cómodo para trabajar, estudiar o reunirse.' WHERE name = 'GoCompany (ex Blend) — café & cowork';
+UPDATE public.cafes SET description = 'Café + coworking bancario en Belgrano 3182. Sala de reuniones, WiFi, cafetería y servicios del banco Santander, de lunes a viernes de 7 a 18 h.' WHERE name = 'Work Café Santander';
+UPDATE public.cafes SET description = 'Pases por día, semana o mes. Café libre, wifi, impresoras, lockers, cocina y sala de eventos de 30m² con Smart TV para hasta 15 personas.' WHERE name = 'Ola Cowork';
+UPDATE public.cafes SET description = 'Puesto fijo mensual con fibra óptica, café/té, lockers, salas de reuniones (hasta 14 personas), auditorio y vigilancia 24/7. Distrito Tecnológico.' WHERE name = 'Indie Coworking';
+UPDATE public.cafes SET description = 'Pases diarios y mensuales, escritorios compartidos, oficinas privadas, sala de reuniones con terraza, cafetería, lockers e impresión incluida.' WHERE name = 'BIX Cowork';
+UPDATE public.cafes SET description = 'Posiciones flex, oficinas privadas (2-10 personas), salas de reunión, WiFi dedicado 50MB, impresoras láser, infusiones, snacks y espacio para 50 personas.' WHERE name = 'LINE UP Cowork';
