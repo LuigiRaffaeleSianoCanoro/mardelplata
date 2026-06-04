@@ -435,7 +435,7 @@ function MonoFooter() {
         </div>
 
         <div className="mt-14 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-600">
-          <p>© 2026 MdPDev — All rights reserved.</p>
+          <p>© 2026 mardelplata.dev.ar — All rights reserved.</p>
           <p className="font-mono">v0.1.0 — preview/mono</p>
         </div>
       </div>

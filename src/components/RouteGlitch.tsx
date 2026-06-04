@@ -127,7 +127,7 @@ export default function RouteGlitch() {
           <span className="rg-dot" />
           <span className="rg-dot" />
           <span className="rg-dot" />
-          <span className="rg-title">mdpdev@navigator: ~</span>
+          <span className="rg-title">mardelplata@navigator: ~</span>
         </div>
         <pre className="route-glitch-lines">
           <span className="rg-line" style={{ animationDelay: "0ms" }}>

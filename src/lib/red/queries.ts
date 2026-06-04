@@ -45,7 +45,7 @@ const MOCK_PROJECTS: ProjectCardData[] = [
     description: "Wrapper sobre Supabase auth con UI ya-resuelta y soporte de QR de carnet.",
     status: "active",
     repo_url: "https://github.com/mardelplata-dev/faro-auth",
-    demo_url: "https://faro.mardelplata.dev",
+    demo_url: "https://faro.mardelplata.dev.ar",
     is_public: true,
     created_by: null,
     created_at: "2026-03-18T00:00:00Z",

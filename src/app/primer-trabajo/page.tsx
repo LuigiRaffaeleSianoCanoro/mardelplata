@@ -56,7 +56,7 @@ export default function PrimerTrabajoPage() {
       <main className="primer-trabajo-x">
         <div className="shell-section shell-section--lg">
           <div className="shell-inner shell-inner--narrow">
-            <p className="shell-eyebrow">HERRAMIENTA · MARDELPLATA.DEV</p>
+            <p className="shell-eyebrow">HERRAMIENTA · MARDELPLATA.DEV.AR</p>
             <h1 className="shell-title shell-title--xl">
               Primer Trabajo <em>OS.</em>
             </h1>

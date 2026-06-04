@@ -50,7 +50,7 @@ export default function IntroSplash() {
             className="term-line display-thin block mt-6 text-white text-2xl sm:text-3xl tracking-[0.22em]"
             style={{ animationDelay: "440ms" }}
           >
-            mardelplata.dev
+            mardelplata.dev.ar
           </span>
           <span className="term-line block mt-2 kicker text-white/35" style={{ animationDelay: "560ms" }}>
             ready<span className="terminal-cursor text-[#3B82F6] ml-1">_</span>

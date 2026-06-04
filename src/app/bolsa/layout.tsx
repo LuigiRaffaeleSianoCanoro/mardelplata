@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bolsa de trabajo — MdPDev",
+  title: "Bolsa de trabajo — mardelplata.dev.ar",
   description:
     "Ofertas laborales y servicios freelance de la comunidad marplatense. Clasificados locales.",
 };

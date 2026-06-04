@@ -474,10 +474,10 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       <Link
         href="/"
         className="relative z-10 mb-5 mt-1 flex items-center justify-center group"
-        title="mardelplata.dev"
+        title="mardelplata.dev.ar"
       >
         <span className="metal-chip w-10 h-10 rounded-xl group-hover:scale-110 transition-transform duration-300">
-          <Image src="/mdpdev.png" alt="MdPDev" width={22} height={22} className="opacity-95" />
+          <Image src="/mdpdev.png" alt="mardelplata.dev.ar" width={22} height={22} className="opacity-95" />
         </span>
       </Link>
 

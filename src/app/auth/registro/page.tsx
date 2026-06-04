@@ -178,14 +178,14 @@ export default function RegistroPage() {
             <Link href="/" className="inline-flex items-center gap-2 mb-6">
               <Image
                 src="/mdpdev.png"
-                alt="MdPDev logo"
+                alt="mardelplata.dev.ar logo"
                 width={48}
                 height={48}
                 className="rounded-2xl shadow-lg"
               />
             </Link>
             <h1 className="text-2xl font-display font-bold text-white mb-2">
-              Unite a MdPDev
+              Unite a mardelplata.dev.ar
             </h1>
             <p className="text-ocean-200 text-sm">
               Crea tu perfil y conecta con la comunidad

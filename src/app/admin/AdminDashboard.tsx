@@ -65,7 +65,7 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
     <div>
       {/* Header propio removido — el AppShell ya provee logo / perfil /
           logout via el sidebar (mobile bottom bar). Antes habia un
-          header sticky con mardelplata.dev + Mi perfil + Salir que
+          header sticky con mardelplata.dev.ar + Mi perfil + Salir que
           duplicaba esa funcionalidad. */}
 
       <div className="max-w-7xl mx-auto px-4 pt-10">

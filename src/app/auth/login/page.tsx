@@ -58,7 +58,7 @@ export default function LoginPage() {
                   <span className="metal-chip w-12 h-12 rounded-2xl">
                     <Image
                       src="/mdpdev.png"
-                      alt="MdPDev logo"
+                      alt="mardelplata.dev.ar logo"
                       width={28}
                       height={28}
                       className="opacity-90"
@@ -73,7 +73,7 @@ export default function LoginPage() {
                   Bienvenido de vuelta
                 </h1>
                 <p className="text-white/55 text-sm font-light">
-                  Ingresá a tu cuenta de MdPDev
+                  Ingresá a tu cuenta de mardelplata.dev.ar
                 </p>
                 <p className="coord-line mt-3">
                   MDP <span className="sep">·</span> <span className="num">38°00&apos;S</span> <span className="sep">·</span> <span className="num">057°33&apos;W</span>

@@ -111,7 +111,7 @@ export default function Footer() {
             <li><Link href="/reglamento">Reglamento</Link></li>
           </ul>
           <span className="footer-x-copy">
-            © {new Date().getFullYear()} mardelplata.dev
+            © {new Date().getFullYear()} mardelplata.dev.ar
           </span>
         </div>
       </div>

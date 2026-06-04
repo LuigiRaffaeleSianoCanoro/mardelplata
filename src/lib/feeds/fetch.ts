@@ -13,7 +13,7 @@ export async function getAggregatedFeed(): Promise<FeedItem[]> {
         next: { revalidate: FEED_REVALIDATE_SECONDS },
         headers: {
           // Algunos feeds bloquean user-agents vacíos.
-          "User-Agent": "mardelplata.dev RSS aggregator (+https://mardelplata.dev)",
+          "User-Agent": "mardelplata.dev.ar RSS aggregator (+https://mardelplata.dev.ar)",
           Accept: "application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.8",
         },
       });

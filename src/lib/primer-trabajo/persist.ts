@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { runDiagnostic } from "./engine";
 import type { DiagnosticResult, HrQuizResult, PrimerTrabajoPersisted } from "./types";
 
-const STORAGE_KEY = "mdpdev-primer-trabajo-v1";
+const STORAGE_KEY = "mardelplata-dev-primer-trabajo-v1";
 
 function read(): PrimerTrabajoPersisted {
   if (typeof window === "undefined") {

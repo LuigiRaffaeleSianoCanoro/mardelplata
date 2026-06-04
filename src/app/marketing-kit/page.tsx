@@ -3,9 +3,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Marketing Kit — MdPDev",
+  title: "Marketing Kit — mardelplata.dev.ar",
   description:
-    "Recursos de comunicación, templates de copy y materiales de difusión de la comunidad MdPDev.",
+    "Recursos de comunicación, templates de copy y materiales de difusión de la comunidad mardelplata.dev.ar.",
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────
@@ -147,7 +147,7 @@ export default function MarketingKitPage() {
             <h1 className="display-thin text-white text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-[-0.01em] mb-4">
               Marketing Kit{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">
-                MdPDev
+                mardelplata.dev.ar
               </span>
               .
             </h1>
@@ -179,7 +179,7 @@ export default function MarketingKitPage() {
         <Section id="press">
           <SectionHeading
             label="01 — Press Kit"
-            title="Sobre MdPDev"
+            title="Sobre mardelplata.dev.ar"
             subtitle="Información oficial para medios, blogs, podcasts y cualquier cobertura de la comunidad."
           />
 
@@ -198,7 +198,7 @@ export default function MarketingKitPage() {
                 Descripción corta (tweet / bio)
               </p>
               <p className="text-white/85 leading-relaxed text-lg">
-                MdPDev es la comunidad tech de Mar del Plata. Conectamos desarrolladores,
+                mardelplata.dev.ar es la comunidad tech de Mar del Plata. Conectamos desarrolladores,
                 diseñadores y emprendedores de la costa atlántica.
               </p>
               <p className="text-xs text-sky-300 font-mono mt-4">136 caracteres</p>
@@ -208,13 +208,13 @@ export default function MarketingKitPage() {
                 Descripción larga (artículos / presentaciones)
               </p>
               <p className="text-white/85 leading-relaxed text-sm">
-                MdPDev es la comunidad de tecnología y desarrollo de Mar del Plata, Argentina.
+                mardelplata.dev.ar es la comunidad de tecnología y desarrollo de Mar del Plata, Argentina.
                 Fundada en 2026 por Franco Petruccelli y Luigi Canoro, dos QA Engineers marplatenses,
                 la comunidad nació con el objetivo de conectar el talento tech local y construir
                 un ecosistema digital sostenible en la costa atlántica.
                 <br /><br />
                 A través de eventos presenciales, recursos compartidos y un grupo activo de WhatsApp,
-                MdPDev impulsa la colaboración entre desarrolladores, diseñadores y emprendedores
+                mardelplata.dev.ar impulsa la colaboración entre desarrolladores, diseñadores y emprendedores
                 de todos los niveles.
               </p>
             </div>
@@ -229,7 +229,7 @@ export default function MarketingKitPage() {
                   initials: "FP",
                   name: "Franco Petruccelli",
                   role: "Co-fundador · QA Engineer",
-                  bio: "QA Engineer marplatense, co-creador de MdPDev. Apasionado por la calidad del software y el crecimiento del ecosistema tech local.",
+                  bio: "QA Engineer marplatense, co-creador de mardelplata.dev.ar. Apasionado por la calidad del software y el crecimiento del ecosistema tech local.",
                   from: "from-ocean-400",
                   to: "to-ocean-800",
                 },
@@ -237,7 +237,7 @@ export default function MarketingKitPage() {
                   initials: "LC",
                   name: "Luigi Canoro",
                   role: "Co-fundador · QA Engineer",
-                  bio: "QA Engineer marplatense, co-creador de MdPDev. Enfocado en comunidad, tecnología y en impulsar el talento de la costa atlántica.",
+                  bio: "QA Engineer marplatense, co-creador de mardelplata.dev.ar. Enfocado en comunidad, tecnología y en impulsar el talento de la costa atlántica.",
                   from: "from-teal-400",
                   to: "to-ocean-700",
                 },
@@ -286,22 +286,22 @@ export default function MarketingKitPage() {
                 context="Lanzamiento / presentación"
                 text={`Estamos construyendo el hub tech de la costa atlántica. 🌊
 
-MdPDev es la comunidad de desarrolladores, diseñadores y emprendedores de Mar del Plata. Un espacio para conectar, aprender y crecer juntos.
+mardelplata.dev.ar es la comunidad de desarrolladores, diseñadores y emprendedores de Mar del Plata. Un espacio para conectar, aprender y crecer juntos.
 
 Si estás en MdP y trabajás en tecnología, este es tu lugar.
 
 👉 Sumate al grupo: [link]`}
-                tags={["#MdPDev", "#MarDelPlata", "#TechCommunity", "#Desarrollo"]}
+                tags={["#MarDelPlataDev", "#MarDelPlata", "#TechCommunity", "#Desarrollo"]}
               />
               <CopyCard
                 platform="LinkedIn"
                 context="Búsqueda de colaboradores"
                 text={`¿Tu empresa o institución quiere estar en el radar de la escena tech de Mar del Plata?
 
-En MdPDev conectamos organizaciones con desarrolladores, diseñadores y emprendedores de la costa atlántica.
+En mardelplata.dev.ar conectamos organizaciones con desarrolladores, diseñadores y emprendedores de la costa atlántica.
 
 Estamos abiertos a colaboraciones, sponsors y co-creadores. Hablemos. 👇`}
-                tags={["#MdPDev", "#Colaboración", "#TechMarDelPlata"]}
+                tags={["#MarDelPlataDev", "#Colaboración", "#TechMarDelPlata"]}
               />
               <CopyCard
                 platform="LinkedIn"
@@ -315,19 +315,19 @@ Hora: [HORA]
 Entrada: libre y gratuita
 
 Sumate 👉 [link RSVP o WhatsApp]`}
-                tags={["#MdPDev", "#Evento", "#MarDelPlata", "#Dev"]}
+                tags={["#MarDelPlataDev", "#Evento", "#MarDelPlata", "#Dev"]}
               />
               <CopyCard
                 platform="LinkedIn"
                 context="Post de comunidad / milestone"
-                text={`[NÚMERO] personas ya forman parte de MdPDev, la comunidad tech de Mar del Plata.
+                text={`[NÚMERO] personas ya forman parte de mardelplata.dev.ar, la comunidad tech de Mar del Plata.
 
 Cada semana compartimos oportunidades laborales, recursos de aprendizaje y noticias del ecosistema local.
 
 Si todavía no estás, ¿qué esperás?
 
 👉 [link]`}
-                tags={["#MdPDev", "#Comunidad", "#Tech", "#MarDelPlata"]}
+                tags={["#MarDelPlataDev", "#Comunidad", "#Tech", "#MarDelPlata"]}
               />
             </div>
           </div>
@@ -348,10 +348,10 @@ Si todavía no estás, ¿qué esperás?
                 context="Post / carrusel de presentación"
                 text={`Devs, diseñadores y emprendedores de Mar del Plata: esto es para ustedes. 🌊
 
-MdPDev es el hub tech de la costa atlántica. Empleos, cursos, eventos y comunidad — todo en un solo lugar.
+mardelplata.dev.ar es el hub tech de la costa atlántica. Empleos, cursos, eventos y comunidad — todo en un solo lugar.
 
 Link en bio para unirse al grupo de WhatsApp.`}
-                tags={["#MdPDev", "#MarDelPlata", "#Dev", "#Tech", "#ComunidadTech", "#CostaAtlantica"]}
+                tags={["#MarDelPlataDev", "#MarDelPlata", "#Dev", "#Tech", "#ComunidadTech", "#CostaAtlantica"]}
               />
               <CopyCard
                 platform="Instagram"
@@ -360,7 +360,7 @@ Link en bio para unirse al grupo de WhatsApp.`}
 
 Tenemos un grupo para vos 👇
 
-MdPDev — la comunidad tech de la costa
+mardelplata.dev.ar — la comunidad tech de la costa
 
 [Sticker de link al WhatsApp]`}
               />
@@ -374,15 +374,15 @@ MdPDev — la comunidad tech de la costa
 Un encuentro para conectar con la comunidad tech de Mar del Plata. Entrada libre.
 
 Más info en bio (o avisanos por WhatsApp).`}
-                tags={["#MdPDev", "#EventoTech", "#MarDelPlata", "#Networking"]}
+                tags={["#MarDelPlataDev", "#EventoTech", "#MarDelPlata", "#Networking"]}
               />
               <CopyCard
                 platform="Instagram"
                 context="Quote / contenido de valor"
                 text={`"El talento tech de Mar del Plata existe. Solo faltaba un lugar donde encontrarse."
 
-MdPDev · El hub tech de la costa atlántica 🌊`}
-                tags={["#MdPDev", "#TechCommunity", "#MarDelPlata"]}
+mardelplata.dev.ar · El hub tech de la costa atlántica 🌊`}
+                tags={["#MarDelPlataDev", "#TechCommunity", "#MarDelPlata"]}
               />
             </div>
           </div>
@@ -403,7 +403,7 @@ MdPDev · El hub tech de la costa atlántica 🌊`}
                 context="Invitación a nuevo miembro"
                 text={`Hola [NOMBRE] 👋
 
-Te mando el link a MdPDev, la comunidad tech de Mar del Plata. Compartimos empleos, cursos y eventos de la escena local.
+Te mando el link a mardelplata.dev.ar, la comunidad tech de Mar del Plata. Compartimos empleos, cursos y eventos de la escena local.
 
 👉 [link al grupo]
 
@@ -412,7 +412,7 @@ Te mando el link a MdPDev, la comunidad tech de Mar del Plata. Compartimos emple
               <CopyCard
                 platform="WhatsApp"
                 context="Bienvenida en el grupo"
-                text={`Bienvenido/a a MdPDev 🌊
+                text={`Bienvenido/a a mardelplata.dev.ar 🌊
 
 Somos la comunidad tech de Mar del Plata. Acá compartimos:
 
@@ -469,7 +469,7 @@ _Compartí si conocés a alguien que le sirva 🙌_`}
             <CopyCard
               platform="Anuncio"
               context="Primera comunicación"
-              text={`📣 Próximo evento MdPDev
+              text={`📣 Próximo evento mardelplata.dev.ar
 
 *[NOMBRE DEL EVENTO]*
 📅 [DÍA, FECHA]
@@ -501,7 +501,7 @@ Nos vemos ahí 🌊`}
 
 [NOMBRE DEL EVENTO] — [HORA] — [LUGAR]
 
-Si vas, nos vemos ahí. Si no pudiste sumarte esta vez, estate atento: vienen más eventos de MdPDev.`}
+Si vas, nos vemos ahí. Si no pudiste sumarte esta vez, estate atento: vienen más eventos de mardelplata.dev.ar.`}
             />
             <CopyCard
               platform="Post-evento"
@@ -547,7 +547,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
           <SectionHeading
             label="04 — Colaboradores"
             title={<>Pitch para<br /><span className="gradient-text">colaboradores y sponsors</span></>}
-            subtitle="Materiales para presentar MdPDev a empresas, instituciones y organizaciones que quieran sumarse."
+            subtitle="Materiales para presentar mardelplata.dev.ar a empresas, instituciones y organizaciones que quieran sumarse."
           />
 
           {/* One-pager de la propuesta */}
@@ -560,7 +560,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
                 Impulsá el tech de la costa atlántica
               </h3>
               <p className="text-white/65 text-base leading-relaxed max-w-2xl">
-                MdPDev es la comunidad de referencia tech en Mar del Plata. Ser parte
+                mardelplata.dev.ar es la comunidad de referencia tech en Mar del Plata. Ser parte
                 de nuestra red significa visibilidad directa frente al talento local,
                 conexión con el ecosistema digital de la ciudad y un impacto real
                 en el crecimiento de la industria.
@@ -606,7 +606,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
               <h4 className="font-display font-semibold text-white/90 mb-4">¿Cómo podemos colaborar?</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 {[
-                  ["🎤", "Ser sponsor de un evento MdPDev"],
+                  ["🎤", "Ser sponsor de un evento mardelplata.dev.ar"],
                   ["📢", "Difundir ofertas laborales a la comunidad"],
                   ["🎓", "Ofrecer recursos educativos o workshops"],
                   ["🤝", "Co-organizar meetups y actividades"],
@@ -643,7 +643,7 @@ El próximo evento ya está en camino — seguinos para enterarte primero.`}
                 context="Primer contacto con empresa o institución"
                 text={`Hola [NOMBRE],
 
-Te escribo de MdPDev, la comunidad tech de Mar del Plata. Somos un grupo activo de desarrolladores, diseñadores y emprendedores de la ciudad, y estamos construyendo el ecosistema digital de la costa atlántica.
+Te escribo de mardelplata.dev.ar, la comunidad tech de Mar del Plata. Somos un grupo activo de desarrolladores, diseñadores y emprendedores de la ciudad, y estamos construyendo el ecosistema digital de la costa atlántica.
 
 Nos gustaría explorar una posible colaboración con [EMPRESA/INSTITUCIÓN]. Podría ser algo tan simple como difundir sus oportunidades laborales a la comunidad, co-organizar un evento, o aparecer como colaborador en nuestro sitio.
 
@@ -651,14 +651,14 @@ Nos gustaría explorar una posible colaboración con [EMPRESA/INSTITUCIÓN]. Pod
 
 Saludos,
 [Tu nombre]
-MdPDev`}
+mardelplata.dev.ar`}
               />
               <CopyCard
                 platform="Email / DM"
                 context="Follow-up después de un evento"
                 text={`Hola [NOMBRE],
 
-Fue un placer cruzarnos en [EVENTO/CONTEXTO]. Tal como te comenté, somos MdPDev — la comunidad tech de Mar del Plata.
+Fue un placer cruzarnos en [EVENTO/CONTEXTO]. Tal como te comenté, somos mardelplata.dev.ar — la comunidad tech de Mar del Plata.
 
 Me gustaría retomar la conversación sobre [TEMA ESPECÍFICO QUE HABLARON]. Creo que hay una linda oportunidad de colaborar.
 
@@ -666,7 +666,7 @@ Me gustaría retomar la conversación sobre [TEMA ESPECÍFICO QUE HABLARON]. Cre
 
 Saludos,
 [Tu nombre]
-MdPDev`}
+mardelplata.dev.ar`}
               />
             </div>
           </div>

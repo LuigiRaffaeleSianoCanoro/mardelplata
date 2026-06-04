@@ -5,7 +5,7 @@ import { ArrowLeft, Compass } from "lucide-react";
 // Estética alineada al landing: gunmetal, sapphire, kicker, display-thin.
 
 export const metadata = {
-  title: "404 · mardelplata.dev",
+  title: "404 · mardelplata.dev.ar",
   description: "Esta coordenada no existe en la carta.",
 };
 

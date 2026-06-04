@@ -90,7 +90,7 @@ function MemberContent() {
           {/* Info */}
           <div className="text-center mb-6">
             <h1 className="text-2xl font-display font-bold text-white mb-1">
-              {profile.full_name || "Miembro MdPDev"}
+              {profile.full_name || "Miembro mardelplata.dev.ar"}
             </h1>
             {profile.bio && (
               <p className="text-ocean-200 text-sm mt-3">{profile.bio}</p>
@@ -162,7 +162,7 @@ function MemberContent() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
-              Conoce MdPDev
+              Conoce mardelplata.dev.ar
             </Link>
           </div>
         </div>

@@ -11,7 +11,7 @@ import type { FeedItem } from "@/lib/feeds/types";
 export const revalidate = 1800;
 
 export const metadata = {
-  title: "Lectura · mardelplata.dev",
+  title: "Lectura · mardelplata.dev.ar",
   description:
     "Lecturas curadas de la red de mar del plata.",
 };

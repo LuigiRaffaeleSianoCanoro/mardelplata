@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "MdPDev — preview · motion",
+  title: "mardelplata.dev.ar — preview · motion",
   description: "Preview de rediseño con foco en animaciones y movimiento.",
 };
 

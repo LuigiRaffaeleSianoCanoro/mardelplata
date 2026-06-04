@@ -38,7 +38,7 @@ export const mockUser = {
   id: "00000000-0000-0000-0000-000000000001",
   aud: "authenticated",
   role: "authenticated",
-  email: "demo@mardelplata.dev",
+  email: "demo@mardelplata.dev.ar",
   app_metadata: {},
   user_metadata: {},
   created_at: "2026-01-01T00:00:00.000Z",
@@ -46,7 +46,7 @@ export const mockUser = {
 
 export const mockProfile = {
   id: mockUser.id,
-  email: "demo@mardelplata.dev",
+  email: "demo@mardelplata.dev.ar",
   full_name: "Demo Dev",
   avatar_url: null as string | null,
   qr_code: "mock-qr-00000000-0000-0000-0000-000000000001",
@@ -99,7 +99,7 @@ export const mockProfiles = [
   mockProfile,
   {
     id: "00000000-0000-0000-0000-000000000002",
-    email: "ana@mardelplata.dev",
+    email: "ana@mardelplata.dev.ar",
     full_name: "Ana Costa",
     avatar_url: null as string | null,
     qr_code: "mock-qr-2",
@@ -112,7 +112,7 @@ export const mockProfiles = [
   },
   {
     id: "00000000-0000-0000-0000-000000000003",
-    email: "lucas@mardelplata.dev",
+    email: "lucas@mardelplata.dev.ar",
     full_name: "Lucas Bahía",
     avatar_url: null as string | null,
     qr_code: "mock-qr-3",

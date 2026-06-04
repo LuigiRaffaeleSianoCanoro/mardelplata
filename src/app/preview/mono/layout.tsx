@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "MdPDev — preview · mono",
+  title: "mardelplata.dev.ar — preview · mono",
   description: "Preview de rediseño en estética mono / Vercel / Basehub.",
 };
 

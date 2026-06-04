@@ -44,7 +44,7 @@ function getTagFlavor(tags: string[]): { label: string; flavor: "violet" | "cyan
 }
 
 export const metadata = {
-  title: "Mis asistencias — mardelplata.dev",
+  title: "Mis asistencias — mardelplata.dev.ar",
   description: "Eventos a los que asististe en la comunidad IT de Mar del Plata.",
 };
 

@@ -365,7 +365,7 @@ function MotionTeam() {
               <p className="text-ocean-200/80 text-sm mt-3">{t.role}</p>
               <div className="mt-8 h-px bg-gradient-to-r from-ocean-300/40 via-transparent to-transparent" />
               <p className="mt-6 text-ocean-100/70 text-sm leading-relaxed">
-                Construyendo MdPDev desde la costa atlántica. Apasionado por la calidad del software y
+                Construyendo mardelplata.dev.ar desde la costa atlántica. Apasionado por la calidad del software y
                 por el ecosistema tech local.
               </p>
             </article>
@@ -422,20 +422,20 @@ function MotionFooter() {
             className="font-display font-black text-white/90 text-[clamp(3rem,9vw,7rem)] pr-12"
             style={{ letterSpacing: "-0.05em" }}
           >
-            mardelplata.dev · mardelplata.dev · mardelplata.dev ·
+            mardelplata.dev.ar · mardelplata.dev.ar · mardelplata.dev.ar ·
           </span>
           <span
             aria-hidden
             className="font-display font-black text-white/90 text-[clamp(3rem,9vw,7rem)] pr-12"
             style={{ letterSpacing: "-0.05em" }}
           >
-            mardelplata.dev · mardelplata.dev · mardelplata.dev ·
+            mardelplata.dev.ar · mardelplata.dev.ar · mardelplata.dev.ar ·
           </span>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-ocean-300/60">
-        <p>© 2026 MdPDev — Todos los derechos reservados.</p>
+        <p>© 2026 mardelplata.dev.ar — Todos los derechos reservados.</p>
         <div className="flex items-center gap-5">
           <a href="https://x.com/Mardeldev" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">X</a>
           <a href="https://www.instagram.com/mardelplata.dev.ar/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>

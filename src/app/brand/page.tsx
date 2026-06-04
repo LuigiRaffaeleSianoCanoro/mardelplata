@@ -3,8 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Brand Book — MdPDev",
-  description: "Guía de identidad visual y tono de la comunidad MdPDev.",
+  title: "Brand Book — mardelplata.dev.ar",
+  description: "Guía de identidad visual y tono de la comunidad mardelplata.dev.ar.",
 };
 
 // ── Sea Lion icon (same as Navbar/Footer) ──────────────────────────────────
@@ -147,7 +147,7 @@ export default function BrandPage() {
             <h1 className="display-thin text-white text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-[-0.01em] mb-4">
               Brand Book{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">
-                MdPDev
+                mardelplata.dev.ar
               </span>
               .
             </h1>
@@ -197,7 +197,7 @@ export default function BrandPage() {
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-700/40">
                     <SeaLionIcon size={30} />
                   </div>
-                  <span className="font-display font-bold text-3xl text-white tracking-tight">MdPDev</span>
+                  <span className="font-display font-bold text-3xl text-white tracking-tight">mardelplata.dev.ar</span>
                 </div>
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-700/40">
                   <SeaLionIcon size={30} />
@@ -216,7 +216,7 @@ export default function BrandPage() {
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-400/30">
                     <SeaLionIcon size={30} />
                   </div>
-                  <span className="font-display font-bold text-3xl text-white/90 tracking-tight">MdPDev</span>
+                  <span className="font-display font-bold text-3xl text-white/90 tracking-tight">mardelplata.dev.ar</span>
                 </div>
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-400/30">
                   <SeaLionIcon size={30} />
@@ -333,7 +333,7 @@ Aletas tr  path     M17.5 17 C19.5 16 21 17.5 19.5 19
               </div>
               <div className="rounded-xl overflow-hidden border border-white/10">
                 <div className="h-20 bg-transparent flex items-center justify-center">
-                  <span className="gradient-text font-display font-bold text-3xl">MdPDev</span>
+                  <span className="gradient-text font-display font-bold text-3xl">mardelplata.dev.ar</span>
                 </div>
                 <div className="bg-white/5 p-3 border-t border-white/10 rounded-b-xl">
                   <p className="text-xs font-semibold text-white/85">.gradient-text</p>
@@ -433,7 +433,7 @@ font-display  → Space Grotesk (headings, wordmark)`}</Code>
           <div className="text-center mb-12">
             <SectionLabel>04 — Voz y tono</SectionLabel>
             <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90">
-              Cómo habla MdPDev
+              Cómo habla mardelplata.dev.ar
             </h2>
           </div>
 
@@ -751,13 +751,13 @@ text-xs font-semibold`}</Code>
               {
                 title: "Logo",
                 dos: [
-                  'Escribir siempre "MdPDev" (M, P y D en mayúsculas)',
+                  'Escribir siempre "mardelplata.dev.ar" (todo en minúsculas, con el .ar)',
                   "Mantener el ratio cuadrado del contenedor (mínimo 32×32 px)",
                   "Respetar 8px de espacio libre alrededor del logo",
                   "Usar el faro únicamente como decoración de fondo del hero",
                 ],
                 donts: [
-                  '"mdpdev", "MDP Dev" o "Mdp dev" son incorrectos',
+                  '"MdPDev", "mardelplata.dev" (sin .ar) o "MDP Dev" son incorrectos',
                   "No estirar ni aplanar el contenedor del ícono",
                   "No superponer otros elementos sobre el logo",
                   "No usar el faro como ícono de la marca",
