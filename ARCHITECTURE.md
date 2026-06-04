@@ -204,6 +204,9 @@ mardelplata/
 | `/admin` | Client | Gate por `is_admin`; carga `events` + `profiles` |
 | `/admin/scanner` | Client | `getUserMedia` + zxing + insert en `event_attendance` |
 | `/bolsa` | Client | Supabase: `classified_listings` + `classified_votes` |
+| `/cafes` | Server (RSC) + cliente | Supabase: `cafes` + `cafe_scores` (lectura pública) |
+| `/cafes/[id]` | Server (RSC) + cliente | Supabase: `cafes`, `cafe_scores`, `cafe_votes` (comentarios) |
+| `/cafes/nuevo` | Client | Supabase: insert en `cafes` (logueado) |
 | `/primer-trabajo` | Static | Índice — links a sub-páginas |
 | `/primer-trabajo/diagnostico` | Client | `localStorage` (`mdpdev-primer-trabajo-v1`) |
 | `/primer-trabajo/plan` | Client | `localStorage` |
@@ -295,6 +298,29 @@ classified_listings
 classified_votes
   PRIMARY KEY (listing_id, user_id)
   vote                SMALLINT CHECK (1 | -1)
+
+cafes
+  id                  UUID PK
+  name                TEXT NOT NULL
+  address, neighborhood TEXT
+  lat, lng            DOUBLE PRECISION
+  google_place_id     TEXT UNIQUE              -- null si lo agregó la comunidad
+  google_rating       NUMERIC
+  google_reviews_count INT
+  maps_url            TEXT
+  source              TEXT CHECK ('seed' | 'community')
+  added_by            UUID → profiles(id)      -- null para seed
+  created_at, updated_at TIMESTAMPTZ
+
+cafe_votes
+  PRIMARY KEY (cafe_id, user_id)
+  vote                SMALLINT CHECK (1 | -1)  -- lobito arriba/abajo
+  has_wifi, has_power, good_seating, is_quiet BOOLEAN  -- chips de comodidades
+  comment             TEXT
+  created_at, updated_at TIMESTAMPTZ
+
+cafe_scores (VIEW, security_invoker)
+  agrega cafe_votes por cafe_id: net_votes, up/down/votes_count, *_count por comodidad
 ```
 
 ### 7.3 Row Level Security
@@ -308,8 +334,13 @@ Todas las tablas tienen RLS habilitado.
 | `event_attendance` | Sólo `is_admin()` | Sólo `is_admin()` |
 | `classified_listings` | Autenticados, vigentes (o propio si vencido) | Insert/delete del autor |
 | `classified_votes` | Autenticados, sobre listings vigentes | Sólo voto propio |
+| `cafes` | Pública | Insert logueado (community, propio); update/delete dueño o `is_admin()` |
+| `cafe_votes` | Pública | Sólo el voto propio (`user_id = auth.uid()`) |
 
 Helper `public.is_admin()` con `SECURITY DEFINER` evita recursión leyendo `profiles.is_admin` por fuera de las policies.
+
+> El listado de `/cafes` se siembra con `scripts/seed-cafes.mjs` (Google Places API → upsert con
+> service-role key). Corre offline, no en el deploy. Ver README. La migración es `scripts/012_cafes.sql`.
 
 ### 7.4 Triggers
 
