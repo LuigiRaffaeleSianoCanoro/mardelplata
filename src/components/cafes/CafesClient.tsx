@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import type { CafeWithScore } from "@/lib/types/cafes";
+import Link from "next/link";
 import CafeCard from "./CafeCard";
 
 interface Props {
@@ -80,7 +81,8 @@ export default function CafesClient({ initialCafes }: Props) {
       if (quickVoteInFlight.current) return;
       quickVoteInFlight.current = true;
       try {
-        if (myVotes.get(cafeId) === dir) {
+        const existing = myVotes.get(cafeId);
+        if (existing === dir) {
           const { error } = await supabase
             .from("cafe_votes")
             .delete()
@@ -90,15 +92,23 @@ export default function CafesClient({ initialCafes }: Props) {
             console.error("[cafes] quick-vote delete", error);
             return;
           }
+        } else if (existing !== undefined) {
+          // Ya votó este café: actualizar solo `vote`, preservando chips/comentario.
+          const { error } = await supabase
+            .from("cafe_votes")
+            .update({ vote: dir })
+            .eq("cafe_id", cafeId)
+            .eq("user_id", user.id);
+          if (error) {
+            console.error("[cafes] quick-vote update", error);
+            return;
+          }
         } else {
           const { error } = await supabase
             .from("cafe_votes")
-            .upsert(
-              { cafe_id: cafeId, user_id: user.id, vote: dir },
-              { onConflict: "cafe_id,user_id" },
-            );
+            .insert({ cafe_id: cafeId, user_id: user.id, vote: dir });
           if (error) {
-            console.error("[cafes] quick-vote upsert", error);
+            console.error("[cafes] quick-vote insert", error);
             return;
           }
         }
@@ -157,7 +167,7 @@ export default function CafesClient({ initialCafes }: Props) {
               Con WiFi confirmado
             </label>
             {user && (
-              <a href="/cafes/nuevo" className="shell-btn-primary">+ Agregar café</a>
+              <Link href="/cafes/nuevo" className="shell-btn-primary">+ Agregar café</Link>
             )}
           </div>
         </header>

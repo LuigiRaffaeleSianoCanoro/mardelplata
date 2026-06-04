@@ -9520,3 +9520,12 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
 .cafes-x-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; max-width: 30rem; }
 .cafes-x-field { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; }
 .cafes-x-field input { background: rgba(255,255,255,0.05); color: inherit; border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.55rem 0.7rem; }
+
+.cafes-root {
+  font-family: var(--font-sans);
+}
+.cafes-x {
+  min-height: 100vh;
+  padding-top: 5rem;
+  background: var(--shell-bg);
+}

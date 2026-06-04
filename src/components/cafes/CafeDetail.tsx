@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import {
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default function CafeDetail({ cafe, score, comments }: Props) {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const supabase = useMemo(() => createClient(), []);
 
@@ -27,10 +29,16 @@ export default function CafeDetail({ cafe, score, comments }: Props) {
     supabase.auth.getUser().then(({ data: { user: u } }) => {
       if (!cancelled) setUser(u);
     });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUser(session?.user ?? null);
+    });
     return () => {
       cancelled = true;
+      subscription.unsubscribe();
     };
-  }, [supabase.auth]);
+  }, [supabase]);
 
   return (
     <div className="shell-section">
@@ -62,7 +70,7 @@ export default function CafeDetail({ cafe, score, comments }: Props) {
 
         <section className="cafes-x-section">
           <h2 className="shell-eyebrow">TU VOTO</h2>
-          <VoteWolf cafeId={cafe.id} userId={user?.id ?? null} />
+          <VoteWolf cafeId={cafe.id} userId={user?.id ?? null} onChanged={() => router.refresh()} />
         </section>
 
         <section className="cafes-x-section">
