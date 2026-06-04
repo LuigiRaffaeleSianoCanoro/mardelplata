@@ -196,3 +196,21 @@ Para ideas, revisá [`/red`](https://mardelplata.dev.ar/red) o el grupo de Whats
 ## Licencia
 
 MIT — Hecho con ♥ desde la costa atlántica.
+
+## Seed de cafés (sección /cafes)
+
+El listado base de cafés se siembra una sola vez desde Google Places API. **No corre en
+producción** — lo ejecuta el operador localmente.
+
+1. Aplicar la migración `scripts/012_cafes.sql` en el SQL Editor de Supabase.
+2. Exportar variables:
+   - `GOOGLE_PLACES_API_KEY` — key con Places API habilitada.
+   - `NEXT_PUBLIC_SUPABASE_URL` — URL del proyecto.
+   - `SUPABASE_SERVICE_ROLE_KEY` — service-role key (NUNCA se commitea ni va al cliente).
+3. Probar sin escribir: `node scripts/seed-cafes.mjs --dry-run`
+4. Sembrar: `node scripts/seed-cafes.mjs`
+
+El upsert es idempotente por `google_place_id`, así que se puede re-correr para refrescar
+ratings. Tests del mapeo: `node --test scripts/seed-cafes.test.mjs`.
+
+> Nota: `neighborhood` queda en `null` en la semilla (Text Search no devuelve `address_components`); lo completa la comunidad. `maps_url` usa el link canónico por `place_id`.
