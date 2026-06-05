@@ -18,6 +18,17 @@ export const metadata = {
 
 const ITEMS: FeedItem[] = [
   {
+    source: "nkstudio",
+    sourceLabel: "nk.studio",
+    sourceKind: "rss",
+    title: "When a website stops being a page and becomes a platform",
+    url: "https://www.nk.studio/news/when-a-website-stops-being-a-page-and-becomes-a-platform/",
+    publishedAt: "2026-05-18T00:00:00.000Z",
+    excerpt:
+      "Las marcas ya no necesitan una página estática sino plataformas digitales: sistemas modulares, escalables y autogestionables. Cómo diseñarlas con un CMS headless para que el equipo crezca sin reconstruir todo cada vez.",
+    author: "Braian Vanega",
+  },
+  {
     source: "xmcp",
     sourceLabel: "xmcp",
     sourceKind: "rss",
