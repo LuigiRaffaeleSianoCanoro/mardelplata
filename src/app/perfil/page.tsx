@@ -40,7 +40,7 @@ export default function PerfilPage() {
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select(
-        "id, email, full_name, avatar_url, qr_code, bio, github_url, linkedin_url, twitter_url, is_admin, created_at",
+        "id, email, full_name, avatar_url, qr_code, bio, github_url, linkedin_url, twitter_url, huevsite_username, is_admin, created_at",
       )
       .eq("id", user.id)
       .single();
