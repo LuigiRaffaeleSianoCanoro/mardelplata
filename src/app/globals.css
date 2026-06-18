@@ -6697,6 +6697,358 @@ a.event-card:hover {
 }
 
 /* ════════════════════════════════════════════════════════════════════
+   HUEVSITES — cards de huevsite.io de la comunidad + embed en modal
+   ════════════════════════════════════════════════════════════════════ */
+
+.huevsites-x {
+  position: relative;
+  padding: 1rem 0 6rem;
+  background: #06070d;
+}
+.huevsites-x-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.huevsites-x-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.huevsites-x-title {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: rgba(245, 248, 255, 0.96);
+  margin: 0 0 0.4rem;
+}
+.huevsites-x-sub {
+  font-family: var(--font-inter), ui-sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(180, 200, 230, 0.7);
+  margin: 0;
+  max-width: 46ch;
+}
+.huevsites-x-link {
+  color: rgba(196, 181, 253, 0.95);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.huevsites-x-link:hover {
+  color: rgba(220, 210, 255, 1);
+}
+.huevsites-x-pill {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.14);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: rgba(196, 181, 253, 0.95);
+  white-space: nowrap;
+}
+
+.huevsites-x-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.huevsite-card {
+  --huevsite-accent: #0096c7;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(20, 24, 40, 0.55) 0%, rgba(10, 14, 28, 0.45) 100%);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+}
+.huevsite-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--huevsite-accent);
+  opacity: 0.85;
+}
+.huevsite-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--huevsite-accent) 45%, transparent);
+  box-shadow: 0 16px 38px -18px color-mix(in srgb, var(--huevsite-accent) 65%, transparent);
+}
+
+.huevsite-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.huevsite-card-avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--huevsite-accent) 12%, transparent);
+  border: 2px solid color-mix(in srgb, var(--huevsite-accent) 45%, transparent);
+}
+.huevsite-card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.huevsite-card-avatar-fallback {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.25rem;
+  color: rgba(245, 248, 255, 0.9);
+}
+.huevsite-card-id {
+  min-width: 0;
+  flex: 1;
+}
+.huevsite-card-name {
+  font-family: var(--font-inter), ui-sans-serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(245, 248, 255, 0.97);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.huevsite-card-handle {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 11px;
+  color: color-mix(in srgb, var(--huevsite-accent) 80%, white 10%);
+}
+.huevsite-card-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--huevsite-accent) 85%, white 15%);
+  background: color-mix(in srgb, var(--huevsite-accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--huevsite-accent) 35%, transparent);
+}
+.huevsite-card-headline {
+  font-family: var(--font-inter), ui-sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(200, 215, 240, 0.78);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.huevsite-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+.huevsite-card-btn {
+  flex: 1;
+  font-family: var(--font-inter), ui-sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  color: white;
+  background: var(--huevsite-accent);
+  border: none;
+  cursor: pointer;
+  transition: filter 0.18s, transform 0.18s;
+}
+.huevsite-card-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.huevsite-card-open {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.huevsite-card-open:hover {
+  color: white;
+  background: color-mix(in srgb, var(--huevsite-accent) 25%, transparent);
+  border-color: color-mix(in srgb, var(--huevsite-accent) 50%, transparent);
+}
+
+/* Skeleton mientras se traen las cards de la API */
+.huevsite-card--skeleton {
+  pointer-events: none;
+}
+.huevsite-card--skeleton::before {
+  background: rgba(255, 255, 255, 0.08);
+}
+.huevsite-skel-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  animation: huevsite-pulse 1.4s ease-in-out infinite;
+}
+.huevsite-skel-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.huevsite-skel-line {
+  height: 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  animation: huevsite-pulse 1.4s ease-in-out infinite;
+}
+.huevsite-skel-line.short {
+  width: 55%;
+}
+@keyframes huevsite-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .huevsite-skel-avatar,
+  .huevsite-skel-line { animation: none; }
+}
+
+/* Modal con el perfil embebido (?embed=1) */
+.huevsite-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(3, 4, 10, 0.78);
+  backdrop-filter: blur(6px);
+  animation: huevsite-fade 160ms ease both;
+}
+.huevsite-modal {
+  width: min(440px, 100%);
+  height: min(82vh, 760px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #0a0e1c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
+  animation: huevsite-rise 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.huevsite-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+.huevsite-modal-id {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.huevsite-modal-id strong {
+  font-family: var(--font-inter), ui-sans-serif;
+  font-size: 0.92rem;
+  color: rgba(245, 248, 255, 0.97);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.huevsite-modal-id span {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: rgba(180, 200, 230, 0.6);
+}
+.huevsite-modal-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+.huevsite-modal-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-inter), ui-sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  color: rgba(220, 230, 250, 0.9);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.18s, color 0.18s;
+}
+.huevsite-modal-open:hover {
+  color: white;
+  background: rgba(168, 85, 247, 0.25);
+}
+.huevsite-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.huevsite-modal-close:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
+}
+.huevsite-modal-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  background: #0a0e1c;
+}
+@keyframes huevsite-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes huevsite-rise {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .huevsite-modal-overlay,
+  .huevsite-modal { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
    MANIFESTO — Tecnología con propósito (4 valores)
    ════════════════════════════════════════════════════════════════════ */
 

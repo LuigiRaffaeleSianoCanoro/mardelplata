@@ -15,6 +15,7 @@ import {
 } from "@/lib/avatarPresets";
 import { Button, PageHeader, StaggerReveal } from "@/components/ui";
 import { IS_MOCK } from "@/lib/devMock";
+import { normalizeHuevsiteUsername, huevsiteProfileUrl } from "@/lib/huevsite";
 
 export interface Profile {
   id: string;
@@ -26,6 +27,7 @@ export interface Profile {
   github_url: string | null;
   linkedin_url: string | null;
   twitter_url: string | null;
+  huevsite_username: string | null;
   is_admin: boolean;
   created_at: string;
 }
@@ -50,6 +52,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
     github_url: profile?.github_url || "",
     linkedin_url: profile?.linkedin_url || "",
     twitter_url: profile?.twitter_url || "",
+    huevsite_username: profile?.huevsite_username || "",
   });
   const photoAuthorized = isAvatarPhotoAuthorizedEmail(user.email || profile?.email);
   const hasAllowedPreset = isAllowedPresetAvatarUrl(profile?.avatar_url);
@@ -138,6 +141,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
       github_url: formData.github_url,
       linkedin_url: formData.linkedin_url,
       twitter_url: formData.twitter_url,
+      huevsite_username: normalizeHuevsiteUsername(formData.huevsite_username),
       avatar_url: photoAuthorized
         ? (
             isRetiredPresetAvatarUrl(currentProfile?.avatar_url ?? null)
@@ -423,6 +427,28 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           />
                         </div>
                       </div>
+                      <div>
+                        <label className="block text-sm font-medium text-ocean-200 mb-1 flex items-center gap-2">
+                          huevsite
+                          <span className="text-[10px] uppercase tracking-wide text-ocean-400/80 bg-ocean-500/10 border border-ocean-500/20 rounded-full px-2 py-0.5">
+                            Nuevo
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.huevsite_username}
+                          onChange={(e) => setFormData(f => ({ ...f, huevsite_username: e.target.value }))}
+                          className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
+                          placeholder="tu-usuario o https://huevsite.io/tu-usuario"
+                        />
+                        <p className="text-ocean-300 text-xs mt-1.5">
+                          Conectá tu{" "}
+                          <a href="https://huevsite.io" target="_blank" rel="noopener noreferrer" className="text-ocean-200 underline underline-offset-2 hover:text-white">
+                            huevsite
+                          </a>{" "}
+                          y tu card aparece en la home de la comunidad.
+                        </p>
+                      </div>
                       <div className="flex flex-wrap gap-3 pt-2">
                         <Button onClick={handleSave} loading={loading} variant="primary">
                           Guardar
@@ -474,6 +500,20 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           </a>
                         )}
                       </div>
+                      {currentProfile?.huevsite_username && (
+                        <a
+                          href={huevsiteProfileUrl(currentProfile.huevsite_username)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-ocean-500/15 border border-ocean-400/30 text-ocean-100 text-sm font-medium hover:bg-ocean-500/25 hover:border-ocean-400/50 transition-colors"
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                            <path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                          </svg>
+                          Ver huevsite
+                        </a>
+                      )}
                     </>
                   )}
                 </div>

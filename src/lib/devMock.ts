@@ -55,6 +55,7 @@ export const mockProfile = {
   github_url: null as string | null,
   linkedin_url: null as string | null,
   twitter_url: null as string | null,
+  huevsite_username: "mateo" as string | null,
   is_admin: true,
   created_at: "2026-01-01T00:00:00.000Z",
 };
@@ -108,6 +109,7 @@ export const mockProfiles = [
     github_url: null as string | null,
     linkedin_url: null as string | null,
     twitter_url: null as string | null,
+    huevsite_username: "santi" as string | null,
     is_admin: false,
     created_at: "2026-02-10T00:00:00.000Z",
   },
@@ -121,6 +123,7 @@ export const mockProfiles = [
     github_url: null as string | null,
     linkedin_url: null as string | null,
     twitter_url: null as string | null,
+    huevsite_username: null as string | null,
     is_admin: false,
     created_at: "2026-03-04T00:00:00.000Z",
   },

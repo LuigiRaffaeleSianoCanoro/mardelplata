@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
+import { huevsiteProfileUrl, normalizeHuevsiteUsername } from "@/lib/huevsite";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -15,6 +16,7 @@ interface Profile {
   github_url: string | null;
   linkedin_url: string | null;
   twitter_url: string | null;
+  huevsite_username: string | null;
   created_at: string;
 }
 
@@ -36,7 +38,7 @@ function MemberContent() {
       const supabase = createClient();
       const { data } = await supabase
         .from("profiles_public")
-        .select("full_name, bio, avatar_url, github_url, linkedin_url, twitter_url, created_at")
+        .select("full_name, bio, avatar_url, github_url, linkedin_url, twitter_url, huevsite_username, created_at")
         .eq("qr_code", qrCode)
         .single();
 
@@ -137,6 +139,22 @@ function MemberContent() {
                 </a>
               )}
             </div>
+          )}
+
+          {/* huevsite */}
+          {normalizeHuevsiteUsername(profile.huevsite_username) && (
+            <a
+              href={huevsiteProfileUrl(normalizeHuevsiteUsername(profile.huevsite_username)!)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 mb-6 px-4 py-3 rounded-2xl bg-ocean-500/15 border border-ocean-400/30 text-ocean-100 text-sm font-medium hover:bg-ocean-500/25 hover:border-ocean-400/50 transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+              Ver huevsite
+            </a>
           )}
 
           {/* Member badge */}

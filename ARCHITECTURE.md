@@ -12,7 +12,8 @@ Lo que hay hoy:
 
 - **Landing pública** con eventos, fundadores y miembros recientes.
 - **Auth completa** (signup/login/email verification) con Supabase Auth.
-- **Perfiles de miembros** con avatar, bio, redes y QR personal.
+- **Perfiles de miembros** con avatar, bio, redes, QR personal y huevsite.
+- **Integración huevsite** — cada miembro conecta su [huevsite.io](https://huevsite.io) y la home muestra su card (vía la API pública de perfiles) + el perfil embebido en un modal.
 - **Vista pública de miembro** vía QR (`/miembro?code=…`).
 - **Admin dashboard** (eventos, usuarios) restringido a `is_admin`.
 - **Scanner QR** para registrar asistencia a eventos en tiempo real.
@@ -145,6 +146,7 @@ mardelplata/
 │   │       └── index.ts
 │   └── lib/
 │       ├── avatarPresets.ts                # presets, allowlist de fotos, retiros
+│       ├── huevsite.ts                      # API/embed de huevsite.io + normalización de handle
 │       ├── urls.ts                         # normalización de URLs externas
 │       ├── supabase/
 │       │   ├── client.ts                   # createBrowserClient
@@ -165,7 +167,8 @@ mardelplata/
 │   ├── 002_seed_initial_events.sql
 │   ├── 003_classified_listings.sql
 │   ├── 004_clear_retired_nextsolution_avatar.sql
-│   └── 005_clear_retired_whatsapp_02_avatar.sql
+│   ├── 005_clear_retired_whatsapp_02_avatar.sql
+│   └── 013_profiles_huevsite.sql            # columna huevsite_username + vista profiles_public
 ├── public/
 │   ├── avatar-icons/                       # presets servidos a /perfil
 │   ├── avatars/
@@ -258,6 +261,7 @@ profiles
   qr_code             TEXT UNIQUE              -- usado en /miembro y scanner
   bio                 TEXT
   github_url, linkedin_url, twitter_url TEXT
+  huevsite_username   TEXT                     -- handle de huevsite.io (solo username)
   is_admin            BOOLEAN DEFAULT false    -- gate de /admin
   created_at, updated_at TIMESTAMPTZ
 
@@ -527,3 +531,32 @@ Scripts SQL: ejecutar en orden (`001` → `005`) desde el SQL Editor de Supabase
 - **Identifica `is_admin` por DB, no por env**: el rol vive en `profiles.is_admin`. Las policies dependen del helper `is_admin()`.
 - **`qr_code` es opaco**: UUID v4, no derivable. El scanner acepta tanto el UUID puro como las URLs `/miembro?code=…` y `/miembro/…`.
 - **Migraciones idempotentes**: todos los scripts SQL se pueden re-correr (uso de `IF NOT EXISTS`, `DROP POLICY IF EXISTS`, `ON CONFLICT`).
+
+---
+
+## 17. Integración huevsite
+
+Cada miembro puede conectar su perfil de [huevsite.io](https://huevsite.io) desde `/perfil`. La idea está basada en el blog [API pública de perfiles](https://huevsite.io/blog/api-publica-de-perfiles): la comunidad muestra los huevsites de su gente y manda tráfico de vuelta a cada builder.
+
+**Datos:**
+
+- Columna `profiles.huevsite_username` (`scripts/013_profiles_huevsite.sql`) — guarda **solo el username** (ej. `ada`), no la URL. Se expone en la vista `profiles_public`.
+- El front normaliza lo que el usuario pegue (`ada`, `@ada`, `https://huevsite.io/ada?embed=1`) con `normalizeHuevsiteUsername` y arma las URLs derivadas.
+
+**Helper** [`src/lib/huevsite.ts`](src/lib/huevsite.ts):
+
+| Función | Uso |
+|---|---|
+| `normalizeHuevsiteUsername(input)` | Saca el handle limpio de un handle/URL; `null` si es inválido o reservado. |
+| `huevsiteProfileUrl(u)` | `https://huevsite.io/{u}` |
+| `huevsiteEmbedUrl(u)` | `https://huevsite.io/{u}?embed=1` (sin nav/footer, para `<iframe>`). |
+| `huevsiteApiUrl(u)` | `https://huevsite.io/api/public/profile/{u}` (GET sin auth, CORS abierto, cachea 5 min). |
+| `fetchHuevsiteProfile(u, signal)` | Trae la card. Devuelve `ok` / `not_found` (404 → ocultar) / `error` (red → fallback local). |
+
+**UI:**
+
+- [`src/components/Huevsites.tsx`](src/components/Huevsites.tsx) — sección `huevsites de la comunidad` en la home, debajo de `Community`. Recibe los miembros con huevsite (query a `profiles_public` en `page.tsx`, límite 12), trae cada card client-side y la pinta con el `accentColor` del builder. "Ver huevsite" abre el perfil completo embebido en un modal (`?embed=1`). Si no hay miembros con huevsite, la sección no se renderiza.
+- `/perfil` (`ProfileClient`) — input para conectar el huevsite + botón "Ver huevsite" en la vista.
+- `/miembro` — la card pública del QR también muestra "Ver huevsite".
+
+> No agregamos CSP propia, así que el `<iframe>` de huevsite.io embebe out of the box. El `accentColor` se sanitiza a hex (`#RGB`/`#RRGGBB`) antes de inyectarlo como `--huevsite-accent`.

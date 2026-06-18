@@ -9,12 +9,14 @@ import Reveal from "@/components/Reveal";
 import Channels from "@/components/Channels";
 import Manifesto from "@/components/Manifesto";
 import Community from "@/components/Community";
+import Huevsites from "@/components/Huevsites";
 import Pillars from "@/components/Pillars";
 import Events from "@/components/Events";
 import Opportunities from "@/components/Opportunities";
 import Footer from "@/components/Footer";
 import ScrollDriver from "@/components/ScrollDriver";
 import { createClient } from "@/lib/supabase/server";
+import { IS_MOCK, mockProfiles } from "@/lib/devMock";
 
 const COFOUNDER_FULL_NAMES = new Set(["luigi canoro", "franco petruccelli"]);
 
@@ -52,6 +54,26 @@ export default async function Home() {
     .not("full_name", "is", null)
     .order("created_at", { ascending: false })
     .limit(30);
+
+  // Miembros que conectaron su huevsite (huevsite.io). Card custom + perfil
+  // embebido — ver src/components/Huevsites.tsx.
+  const { data: huevsiteMembersRaw } = await supabase
+    .from("profiles_public")
+    .select("id, full_name, avatar_url, huevsite_username")
+    .not("huevsite_username", "is", null)
+    .order("created_at", { ascending: false })
+    .limit(12);
+  const huevsiteMembers =
+    IS_MOCK && (!huevsiteMembersRaw || huevsiteMembersRaw.length === 0)
+      ? mockProfiles
+          .filter((p) => p.huevsite_username)
+          .map((p) => ({
+            id: p.id,
+            full_name: p.full_name,
+            avatar_url: p.avatar_url,
+            huevsite_username: p.huevsite_username,
+          }))
+      : huevsiteMembersRaw;
 
   // Métricas reales para las cards del Hero (review Luigi PR #26 punto 6).
   const { count: membersCount } = await supabase
@@ -109,6 +131,7 @@ export default async function Home() {
           <Reveal delay={0}><Pillars /></Reveal>
           <Reveal delay={120}><Events events={events ?? []} /></Reveal>
           <Reveal delay={120}><Community members={communityMembers ?? []} /></Reveal>
+          <Reveal delay={120}><Huevsites members={huevsiteMembers ?? []} /></Reveal>
           <Reveal delay={120}><Channels /></Reveal>
           <Reveal delay={120}><Manifesto /></Reveal>
           <Reveal delay={120}><Opportunities jobs={jobs} /></Reveal>
