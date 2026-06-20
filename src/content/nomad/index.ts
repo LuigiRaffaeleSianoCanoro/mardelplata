@@ -10,6 +10,8 @@ import livingJson from "./living.json";
 import visaJson from "./visa.json";
 import companiesJson from "./companies.json";
 import workSpotsJson from "./work-spots.json";
+import investEnJson from "./invest.en.json";
+import livingEnJson from "./living.en.json";
 
 export interface CityStat {
   value: string;
@@ -222,3 +224,9 @@ export function workSpotZonas(): string[] {
 export function workSpotBySlug(slug: string): WorkSpot | undefined {
   return workSpots.spots.find((s) => s.slug === slug);
 }
+
+// ─── Contenido en inglés (i18n — rutas /en/*) ───────────────────────────
+// Misma forma que sus contrapartes en español; ver docs/nomad-it-hub/04-seo.md §5.
+
+export const cityStatsEn: CityStatsContent = investEnJson;
+export const livingEn: LivingContent = livingEnJson;

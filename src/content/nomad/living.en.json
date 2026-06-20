@@ -1,0 +1,67 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "Can you live and work remotely from Mar del Plata? Yes. This is the honest guide — cost of living, internet, neighborhoods and visa — with sources, and without sugar-coating what's worth knowing.",
+  "highlights": [
+    "Argentina's third-largest tech hub, with a remote-worker community.",
+    "~40% cheaper than Buenos Aires for an equivalent quality of life.",
+    "Fiber internet widely available (100–600 Mbps).",
+    "Time zone aligned with the Americas."
+  ],
+  "costOfLiving": {
+    "summary": "A comfortable single lifestyle runs around USD 800–1,200 per month (rent included); for a couple, USD 1,400–2,000. It's roughly 40% cheaper than Buenos Aires for equivalent quality.",
+    "items": [
+      { "label": "Single person (comfortable, with rent)", "value": "USD 800–1,200 /mo" },
+      { "label": "Couple (comfortable, with rent)", "value": "USD 1,400–2,000 /mo" },
+      { "label": "1-bedroom near the coast", "value": "ARS 200,000–350,000 /mo" }
+    ],
+    "disclaimer": "Argentina has high inflation and peso values change fast; USD figures are more stable but still indicative. In summer (January–February) short-term rentals spike: to live year-round, a standard yearly lease off-season is best.",
+    "source": "Argentina Visa Law — Mar del Plata Expat Guide",
+    "sourceUrl": "https://argentinavisalaw.com/blog/mar-del-plata-expat-community-guide",
+    "asOf": "2026"
+  },
+  "internet": {
+    "summary": "Fiber covers most of the urban area. Speeds from 100 to 600 Mbps (up to 1000 with some co-ops), with plans typically ranging ARS ~12,000 to ~27,000 per month depending on speed and promos.",
+    "providers": [
+      "Claro (up to 600 Mbps)",
+      "Movistar Fibra",
+      "Personal Flow",
+      "Ecolan (symmetric FTTH, ideal for remote work)",
+      "Copetel (local co-op)",
+      "Unión del Sud (south area)"
+    ],
+    "source": "Selectra Argentina — Internet in Mar del Plata",
+    "sourceUrl": "https://selectra.com.ar/internet/mar-del-plata",
+    "asOf": "2026"
+  },
+  "neighborhoods": [
+    {
+      "name": "La Perla / Playa Grande",
+      "vibe": "The most sought-after coastal strip: newer buildings with ocean views, good restaurants, walkable to the beach.",
+      "forWhom": "Those prioritizing ocean views with a slightly higher budget. The \"Palermo of Mar del Plata.\""
+    },
+    {
+      "name": "Güemes",
+      "vibe": "An emerging, bohemian neighborhood: art galleries, specialty cafés and street life. Not on the coast, but full of character.",
+      "forWhom": "Younger, creative profiles."
+    },
+    {
+      "name": "Downtown (Centro)",
+      "vibe": "Everything at hand: services, transport and a wide rental supply.",
+      "forWhom": "Those who want convenience and to walk everywhere."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How much does it cost to live in Mar del Plata as a digital nomad?",
+      "answer": "A single person can live comfortably on about USD 800–1,200 per month including rent, and a couple on USD 1,400–2,000. It's roughly 40% cheaper than Buenos Aires for an equivalent quality of life (source: Argentina Visa Law, 2026). Peso values change quickly due to inflation."
+    },
+    {
+      "question": "What is the internet like in Mar del Plata for remote work?",
+      "answer": "Fiber is available across most of the city, with speeds of 100 to 600 Mbps and several providers (Claro, Movistar, Personal Flow, Ecolan, Copetel). It's reliable for video calls and remote work. Ecolan offers symmetric fiber, ideal for uploading large files (source: Selectra, 2026)."
+    },
+    {
+      "question": "Do I need a visa to work remotely from Argentina?",
+      "answer": "Argentina has a transitory residence for digital nomads (180 days, renewable for an equal period) for nationals of countries that don't require a tourist visa. Check the official Migraciones portal before applying, as rules change."
+    }
+  ]
+}
