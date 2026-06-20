@@ -6,6 +6,7 @@ import SourceTag from "@/components/nomad/SourceTag";
 import WorkSpotDirectory from "@/components/nomad/WorkSpotDirectory";
 import SubmitWorkSpotForm from "@/components/nomad/SubmitWorkSpotForm";
 import { breadcrumbSchema, itemListSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import { ogImageUrl } from "@/lib/seo/site";
 import { workSpots, workSpotZonas } from "@/content/nomad";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
       "Cafés work-friendly y coworkings con WiFi para nómades digitales y remote workers.",
     url: "/trabajar",
     type: "website",
+    images: [ogImageUrl("Dónde trabajar en Mar del Plata", "Cafés y coworkings work-friendly")],
   },
 };
 

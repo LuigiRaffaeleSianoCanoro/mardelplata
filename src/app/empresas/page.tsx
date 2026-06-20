@@ -5,6 +5,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import SourceTag from "@/components/nomad/SourceTag";
 import CompanyDirectory from "@/components/nomad/CompanyDirectory";
 import { breadcrumbSchema, itemListSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import { ogImageUrl } from "@/lib/seo/site";
 import { companies, companySectors } from "@/content/nomad";
 
 const WHATSAPP_URL = "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs";
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
       "Directorio del ecosistema tech: software, IA, agtech, e-commerce y más.",
     url: "/empresas",
     type: "website",
+    images: [ogImageUrl("Empresas tech de Mar del Plata", "El ecosistema, en un mapa")],
   },
 };
 
