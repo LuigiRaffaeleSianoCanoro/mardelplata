@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import AssetsGate from "@/components/AssetsGate";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
+import AudienceSwitchboard from "@/components/AudienceSwitchboard";
+import CityHubStrip from "@/components/CityHubStrip";
 import Channels from "@/components/Channels";
 import Manifesto from "@/components/Manifesto";
 import Community from "@/components/Community";
@@ -129,9 +131,11 @@ export default async function Home() {
             jobsCount={jobs.length}
           />
           <Reveal delay={0}><Pillars /></Reveal>
+          <Reveal delay={120}><AudienceSwitchboard /></Reveal>
           <Reveal delay={120}><Events events={events ?? []} /></Reveal>
           <Reveal delay={120}><Community members={communityMembers ?? []} /></Reveal>
           <Reveal delay={120}><Huevsites members={huevsiteMembers ?? []} /></Reveal>
+          <Reveal delay={120}><CityHubStrip /></Reveal>
           <Reveal delay={120}><Channels /></Reveal>
           <Reveal delay={120}><Manifesto /></Reveal>
           <Reveal delay={120}><Opportunities jobs={jobs} /></Reveal>
