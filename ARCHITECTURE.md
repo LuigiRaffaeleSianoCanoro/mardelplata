@@ -193,7 +193,7 @@ mardelplata/
 
 | Ruta | Tipo | Datos |
 |---|---|---|
-| `/` | Server (RSC) | Supabase: `events`, `profiles` (founders + 30 últimos miembros) |
+| `/` | Static + ISR (revalidate 5m) | Supabase (cliente público sin cookies): `events`, `profiles_public`, jobs |
 | `/reglamento` | Static | — |
 | `/brand` | Static | — |
 | `/marketing-kit` | Static | — |
@@ -595,6 +595,12 @@ Fundaciones del proyecto **Nomad & IT Hub** (plan completo en [`docs/nomad-it-hu
 | `breadcrumbSchema(items)` | `BreadcrumbList` | rutas anidadas |
 | `faqPageSchema(items)` | `FAQPage` | guías / FAQs |
 | `itemListSchema(items)` | `ItemList` | listados (empresas, work spots) |
+
+**OG images dinámicas** — [`src/app/api/og/route.tsx`](src/app/api/og/route.tsx) genera la imagen OpenGraph por página con `next/og` (`ImageResponse`, gradiente oceánico + título). Las páginas la referencian con `ogImageUrl(title, eyebrow)` de [`src/lib/seo/site.ts`](src/lib/seo/site.ts) en su `openGraph.images`.
+
+**Acordeones FAQ** — [`src/components/nomad/Faq.tsx`](src/components/nomad/Faq.tsx): `<details>` con chevron visible que rota en `[open]` (audit A1). Reutilizado en invertir, vivir, visa, estudiar, qué hacer y las EN.
+
+**Home con ISR** — la home lee datos públicos con [`createPublicClient`](src/lib/supabase/public.ts) (cliente Supabase **sin cookies**) para poder usar `export const revalidate = 300`. Antes era dinámica por request (el cliente de `server.ts` usa `cookies()`, que fuerza render dinámico). Ahora es estática con revalidación cada 5 min.
 
 **Metadata routes** (Next 15, no archivos en `public/`):
 - [`src/app/robots.ts`](src/app/robots.ts) — permite el crawl, bloquea `/admin`, `/auth`, `/perfil`, `/asistencias`, `/preview`; apunta al sitemap.

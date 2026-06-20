@@ -161,7 +161,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="nav-x-links hidden lg:flex" aria-label="Principal">
+        <nav className="nav-x-links hidden xl:flex" aria-label="Principal">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -273,7 +273,7 @@ export default function Navbar() {
             Sumate
           </a>
           <button
-            className={`nav-x-burger lg:hidden ${menuOpen ? "is-open" : ""}`}
+            className={`nav-x-burger xl:hidden ${menuOpen ? "is-open" : ""}`}
             aria-label="Menú"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((o) => !o)}
