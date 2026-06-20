@@ -64,7 +64,14 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
         const authUser = auth?.user;
         if (!authUser) {
           // Rutas públicas que se renderizan dentro del AppShell sin auth.
-          const publicPrefixes = ["/red", "/eventos", "/invertir", "/estudiar"];
+          const publicPrefixes = [
+            "/red",
+            "/eventos",
+            "/invertir",
+            "/estudiar",
+            "/que-hacer",
+            "/vivir-en-mardelplata",
+          ];
           const isPublic = publicPrefixes.some((p) =>
             pathname === p || pathname.startsWith(p + "/"),
           );

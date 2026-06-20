@@ -16,6 +16,9 @@ interface StaticRoute {
 const STATIC_ROUTES: StaticRoute[] = [
   { path: "/", changeFrequency: "daily", priority: 1.0 },
   { path: "/eventos", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/vivir-en-mardelplata", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/vivir-en-mardelplata/visa", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/que-hacer", changeFrequency: "monthly", priority: 0.6 },
   { path: "/invertir", changeFrequency: "monthly", priority: 0.9 },
   { path: "/estudiar", changeFrequency: "monthly", priority: 0.7 },
   { path: "/bolsa", changeFrequency: "daily", priority: 0.8 },
