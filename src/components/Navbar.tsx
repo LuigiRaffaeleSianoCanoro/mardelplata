@@ -13,28 +13,45 @@ import CommandPalette from "./CommandPalette";
 
 type NavLink = { href: string; label: string; match?: (path: string) => boolean };
 type ResourceLink = { href: string; label: string; description: string };
+type NavMenu = { label: string; items: ResourceLink[] };
 
+// Menús agrupados por recorrido (rediseño T9 — docs/nomad-it-hub/03-redesign.md).
 // Brand kit + Marketing kit quedan accesibles por URL pero no expuestos en
 // la nav (review Luigi PR #26 punto 4).
-const RESOURCES: ResourceLink[] = [
-  { href: "/vivir-en-mardelplata", label: "Vivir en MdP", description: "Costo de vida, internet y visa" },
-  { href: "/que-hacer",  label: "Qué hacer",  description: "Playas, naturaleza y cultura" },
-  { href: "/estudiar",   label: "Estudiar",   description: "Carreras tech en la ciudad" },
-  { href: "/empresas",   label: "Empresas",   description: "Directorio del ecosistema tech" },
-  { href: "/invertir",   label: "Invertir",   description: "El polo tech para empresas IT" },
-  { href: "/blog",       label: "Blog",       description: "Lo que la red está leyendo" },
-  { href: "/reglamento", label: "Reglamento", description: "Cómo nos organizamos" },
+const MENUS: NavMenu[] = [
+  {
+    label: "Vivir acá",
+    items: [
+      { href: "/vivir-en-mardelplata", label: "Vivir en MdP", description: "Costo de vida, internet y visa" },
+      { href: "/que-hacer",  label: "Qué hacer",  description: "Playas, naturaleza y cultura" },
+      { href: "/estudiar",   label: "Estudiar",   description: "Carreras tech en la ciudad" },
+    ],
+  },
+  {
+    label: "Ecosistema",
+    items: [
+      { href: "/empresas",   label: "Empresas",   description: "Directorio del ecosistema tech" },
+      { href: "/invertir",   label: "Invertir",   description: "El polo tech para empresas IT" },
+    ],
+  },
+  {
+    label: "Recursos",
+    items: [
+      { href: "/blog",       label: "Blog",       description: "Lo que la red está leyendo" },
+      { href: "/reglamento", label: "Reglamento", description: "Cómo nos organizamos" },
+    ],
+  },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const pathname = usePathname();
-  const resourcesRef = useRef<HTMLDivElement | null>(null);
+  const menusRef = useRef<HTMLDivElement | null>(null);
   const profileRef = useRef<HTMLDivElement | null>(null);
 
   const initial = user
@@ -65,16 +82,16 @@ export default function Navbar() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Cerrar dropdown Recursos al click fuera o Escape
+  // Cerrar el dropdown abierto al click fuera o Escape
   useEffect(() => {
-    if (!resourcesOpen) return;
+    if (!openMenu) return;
     const onClick = (e: MouseEvent) => {
-      if (!resourcesRef.current?.contains(e.target as Node)) {
-        setResourcesOpen(false);
+      if (!menusRef.current?.contains(e.target as Node)) {
+        setOpenMenu(null);
       }
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setResourcesOpen(false);
+      if (e.key === "Escape") setOpenMenu(null);
     };
     document.addEventListener("click", onClick);
     document.addEventListener("keydown", onKey);
@@ -82,7 +99,7 @@ export default function Navbar() {
       document.removeEventListener("click", onClick);
       document.removeEventListener("keydown", onKey);
     };
-  }, [resourcesOpen]);
+  }, [openMenu]);
 
   // Cerrar dropdown Perfil al click fuera o Escape
   useEffect(() => {
@@ -129,9 +146,8 @@ export default function Navbar() {
     return pathname === l.href || pathname.startsWith(l.href + "/");
   };
 
-  const resourcesActive = RESOURCES.some(
-    (r) => pathname === r.href || pathname.startsWith(r.href + "/"),
-  );
+  const isMenuActive = (menu: NavMenu) =>
+    menu.items.some((r) => pathname === r.href || pathname.startsWith(r.href + "/"));
 
   return (
     <>
@@ -155,33 +171,34 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <div className="nav-x-resources" ref={resourcesRef}>
+          <div className="nav-x-menus" ref={menusRef} style={{ display: "contents" }}>
+          {MENUS.map((menu) => (
+            <div className="nav-x-resources" key={menu.label}>
             <button
               type="button"
-              className={`nav-x-link nav-x-link-button ${resourcesActive ? "is-active" : ""} ${resourcesOpen ? "is-open" : ""}`}
+              className={`nav-x-link nav-x-link-button ${isMenuActive(menu) ? "is-active" : ""} ${openMenu === menu.label ? "is-open" : ""}`}
               aria-haspopup="menu"
-              aria-expanded={resourcesOpen}
+              aria-expanded={openMenu === menu.label}
               onClick={(e) => {
                 // stopPropagation para que el click-outside listener
-                // (que el useEffect registra apenas resourcesOpen pasa a
-                // true) NO capture este mismo evento al bubble y cierre
-                // el dropdown inmediatamente. Bug clasico React + click
-                // outside, mas visible despues de tocar el CSS del button.
+                // (que el useEffect registra apenas openMenu pasa a no-null)
+                // NO capture este mismo evento al bubble y cierre el dropdown
+                // inmediatamente. Bug clásico React + click outside.
                 e.stopPropagation();
-                setResourcesOpen((o) => !o);
+                setOpenMenu((o) => (o === menu.label ? null : menu.label));
               }}
             >
-              Recursos <ChevronIcon />
+              {menu.label} <ChevronIcon />
             </button>
-            {resourcesOpen && (
+            {openMenu === menu.label && (
               <div className="nav-x-resources-menu" role="menu">
-                {RESOURCES.map((r) => (
+                {menu.items.map((r) => (
                   <Link
                     key={r.href}
                     href={r.href}
                     role="menuitem"
                     className="nav-x-resources-item"
-                    onClick={() => setResourcesOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                   >
                     <span className="nav-x-resources-item-label">{r.label}</span>
                     <span className="nav-x-resources-item-desc">{r.description}</span>
@@ -189,6 +206,8 @@ export default function Navbar() {
                 ))}
               </div>
             )}
+            </div>
+          ))}
           </div>
         </nav>
 
@@ -277,19 +296,21 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <div className="nav-x-mobile-section">
-            <span className="nav-x-mobile-section-title">Recursos</span>
-            {RESOURCES.map((r) => (
-              <Link
-                key={r.href}
-                href={r.href}
-                onClick={() => setMenuOpen(false)}
-                className="nav-x-mobile-link nav-x-mobile-link-sub"
-              >
-                {r.label}
-              </Link>
-            ))}
-          </div>
+          {MENUS.map((menu) => (
+            <div className="nav-x-mobile-section" key={menu.label}>
+              <span className="nav-x-mobile-section-title">{menu.label}</span>
+              {menu.items.map((r) => (
+                <Link
+                  key={r.href}
+                  href={r.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="nav-x-mobile-link nav-x-mobile-link-sub"
+                >
+                  {r.label}
+                </Link>
+              ))}
+            </div>
+          ))}
           {user ? (
             <>
               <Link
