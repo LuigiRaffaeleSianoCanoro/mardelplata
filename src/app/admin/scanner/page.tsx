@@ -4,7 +4,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
-import { BrowserMultiFormatReader } from "@zxing/library";
+// Import sólo de tipo (se borra en build): @zxing/library se carga lazy al
+// iniciar la cámara (ver `await import` abajo) para sacar ~120 kB del bundle
+// inicial de /admin/scanner (audit P3).
+import type { BrowserMultiFormatReader } from "@zxing/library";
 import { Button, GlassCard } from "@/components/ui";
 
 interface ScannedMember {
@@ -301,6 +304,7 @@ export default function ScannerPage() {
         );
         const preferredCameraId = selectedCameraId || rearCamera?.deviceId || videoDevices[0]?.deviceId;
 
+        const { BrowserMultiFormatReader } = await import("@zxing/library");
         codeReaderRef.current = new BrowserMultiFormatReader();
 
         const constraints = preferredCameraId

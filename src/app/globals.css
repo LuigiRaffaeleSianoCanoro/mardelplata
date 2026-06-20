@@ -7823,8 +7823,10 @@ html.intro-seen .hero-x-scroll {
 
   /* Texto */
   --shell-fg:        rgba(245, 248, 255, 0.96);
-  --shell-fg-muted:  rgba(180, 200, 230, 0.7);
-  --shell-fg-dim:    rgba(180, 200, 230, 0.5);
+  /* muted/dim subidos para cumplir contraste WCAG AA sobre fondos oscuros
+     (audit A2) — antes 0.7 / 0.5. */
+  --shell-fg-muted:  rgba(186, 204, 232, 0.82);
+  --shell-fg-dim:    rgba(184, 202, 230, 0.66);
 
   /* Accents */
   --shell-violet:    #a855f7;
@@ -7955,7 +7957,8 @@ a.shell-card:hover {
   font-family: var(--shell-font-mono);
   font-size: 11px;
   letter-spacing: 0.04em;
-  color: rgba(180, 200, 230, 0.6);
+  /* subido de 0.6 para contraste AA (audit A2) */
+  color: rgba(186, 204, 232, 0.75);
 }
 
 /* ─── Buttons + Links ──────────────────────────────────────────────── */
