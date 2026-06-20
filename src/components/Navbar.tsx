@@ -20,6 +20,7 @@ const RESOURCES: ResourceLink[] = [
   { href: "/vivir-en-mardelplata", label: "Vivir en MdP", description: "Costo de vida, internet y visa" },
   { href: "/que-hacer",  label: "Qué hacer",  description: "Playas, naturaleza y cultura" },
   { href: "/estudiar",   label: "Estudiar",   description: "Carreras tech en la ciudad" },
+  { href: "/empresas",   label: "Empresas",   description: "Directorio del ecosistema tech" },
   { href: "/invertir",   label: "Invertir",   description: "El polo tech para empresas IT" },
   { href: "/blog",       label: "Blog",       description: "Lo que la red está leyendo" },
   { href: "/reglamento", label: "Reglamento", description: "Cómo nos organizamos" },

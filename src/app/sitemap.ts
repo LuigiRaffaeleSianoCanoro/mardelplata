@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo/site";
 import { createClient } from "@/lib/supabase/server";
+import { companies } from "@/content/nomad";
 
 // Metadata route de Next 15. Rutas públicas estáticas + fecha dinámica de
 // /eventos según el último evento publicado. A medida que se sumen rutas-entidad
@@ -20,6 +21,7 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: "/vivir-en-mardelplata/visa", changeFrequency: "monthly", priority: 0.7 },
   { path: "/que-hacer", changeFrequency: "monthly", priority: 0.6 },
   { path: "/invertir", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/empresas", changeFrequency: "weekly", priority: 0.9 },
   { path: "/estudiar", changeFrequency: "monthly", priority: 0.7 },
   { path: "/bolsa", changeFrequency: "daily", priority: 0.8 },
   { path: "/proyectos", changeFrequency: "weekly", priority: 0.7 },
@@ -58,10 +60,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const eventsLastMod = (await latestEventDate()) ?? now;
 
-  return STATIC_ROUTES.map((route) => ({
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
     url: absoluteUrl(route.path),
     lastModified: route.path === "/eventos" ? eventsLastMod : now,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
+
+  // Rutas-entidad de empresas (curadas en JSON; se generan desde su fuente).
+  const companyEntries: MetadataRoute.Sitemap = companies.companies.map((c) => ({
+    url: absoluteUrl(`/empresas/${c.slug}`),
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...companyEntries];
 }
