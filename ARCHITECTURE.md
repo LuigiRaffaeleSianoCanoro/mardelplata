@@ -628,4 +628,8 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 
 **Acceso público en AppShell** — `AppShell` permite `/invertir` y `/estudiar` sin login (lista `publicPrefixes`). **JSON-LD**: `/invertir` emite `FAQPage`; `/estudiar` emite `EducationalOrganization` por institución; ambas `BreadcrumbList`.
 
-**Navegación** — expuestas en el dropdown "Recursos" del navbar. La reorganización en grupos "Vivir acá" / "Ecosistema" (rediseño T9) llega cuando haya más páginas del hub.
+**Navegación (rediseño T9)** — el navbar agrupa los destinos en dropdowns: **"Vivir acá"** (Vivir en MdP, Qué hacer, Estudiar), **"Ecosistema"** (Empresas, Invertir) y **"Recursos"** (Blog, Reglamento). `Navbar.tsx` soporta múltiples menús con un único estado `openMenu` y un contenedor `menusRef` para el click-outside; en mobile cada menú es una sección.
+
+**Home (rediseño T9)** — dos secciones nuevas (server components, sistema `shell-*`):
+- [`AudienceSwitchboard`](src/components/AudienceSwitchboard.tsx) — tras `Pillars`: tres caminos (comunidad / nómade / empresa) que resuelven la IA de "3 audiencias, 1 home".
+- [`CityHubStrip`](src/components/CityHubStrip.tsx) — tras `Huevsites`: franja de métricas del polo (de `city-stats.json`, con fuente) con CTA a `/invertir` y `/empresas`.
