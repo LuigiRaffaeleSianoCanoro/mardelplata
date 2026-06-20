@@ -9835,3 +9835,45 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
 @media (prefers-reduced-motion: reduce) {
   .member-card { animation: none !important; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   NOMAD HUB — FAQ accordion (audit A1) + focus-visible (audit A4)
+   ════════════════════════════════════════════════════════════════════ */
+
+.faq-item {
+  cursor: pointer;
+}
+.faq-summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+.faq-chevron {
+  flex-shrink: 0;
+  color: var(--shell-fg-muted);
+  transition: transform 0.2s ease;
+}
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-chevron { transition: none; }
+}
+
+/* Focus visible consistente para controles custom del hub. Solo aparece con
+   navegación por teclado (no en click de mouse). */
+.shell-btn-primary:focus-visible,
+.shell-btn-ghost:focus-visible,
+.shell-link:focus-visible,
+.bolsa-x-pill:focus-visible,
+.faq-summary:focus-visible,
+.shell-card:focus-visible {
+  outline: 2px solid var(--shell-cyan);
+  outline-offset: 2px;
+  border-radius: 10px;
+}

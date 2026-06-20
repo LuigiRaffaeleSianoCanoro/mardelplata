@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import AppShell from "@/components/app/AppShell";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
+import Faq from "@/components/nomad/Faq";
 import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import { ogImageUrl } from "@/lib/seo/site";
 import { visa } from "@/content/nomad";
 
 export const metadata: Metadata = {
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
       "Residencia transitoria para nómades digitales: duración, requisitos y trámite.",
     url: "/vivir-en-mardelplata/visa",
     type: "article",
+    images: [ogImageUrl("Visa de nómade digital en Argentina", "Trabajar remoto desde Argentina")],
   },
 };
 
@@ -117,17 +120,8 @@ export default function VisaPage() {
           <div className="shell-inner shell-inner--narrow">
             <Reveal>
               <h2 className="shell-title">Preguntas frecuentes</h2>
-              <div style={{ marginTop: "1.2rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-                {visa.faq.map((f) => (
-                  <details key={f.question} className="shell-card" style={{ cursor: "pointer" }}>
-                    <summary className="shell-card__title" style={{ listStyle: "none" }}>
-                      {f.question}
-                    </summary>
-                    <p className="shell-card__desc" style={{ marginTop: "0.6rem" }}>
-                      {f.answer}
-                    </p>
-                  </details>
-                ))}
+              <div style={{ marginTop: "1.2rem" }}>
+                <Faq items={visa.faq} />
               </div>
             </Reveal>
           </div>

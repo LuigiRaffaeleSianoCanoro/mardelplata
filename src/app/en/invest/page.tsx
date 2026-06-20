@@ -4,7 +4,9 @@ import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import StatCard from "@/components/nomad/StatCard";
 import LangSwitcher from "@/components/nomad/LangSwitcher";
+import Faq from "@/components/nomad/Faq";
 import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import { ogImageUrl } from "@/lib/seo/site";
 import { cityStatsEn } from "@/content/nomad";
 
 const WHATSAPP_URL = "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs";
@@ -25,6 +27,7 @@ export const metadata: Metadata = {
     url: "/en/invest",
     locale: "en_US",
     type: "website",
+    images: [ogImageUrl("Bring your tech company to the coast", "The AI hub by the sea")],
   },
 };
 
@@ -135,17 +138,8 @@ export default function InvestPage() {
           <div className="shell-inner shell-inner--narrow">
             <Reveal>
               <h2 className="shell-title">FAQ</h2>
-              <div style={{ marginTop: "1.2rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-                {cityStatsEn.faq.map((f) => (
-                  <details key={f.question} className="shell-card" style={{ cursor: "pointer" }}>
-                    <summary className="shell-card__title" style={{ listStyle: "none" }}>
-                      {f.question}
-                    </summary>
-                    <p className="shell-card__desc" style={{ marginTop: "0.6rem" }}>
-                      {f.answer}
-                    </p>
-                  </details>
-                ))}
+              <div style={{ marginTop: "1.2rem" }}>
+                <Faq items={cityStatsEn.faq} />
               </div>
             </Reveal>
           </div>
