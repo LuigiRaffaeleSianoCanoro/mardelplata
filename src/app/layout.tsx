@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import RouteGlitch from "@/components/RouteGlitch";
+import JsonLd from "@/components/seo/JsonLd";
+import { organizationSchema, webSiteSchema } from "@/lib/seo/jsonLd";
+import { SITE_URL } from "@/lib/seo/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,9 +33,16 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MdPDev — Comunidad Dev Mar del Plata",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "MdPDev — Comunidad Dev Mar del Plata",
+    template: "%s — MdPDev",
+  },
   description:
     "El Hub Tech de la Costa Atlántica. Conectamos desarrolladores, diseñadores y emprendedores en Mar del Plata.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/mdpdev.png",
     apple: "/mdpdev.png",
@@ -41,7 +51,17 @@ export const metadata: Metadata = {
     title: "MdPDev — Comunidad Dev Mar del Plata",
     description:
       "El Hub Tech de la Costa Atlántica. Conectamos devs, diseñadores y emprendedores en Mar del Plata.",
+    url: SITE_URL,
+    siteName: "MdPDev",
+    locale: "es_AR",
     type: "website",
+    images: ["/mdpdev.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MdPDev — Comunidad Dev Mar del Plata",
+    description:
+      "El Hub Tech de la Costa Atlántica. Conectamos devs, diseñadores y emprendedores en Mar del Plata.",
     images: ["/mdpdev.png"],
   },
 };
@@ -73,6 +93,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#06070d] text-white/85 antialiased">
+        <JsonLd schema={[organizationSchema(), webSiteSchema()]} />
         <RouteGlitch />
         {children}
       </body>

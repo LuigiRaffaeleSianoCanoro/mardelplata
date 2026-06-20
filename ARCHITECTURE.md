@@ -214,6 +214,8 @@ mardelplata/
 | `/primer-trabajo/empresas` | Client | JSON bundle |
 | `/primer-trabajo/guia/cv` | Client | JSON bundle |
 | `/primer-trabajo/guia/linkedin` | Client | JSON bundle |
+| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + fecha del último evento (Supabase) |
+| `/robots.txt` | Metadata route (estática) | — |
 
 > No hay API routes propias. Toda la lectura/escritura va directo al cliente Supabase desde el browser o desde server components.
 
@@ -560,3 +562,30 @@ Cada miembro puede conectar su perfil de [huevsite.io](https://huevsite.io) desd
 - `/miembro` — la card pública del QR también muestra "Ver huevsite".
 
 > No agregamos CSP propia, así que el `<iframe>` de huevsite.io embebe out of the box. El `accentColor` se sanitiza a hex (`#RGB`/`#RRGGBB`) antes de inyectarlo como `--huevsite-accent`.
+
+---
+
+## 18. SEO y datos estructurados
+
+Fundaciones del proyecto **Nomad & IT Hub** (plan completo en [`docs/nomad-it-hub/`](docs/nomad-it-hub/), spec en [`04-seo.md`](docs/nomad-it-hub/04-seo.md)).
+
+**Constantes** — [`src/lib/seo/site.ts`](src/lib/seo/site.ts): `SITE_URL`, `SITE_NAME`, descripción, logo, socials y `absoluteUrl(path)`. Fuente única de verdad de la URL canónica.
+
+**Metadata global** — [`src/app/layout.tsx`](src/app/layout.tsx) define `metadataBase`, `title.template` (`"%s — MdPDev"`), `alternates.canonical`, OpenGraph y Twitter. Cada ruta puede setear su `title` corto (se completa con el template) y su `alternates.canonical`.
+
+**JSON-LD** — builders tipados en [`src/lib/seo/jsonLd.ts`](src/lib/seo/jsonLd.ts) y el componente server [`src/components/seo/JsonLd.tsx`](src/components/seo/JsonLd.tsx) que los inyecta como `<script type="application/ld+json">` (escapa `<` para no romper el script).
+
+| Builder | Schema | Uso |
+|---|---|---|
+| `organizationSchema()` | `Organization` | global (layout) |
+| `webSiteSchema()` | `WebSite` | global (layout) |
+| `eventSchema(input)` | `Event` | `/eventos` (próximos, no misteriosos) |
+| `breadcrumbSchema(items)` | `BreadcrumbList` | rutas anidadas |
+| `faqPageSchema(items)` | `FAQPage` | guías / FAQs |
+| `itemListSchema(items)` | `ItemList` | listados (empresas, work spots) |
+
+**Metadata routes** (Next 15, no archivos en `public/`):
+- [`src/app/robots.ts`](src/app/robots.ts) — permite el crawl, bloquea `/admin`, `/auth`, `/perfil`, `/asistencias`, `/preview`; apunta al sitemap.
+- [`src/app/sitemap.ts`](src/app/sitemap.ts) — rutas públicas estáticas + `lastModified` de `/eventos` según el último evento publicado (query defensiva a Supabase con fallback). Las rutas-entidad futuras (`/empresas/[slug]`, `/trabajar/[slug]`) se generan acá desde su fuente.
+
+> Regla: cada ruta nueva debe cumplir el checklist SEO de [`04-seo.md §8`](docs/nomad-it-hub/04-seo.md) (metadata propia + canonical + JSON-LD del tipo correcto + alta en `sitemap.ts`).
