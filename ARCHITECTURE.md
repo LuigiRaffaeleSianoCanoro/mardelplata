@@ -216,6 +216,9 @@ mardelplata/
 | `/primer-trabajo/guia/linkedin` | Client | JSON bundle |
 | `/invertir` | Static (RSC en AppShell) | JSON `content/nomad/city-stats.json` |
 | `/estudiar` | Static (RSC en AppShell) | JSON `content/nomad/institutions.json` |
+| `/vivir-en-mardelplata` | Static (RSC en AppShell) | JSON `content/nomad/living.json` + deep-link Roomix |
+| `/vivir-en-mardelplata/visa` | Static (RSC en AppShell) | JSON `content/nomad/visa.json` |
+| `/que-hacer` | Static (RSC en AppShell) | JSON `content/nomad/activities.json` |
 | `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + fecha del último evento (Supabase) |
 | `/robots.txt` | Metadata route (estática) | — |
 
@@ -602,12 +605,20 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 |---|---|---|
 | `/invertir` | F8 — landing B2B | Métricas del polo, por qué MdP, casos faro, FAQ. Datos de ATICMA. |
 | `/estudiar` | F6 — instituciones | Universidades + institutos con carreras tech. Datos del Municipio + ATICMA. |
+| `/vivir-en-mardelplata` | F4 — guía nómade | Costo de vida, internet, barrios, FAQ + bloque de alquileres (Roomix). |
+| `/vivir-en-mardelplata/visa` | F4 — visa | Residencia de nómade digital: datos, requisitos, trámite. Fuente: Migraciones. |
+| `/que-hacer` | F5 — actividades | Playas, naturaleza, gastronomía y cultura, ángulo nómade. |
 
 **Contenido curado** — JSON estático en [`src/content/nomad/`](src/content/nomad/) con índice tipado en `index.ts` (patrón `content/primer-trabajo`). **Toda métrica lleva `source` + `as_of`** (regla `.cursor/rules/40-nomad-hub-content.mdc`):
 - `city-stats.json` — números del polo, razones, casos, FAQ.
 - `institutions.json` — universidades e institutos con sus carreras y fuentes.
+- `living.json` — costo de vida, internet, barrios y FAQ (fuentes: Argentina Visa Law, Selectra).
+- `visa.json` — visa de nómade digital (fuente: Dirección Nacional de Migraciones).
+- `activities.json` — actividades turísticas por categoría.
 
-**Componentes compartidos** — [`src/components/nomad/`](src/components/nomad/): `StatCard` (valor + label + detalle + fuente) y `SourceTag` (microcita "Fuente: X · fecha"). Reutilizables por las próximas features (F1 empresas, F3 work spots, F4 vivir).
+**Componentes compartidos** — [`src/components/nomad/`](src/components/nomad/): `StatCard` (valor + label + detalle + fuente) y `SourceTag` (microcita "Fuente: X · fecha"). Reutilizables por las próximas features (F1 empresas, F3 work spots).
+
+**Integración Roomix (F7a)** — [`src/lib/integrations/roomix.ts`](src/lib/integrations/roomix.ts): deep-link con UTM a roomix.ai (metabuscador inmobiliario marplatense). Sin API pública confirmada (jun 2026): por ahora linkeamos a la home con UTM y presets descritos como sugerencias de búsqueda; cuando se confirme el esquema de URL de búsqueda o haya partnership (F7b) se amplía en ese único archivo.
 
 **Acceso público en AppShell** — `AppShell` permite `/invertir` y `/estudiar` sin login (lista `publicPrefixes`). **JSON-LD**: `/invertir` emite `FAQPage`; `/estudiar` emite `EducationalOrganization` por institución; ambas `BreadcrumbList`.
 

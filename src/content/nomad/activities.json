@@ -1,0 +1,40 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "Mar del Plata es laburo con vista al mar. Cuando cerrás la laptop, esto es lo que tenés a mano.",
+  "categories": [
+    {
+      "title": "Playas",
+      "items": [
+        { "name": "Playa Grande", "description": "La playa icónica, con su zona gastronómica y spots de surf cerca." },
+        { "name": "Playa Varese", "description": "Caleta protegida entre Cabo Corrientes y Torreón del Monje, agua más calma." },
+        { "name": "La Perla", "description": "Amplia y céntrica, a pasos de la zona residencial preferida por quienes se quedan a vivir." },
+        { "name": "Punta Mogotes y el Faro", "description": "Balnearios al sur y el bosque del Faro, ideal para tardes tranquilas." }
+      ]
+    },
+    {
+      "title": "Naturaleza y aire libre",
+      "items": [
+        { "name": "Reserva del Puerto (lobos marinos)", "description": "La colonia de lobos marinos en el puerto: fauna costera marplatense de cerca." },
+        { "name": "Laguna y Sierra de los Padres", "description": "A minutos de la ciudad: verde, agua y senderos para cortar con el ritmo urbano." },
+        { "name": "Bosque Peralta Ramos", "description": "Barrio-bosque al sur, para caminar, andar en bici y respirar." },
+        { "name": "Costanera y bici", "description": "Kilómetros de costa para correr o pedalear con el mar al lado." }
+      ]
+    },
+    {
+      "title": "Gastronomía y cafés",
+      "items": [
+        { "name": "Barrio Güemes", "description": "Polo gastronómico, cafés de especialidad, galerías y vida de barrio." },
+        { "name": "Puerto y banquina de pescadores", "description": "Pescado fresco y la postal del puerto: clásico marplatense." },
+        { "name": "Zona Playa Grande", "description": "Restaurantes y cafés con vista, buen plan para una pausa de media tarde." }
+      ]
+    },
+    {
+      "title": "Cultura",
+      "items": [
+        { "name": "Museo MAR", "description": "Museo de arte contemporáneo, referencia visual de la ciudad." },
+        { "name": "Villa Victoria Ocampo", "description": "Casa-museo de madera y jardines, parte del patrimonio cultural marplatense." },
+        { "name": "Torre Tanque", "description": "Mirador histórico con una de las mejores vistas panorámicas de la ciudad." }
+      ]
+    }
+  ]
+}
