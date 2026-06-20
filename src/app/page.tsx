@@ -17,8 +17,13 @@ import Events from "@/components/Events";
 import Opportunities from "@/components/Opportunities";
 import Footer from "@/components/Footer";
 import ScrollDriver from "@/components/ScrollDriver";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { IS_MOCK, mockProfiles } from "@/lib/devMock";
+
+// ISR: la home consulta Supabase en RSC. Revalidar cada 5 min evita pegarle a
+// Supabase en cada request y mejora TTFB/LCP (audit P1). Los datos no necesitan
+// ser en tiempo real al segundo.
+export const revalidate = 300;
 
 const COFOUNDER_FULL_NAMES = new Set(["luigi canoro", "franco petruccelli"]);
 
@@ -34,7 +39,7 @@ function isCofounderProfile(fullName: string | null): boolean {
 }
 
 export default async function Home() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: events } = await supabase
     .from("events")
     .select("*")
