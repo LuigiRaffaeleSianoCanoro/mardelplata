@@ -1,6 +1,12 @@
 import AppShell from "@/components/app/AppShell";
 import Reveal from "@/components/Reveal";
 import { createClient } from "@/lib/supabase/server";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  breadcrumbSchema,
+  eventSchema,
+  type JsonLdObject,
+} from "@/lib/seo/jsonLd";
 
 interface Event {
   id: string;
@@ -40,10 +46,16 @@ function getTagFlavor(tags: string[]): { label: string; flavor: "violet" | "cyan
 }
 
 export const metadata = {
-  title: "Eventos — mardelplata.dev",
+  title: "Eventos",
   description:
     "Meetups, workshops, charlas y hackatones de la comunidad IT de Mar del Plata.",
+  alternates: { canonical: "/eventos" },
 };
+
+function isOnlineEvent(e: Event): boolean {
+  const haystack = `${e.location ?? ""} ${e.tags?.join(" ") ?? ""}`.toLowerCase();
+  return /online|virtual|remoto|zoom|meet|stream/.test(haystack);
+}
 
 export default async function EventosPage() {
   const supabase = await createClient();
@@ -62,8 +74,32 @@ export default async function EventosPage() {
     .filter((e) => new Date(e.date).getTime() < now)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  // JSON-LD: sólo eventos próximos (los pasados no aportan rich results).
+  // Excluimos misteriosos sin fecha de valor SEO real.
+  const eventSchemas: JsonLdObject[] = upcoming
+    .filter((e) => !e.is_mystery)
+    .map((e) =>
+      eventSchema({
+        name: e.title,
+        description: e.subtitle ?? e.description,
+        startDate: e.date,
+        endDate: e.end_date,
+        locationName: e.location,
+        url: e.registration_url,
+        isOnline: isOnlineEvent(e),
+      }),
+    );
+  const schemas: JsonLdObject[] = [
+    breadcrumbSchema([
+      { name: "Inicio", path: "/" },
+      { name: "Eventos", path: "/eventos" },
+    ]),
+    ...eventSchemas,
+  ];
+
   return (
     <AppShell>
+      <JsonLd schema={schemas} />
       <main className="eventos-x">
         <header className="shell-section shell-section--lg">
           <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
