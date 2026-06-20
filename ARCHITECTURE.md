@@ -654,3 +654,28 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 **Home (rediseño T9)** — dos secciones nuevas (server components, sistema `shell-*`):
 - [`AudienceSwitchboard`](src/components/AudienceSwitchboard.tsx) — tras `Pillars`: tres caminos (comunidad / nómade / empresa) que resuelven la IA de "3 audiencias, 1 home".
 - [`CityHubStrip`](src/components/CityHubStrip.tsx) — tras `Huevsites`: franja de métricas del polo (de `city-stats.json`, con fuente) con CTA a `/invertir` y `/empresas`.
+
+---
+
+## 20. Mapa de cafés (MapLibre) y geocoding
+
+**Dependencia nueva: `maplibre-gl`.** Es la **excepción** a la regla "cero dependencias de UI"
+(`.cursor/rules/00`), prevista justamente para mapas. Justificación: el directorio de cafés
+(`/trabajar`) gana mucho con un mapa (patrón Freework/Dealroom) y no hay forma razonable de hacerlo a
+mano.
+
+- **Componente** [`CafeMap`](src/components/cafes/CafeMap.tsx) (`"use client"`): importa `maplibre-gl`
+  **dinámicamente dentro del `useEffect`** → la librería **no entra al bundle compartido ni al SSR**,
+  sólo carga client-side cuando el mapa monta. El build confirma que el First Load JS compartido sigue
+  en ~102 kB y `/trabajar` apenas creció.
+- **Tiles**: OpenStreetMap raster (`tile.openstreetmap.org`) — **sin API key**. Con atribución. Para
+  escalar conviene mover a un proveedor con plan (MapTiler/Protomaps); está aislado en un solo lugar.
+- **Markers**: uno por café con coordenadas; popup con link a la ficha. Color por tipo (café/coworking).
+- Se monta en `/trabajar` por encima del directorio, sólo si hay cafés con coordenadas.
+
+**Geocoding** — [`scripts/geocode-cafes.mjs`](scripts/geocode-cafes.mjs): utilidad one-off que
+geocodifica los cafés sin coordenadas vía **Nominatim (OpenStreetMap, sin API key)**, valida contra el
+bounding box de Mar del Plata y emite `UPDATE`s. Estado actual: **11/22 cafés con `lat/lng`** (los
+otros 11 tienen direcciones vagas que Nominatim no resuelve). Rellenar `lat/lng` también mejora el
+JSON-LD (`GeoCoordinates`) de cada ficha. Para completar el resto: direcciones más precisas o Google
+Places API (requiere key).
