@@ -1,0 +1,122 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "Mar del Plata es hoy el tercer polo tecnológico de Argentina y el primer clúster de inteligencia artificial del país. Estos son los números del ecosistema, con su fuente.",
+  "stats": [
+    {
+      "value": "200+",
+      "label": "empresas de tecnología",
+      "detail": "Firmas locales, startups y compañías de alcance nacional e internacional.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "10.000+",
+      "label": "talentos tech",
+      "detail": "Entre empleos directos, indirectos y trabajo freelance ligado a la actividad.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "USD 600M",
+      "label": "facturación anual del sector",
+      "detail": "Relevamiento por los 20 años de la asociación que reúne a las empresas del rubro.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "USD 125M",
+      "label": "exportaciones de servicios",
+      "detail": "Exportaciones acumuladas de la industria del conocimiento local.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "3er",
+      "label": "polo tecnológico del país",
+      "detail": "Detrás de los grandes centros, con un ecosistema cada vez más robusto y diversificado.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "1er",
+      "label": "clúster de IA de Argentina",
+      "detail": "Más de 30 empresas locales con servicios de inteligencia artificial en salud, agro, comercio, educación, industria, logística y fintech.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/mar-del-plata-consolida-su-liderazgo-como-polo-tecnologico-de-inteligencia-artificial-en-argentina/",
+      "asOf": "2025"
+    },
+    {
+      "value": "5",
+      "label": "universidades con carreras tech",
+      "detail": "Más institutos terciarios: un pipeline de talento que se renueva cada año.",
+      "source": "Municipio de General Pueyrredon",
+      "sourceUrl": "https://www.mardelplata.gob.ar/Contenido/oferta-local-en-carreras-basadas-en-el-conocimiento",
+      "asOf": "2026"
+    }
+  ],
+  "reasons": [
+    {
+      "title": "Talento que se renueva",
+      "body": "Cinco universidades y varios institutos forman programadores, ingenieros y especialistas en datos e IA cada año. El talento se queda en la ciudad."
+    },
+    {
+      "title": "Costo competitivo en dólares",
+      "body": "Salarios y costos operativos competitivos para exportar servicios, con calidad de vida costera que retiene a los equipos."
+    },
+    {
+      "title": "Huso horario de las Américas",
+      "body": "Overlap natural con Estados Unidos y Latinoamérica: tu equipo trabaja en tiempo real con clientes del continente."
+    },
+    {
+      "title": "Distrito Tecnológico",
+      "body": "La ciudad desarrolló un Distrito Tecnológico que concentra buena parte de las empresas del sector y su infraestructura."
+    },
+    {
+      "title": "Ley de Economía del Conocimiento",
+      "body": "Las empresas del sector pueden acceder a los beneficios del régimen nacional de Economía del Conocimiento. Verificá condiciones vigentes con el organismo correspondiente."
+    },
+    {
+      "title": "Comunidad activa",
+      "body": "Una escena tech viva: meetups, hackatones, una bolsa de trabajo y una comunidad que conecta a quien llega con quien ya está."
+    }
+  ],
+  "cases": [
+    {
+      "name": "Roomix",
+      "description": "Metabuscador inmobiliario con IA fundado en Mar del Plata. Recibió inversión de figuras de OpenAI, Meta y Vercel, y se ubica entre los sitios inmobiliarios más visitados de Argentina.",
+      "url": "https://roomix.ai",
+      "source": "Forbes Argentina",
+      "sourceUrl": "https://www.forbesargentina.com/negocios/el-marplatense-24-anos-convencio-guillermo-rauch-figuras-openai-meta-invertir-su-startup-n91101"
+    },
+    {
+      "name": "ATICMA Emprende",
+      "description": "El programa de emprendedores de ATICMA: en su edición 2025 el ganador (Pastech) viajó a Silicon Valley. La ciudad ya tiene casos llegando al ecosistema global.",
+      "url": "https://www.aticma.org.ar/",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/"
+    }
+  ],
+  "faq": [
+    {
+      "question": "¿Por qué instalar una empresa de tecnología en Mar del Plata?",
+      "answer": "Mar del Plata es el tercer polo tecnológico de Argentina y el primer clúster de inteligencia artificial del país, con más de 200 empresas, más de 10.000 talentos y una facturación sectorial de USD 600 millones anuales (fuente: ATICMA, 2025). Suma talento universitario que se renueva cada año, costos competitivos en dólares, huso horario alineado con las Américas y calidad de vida costera."
+    },
+    {
+      "question": "¿Cuántas empresas de tecnología hay en Mar del Plata?",
+      "answer": "Según ATICMA hay más de 200 empresas vinculadas a la tecnología en la ciudad y más de 10.000 talentos entre empleos directos, indirectos y freelance (2025)."
+    },
+    {
+      "question": "¿Hay talento de inteligencia artificial en Mar del Plata?",
+      "answer": "Sí. Mar del Plata es el primer clúster de IA de Argentina: más de 30 empresas locales desarrollan soluciones de inteligencia artificial para salud, agro, comercio, educación, industria, logística y fintech (fuente: ATICMA)."
+    },
+    {
+      "question": "¿Qué incentivos existen para empresas de tecnología?",
+      "answer": "Las empresas del sector pueden acceder a los beneficios del régimen nacional de Economía del Conocimiento y a la infraestructura del Distrito Tecnológico de la ciudad. Las condiciones cambian: conviene verificarlas con ATICMA y los organismos competentes."
+    }
+  ]
+}

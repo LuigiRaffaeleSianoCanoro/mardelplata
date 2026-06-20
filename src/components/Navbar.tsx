@@ -17,6 +17,8 @@ type ResourceLink = { href: string; label: string; description: string };
 // Brand kit + Marketing kit quedan accesibles por URL pero no expuestos en
 // la nav (review Luigi PR #26 punto 4).
 const RESOURCES: ResourceLink[] = [
+  { href: "/invertir",   label: "Invertir",   description: "El polo tech para empresas IT" },
+  { href: "/estudiar",   label: "Estudiar",   description: "Carreras tech en la ciudad" },
   { href: "/blog",       label: "Blog",       description: "Lo que la red está leyendo" },
   { href: "/reglamento", label: "Reglamento", description: "Cómo nos organizamos" },
 ];
