@@ -214,6 +214,8 @@ mardelplata/
 | `/primer-trabajo/empresas` | Client | JSON bundle |
 | `/primer-trabajo/guia/cv` | Client | JSON bundle |
 | `/primer-trabajo/guia/linkedin` | Client | JSON bundle |
+| `/invertir` | Static (RSC en AppShell) | JSON `content/nomad/city-stats.json` |
+| `/estudiar` | Static (RSC en AppShell) | JSON `content/nomad/institutions.json` |
 | `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + fecha del último evento (Supabase) |
 | `/robots.txt` | Metadata route (estática) | — |
 
@@ -589,3 +591,24 @@ Fundaciones del proyecto **Nomad & IT Hub** (plan completo en [`docs/nomad-it-hu
 - [`src/app/sitemap.ts`](src/app/sitemap.ts) — rutas públicas estáticas + `lastModified` de `/eventos` según el último evento publicado (query defensiva a Supabase con fallback). Las rutas-entidad futuras (`/empresas/[slug]`, `/trabajar/[slug]`) se generan acá desde su fuente.
 
 > Regla: cada ruta nueva debe cumplir el checklist SEO de [`04-seo.md §8`](docs/nomad-it-hub/04-seo.md) (metadata propia + canonical + JSON-LD del tipo correcto + alta en `sitemap.ts`).
+
+---
+
+## 19. Nomad & IT Hub — páginas de ciudad
+
+Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`](docs/nomad-it-hub/)). Renderizan dentro de `AppShell` (como `/eventos`) y son **server components estáticos** (buen SEO).
+
+| Ruta | Feature | Contenido |
+|---|---|---|
+| `/invertir` | F8 — landing B2B | Métricas del polo, por qué MdP, casos faro, FAQ. Datos de ATICMA. |
+| `/estudiar` | F6 — instituciones | Universidades + institutos con carreras tech. Datos del Municipio + ATICMA. |
+
+**Contenido curado** — JSON estático en [`src/content/nomad/`](src/content/nomad/) con índice tipado en `index.ts` (patrón `content/primer-trabajo`). **Toda métrica lleva `source` + `as_of`** (regla `.cursor/rules/40-nomad-hub-content.mdc`):
+- `city-stats.json` — números del polo, razones, casos, FAQ.
+- `institutions.json` — universidades e institutos con sus carreras y fuentes.
+
+**Componentes compartidos** — [`src/components/nomad/`](src/components/nomad/): `StatCard` (valor + label + detalle + fuente) y `SourceTag` (microcita "Fuente: X · fecha"). Reutilizables por las próximas features (F1 empresas, F3 work spots, F4 vivir).
+
+**Acceso público en AppShell** — `AppShell` permite `/invertir` y `/estudiar` sin login (lista `publicPrefixes`). **JSON-LD**: `/invertir` emite `FAQPage`; `/estudiar` emite `EducationalOrganization` por institución; ambas `BreadcrumbList`.
+
+**Navegación** — expuestas en el dropdown "Recursos" del navbar. La reorganización en grupos "Vivir acá" / "Ecosistema" (rediseño T9) llega cuando haya más páginas del hub.
