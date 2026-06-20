@@ -1,0 +1,67 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "¿Se puede vivir y trabajar remoto desde Mar del Plata? Sí. Esta es la guía honesta: costo de vida, internet, barrios y visa. Con fuentes, y sin maquillar lo que conviene saber.",
+  "highlights": [
+    "Tercer polo tech de Argentina, con comunidad de remote workers.",
+    "~40% más barata que Buenos Aires para una calidad de vida equivalente.",
+    "Fibra óptica ampliamente disponible (100–600 Mbps).",
+    "Huso horario alineado con las Américas."
+  ],
+  "costOfLiving": {
+    "summary": "Una vida cómoda para una persona sola ronda los USD 800–1.200 por mes (alquiler incluido); en pareja, USD 1.400–2.000. Es aproximadamente un 40% más barata que Buenos Aires para una calidad equivalente.",
+    "items": [
+      { "label": "Persona sola (cómodo, con alquiler)", "value": "USD 800–1.200 /mes" },
+      { "label": "Pareja (cómodo, con alquiler)", "value": "USD 1.400–2.000 /mes" },
+      { "label": "1 ambiente cerca de la costa", "value": "ARS 200.000–350.000 /mes" }
+    ],
+    "disclaimer": "Argentina tiene alta inflación y los valores en pesos cambian rápido; las cifras en USD son más estables pero igual orientativas. En verano (enero–febrero) el alquiler temporario se dispara: para vivir todo el año conviene el alquiler permanente fuera de temporada.",
+    "source": "Argentina Visa Law — Mar del Plata Expat Guide",
+    "sourceUrl": "https://argentinavisalaw.com/blog/mar-del-plata-expat-community-guide",
+    "asOf": "2026"
+  },
+  "internet": {
+    "summary": "La fibra óptica cubre la mayor parte del área urbana. Velocidades de 100 a 600 Mbps (hasta 1000 con algunas cooperativas), con planes que suelen ir de ARS ~12.000 a ~27.000 por mes según velocidad y promo.",
+    "providers": [
+      "Claro (hasta 600 Mbps)",
+      "Movistar Fibra",
+      "Personal Flow",
+      "Ecolan (FTTH simétrica, ideal teletrabajo)",
+      "Copetel (cooperativa local)",
+      "Unión del Sud (zona sur)"
+    ],
+    "source": "Selectra Argentina — Internet en Mar del Plata",
+    "sourceUrl": "https://selectra.com.ar/internet/mar-del-plata",
+    "asOf": "2026"
+  },
+  "neighborhoods": [
+    {
+      "name": "La Perla / Playa Grande",
+      "vibe": "La franja costera más cotizada: edificios nuevos con vista al mar, buenos restaurantes, caminable a la playa.",
+      "forWhom": "Quien prioriza vista al mar y presupuesto algo mayor. \"El Palermo de Mar del Plata\"."
+    },
+    {
+      "name": "Güemes",
+      "vibe": "Barrio emergente, bohemio: galerías de arte, cafés de especialidad y vida comercial. No es costero pero tiene carácter.",
+      "forWhom": "Perfiles más jóvenes y creativos."
+    },
+    {
+      "name": "Centro",
+      "vibe": "Todo a mano: servicios, transporte y oferta amplia de alquiler.",
+      "forWhom": "Quien quiere practicidad y caminar a todos lados."
+    }
+  ],
+  "faq": [
+    {
+      "question": "¿Cuánto cuesta vivir en Mar del Plata como nómade digital?",
+      "answer": "Una persona sola puede vivir cómoda con unos USD 800–1.200 por mes incluyendo alquiler, y una pareja con USD 1.400–2.000. Es aproximadamente un 40% más barato que Buenos Aires para una calidad de vida equivalente (fuente: Argentina Visa Law, 2026). Los valores en pesos cambian rápido por la inflación."
+    },
+    {
+      "question": "¿Cómo es el internet en Mar del Plata para trabajar remoto?",
+      "answer": "Hay fibra óptica en la mayor parte de la ciudad, con velocidades de 100 a 600 Mbps y varios proveedores (Claro, Movistar, Personal Flow, Ecolan, Copetel). Para videollamadas y teletrabajo es confiable. Ecolan ofrece fibra simétrica, ideal para subir archivos pesados (fuente: Selectra, 2026)."
+    },
+    {
+      "question": "¿Necesito visa para trabajar remoto desde Argentina?",
+      "answer": "Argentina tiene una residencia transitoria para nómades digitales (180 días, prorrogable por igual plazo) para nacionales de países que no requieren visa de turista. Mirá el detalle y el trámite en la página de visa, y verificá siempre en el portal oficial de Migraciones."
+    }
+  ]
+}

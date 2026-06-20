@@ -5,6 +5,9 @@
 
 import cityStatsJson from "./city-stats.json";
 import institutionsJson from "./institutions.json";
+import activitiesJson from "./activities.json";
+import livingJson from "./living.json";
+import visaJson from "./visa.json";
 
 export interface CityStat {
   value: string;
@@ -65,3 +68,78 @@ export interface InstitutionsContent {
 
 export const cityStats: CityStatsContent = cityStatsJson;
 export const institutions: InstitutionsContent = institutionsJson;
+
+// ─── Actividades (F5 — /que-hacer) ──────────────────────────────────────
+
+export interface ActivityItem {
+  name: string;
+  description: string;
+}
+
+export interface ActivityCategory {
+  title: string;
+  items: ActivityItem[];
+}
+
+export interface ActivitiesContent {
+  updatedAt: string;
+  intro: string;
+  categories: ActivityCategory[];
+}
+
+// ─── Vivir en MdP (F4 — /vivir-en-mardelplata) ──────────────────────────
+
+export interface SourcedSummary {
+  summary: string;
+  source: string;
+  sourceUrl: string;
+  asOf: string;
+}
+
+export interface CostItem {
+  label: string;
+  value: string;
+}
+
+export interface Neighborhood {
+  name: string;
+  vibe: string;
+  forWhom: string;
+}
+
+export interface LivingContent {
+  updatedAt: string;
+  intro: string;
+  highlights: string[];
+  costOfLiving: SourcedSummary & { items: CostItem[]; disclaimer: string };
+  internet: SourcedSummary & { providers: string[] };
+  neighborhoods: Neighborhood[];
+  faq: FaqEntry[];
+}
+
+// ─── Visa nómade (F4 — /vivir-en-mardelplata/visa) ──────────────────────
+
+export interface KeyFact {
+  label: string;
+  value: string;
+}
+
+export interface HowToStep {
+  title: string;
+  body: string;
+}
+
+export interface VisaContent {
+  updatedAt: string;
+  intro: string;
+  official: SourceLink;
+  keyFacts: KeyFact[];
+  requirements: string[];
+  howTo: HowToStep[];
+  disclaimer: string;
+  faq: FaqEntry[];
+}
+
+export const activities: ActivitiesContent = activitiesJson;
+export const living: LivingContent = livingJson;
+export const visa: VisaContent = visaJson;

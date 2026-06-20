@@ -1,0 +1,47 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "Argentina tiene una residencia transitoria para nómades digitales. Acá va el resumen práctico — pero como las reglas migratorias cambian, verificá siempre en el portal oficial de Migraciones antes de iniciar el trámite.",
+  "official": {
+    "label": "Dirección Nacional de Migraciones — Residencia transitoria como Nómada Digital",
+    "url": "https://www.argentina.gob.ar/servicio/obtener-una-residencia-transitoria-como-nomada-digital"
+  },
+  "keyFacts": [
+    { "label": "Duración", "value": "Hasta 180 días, prorrogable por un período igual." },
+    { "label": "Quiénes pueden", "value": "Extranjeros de países que NO requieren visa de turista para ingresar a Argentina." },
+    { "label": "Para qué", "value": "Prestar servicios en forma remota a personas o empresas domiciliadas en el exterior." },
+    { "label": "Marco legal", "value": "Art. 24 inc. h, Ley 25.871 — Disposición DNM 758/2022." }
+  ],
+  "requirements": [
+    "Solicitud con datos personales y la actividad que vas a desarrollar.",
+    "Breve CV con tu experiencia y formación.",
+    "Pasaporte válido y vigente.",
+    "Foto 4x4 (rostro, fondo blanco).",
+    "Documentación que pruebe tu actividad remota (contrato, aval de empresa, recibos/honorarios) y al menos una referencia.",
+    "Documentación legalizada/apostillada y traducida al español por traductor público."
+  ],
+  "howTo": [
+    {
+      "title": "Desde el exterior",
+      "body": "Se inicia online por el sistema TIE 24H (Tramitación de Ingreso Electrónica, art. 24h). Se abona una tasa de servicios. Al resolverse, recibís la autorización por mail para mostrar en el control migratorio."
+    },
+    {
+      "title": "Estando en Argentina",
+      "body": "El trámite es presencial ante la delegación u oficina de Migraciones de tu jurisdicción (no por Radex). En el interior, te presentás personalmente en la oficina correspondiente."
+    }
+  ],
+  "disclaimer": "Este resumen es orientativo y no es asesoramiento legal. Las tasas, requisitos y plazos pueden cambiar: confirmá todo en el portal oficial de Migraciones (argentina.gob.ar). Según Migraciones, el trámite es personal y sencillo, no se necesita gestor.",
+  "faq": [
+    {
+      "question": "¿Cuánto dura la visa de nómade digital en Argentina?",
+      "answer": "La residencia transitoria como nómada digital se otorga por hasta 180 días y es prorrogable por un período igual, es decir hasta 360 días en total (fuente: Dirección Nacional de Migraciones)."
+    },
+    {
+      "question": "¿Quiénes pueden tramitar la visa de nómade digital?",
+      "answer": "Extranjeros nacionales de países que no requieren visa de turista para ingresar a Argentina, que presten servicios remotos a personas o empresas del exterior (Disposición DNM 758/2022)."
+    },
+    {
+      "question": "¿Cómo se tramita?",
+      "answer": "Desde el exterior se inicia online por el sistema TIE 24H abonando una tasa. Si ya estás en Argentina, el trámite es presencial en la oficina de Migraciones de tu jurisdicción. Verificá los pasos vigentes en argentina.gob.ar."
+    }
+  ]
+}
