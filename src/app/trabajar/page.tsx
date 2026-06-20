@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import CafeDirectory from "@/components/cafes/CafeDirectory";
 import CafeSubmitForm from "@/components/cafes/CafeSubmitForm";
+import CafeMap from "@/components/cafes/CafeMap";
 import { breadcrumbSchema, itemListSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
 import { ogImageUrl } from "@/lib/seo/site";
 import { getCafes, cafeZonas, cafeSlug } from "@/lib/cafes";
@@ -55,6 +56,17 @@ export default async function TrabajarPage() {
             </p>
           </div>
         </header>
+
+        {cafes.some((c) => c.lat != null && c.lng != null) && (
+          <section className="shell-section">
+            <div className="shell-inner">
+              <Reveal>
+                <h2 className="shell-title" style={{ marginBottom: "1rem" }}>En el mapa</h2>
+                <CafeMap cafes={cafes} />
+              </Reveal>
+            </div>
+          </section>
+        )}
 
         <section className="shell-section shell-section--soft">
           <div className="shell-inner">
