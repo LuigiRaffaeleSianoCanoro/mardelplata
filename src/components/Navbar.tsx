@@ -23,6 +23,7 @@ const MENUS: NavMenu[] = [
     label: "Vivir acá",
     items: [
       { href: "/vivir-en-mardelplata", label: "Vivir en MdP", description: "Costo de vida, internet y visa" },
+      { href: "/trabajar",   label: "Trabajar",   description: "Cafés y coworkings work-friendly" },
       { href: "/que-hacer",  label: "Qué hacer",  description: "Playas, naturaleza y cultura" },
       { href: "/estudiar",   label: "Estudiar",   description: "Carreras tech en la ciudad" },
     ],

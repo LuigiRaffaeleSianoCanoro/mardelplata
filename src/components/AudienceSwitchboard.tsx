@@ -32,8 +32,8 @@ const AUDIENCES: Audience[] = [
     desc: "Costo de vida, internet, barrios y visa de nómade digital. Todo lo que necesitás para mudarte a la costa.",
     links: [
       { href: "/vivir-en-mardelplata", label: "Vivir en MdP" },
+      { href: "/trabajar", label: "Trabajar" },
       { href: "/que-hacer", label: "Qué hacer" },
-      { href: "/vivir-en-mardelplata/visa", label: "Visa" },
     ],
   },
   {

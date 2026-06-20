@@ -9,6 +9,7 @@ import activitiesJson from "./activities.json";
 import livingJson from "./living.json";
 import visaJson from "./visa.json";
 import companiesJson from "./companies.json";
+import workSpotsJson from "./work-spots.json";
 
 export interface CityStat {
   value: string;
@@ -181,4 +182,43 @@ export function companySectors(): string[] {
 
 export function companyBySlug(slug: string): Company | undefined {
   return companies.companies.find((c) => c.slug === slug);
+}
+
+// ─── Work spots / cafés y coworkings (F3 — /trabajar) ───────────────────
+
+export type WorkSpotKind = "cafe" | "coworking";
+
+export interface WorkSpot {
+  slug: string;
+  name: string;
+  kind: WorkSpotKind;
+  address?: string;
+  zona?: string;
+  hours?: string;
+  wifi: boolean;
+  amenities: string[];
+  note?: string;
+  website?: string;
+  source: string;
+  sourceUrl: string;
+}
+
+export interface WorkSpotsContent {
+  updatedAt: string;
+  intro: string;
+  sources: SourceLink[];
+  spots: WorkSpot[];
+}
+
+export const workSpots: WorkSpotsContent = workSpotsJson as WorkSpotsContent;
+
+/** Zonas únicas presentes (para el filtro). */
+export function workSpotZonas(): string[] {
+  const set = new Set<string>();
+  for (const s of workSpots.spots) if (s.zona) set.add(s.zona);
+  return Array.from(set).sort((a, b) => a.localeCompare(b, "es"));
+}
+
+export function workSpotBySlug(slug: string): WorkSpot | undefined {
+  return workSpots.spots.find((s) => s.slug === slug);
 }
