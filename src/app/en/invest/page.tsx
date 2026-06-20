@@ -5,54 +5,55 @@ import JsonLd from "@/components/seo/JsonLd";
 import StatCard from "@/components/nomad/StatCard";
 import LangSwitcher from "@/components/nomad/LangSwitcher";
 import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
-import { cityStats } from "@/content/nomad";
+import { cityStatsEn } from "@/content/nomad";
 
 const WHATSAPP_URL = "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs";
 const ATICMA_URL = "https://www.aticma.org.ar/";
 
 export const metadata: Metadata = {
-  title: "Invertir en tecnología en Mar del Plata",
+  title: "Invest in tech in Mar del Plata, Argentina",
   description:
-    "Por qué instalar tu empresa de tecnología en Mar del Plata: 3er polo tech de Argentina y 1er clúster de IA del país. 200+ empresas, 10.000+ talentos, USD 600M de facturación (fuente: ATICMA).",
+    "Why open your tech company in Mar del Plata: Argentina's 3rd tech hub and 1st AI cluster. 200+ companies, 10,000+ tech professionals, USD 600M revenue (source: ATICMA).",
   alternates: {
-    canonical: "/invertir",
+    canonical: "/en/invest",
     languages: { es: "/invertir", en: "/en/invest", "x-default": "/invertir" },
   },
   openGraph: {
-    title: "Invertir en tecnología en Mar del Plata — MdPDev",
+    title: "Invest in tech in Mar del Plata — MdPDev",
     description:
-      "3er polo tecnológico de Argentina y 1er clúster de IA. Talento, costos competitivos y calidad de vida costera.",
-    url: "/invertir",
+      "Argentina's 3rd tech hub and 1st AI cluster. Talent, competitive costs and coastal quality of life.",
+    url: "/en/invest",
+    locale: "en_US",
     type: "website",
   },
 };
 
-export default function InvertirPage() {
+export default function InvestPage() {
   const schemas: JsonLdObject[] = [
     breadcrumbSchema([
-      { name: "Inicio", path: "/" },
-      { name: "Invertir", path: "/invertir" },
+      { name: "Home", path: "/" },
+      { name: "Invest", path: "/en/invest" },
     ]),
-    faqPageSchema(cityStats.faq),
+    faqPageSchema(cityStatsEn.faq),
   ];
 
   return (
     <AppShell>
       <JsonLd schema={schemas} />
-      <main className="invertir-x">
+      <main className="invertir-x" lang="en">
         <header className="shell-section shell-section--lg">
           <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-              <LangSwitcher es="/invertir" en="/en/invest" current="es" />
+              <LangSwitcher es="/invertir" en="/en/invest" current="en" />
             </div>
-            <p className="shell-eyebrow">EL POLO DE IA FRENTE AL MAR</p>
+            <p className="shell-eyebrow">THE AI HUB BY THE SEA</p>
             <h1 className="shell-title shell-title--xl">
-              Llevá tu empresa tech a la <em>costa.</em>
+              Bring your tech company to the <em>coast.</em>
             </h1>
             <p className="shell-lead" style={{ marginInline: "auto" }}>
-              Mar del Plata es el tercer polo tecnológico de Argentina y el primer clúster de
-              inteligencia artificial del país. Talento que se renueva, costos competitivos en
-              dólares y calidad de vida costera, en el huso horario de las Américas.
+              Mar del Plata is Argentina’s third-largest tech hub and the country’s first artificial-
+              intelligence cluster. Renewing talent, competitive costs in USD and coastal quality of
+              life — in the Americas time zone.
             </p>
             <div
               style={{
@@ -64,10 +65,10 @@ export default function InvertirPage() {
               }}
             >
               <a className="shell-btn-primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                Hablemos
+                Let’s talk
               </a>
               <a className="shell-btn-ghost" href={ATICMA_URL} target="_blank" rel="noopener noreferrer">
-                Conocé ATICMA
+                Meet ATICMA
               </a>
             </div>
           </div>
@@ -76,12 +77,12 @@ export default function InvertirPage() {
         <section className="shell-section shell-section--soft">
           <div className="shell-inner">
             <Reveal>
-              <p className="shell-eyebrow">LOS NÚMEROS DEL POLO</p>
+              <p className="shell-eyebrow">THE HUB IN NUMBERS</p>
               <p className="shell-lead" style={{ marginBottom: "1.6rem" }}>
-                {cityStats.intro}
+                {cityStatsEn.intro}
               </p>
               <div className="shell-grid shell-grid--auto-220">
-                {cityStats.stats.map((s) => (
+                {cityStatsEn.stats.map((s) => (
                   <StatCard
                     key={s.label}
                     value={s.value}
@@ -100,9 +101,9 @@ export default function InvertirPage() {
         <section className="shell-section">
           <div className="shell-inner">
             <Reveal>
-              <h2 className="shell-title">¿Por qué Mar del Plata?</h2>
+              <h2 className="shell-title">Why Mar del Plata?</h2>
               <div className="shell-grid shell-grid--auto-280" style={{ marginTop: "1.4rem" }}>
-                {cityStats.reasons.map((r) => (
+                {cityStatsEn.reasons.map((r) => (
                   <div key={r.title} className="shell-card">
                     <h3 className="shell-card__title">{r.title}</h3>
                     <p className="shell-card__desc">{r.body}</p>
@@ -116,16 +117,10 @@ export default function InvertirPage() {
         <section className="shell-section shell-section--soft">
           <div className="shell-inner">
             <Reveal>
-              <h2 className="shell-title">Casos que ya escalaron desde acá</h2>
+              <h2 className="shell-title">Companies already scaling from here</h2>
               <div className="shell-grid shell-grid--auto-280" style={{ marginTop: "1.4rem" }}>
-                {cityStats.cases.map((c) => (
-                  <a
-                    key={c.name}
-                    className="shell-card"
-                    href={c.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                {cityStatsEn.cases.map((c) => (
+                  <a key={c.name} className="shell-card" href={c.url} target="_blank" rel="noopener noreferrer">
                     <h3 className="shell-card__title">{c.name}</h3>
                     <p className="shell-card__desc">{c.description}</p>
                     <span className="shell-card__meta">{c.source} ↗</span>
@@ -139,9 +134,9 @@ export default function InvertirPage() {
         <section className="shell-section">
           <div className="shell-inner shell-inner--narrow">
             <Reveal>
-              <h2 className="shell-title">Preguntas frecuentes</h2>
+              <h2 className="shell-title">FAQ</h2>
               <div style={{ marginTop: "1.2rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-                {cityStats.faq.map((f) => (
+                {cityStatsEn.faq.map((f) => (
                   <details key={f.question} className="shell-card" style={{ cursor: "pointer" }}>
                     <summary className="shell-card__title" style={{ listStyle: "none" }}>
                       {f.question}
@@ -159,14 +154,14 @@ export default function InvertirPage() {
         <section className="shell-section shell-section--soft">
           <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
             <Reveal>
-              <h2 className="shell-title">¿Pensás traer tu empresa a la costa?</h2>
+              <h2 className="shell-title">Thinking of moving your company to the coast?</h2>
               <p className="shell-lead" style={{ marginInline: "auto" }}>
-                Conectamos con la comunidad, las universidades y ATICMA. Escribinos y te ayudamos a
-                aterrizar en el ecosistema.
+                We connect you with the community, the universities and ATICMA. Write to us and we’ll
+                help you land in the ecosystem.
               </p>
               <div style={{ marginTop: "1.4rem" }}>
                 <a className="shell-btn-primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                  Hablemos por WhatsApp
+                  Let’s talk on WhatsApp
                 </a>
               </div>
             </Reveal>

@@ -1,0 +1,122 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "Mar del Plata is Argentina's third-largest tech hub and the country's first artificial-intelligence cluster. Here are the numbers behind the ecosystem, with their source.",
+  "stats": [
+    {
+      "value": "200+",
+      "label": "technology companies",
+      "detail": "Local firms, startups and companies with national and international reach.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "10,000+",
+      "label": "tech professionals",
+      "detail": "Across direct and indirect jobs and freelance work tied to the sector.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "USD 600M",
+      "label": "annual sector revenue",
+      "detail": "From a survey marking the 20th anniversary of the local industry association.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "USD 125M",
+      "label": "service exports",
+      "detail": "Accumulated exports of the local knowledge industry.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "3rd",
+      "label": "largest tech hub in Argentina",
+      "detail": "With an increasingly robust and diversified ecosystem.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/",
+      "asOf": "2025"
+    },
+    {
+      "value": "1st",
+      "label": "AI cluster in Argentina",
+      "detail": "30+ local companies building AI for health, agriculture, retail, education, industry, logistics and fintech.",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/mar-del-plata-consolida-su-liderazgo-como-polo-tecnologico-de-inteligencia-artificial-en-argentina/",
+      "asOf": "2025"
+    },
+    {
+      "value": "5",
+      "label": "universities with tech degrees",
+      "detail": "Plus several technical institutes: a talent pipeline that renews every year.",
+      "source": "Municipality of General Pueyrredon",
+      "sourceUrl": "https://www.mardelplata.gob.ar/Contenido/oferta-local-en-carreras-basadas-en-el-conocimiento",
+      "asOf": "2026"
+    }
+  ],
+  "reasons": [
+    {
+      "title": "Talent that renews",
+      "body": "Five universities and several institutes train developers, engineers and data/AI specialists every year. The talent stays in the city."
+    },
+    {
+      "title": "Competitive cost in USD",
+      "body": "Competitive salaries and operating costs for exporting services, with a coastal quality of life that retains teams."
+    },
+    {
+      "title": "Americas time zone",
+      "body": "Natural overlap with the US and Latin America: your team works in real time with clients across the continent."
+    },
+    {
+      "title": "Technology District",
+      "body": "The city developed a Technology District that concentrates much of the sector's companies and infrastructure."
+    },
+    {
+      "title": "Knowledge Economy Law",
+      "body": "Sector companies can access Argentina's national Knowledge Economy regime. Verify current conditions with the relevant agency."
+    },
+    {
+      "title": "Active community",
+      "body": "A living tech scene: meetups, hackathons, a job board and a community that connects newcomers with locals."
+    }
+  ],
+  "cases": [
+    {
+      "name": "Roomix",
+      "description": "AI-powered real-estate metasearch founded in Mar del Plata. It raised funding from figures at OpenAI, Meta and Vercel, and ranks among Argentina's most-visited property sites.",
+      "url": "https://roomix.ai",
+      "source": "Forbes Argentina",
+      "sourceUrl": "https://www.forbesargentina.com/negocios/el-marplatense-24-anos-convencio-guillermo-rauch-figuras-openai-meta-invertir-su-startup-n91101"
+    },
+    {
+      "name": "ATICMA Emprende",
+      "description": "ATICMA's entrepreneurship program: its 2025 winner (Pastech) traveled to Silicon Valley. The city already has cases reaching the global ecosystem.",
+      "url": "https://www.aticma.org.ar/",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Why open a technology company in Mar del Plata?",
+      "answer": "Mar del Plata is Argentina's third-largest tech hub and the country's first AI cluster, with 200+ companies, 10,000+ tech professionals and USD 600M in annual sector revenue (source: ATICMA, 2025). It offers university talent that renews every year, competitive costs in USD, a time zone aligned with the Americas and a coastal quality of life."
+    },
+    {
+      "question": "How many tech companies are there in Mar del Plata?",
+      "answer": "According to ATICMA there are more than 200 technology companies in the city and over 10,000 tech professionals across direct, indirect and freelance work (2025)."
+    },
+    {
+      "question": "Is there AI talent in Mar del Plata?",
+      "answer": "Yes. Mar del Plata is Argentina's first AI cluster: 30+ local companies build artificial-intelligence solutions for health, agriculture, retail, education, industry, logistics and fintech (source: ATICMA)."
+    },
+    {
+      "question": "What incentives exist for technology companies?",
+      "answer": "Sector companies can access Argentina's national Knowledge Economy regime and the infrastructure of the city's Technology District. Conditions change, so it's best to verify them with ATICMA and the relevant agencies."
+    }
+  ]
+}

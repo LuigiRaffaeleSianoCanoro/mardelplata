@@ -12,16 +12,40 @@ interface StaticRoute {
   path: string;
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
   priority: number;
+  /** hreflang alternates (ES/EN) para rutas con par traducido. */
+  languages?: Record<string, string>;
 }
 
 const STATIC_ROUTES: StaticRoute[] = [
   { path: "/", changeFrequency: "daily", priority: 1.0 },
   { path: "/eventos", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/vivir-en-mardelplata", changeFrequency: "monthly", priority: 0.9 },
+  {
+    path: "/vivir-en-mardelplata",
+    changeFrequency: "monthly",
+    priority: 0.9,
+    languages: { es: "/vivir-en-mardelplata", en: "/en/live-in-mar-del-plata" },
+  },
   { path: "/vivir-en-mardelplata/visa", changeFrequency: "monthly", priority: 0.7 },
   { path: "/trabajar", changeFrequency: "weekly", priority: 0.8 },
   { path: "/que-hacer", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/invertir", changeFrequency: "monthly", priority: 0.9 },
+  {
+    path: "/invertir",
+    changeFrequency: "monthly",
+    priority: 0.9,
+    languages: { es: "/invertir", en: "/en/invest" },
+  },
+  {
+    path: "/en/invest",
+    changeFrequency: "monthly",
+    priority: 0.8,
+    languages: { es: "/invertir", en: "/en/invest" },
+  },
+  {
+    path: "/en/live-in-mar-del-plata",
+    changeFrequency: "monthly",
+    priority: 0.8,
+    languages: { es: "/vivir-en-mardelplata", en: "/en/live-in-mar-del-plata" },
+  },
   { path: "/empresas", changeFrequency: "weekly", priority: 0.9 },
   { path: "/estudiar", changeFrequency: "monthly", priority: 0.7 },
   { path: "/bolsa", changeFrequency: "daily", priority: 0.8 },
@@ -66,6 +90,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: route.path === "/eventos" ? eventsLastMod : now,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
+    ...(route.languages
+      ? {
+          alternates: {
+            languages: Object.fromEntries(
+              Object.entries(route.languages).map(([lang, p]) => [lang, absoluteUrl(p)]),
+            ),
+          },
+        }
+      : {}),
   }));
 
   // Rutas-entidad de empresas (curadas en JSON; se generan desde su fuente).
