@@ -160,6 +160,15 @@ calculadoras/localStorage (primer-trabajo) son client-side puros → ok.
 
 ## 8. Plan de actividades (priorizado)
 
+> **Estado (actualizado):** ya implementados por código en el PR de fixes —
+> ✅ **A1** (acordeón FAQ con chevron), ✅ **S1** (OG images dinámicas vía `next/og`),
+> ✅ **P1/S3** (home ahora estática con ISR 5m vía cliente Supabase sin cookies),
+> ✅ **A4** (`:focus-visible` consistente), ✅ **S4** (FAQ en `/estudiar` y `/que-hacer`),
+> ✅ **R1 (parcial)** (navbar colapsa a burger en `xl` para evitar saturación en pantallas medias).
+> Pendientes (requieren tu acción o decisión): infra Supabase/GSC, A2 contraste, A3 `lang`, P2 fuentes,
+> P3 lazy zxing, A5 `<img>`, mapas.
+
+
 Severidad × esfuerzo. Cada ítem = un PR chico.
 
 ### 🔴 P0 — arreglos de alto impacto / bajo riesgo

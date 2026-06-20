@@ -2,8 +2,23 @@ import type { Metadata } from "next";
 import AppShell from "@/components/app/AppShell";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import Faq from "@/components/nomad/Faq";
+import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import { ogImageUrl } from "@/lib/seo/site";
 import { activities } from "@/content/nomad";
+
+const QUE_HACER_FAQ = [
+  {
+    question: "¿Qué hacer en Mar del Plata cuando trabajás remoto?",
+    answer:
+      "Además de sus playas (Playa Grande, Varese, La Perla), Mar del Plata ofrece naturaleza muy cerca (Laguna y Sierra de los Padres, Bosque Peralta Ramos), una escena gastronómica fuerte en el barrio Güemes y el puerto, y cultura como el Museo MAR y la Villa Victoria Ocampo.",
+  },
+  {
+    question: "¿Qué playas son las mejores en Mar del Plata?",
+    answer:
+      "Playa Grande es la más icónica, con zona gastronómica y spots de surf cerca. Playa Varese es una caleta protegida de agua más calma, y La Perla es amplia y céntrica.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Qué hacer en Mar del Plata",
@@ -16,6 +31,7 @@ export const metadata: Metadata = {
       "Playas, naturaleza, gastronomía y cultura para quien vive y trabaja remoto desde la costa.",
     url: "/que-hacer",
     type: "website",
+    images: [ogImageUrl("Qué hacer en Mar del Plata", "Cuando cerrás la laptop")],
   },
 };
 
@@ -25,6 +41,7 @@ export default function QueHacerPage() {
       { name: "Inicio", path: "/" },
       { name: "Qué hacer", path: "/que-hacer" },
     ]),
+    faqPageSchema(QUE_HACER_FAQ),
   ];
 
   return (
@@ -63,6 +80,17 @@ export default function QueHacerPage() {
             </div>
           </section>
         ))}
+
+        <section className="shell-section shell-section--soft">
+          <div className="shell-inner shell-inner--narrow">
+            <Reveal>
+              <h2 className="shell-title">Preguntas frecuentes</h2>
+              <div style={{ marginTop: "1.2rem" }}>
+                <Faq items={QUE_HACER_FAQ} />
+              </div>
+            </Reveal>
+          </div>
+        </section>
       </main>
     </AppShell>
   );

@@ -4,7 +4,9 @@ import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import StatCard from "@/components/nomad/StatCard";
 import LangSwitcher from "@/components/nomad/LangSwitcher";
+import Faq from "@/components/nomad/Faq";
 import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import { ogImageUrl } from "@/lib/seo/site";
 import { cityStats } from "@/content/nomad";
 
 const WHATSAPP_URL = "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs";
@@ -24,6 +26,7 @@ export const metadata: Metadata = {
       "3er polo tecnológico de Argentina y 1er clúster de IA. Talento, costos competitivos y calidad de vida costera.",
     url: "/invertir",
     type: "website",
+    images: [ogImageUrl("Invertí en el tech de la costa", "El polo de IA frente al mar")],
   },
 };
 
@@ -140,17 +143,8 @@ export default function InvertirPage() {
           <div className="shell-inner shell-inner--narrow">
             <Reveal>
               <h2 className="shell-title">Preguntas frecuentes</h2>
-              <div style={{ marginTop: "1.2rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-                {cityStats.faq.map((f) => (
-                  <details key={f.question} className="shell-card" style={{ cursor: "pointer" }}>
-                    <summary className="shell-card__title" style={{ listStyle: "none" }}>
-                      {f.question}
-                    </summary>
-                    <p className="shell-card__desc" style={{ marginTop: "0.6rem" }}>
-                      {f.answer}
-                    </p>
-                  </details>
-                ))}
+              <div style={{ marginTop: "1.2rem" }}>
+                <Faq items={cityStats.faq} />
               </div>
             </Reveal>
           </div>

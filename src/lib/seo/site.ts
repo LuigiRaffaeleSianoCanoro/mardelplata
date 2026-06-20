@@ -24,3 +24,13 @@ export function absoluteUrl(path = "/"): string {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   return new URL(path, SITE_URL).toString();
 }
+
+/**
+ * URL de la OG image dinámica (ver src/app/api/og/route.tsx). Relativa: Next la
+ * resuelve a absoluta con metadataBase. Ver docs/nomad-it-hub/06-audit-qa-plan.md (S1).
+ */
+export function ogImageUrl(title: string, eyebrow?: string): string {
+  const params = new URLSearchParams({ title });
+  if (eyebrow) params.set("eyebrow", eyebrow);
+  return `/api/og?${params.toString()}`;
+}

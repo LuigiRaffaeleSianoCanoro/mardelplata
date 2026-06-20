@@ -3,8 +3,28 @@ import AppShell from "@/components/app/AppShell";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import SourceTag from "@/components/nomad/SourceTag";
-import { breadcrumbSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import Faq from "@/components/nomad/Faq";
+import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
+import { ogImageUrl } from "@/lib/seo/site";
 import { institutions, type Institution } from "@/content/nomad";
+
+const ESTUDIAR_FAQ = [
+  {
+    question: "¿Dónde estudiar programación o sistemas en Mar del Plata?",
+    answer:
+      "Mar del Plata tiene cinco universidades con carreras tech (UNMDP, UTN, CAECE, FASTA y Atlántida Argentina) más varios institutos terciarios. La UNMDP ofrece carreras de grado gratuitas en Ingeniería en Computación e Informática.",
+  },
+  {
+    question: "¿Hay carreras tech gratuitas en Mar del Plata?",
+    answer:
+      "Sí. La Universidad Nacional de Mar del Plata (Facultad de Ingeniería) es pública y gratuita, con Ingeniería en Computación e Ingeniería en Informática. También hay institutos terciarios gratuitos como el Instituto Superior de Estudios Técnicos (MGP).",
+  },
+  {
+    question: "¿Se puede estudiar tecnología a distancia en Mar del Plata?",
+    answer:
+      "Sí. La UTN Facultad Regional Mar del Plata ofrece la Tecnicatura Universitaria en Programación y la Tecnicatura en Tecnologías de la Información en modalidad a distancia.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Estudiar tecnología en Mar del Plata",
@@ -17,6 +37,7 @@ export const metadata: Metadata = {
       "Carreras de programación, sistemas, informática y ciberseguridad en las universidades e institutos de Mar del Plata.",
     url: "/estudiar",
     type: "website",
+    images: [ogImageUrl("Estudiar tech en Mar del Plata", "El talento se forma acá")],
   },
 };
 
@@ -80,6 +101,7 @@ export default function EstudiarPage() {
     ]),
     ...institutions.universities.map(educationalOrgSchema),
     ...institutions.institutes.map(educationalOrgSchema),
+    faqPageSchema(ESTUDIAR_FAQ),
   ];
 
   return (
@@ -124,6 +146,17 @@ export default function EstudiarPage() {
                 {institutions.sources.map((s) => (
                   <SourceTag key={s.url} source={s.label} url={s.url} asOf={institutions.updatedAt} />
                 ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="shell-section shell-section--soft">
+          <div className="shell-inner shell-inner--narrow">
+            <Reveal>
+              <h2 className="shell-title">Preguntas frecuentes</h2>
+              <div style={{ marginTop: "1.2rem" }}>
+                <Faq items={ESTUDIAR_FAQ} />
               </div>
             </Reveal>
           </div>
