@@ -8,6 +8,7 @@ import institutionsJson from "./institutions.json";
 import activitiesJson from "./activities.json";
 import livingJson from "./living.json";
 import visaJson from "./visa.json";
+import companiesJson from "./companies.json";
 
 export interface CityStat {
   value: string;
@@ -143,3 +144,41 @@ export interface VisaContent {
 export const activities: ActivitiesContent = activitiesJson;
 export const living: LivingContent = livingJson;
 export const visa: VisaContent = visaJson;
+
+// ─── Empresas (F1 — /empresas) ──────────────────────────────────────────
+
+export interface Company {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  sectors: string[];
+  website?: string;
+  neighborhood?: string;
+  founded?: number;
+  exports?: boolean;
+  source: string;
+  sourceUrl: string;
+}
+
+export interface CompaniesContent {
+  updatedAt: string;
+  intro: string;
+  sources: SourceLink[];
+  companies: Company[];
+}
+
+export const companies: CompaniesContent = companiesJson;
+
+/** Lista ordenada de sectores únicos presente en el directorio (para filtros). */
+export function companySectors(): string[] {
+  const set = new Set<string>();
+  for (const c of companies.companies) {
+    for (const s of c.sectors) set.add(s);
+  }
+  return Array.from(set).sort((a, b) => a.localeCompare(b, "es"));
+}
+
+export function companyBySlug(slug: string): Company | undefined {
+  return companies.companies.find((c) => c.slug === slug);
+}

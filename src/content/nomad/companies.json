@@ -1,0 +1,163 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "El ecosistema tech de Mar del Plata en un solo lugar: empresas de software, IA, agtech, e-commerce y más. Directorio inicial curado a partir de fuentes públicas — si falta tu empresa, sumala.",
+  "sources": [
+    {
+      "label": "ATICMA — Nuestros Socios",
+      "url": "https://www.aticma.org.ar/nuestros-socios/"
+    },
+    {
+      "label": "Municipio de General Pueyrredon — Oferta exportable (software)",
+      "url": "https://appsb.mardelplata.gob.ar/Consultas/nOfertasProduccion/OfertaExportable/Empresas.aspx?filtro=&ncm=&sector=8"
+    }
+  ],
+  "companies": [
+    {
+      "slug": "globant",
+      "name": "Globant",
+      "tagline": "Centro de desarrollo global en Mar del Plata",
+      "description": "Compañía global de tecnología que abrió un centro de desarrollo en Mar del Plata, sumando talento local a sus proyectos internacionales.",
+      "sectors": ["Servicios globales", "Software"],
+      "website": "https://www.globant.com",
+      "exports": true,
+      "source": "Globant",
+      "sourceUrl": "https://www.globant.com/news/globant-opens-new-development-center-mar-del-plata-argentina"
+    },
+    {
+      "slug": "accenture",
+      "name": "Accenture",
+      "tagline": "Servicios profesionales en digital, nube y seguridad",
+      "description": "Compañía global de servicios profesionales con capacidades líderes en digital, nube y seguridad, con presencia en Mar del Plata.",
+      "sectors": ["Servicios globales", "Consultoría"],
+      "website": "https://www.accenture.com",
+      "neighborhood": "Av. Independencia 4250",
+      "exports": true,
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/nuestros-socios/"
+    },
+    {
+      "slug": "roomix",
+      "name": "Roomix",
+      "tagline": "Metabuscador inmobiliario con inteligencia artificial",
+      "description": "Startup marplatense que indexa los principales portales inmobiliarios y ordena por relevancia con IA. Recibió inversión de figuras de OpenAI, Meta y Vercel.",
+      "sectors": ["IA", "Proptech"],
+      "website": "https://roomix.ai",
+      "exports": true,
+      "source": "Forbes Argentina",
+      "sourceUrl": "https://www.forbesargentina.com/negocios/el-marplatense-24-anos-convencio-guillermo-rauch-figuras-openai-meta-invertir-su-startup-n91101"
+    },
+    {
+      "slug": "making-sense",
+      "name": "Making Sense",
+      "tagline": "Desarrollo de software y diseño de producto",
+      "description": "Empresa de desarrollo de software y diseño de producto que trabaja con clientes internacionales, con presencia en el ecosistema marplatense.",
+      "sectors": ["Software", "Servicios globales"],
+      "website": "https://makingsense.com",
+      "exports": true,
+      "source": "Municipio de General Pueyrredon",
+      "sourceUrl": "https://appsb.mardelplata.gob.ar/Consultas/nOfertasProduccion/OfertaExportable/Empresas.aspx?filtro=&ncm=&sector=8"
+    },
+    {
+      "slug": "deepyze",
+      "name": "Deepyze",
+      "tagline": "Software a medida y automatización con IA",
+      "description": "Desarrollo de software a medida y automatización con IA para empresas de la región: hoteles, pesqueras, constructoras y comercios.",
+      "sectors": ["Software a medida", "IA"],
+      "website": "https://deepyze.dev",
+      "source": "Deepyze",
+      "sourceUrl": "https://deepyze.dev/desarrollo-de-software-en-mar-del-plata/"
+    },
+    {
+      "slug": "advenio-software",
+      "name": "Advenio Software",
+      "tagline": "Soluciones tecnológicas de alto impacto",
+      "description": "Más de 20 años desarrollando soluciones para salud, naval, comunicaciones, software de capacitación, apps mobile y automatización (M2M).",
+      "sectors": ["Software", "Salud"],
+      "neighborhood": "Salta 1199",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/nuestros-socios/"
+    },
+    {
+      "slug": "agrosistemas",
+      "name": "AgroSistemas",
+      "tagline": "Software de gestión para el agro desde 1984",
+      "description": "Desarrollo de software para el sector agropecuario: mejora de la gestión administrativa y comercial del productor.",
+      "sectors": ["Agtech"],
+      "neighborhood": "Alberti 788",
+      "founded": 1984,
+      "exports": true,
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/nuestros-socios/"
+    },
+    {
+      "slug": "albor",
+      "name": "Albor",
+      "tagline": "Software de gestión agropecuaria",
+      "description": "Más de 30 años simplificando la gestión agropecuaria para que la empresa del productor trascienda.",
+      "sectors": ["Agtech"],
+      "neighborhood": "Galicia 76",
+      "exports": true,
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/nuestros-socios/"
+    },
+    {
+      "slug": "rollpix",
+      "name": "Rollpix",
+      "tagline": "Plataforma de e-commerce B2C y B2B",
+      "description": "Más de 20 años en comercio electrónico B2C y B2B con su plataforma iShop, integrada con los sistemas de gestión de cada empresa.",
+      "sectors": ["E-commerce"],
+      "exports": true,
+      "source": "Municipio de General Pueyrredon",
+      "sourceUrl": "https://appsb.mardelplata.gob.ar/Consultas/nOfertasProduccion/OfertaExportable/Empresas.aspx?filtro=&ncm=&sector=8"
+    },
+    {
+      "slug": "datcom",
+      "name": "Datcom",
+      "tagline": "Software logístico de alto rendimiento",
+      "description": "Fabricante de Dettron WMS: diseña, desarrolla y mantiene software de logística industrial y empresarial. Certificación ISO 9001 para software logístico.",
+      "sectors": ["Logística", "Software"],
+      "exports": true,
+      "source": "Municipio de General Pueyrredon",
+      "sourceUrl": "https://appsb.mardelplata.gob.ar/Consultas/nOfertasProduccion/OfertaExportable/Empresas.aspx?filtro=&ncm=&sector=8"
+    },
+    {
+      "slug": "delsat-group",
+      "name": "Delsat Group",
+      "tagline": "Producción de ciclo completo: software, hardware e ingeniería",
+      "description": "Servicios de software, hardware, consultoría e ingeniería de productos, con foco en innovación y trabajo junto a universidades y centros de I+D.",
+      "sectors": ["Software", "Consultoría"],
+      "exports": true,
+      "source": "Municipio de General Pueyrredon",
+      "sourceUrl": "https://appsb.mardelplata.gob.ar/Consultas/nOfertasProduccion/OfertaExportable/Empresas.aspx?filtro=&ncm=&sector=8"
+    },
+    {
+      "slug": "amt-software",
+      "name": "AMT Software",
+      "tagline": "Consultoría de sistemas de información",
+      "description": "Consultoría de sistemas de información, análisis funcional y gestión de proyectos.",
+      "sectors": ["Consultoría", "Software"],
+      "neighborhood": "Neuquén 475",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/nuestros-socios/"
+    },
+    {
+      "slug": "aiotek",
+      "name": "AIOTEK",
+      "tagline": "Soluciones digitales que transforman",
+      "description": "Más de 20 años en el sector desarrollando soluciones digitales para distintas industrias.",
+      "sectors": ["Software"],
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/nuestros-socios/"
+    },
+    {
+      "slug": "6up-media",
+      "name": "6UP Media",
+      "tagline": "Desarrollo y producción de contenidos audiovisuales",
+      "description": "Estudio dedicado al desarrollo y la producción de contenidos audiovisuales.",
+      "sectors": ["Audiovisual"],
+      "neighborhood": "San Lorenzo 1453",
+      "source": "ATICMA",
+      "sourceUrl": "https://www.aticma.org.ar/nuestros-socios/"
+    }
+  ]
+}
