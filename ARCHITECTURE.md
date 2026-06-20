@@ -223,6 +223,8 @@ mardelplata/
 | `/empresas/[slug]` | SSG (`generateStaticParams`) | JSON `content/nomad/companies.json` |
 | `/trabajar` | Static (RSC en AppShell) | JSON `content/nomad/work-spots.json` + filtros + form de sugerencias |
 | `/trabajar/[slug]` | SSG (`generateStaticParams`) | JSON `content/nomad/work-spots.json` |
+| `/en/invest` | Static (RSC en AppShell) | JSON `content/nomad/invest.en.json` |
+| `/en/live-in-mar-del-plata` | Static (RSC en AppShell) | JSON `content/nomad/living.en.json` |
 | `/api/work-spots` | Route handler (POST) | Insert en `work_spot_submissions` (Supabase) |
 | `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + work spots + fecha del último evento (Supabase) |
 | `/robots.txt` | Metadata route (estática) | — |
@@ -638,6 +640,8 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 **Acceso público en AppShell** — `AppShell` permite `/invertir` y `/estudiar` sin login (lista `publicPrefixes`). **JSON-LD**: `/invertir` emite `FAQPage`; `/estudiar` emite `EducationalOrganization` por institución; ambas `BreadcrumbList`.
 
 **Navegación (rediseño T9)** — el navbar agrupa los destinos en dropdowns: **"Vivir acá"** (Vivir en MdP, Qué hacer, Estudiar), **"Ecosistema"** (Empresas, Invertir) y **"Recursos"** (Blog, Reglamento). `Navbar.tsx` soporta múltiples menús con un único estado `openMenu` y un contenedor `menusRef` para el click-outside; en mobile cada menú es una sección.
+
+**Internacionalización (i18n EN)** — rutas en inglés bajo `/en/*` para la audiencia internacional (CTOs, nómades extranjeros): `/en/invest` (↔ `/invertir`) y `/en/live-in-mar-del-plata` (↔ `/vivir-en-mardelplata`). Contenido EN traducido en `invest.en.json` / `living.en.json` (misma forma que sus pares ES, reusa los tipos). Cada par declara `alternates.languages` (hreflang `es`/`en`/`x-default`) en su `generateMetadata`, y el `sitemap.ts` emite los `alternates.languages`. [`LangSwitcher`](src/components/nomad/LangSwitcher.tsx) conmuta ES/EN. Las páginas EN marcan `lang="en"` en su `<main>` (el `<html lang>` global sigue en `es`; cambiarlo por ruta requeriría volver dinámico el layout raíz — pendiente si se amplía i18n).
 
 **Home (rediseño T9)** — dos secciones nuevas (server components, sistema `shell-*`):
 - [`AudienceSwitchboard`](src/components/AudienceSwitchboard.tsx) — tras `Pillars`: tres caminos (comunidad / nómade / empresa) que resuelven la IA de "3 audiencias, 1 home".
