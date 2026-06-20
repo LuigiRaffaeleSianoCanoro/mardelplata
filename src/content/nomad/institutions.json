@@ -1,0 +1,96 @@
+{
+  "updatedAt": "2026-06",
+  "intro": "Mar del Plata forma talento tech cada año. Esta es la oferta local de carreras vinculadas a la informática, el software y la economía del conocimiento.",
+  "sources": [
+    {
+      "label": "Municipio de General Pueyrredon — Oferta local en carreras basadas en el conocimiento",
+      "url": "https://www.mardelplata.gob.ar/Contenido/oferta-local-en-carreras-basadas-en-el-conocimiento"
+    },
+    {
+      "label": "ATICMA — Carreras tecnológicas",
+      "url": "https://www.aticma.org.ar/carrerastecnologicas/"
+    }
+  ],
+  "universities": [
+    {
+      "name": "Universidad Nacional de Mar del Plata (Facultad de Ingeniería)",
+      "kind": "Universidad pública (gratuita)",
+      "address": "Juan B. Justo 4302",
+      "website": "https://www.mdp.edu.ar",
+      "careers": [
+        "Ingeniería en Computación",
+        "Ingeniería en Informática"
+      ]
+    },
+    {
+      "name": "UTN — Facultad Regional Mar del Plata",
+      "kind": "Universidad pública",
+      "address": "Av. Dorrego 281",
+      "website": "https://mdp.utn.edu.ar",
+      "careers": [
+        "Técnico Superior en Sistemas Informáticos",
+        "Tecnicatura Universitaria en Programación (presencial y a distancia)",
+        "Tecnicatura Universitaria en Tecnologías de la Información (a distancia)"
+      ]
+    },
+    {
+      "name": "Universidad CAECE",
+      "kind": "Universidad privada",
+      "address": "Olavarría 2464",
+      "website": "https://www.caece.edu.ar",
+      "careers": [
+        "Ingeniería en Sistemas",
+        "Licenciatura en Sistemas",
+        "Licenciatura en Gestión de Sistemas y Negocios",
+        "Diplomatura en Producción de Videojuegos"
+      ]
+    },
+    {
+      "name": "Universidad FASTA",
+      "kind": "Universidad privada",
+      "address": "Gascón 3145",
+      "website": "https://www.ufasta.edu.ar",
+      "careers": [
+        "Ingeniería en Informática",
+        "Licenciatura en Ciberseguridad",
+        "Especialización en Informática Forense"
+      ]
+    },
+    {
+      "name": "Universidad Atlántida Argentina",
+      "kind": "Universidad privada",
+      "address": "Arenales 2740",
+      "website": "https://www.atlantida.edu.ar",
+      "careers": [
+        "Ingeniería en Informática",
+        "Licenciatura en Informática",
+        "Tecnicatura Superior en Sistemas Informáticos"
+      ]
+    }
+  ],
+  "institutes": [
+    {
+      "name": "Instituto Superior de Estudios Técnicos (MGP)",
+      "kind": "Terciario (gratuito)",
+      "careers": [
+        "Analista de Sistemas",
+        "Análisis, Desarrollo y Programación de Aplicaciones"
+      ]
+    },
+    {
+      "name": "Instituto Idra",
+      "kind": "Terciario",
+      "careers": ["Tecnicatura Superior en Desarrollo de Software"]
+    },
+    {
+      "name": "Instituto CRI",
+      "kind": "Terciario",
+      "careers": ["Técnico Superior en Análisis de Sistemas"]
+    },
+    {
+      "name": "Instituto Hilet",
+      "kind": "Terciario",
+      "careers": ["Analista de Sistemas"]
+    }
+  ]
+}
