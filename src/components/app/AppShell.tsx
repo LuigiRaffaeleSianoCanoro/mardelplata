@@ -72,6 +72,7 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
             "/que-hacer",
             "/vivir-en-mardelplata",
             "/empresas",
+            "/trabajar",
           ];
           const isPublic = publicPrefixes.some((p) =>
             pathname === p || pathname.startsWith(p + "/"),

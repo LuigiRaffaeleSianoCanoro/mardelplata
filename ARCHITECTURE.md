@@ -221,7 +221,10 @@ mardelplata/
 | `/que-hacer` | Static (RSC en AppShell) | JSON `content/nomad/activities.json` |
 | `/empresas` | Static (RSC en AppShell) | JSON `content/nomad/companies.json` + filtros (isla cliente) |
 | `/empresas/[slug]` | SSG (`generateStaticParams`) | JSON `content/nomad/companies.json` |
-| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + fecha del último evento (Supabase) |
+| `/trabajar` | Static (RSC en AppShell) | JSON `content/nomad/work-spots.json` + filtros + form de sugerencias |
+| `/trabajar/[slug]` | SSG (`generateStaticParams`) | JSON `content/nomad/work-spots.json` |
+| `/api/work-spots` | Route handler (POST) | Insert en `work_spot_submissions` (Supabase) |
+| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + work spots + fecha del último evento (Supabase) |
 | `/robots.txt` | Metadata route (estática) | — |
 
 > No hay API routes propias. Toda la lectura/escritura va directo al cliente Supabase desde el browser o desde server components.
@@ -611,6 +614,7 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 | `/vivir-en-mardelplata/visa` | F4 — visa | Residencia de nómade digital: datos, requisitos, trámite. Fuente: Migraciones. |
 | `/que-hacer` | F5 — actividades | Playas, naturaleza, gastronomía y cultura, ángulo nómade. |
 | `/empresas` (+`[slug]`) | F1 — directorio | Empresas tech filtrables por sector + ficha individual. Datos de ATICMA + Municipio. |
+| `/trabajar` (+`[slug]`) | F3 — work spots | Cafés y coworkings work-friendly filtrables + sugerencias de la comunidad. Datos de laptopfriendly.co + más. |
 
 **Contenido curado** — JSON estático en [`src/content/nomad/`](src/content/nomad/) con índice tipado en `index.ts` (patrón `content/primer-trabajo`). **Toda métrica lleva `source` + `as_of`** (regla `.cursor/rules/40-nomad-hub-content.mdc`):
 - `city-stats.json` — números del polo, razones, casos, FAQ.
@@ -619,8 +623,13 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 - `visa.json` — visa de nómade digital (fuente: Dirección Nacional de Migraciones).
 - `activities.json` — actividades turísticas por categoría.
 - `companies.json` — directorio de empresas tech (fuentes: ATICMA Nuestros Socios, Municipio).
+- `work-spots.json` — cafés y coworkings work-friendly (fuentes: laptopfriendly.co, Info Viajera, sitios oficiales).
 
 > **F1 v1 es JSON, no Supabase.** El plan (`02-feature-plan.md`) preveía tabla `companies`; para v1 se eligió JSON curado porque el dataset es de baja rotación y permite páginas 100% estáticas con SEO óptimo y `generateStaticParams`. La **migración a Supabase** (tabla + RLS + alta self-service de empresas) es el follow-up F1c, cuando se necesite que la comunidad cargue sus empresas. El filtrado (sector / exporta / búsqueda) es una isla cliente: [`CompanyDirectory`](src/components/nomad/CompanyDirectory.tsx).
+
+**F3 — cafés y coworkings (`/trabajar`):** modelo híbrido "curado + comunidad".
+- **Curado** → `work-spots.json` (estático, SEO `CafeOrCoffeeShop`/`LocalBusiness` por ficha, filtros por tipo/zona en la isla [`WorkSpotDirectory`](src/components/nomad/WorkSpotDirectory.tsx)).
+- **Comunidad** → [`SubmitWorkSpotForm`](src/components/nomad/SubmitWorkSpotForm.tsx) postea a [`/api/work-spots`](src/app/api/work-spots/route.ts), que inserta en la tabla `work_spot_submissions` ([`scripts/014_work_spot_submissions.sql`](scripts/014_work_spot_submissions.sql)) — mismo patrón que el newsletter (RLS insert-only, anon). Las sugerencias van a **moderación**; las aprobadas se curan al JSON. Auto-publicar sugerencias aprobadas (listado Supabase + flag `published` + tab de admin) es el follow-up **F3c**.
 
 **Componentes compartidos** — [`src/components/nomad/`](src/components/nomad/): `StatCard` (valor + label + detalle + fuente) y `SourceTag` (microcita "Fuente: X · fecha"). Reutilizables por las próximas features (F1 empresas, F3 work spots).
 

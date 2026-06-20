@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 const ROUTES = [
+  { href: "/trabajar", label: "Dónde trabajar", desc: "Cafés y coworkings work-friendly." },
   { href: "/vivir-en-mardelplata/visa", label: "Visa de nómade", desc: "Residencia, requisitos y trámite." },
   { href: "/que-hacer", label: "Qué hacer", desc: "Playas, naturaleza y cultura." },
   { href: "/estudiar", label: "Estudiar", desc: "Carreras tech en la ciudad." },
