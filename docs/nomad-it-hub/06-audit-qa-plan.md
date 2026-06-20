@@ -215,6 +215,38 @@ Severidad × esfuerzo. Cada ítem = un PR chico.
 
 ---
 
+## 11. Auditoría en vivo (con acceso a Supabase, jun 2026)
+
+Ya con el MCP de Supabase + `.env.local`, se completó lo que antes estaba bloqueado.
+
+### QA funcional (server de producción, datos reales) — ✅
+Verificado con `next start` + requests reales:
+- `/trabajar` lista los cafés desde Supabase (BIX Cowork, Bendito Pedro, FOLC, LINE UP…).
+- `/trabajar/[slug]` renderiza la ficha + "Señales de la comunidad".
+- `/empresas` muestra Globant, Roomix, AgroSistemas. `/` (200) y `/eventos` (200) renderizan con datos.
+
+### Security advisors (Supabase linter)
+| Hallazgo | Nivel | Estado |
+|---|---|---|
+| `work_spot_submissions` política INSERT permisiva | WARN | ✅ **Resuelto** — tabla dropeada (`scripts/016`, deprecada tras converger en `cafes`) |
+| `cafes_public` view | — | ✅ OK — creada con `security_invoker`, no flaggeada |
+| `profiles_public` es **SECURITY DEFINER** view | **ERROR** | ⚠️ Pre-existente del equipo — recomendado recrear con `security_invoker=true` ([linter 0010](https://supabase.com/docs/guides/database/database-linter?lint=0010_security_definer_view)) |
+| Funciones con `search_path` mutable (touch_updated_at, is_admin, is_project_*, generate_qr_code, handle_new_user, …) | WARN | ⚠️ Pre-existente — `ALTER FUNCTION … SET search_path = ''` ([0011](https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable)) |
+| `is_admin()`, `handle_new_user()`, `is_project_*` ejecutables por anon/authenticated (SECURITY DEFINER) | WARN | ⚠️ Pre-existente — revisar/`REVOKE EXECUTE` si no es intencional ([0028/0029](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable)) |
+| Bucket `avatars` permite listing | WARN | ⚠️ Pre-existente — endurecer policy de `storage.objects` ([0025](https://supabase.com/docs/guides/database/database-linter?lint=0025_public_bucket_allows_listing)) |
+| Leaked Password Protection **deshabilitado** | WARN | ⚠️ Activar en Auth (HaveIBeenPwned) ([docs](https://supabase.com/docs/guides/auth/password-security)) |
+
+> No toqué los hallazgos pre-existentes del equipo (cambiar `profiles_public` o `is_admin` sin
+> entender todos sus consumidores puede romper la home/RLS). Quedan como tareas recomendadas.
+
+### Mapa en `/trabajar` y `/empresas` — bloqueado por datos
+La tabla `cafes` tiene `lat/lng` y `google_rating` **vacíos** (0/22); los `maps_url` son del tipo
+`?query=nombre+dirección`, **sin coordenadas**. Para un mapa con marcadores hace falta **geocodificar**
+(Google Geocoding/Places API → requiere una API key). Plan: con la key, escribo un script que rellena
+`lat/lng` (+ rating) de los 22 cafés vía MCP, y recién ahí sumo el mapa (MapLibre, lazy).
+
+---
+
 ## 10. Recomendación
 
 Arrancar por **P0** (A1 + S1 son código de bajo riesgo y alto impacto; la infra de Supabase/GSC es
