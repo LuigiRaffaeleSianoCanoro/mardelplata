@@ -66,10 +66,7 @@ export default function AdminPage() {
 
       const [eventsRes, profilesRes, subsRes] = await Promise.all([
         supabase.from("events").select("*").order("date", { ascending: false }),
-        supabase
-          .from("profiles")
-          .select("id, email, full_name, avatar_url, qr_code, bio, is_admin, created_at")
-          .order("created_at", { ascending: false }),
+        supabase.rpc("admin_list_profiles"),
         supabase
           .from("newsletter_subscribers")
           .select("id, email, source, status, created_at")

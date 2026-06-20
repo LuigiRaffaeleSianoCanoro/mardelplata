@@ -166,12 +166,12 @@ calculadoras/localStorage (primer-trabajo) son client-side puros → ok.
 > ✅ **A4** (`:focus-visible`), ✅ **S4** (FAQ en `/estudiar` y `/que-hacer`),
 > ✅ **R1** (navbar colapsa a burger en `xl`), ✅ **A2** (contraste de texto tenue subido a AA),
 > ✅ **P3** (zxing lazy en `/admin/scanner`: 281 kB → 165 kB de first load),
-> ✅ **search_path** (7 funciones, `scripts/017`), ✅ mapa de cafés (MapLibre + geocoding OSM).
+> ✅ **search_path** (7 funciones, `scripts/017`), ✅ mapa de cafés (MapLibre + geocoding OSM),
+> ✅ **`profiles_public` security_invoker** (`scripts/018` + RPC `admin_list_profiles`).
 > **Diferidos** (con motivo): **A3** (`<html lang>` por ruta → requeriría volver dinámico el layout
 > raíz o refactor a segmento `[lang]`; no compensa perder el ISR), **A5** (`<img>`→`next/image` →
 > requiere configurar `remotePatterns` para huevsite.io y Supabase Storage; bajo impacto, sin verificación visual),
-> **P2** (fuentes). **Tarea tuya**: infra GSC + hardening pre-existente del equipo (`profiles_public`,
-> leaked-password protection, bucket `avatars`).
+> **P2** (fuentes). **Tarea tuya**: infra GSC + leaked-password protection + bucket `avatars`.
 
 
 Severidad × esfuerzo. Cada ítem = un PR chico.
@@ -235,14 +235,14 @@ Verificado con `next start` + requests reales:
 |---|---|---|
 | `work_spot_submissions` política INSERT permisiva | WARN | ✅ **Resuelto** — tabla dropeada (`scripts/016`, deprecada tras converger en `cafes`) |
 | `cafes_public` view | — | ✅ OK — creada con `security_invoker`, no flaggeada |
-| `profiles_public` es **SECURITY DEFINER** view | **ERROR** | ⚠️ Pre-existente del equipo — recomendado recrear con `security_invoker=true` ([linter 0010](https://supabase.com/docs/guides/database/database-linter?lint=0010_security_definer_view)) |
+| `profiles_public` es **SECURITY DEFINER** view | **ERROR** | ✅ **Resuelto** — recreada con `security_invoker=true`, policy `profiles_select_public` + grants de columna segura; admins usan RPC `admin_list_profiles()` (`scripts/018`) |
 | Funciones con `search_path` mutable (touch_updated_at, is_project_*, generate_qr_code, set_updated_at, idea_status_from_links, project_creator_as_contributor) | WARN | ✅ **Resuelto** — `SET search_path = ''` en las 7 funciones (`scripts/017`, verificadas con refs totalmente calificadas) |
 | `is_admin()`, `handle_new_user()`, `is_project_*` ejecutables por anon/authenticated (SECURITY DEFINER) | WARN | ⚠️ Pre-existente — revisar/`REVOKE EXECUTE` si no es intencional ([0028/0029](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable)) |
 | Bucket `avatars` permite listing | WARN | ⚠️ Pre-existente — endurecer policy de `storage.objects` ([0025](https://supabase.com/docs/guides/database/database-linter?lint=0025_public_bucket_allows_listing)) |
 | Leaked Password Protection **deshabilitado** | WARN | ⚠️ Activar en Auth (HaveIBeenPwned) ([docs](https://supabase.com/docs/guides/auth/password-security)) |
 
-> No toqué los hallazgos pre-existentes del equipo (cambiar `profiles_public` o `is_admin` sin
-> entender todos sus consumidores puede romper la home/RLS). Quedan como tareas recomendadas.
+> `profiles_public` ya migró a invoker mode (018). Quedan como tareas recomendadas: `REVOKE EXECUTE`
+> en funciones definer pre-existentes si no son intencionales, bucket `avatars`, leaked passwords.
 
 ### Mapa en `/trabajar` y `/empresas` — bloqueado por datos
 La tabla `cafes` tiene `lat/lng` y `google_rating` **vacíos** (0/22); los `maps_url` son del tipo

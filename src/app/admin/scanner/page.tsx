@@ -68,10 +68,9 @@ export default function ScannerPage() {
       .select(`
         id,
         scanned_at,
-        profiles!event_attendance_user_id_fkey (
+        profiles_public!event_attendance_user_id_fkey (
           id,
           full_name,
-          email,
           avatar_url,
           qr_code
         )
@@ -81,11 +80,11 @@ export default function ScannerPage() {
 
     if (data) {
       const members = data.map((a) => ({
-        id: (a.profiles as unknown as ScannedMember).id,
-        full_name: (a.profiles as unknown as ScannedMember).full_name,
-        email: (a.profiles as unknown as ScannedMember).email,
-        avatar_url: (a.profiles as unknown as ScannedMember).avatar_url,
-        qr_code: (a.profiles as unknown as ScannedMember).qr_code,
+        id: (a.profiles_public as unknown as ScannedMember).id,
+        full_name: (a.profiles_public as unknown as ScannedMember).full_name,
+        email: null,
+        avatar_url: (a.profiles_public as unknown as ScannedMember).avatar_url,
+        qr_code: (a.profiles_public as unknown as ScannedMember).qr_code,
         scanned_at: a.scanned_at,
       }));
       setScannedMembers(members);
@@ -204,8 +203,8 @@ export default function ScannerPage() {
 
     try {
       const { data: profile } = await supabase
-        .from("profiles")
-        .select("id, full_name, email, avatar_url, qr_code")
+        .from("profiles_public")
+        .select("id, full_name, avatar_url, qr_code")
         .eq("qr_code", qrCode)
         .single();
 
@@ -236,7 +235,7 @@ export default function ScannerPage() {
       const scanned: ScannedMember = {
         id: profile.id,
         full_name: profile.full_name,
-        email: profile.email,
+        email: null,
         avatar_url: profile.avatar_url,
         qr_code: profile.qr_code,
         scanned_at: new Date().toISOString(),

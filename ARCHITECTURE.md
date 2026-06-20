@@ -168,7 +168,8 @@ mardelplata/
 │   ├── 003_classified_listings.sql
 │   ├── 004_clear_retired_nextsolution_avatar.sql
 │   ├── 005_clear_retired_whatsapp_02_avatar.sql
-│   └── 013_profiles_huevsite.sql            # columna huevsite_username + vista profiles_public
+│   └── 013_profiles_huevsite.sql            # columna huevsite_username
+│   └── 018_profiles_public_security_invoker.sql  # vista profiles_public (security_invoker) + RPC admin
 ├── public/
 │   ├── avatar-icons/                       # presets servidos a /perfil
 │   ├── avatars/
@@ -277,6 +278,11 @@ profiles
   huevsite_username   TEXT                     -- handle de huevsite.io (solo username)
   is_admin            BOOLEAN DEFAULT false    -- gate de /admin
   created_at, updated_at TIMESTAMPTZ
+
+profiles_public (VIEW, security_invoker=true)
+  Columnas públicas de profiles (sin email ni is_admin). Lectura vía policy
+  `profiles_select_public` + grants de columna segura en `profiles`.
+  Admins listan perfiles completos con RPC `admin_list_profiles()` (018).
 
 events
   id                  UUID PK

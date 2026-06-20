@@ -83,19 +83,22 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
           }
           return;
         }
-        const { data } = await supabase
-          .from("profiles")
-          .select("full_name, email, qr_code, is_admin, created_at")
-          .eq("id", authUser.id)
-          .maybeSingle();
+        const [{ data: profileData }, { data: isAdmin }] = await Promise.all([
+          supabase
+            .from("profiles")
+            .select("full_name, qr_code, created_at")
+            .eq("id", authUser.id)
+            .maybeSingle(),
+          supabase.rpc("is_admin"),
+        ]);
         if (cancelled) return;
         setUser({
-          fullName: data?.full_name ?? authUser.user_metadata?.full_name ?? null,
-          email: data?.email ?? authUser.email ?? null,
-          qrCode: data?.qr_code ?? null,
-          memberSince: data?.created_at ?? authUser.created_at ?? null,
+          fullName: profileData?.full_name ?? authUser.user_metadata?.full_name ?? null,
+          email: authUser.email ?? null,
+          qrCode: profileData?.qr_code ?? null,
+          memberSince: profileData?.created_at ?? authUser.created_at ?? null,
         });
-        if (typeof data?.is_admin === "boolean") setResolvedAdmin(data.is_admin);
+        if (typeof isAdmin === "boolean") setResolvedAdmin(isAdmin);
       } catch {}
     };
 
