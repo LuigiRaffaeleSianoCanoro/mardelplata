@@ -37,13 +37,17 @@ export default function PerfilPage() {
     // Solo traemos las columnas que ProfileClient/AppShell usan, en vez
     // de select("*") — feedback Franco: el JSON tenia campos sobrantes
     // (ej. updated_at) y cualquier columna nueva del schema viajaba sola.
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select(
-        "id, email, full_name, avatar_url, qr_code, bio, github_url, linkedin_url, twitter_url, huevsite_username, is_admin, created_at",
-      )
-      .eq("id", user.id)
-      .single();
+    const [{ data: profileRow, error: profileError }, { data: isAdmin }] =
+      await Promise.all([
+        supabase
+          .from("profiles")
+          .select(
+            "id, full_name, avatar_url, qr_code, bio, github_url, linkedin_url, twitter_url, huevsite_username, created_at",
+          )
+          .eq("id", user.id)
+          .single(),
+        supabase.rpc("is_admin"),
+      ]);
 
     // PGRST116 means "no rows found" — the user just hasn't saved a profile yet.
     // Any other error (especially 500s) means the database schema is broken.
@@ -55,7 +59,15 @@ export default function PerfilPage() {
     }
 
     setUser(user);
-    setProfile(profile);
+    setProfile(
+      profileRow
+        ? {
+            ...profileRow,
+            email: user.email ?? null,
+            is_admin: Boolean(isAdmin),
+          }
+        : null,
+    );
     setLoading(false);
   }, [router]);
 
@@ -110,7 +122,7 @@ export default function PerfilPage() {
     );
   }
 
-  const isAdmin = Boolean((profile as { is_admin?: boolean } | null)?.is_admin);
+  const isAdmin = Boolean(profile?.is_admin);
 
   return (
     <AppShell isAdmin={isAdmin}>

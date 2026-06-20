@@ -20,26 +20,8 @@ ALTER TABLE public.profiles
 
 -- 2) Re-exponer la vista pública incluyendo el nuevo handle. CREATE OR REPLACE
 --    solo permite AGREGAR columnas al final, por eso huevsite_username va último.
-CREATE OR REPLACE VIEW public.profiles_public AS
-SELECT
-  id,
-  full_name,
-  avatar_url,
-  qr_code,
-  bio,
-  github_url,
-  linkedin_url,
-  twitter_url,
-  created_at,
-  huevsite_username
-FROM public.profiles;
-
--- Mantener el modo definer + grants tal como los dejó 010 (ver ese script para
--- el racional de seguridad). CREATE OR REPLACE preserva estos settings, pero los
--- re-aplicamos para que este script sea autosuficiente e idempotente.
-ALTER VIEW public.profiles_public SET (security_invoker = false);
-REVOKE ALL ON public.profiles_public FROM anon, authenticated;
-GRANT SELECT ON public.profiles_public TO anon, authenticated;
+-- Ver 018_profiles_public_security_invoker.sql para la vista con
+-- security_invoker = true (reemplaza el modo definer de 010).
 
 COMMENT ON COLUMN public.profiles.huevsite_username IS
   'huevsite.io handle (solo username, ej. "ada"). Se usa para traer la card via la API pública y para embeber el perfil. Público — viaja en profiles_public.';

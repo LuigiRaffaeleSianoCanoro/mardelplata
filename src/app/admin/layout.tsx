@@ -21,13 +21,9 @@ export default async function AdminLayout({
     redirect("/auth/login");
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", user.id)
-    .single();
+  const { data: isAdmin, error: adminError } = await supabase.rpc("is_admin");
 
-  if (!profile?.is_admin) {
+  if (adminError || !isAdmin) {
     redirect("/perfil");
   }
 
