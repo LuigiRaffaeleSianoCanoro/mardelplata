@@ -1,3 +1,8 @@
+-- [DEPRECADO] Superado por la convergencia sobre las tablas `cafes` + `cafe_votes`
+-- (alta self-service con source='community' y votos por usuario). Esta tabla quedó
+-- sin uso en la app; se puede DROP cuando quieras. Se mantiene el archivo por
+-- historial de migraciones. Ver scripts/015_cafes_public_view.sql.
+--
 -- Work spots (cafés / coworkings) — sugerencias de la comunidad.
 -- Mismo patrón que newsletter_subscribers (008): solo INSERT público (anon),
 -- las lecturas/moderación las hace el admin vía service_role offline. Las

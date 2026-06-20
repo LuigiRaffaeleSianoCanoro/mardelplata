@@ -2,36 +2,41 @@ import type { Metadata } from "next";
 import AppShell from "@/components/app/AppShell";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
-import SourceTag from "@/components/nomad/SourceTag";
-import WorkSpotDirectory from "@/components/nomad/WorkSpotDirectory";
-import SubmitWorkSpotForm from "@/components/nomad/SubmitWorkSpotForm";
+import CafeDirectory from "@/components/cafes/CafeDirectory";
+import CafeSubmitForm from "@/components/cafes/CafeSubmitForm";
 import { breadcrumbSchema, itemListSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
 import { ogImageUrl } from "@/lib/seo/site";
-import { workSpots, workSpotZonas } from "@/content/nomad";
+import { getCafes, cafeZonas, cafeSlug } from "@/lib/cafes";
+
+// ISR: la data sale de Supabase (vista pública sin cookies). Revalida cada 10 min
+// para reflejar votos y altas de la comunidad.
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: "Dónde trabajar en Mar del Plata: cafés y coworkings",
   description:
-    "Cafés work-friendly y espacios de coworking en Mar del Plata, con WiFi y lugar para quedarte a laburar. El mapa para nómades digitales y remote workers de la costa.",
+    "Cafés work-friendly y espacios de coworking en Mar del Plata, con WiFi y enchufes verificados por la comunidad. El mapa para nómades digitales y remote workers de la costa.",
   alternates: { canonical: "/trabajar" },
   openGraph: {
     title: "Dónde trabajar en Mar del Plata — MdPDev",
     description:
-      "Cafés work-friendly y coworkings con WiFi para nómades digitales y remote workers.",
+      "Cafés work-friendly y coworkings con WiFi, verificados por la comunidad.",
     url: "/trabajar",
     type: "website",
     images: [ogImageUrl("Dónde trabajar en Mar del Plata", "Cafés y coworkings work-friendly")],
   },
 };
 
-export default function TrabajarPage() {
-  const zonas = workSpotZonas();
+export default async function TrabajarPage() {
+  const cafes = await getCafes();
+  const zonas = cafeZonas(cafes);
+
   const schemas: JsonLdObject[] = [
     breadcrumbSchema([
       { name: "Inicio", path: "/" },
       { name: "Trabajar", path: "/trabajar" },
     ]),
-    itemListSchema(workSpots.spots.map((s) => ({ name: s.name, path: `/trabajar/${s.slug}` }))),
+    itemListSchema(cafes.map((c) => ({ name: c.name, path: `/trabajar/${cafeSlug(c.name)}` }))),
   ];
 
   return (
@@ -45,35 +50,28 @@ export default function TrabajarPage() {
               Dónde trabajar en la <em>costa.</em>
             </h1>
             <p className="shell-lead" style={{ marginInline: "auto" }}>
-              {workSpots.intro}
+              Cafés work-friendly y coworkings de Mar del Plata, con WiFi y enchufes verificados por
+              la comunidad. ¿Trabajaste en uno? Sumá tu voto y ayudá a los que llegan.
             </p>
           </div>
         </header>
 
         <section className="shell-section shell-section--soft">
           <div className="shell-inner">
-            <Reveal>
-              <WorkSpotDirectory spots={workSpots.spots} zonas={zonas} />
-            </Reveal>
-            <div style={{ marginTop: "1.6rem", display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              {workSpots.sources.map((s) => (
-                <SourceTag key={s.url} source={s.label} url={s.url} asOf={workSpots.updatedAt} />
-              ))}
-            </div>
+            {cafes.length === 0 ? (
+              <p className="bolsa-x-empty">Estamos cargando los lugares. Volvé pronto.</p>
+            ) : (
+              <Reveal>
+                <CafeDirectory cafes={cafes} zonas={zonas} />
+              </Reveal>
+            )}
           </div>
         </section>
 
         <section className="shell-section">
           <div className="shell-inner shell-inner--narrow">
             <Reveal>
-              <div style={{ textAlign: "center", marginBottom: "1.4rem" }}>
-                <h2 className="shell-title">¿Conocés un lugar que falta?</h2>
-                <p className="shell-lead" style={{ marginInline: "auto" }}>
-                  Este mapa lo construye la comunidad. Sugerí tu café o coworking favorito y, si suma,
-                  lo agregamos.
-                </p>
-              </div>
-              <SubmitWorkSpotForm />
+              <CafeSubmitForm />
             </Reveal>
           </div>
         </section>

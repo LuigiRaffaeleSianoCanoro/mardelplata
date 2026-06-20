@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo/site";
 import { createClient } from "@/lib/supabase/server";
-import { companies, workSpots } from "@/content/nomad";
+import { companies } from "@/content/nomad";
+import { getCafes, cafeSlug } from "@/lib/cafes";
 
 // Metadata route de Next 15. Rutas públicas estáticas + fecha dinámica de
 // /eventos según el último evento publicado. A medida que se sumen rutas-entidad
@@ -109,13 +110,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // Rutas-entidad de cafés/coworkings.
-  const workSpotEntries: MetadataRoute.Sitemap = workSpots.spots.map((s) => ({
-    url: absoluteUrl(`/trabajar/${s.slug}`),
+  // Rutas-entidad de cafés/coworkings (desde Supabase, vista cafes_public).
+  const cafes = await getCafes();
+  const cafeEntries: MetadataRoute.Sitemap = cafes.map((c) => ({
+    url: absoluteUrl(`/trabajar/${cafeSlug(c.name)}`),
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...companyEntries, ...workSpotEntries];
+  return [...staticEntries, ...companyEntries, ...cafeEntries];
 }

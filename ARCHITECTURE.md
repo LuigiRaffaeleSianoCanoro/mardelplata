@@ -221,12 +221,11 @@ mardelplata/
 | `/que-hacer` | Static (RSC en AppShell) | JSON `content/nomad/activities.json` |
 | `/empresas` | Static (RSC en AppShell) | JSON `content/nomad/companies.json` + filtros (isla cliente) |
 | `/empresas/[slug]` | SSG (`generateStaticParams`) | JSON `content/nomad/companies.json` |
-| `/trabajar` | Static (RSC en AppShell) | JSON `content/nomad/work-spots.json` + filtros + form de sugerencias |
-| `/trabajar/[slug]` | SSG (`generateStaticParams`) | JSON `content/nomad/work-spots.json` |
+| `/trabajar` | Static + ISR 10m (RSC en AppShell) | Supabase `cafes_public` + filtros + alta comunidad |
+| `/trabajar/[slug]` | SSG + ISR 10m (`generateStaticParams`) | Supabase `cafes_public` + voto comunidad |
 | `/en/invest` | Static (RSC en AppShell) | JSON `content/nomad/invest.en.json` |
 | `/en/live-in-mar-del-plata` | Static (RSC en AppShell) | JSON `content/nomad/living.en.json` |
-| `/api/work-spots` | Route handler (POST) | Insert en `work_spot_submissions` (Supabase) |
-| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + work spots + fecha del último evento (Supabase) |
+| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + cafés (Supabase) + fecha del último evento |
 | `/robots.txt` | Metadata route (estática) | — |
 
 > No hay API routes propias. Toda la lectura/escritura va directo al cliente Supabase desde el browser o desde server components.
@@ -622,7 +621,7 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 | `/vivir-en-mardelplata/visa` | F4 — visa | Residencia de nómade digital: datos, requisitos, trámite. Fuente: Migraciones. |
 | `/que-hacer` | F5 — actividades | Playas, naturaleza, gastronomía y cultura, ángulo nómade. |
 | `/empresas` (+`[slug]`) | F1 — directorio | Empresas tech filtrables por sector + ficha individual. Datos de ATICMA + Municipio. |
-| `/trabajar` (+`[slug]`) | F3 — work spots | Cafés y coworkings work-friendly filtrables + sugerencias de la comunidad. Datos de laptopfriendly.co + más. |
+| `/trabajar` (+`[slug]`) | F3 — cafés/coworkings | Directorio filtrable + señales de la comunidad (votos) + alta self-service. Datos en Supabase (`cafes`). |
 
 **Contenido curado** — JSON estático en [`src/content/nomad/`](src/content/nomad/) con índice tipado en `index.ts` (patrón `content/primer-trabajo`). **Toda métrica lleva `source` + `as_of`** (regla `.cursor/rules/40-nomad-hub-content.mdc`):
 - `city-stats.json` — números del polo, razones, casos, FAQ.
@@ -631,13 +630,16 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 - `visa.json` — visa de nómade digital (fuente: Dirección Nacional de Migraciones).
 - `activities.json` — actividades turísticas por categoría.
 - `companies.json` — directorio de empresas tech (fuentes: ATICMA Nuestros Socios, Municipio).
-- `work-spots.json` — cafés y coworkings work-friendly (fuentes: laptopfriendly.co, Info Viajera, sitios oficiales).
 
 > **F1 v1 es JSON, no Supabase.** El plan (`02-feature-plan.md`) preveía tabla `companies`; para v1 se eligió JSON curado porque el dataset es de baja rotación y permite páginas 100% estáticas con SEO óptimo y `generateStaticParams`. La **migración a Supabase** (tabla + RLS + alta self-service de empresas) es el follow-up F1c, cuando se necesite que la comunidad cargue sus empresas. El filtrado (sector / exporta / búsqueda) es una isla cliente: [`CompanyDirectory`](src/components/nomad/CompanyDirectory.tsx).
 
-**F3 — cafés y coworkings (`/trabajar`):** modelo híbrido "curado + comunidad".
-- **Curado** → `work-spots.json` (estático, SEO `CafeOrCoffeeShop`/`LocalBusiness` por ficha, filtros por tipo/zona en la isla [`WorkSpotDirectory`](src/components/nomad/WorkSpotDirectory.tsx)).
-- **Comunidad** → [`SubmitWorkSpotForm`](src/components/nomad/SubmitWorkSpotForm.tsx) postea a [`/api/work-spots`](src/app/api/work-spots/route.ts), que inserta en la tabla `work_spot_submissions` ([`scripts/014_work_spot_submissions.sql`](scripts/014_work_spot_submissions.sql)) — mismo patrón que el newsletter (RLS insert-only, anon). Las sugerencias van a **moderación**; las aprobadas se curan al JSON. Auto-publicar sugerencias aprobadas (listado Supabase + flag `published` + tab de admin) es el follow-up **F3c**.
+**F3 — cafés y coworkings (`/trabajar`):** **convergido sobre Supabase** (tablas `cafes` + `cafe_votes`, que ya existían con 22 lugares seedeados).
+- **Datos**: vista [`cafes_public`](scripts/015_cafes_public_view.sql) une `cafes` con señales agregadas de `cafe_votes` (cuántos confirmaron WiFi/enchufes/asientos/silencio + score). No expone `added_by`. Capa de acceso en [`src/lib/cafes.ts`](src/lib/cafes.ts) (tipos + fetchers con cliente público sin cookies + `cafeSlug`).
+- **Listado/ficha** server-rendered con ISR 10m. Slug derivado del nombre (`cafeSlug`). JSON-LD `CafeOrCoffeeShop`/`LocalBusiness` con geo, `aggregateRating` y mapa. Filtros en la isla [`CafeDirectory`](src/components/cafes/CafeDirectory.tsx).
+- **Comunidad** (gated por login, según RLS):
+  - **Voto/amenities**: [`CafeVote`](src/components/cafes/CafeVote.tsx) hace upsert en `cafe_votes` (RLS: authenticated, `user_id = auth.uid()`). Las señales se recalculan vía la vista en la próxima revalidación.
+  - **Alta**: [`CafeSubmitForm`](src/components/cafes/CafeSubmitForm.tsx) inserta en `cafes` con `source='community'` y `added_by` (RLS lo exige).
+- **Deprecado**: el approach previo (JSON `work-spots.json` + tabla `work_spot_submissions` + `/api/work-spots`) fue removido. La tabla `work_spot_submissions` quedó sin uso (se puede DROP).
 
 **Componentes compartidos** — [`src/components/nomad/`](src/components/nomad/): `StatCard` (valor + label + detalle + fuente) y `SourceTag` (microcita "Fuente: X · fecha"). Reutilizables por las próximas features (F1 empresas, F3 work spots).
 
