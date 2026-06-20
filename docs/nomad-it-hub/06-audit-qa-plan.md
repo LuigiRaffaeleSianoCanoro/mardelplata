@@ -160,13 +160,18 @@ calculadoras/localStorage (primer-trabajo) son client-side puros → ok.
 
 ## 8. Plan de actividades (priorizado)
 
-> **Estado (actualizado):** ya implementados por código en el PR de fixes —
+> **Estado (actualizado):** implementados por código —
 > ✅ **A1** (acordeón FAQ con chevron), ✅ **S1** (OG images dinámicas vía `next/og`),
-> ✅ **P1/S3** (home ahora estática con ISR 5m vía cliente Supabase sin cookies),
-> ✅ **A4** (`:focus-visible` consistente), ✅ **S4** (FAQ en `/estudiar` y `/que-hacer`),
-> ✅ **R1 (parcial)** (navbar colapsa a burger en `xl` para evitar saturación en pantallas medias).
-> Pendientes (requieren tu acción o decisión): infra Supabase/GSC, A2 contraste, A3 `lang`, P2 fuentes,
-> P3 lazy zxing, A5 `<img>`, mapas.
+> ✅ **P1/S3** (home estática con ISR 5m vía cliente Supabase sin cookies),
+> ✅ **A4** (`:focus-visible`), ✅ **S4** (FAQ en `/estudiar` y `/que-hacer`),
+> ✅ **R1** (navbar colapsa a burger en `xl`), ✅ **A2** (contraste de texto tenue subido a AA),
+> ✅ **P3** (zxing lazy en `/admin/scanner`: 281 kB → 165 kB de first load),
+> ✅ **search_path** (7 funciones, `scripts/017`), ✅ mapa de cafés (MapLibre + geocoding OSM).
+> **Diferidos** (con motivo): **A3** (`<html lang>` por ruta → requeriría volver dinámico el layout
+> raíz o refactor a segmento `[lang]`; no compensa perder el ISR), **A5** (`<img>`→`next/image` →
+> requiere configurar `remotePatterns` para huevsite.io y Supabase Storage; bajo impacto, sin verificación visual),
+> **P2** (fuentes). **Tarea tuya**: infra GSC + hardening pre-existente del equipo (`profiles_public`,
+> leaked-password protection, bucket `avatars`).
 
 
 Severidad × esfuerzo. Cada ítem = un PR chico.
@@ -231,7 +236,7 @@ Verificado con `next start` + requests reales:
 | `work_spot_submissions` política INSERT permisiva | WARN | ✅ **Resuelto** — tabla dropeada (`scripts/016`, deprecada tras converger en `cafes`) |
 | `cafes_public` view | — | ✅ OK — creada con `security_invoker`, no flaggeada |
 | `profiles_public` es **SECURITY DEFINER** view | **ERROR** | ⚠️ Pre-existente del equipo — recomendado recrear con `security_invoker=true` ([linter 0010](https://supabase.com/docs/guides/database/database-linter?lint=0010_security_definer_view)) |
-| Funciones con `search_path` mutable (touch_updated_at, is_admin, is_project_*, generate_qr_code, handle_new_user, …) | WARN | ⚠️ Pre-existente — `ALTER FUNCTION … SET search_path = ''` ([0011](https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable)) |
+| Funciones con `search_path` mutable (touch_updated_at, is_project_*, generate_qr_code, set_updated_at, idea_status_from_links, project_creator_as_contributor) | WARN | ✅ **Resuelto** — `SET search_path = ''` en las 7 funciones (`scripts/017`, verificadas con refs totalmente calificadas) |
 | `is_admin()`, `handle_new_user()`, `is_project_*` ejecutables por anon/authenticated (SECURITY DEFINER) | WARN | ⚠️ Pre-existente — revisar/`REVOKE EXECUTE` si no es intencional ([0028/0029](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable)) |
 | Bucket `avatars` permite listing | WARN | ⚠️ Pre-existente — endurecer policy de `storage.objects` ([0025](https://supabase.com/docs/guides/database/database-linter?lint=0025_public_bucket_allows_listing)) |
 | Leaked Password Protection **deshabilitado** | WARN | ⚠️ Activar en Auth (HaveIBeenPwned) ([docs](https://supabase.com/docs/guides/auth/password-security)) |
