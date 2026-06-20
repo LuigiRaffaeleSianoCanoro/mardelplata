@@ -219,7 +219,9 @@ mardelplata/
 | `/vivir-en-mardelplata` | Static (RSC en AppShell) | JSON `content/nomad/living.json` + deep-link Roomix |
 | `/vivir-en-mardelplata/visa` | Static (RSC en AppShell) | JSON `content/nomad/visa.json` |
 | `/que-hacer` | Static (RSC en AppShell) | JSON `content/nomad/activities.json` |
-| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + fecha del último evento (Supabase) |
+| `/empresas` | Static (RSC en AppShell) | JSON `content/nomad/companies.json` + filtros (isla cliente) |
+| `/empresas/[slug]` | SSG (`generateStaticParams`) | JSON `content/nomad/companies.json` |
+| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + fecha del último evento (Supabase) |
 | `/robots.txt` | Metadata route (estática) | — |
 
 > No hay API routes propias. Toda la lectura/escritura va directo al cliente Supabase desde el browser o desde server components.
@@ -608,6 +610,7 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 | `/vivir-en-mardelplata` | F4 — guía nómade | Costo de vida, internet, barrios, FAQ + bloque de alquileres (Roomix). |
 | `/vivir-en-mardelplata/visa` | F4 — visa | Residencia de nómade digital: datos, requisitos, trámite. Fuente: Migraciones. |
 | `/que-hacer` | F5 — actividades | Playas, naturaleza, gastronomía y cultura, ángulo nómade. |
+| `/empresas` (+`[slug]`) | F1 — directorio | Empresas tech filtrables por sector + ficha individual. Datos de ATICMA + Municipio. |
 
 **Contenido curado** — JSON estático en [`src/content/nomad/`](src/content/nomad/) con índice tipado en `index.ts` (patrón `content/primer-trabajo`). **Toda métrica lleva `source` + `as_of`** (regla `.cursor/rules/40-nomad-hub-content.mdc`):
 - `city-stats.json` — números del polo, razones, casos, FAQ.
@@ -615,6 +618,9 @@ Primeras páginas del proyecto **Nomad & IT Hub** (plan en [`docs/nomad-it-hub/`
 - `living.json` — costo de vida, internet, barrios y FAQ (fuentes: Argentina Visa Law, Selectra).
 - `visa.json` — visa de nómade digital (fuente: Dirección Nacional de Migraciones).
 - `activities.json` — actividades turísticas por categoría.
+- `companies.json` — directorio de empresas tech (fuentes: ATICMA Nuestros Socios, Municipio).
+
+> **F1 v1 es JSON, no Supabase.** El plan (`02-feature-plan.md`) preveía tabla `companies`; para v1 se eligió JSON curado porque el dataset es de baja rotación y permite páginas 100% estáticas con SEO óptimo y `generateStaticParams`. La **migración a Supabase** (tabla + RLS + alta self-service de empresas) es el follow-up F1c, cuando se necesite que la comunidad cargue sus empresas. El filtrado (sector / exporta / búsqueda) es una isla cliente: [`CompanyDirectory`](src/components/nomad/CompanyDirectory.tsx).
 
 **Componentes compartidos** — [`src/components/nomad/`](src/components/nomad/): `StatCard` (valor + label + detalle + fuente) y `SourceTag` (microcita "Fuente: X · fecha"). Reutilizables por las próximas features (F1 empresas, F3 work spots).
 
