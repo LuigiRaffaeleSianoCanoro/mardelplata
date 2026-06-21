@@ -1,0 +1,24 @@
+//Aca cargue algunos testimonios genericos de lo que seria la idea de testimonios sobre la ciudad en cuanto a tecnologia y demas
+
+[
+  {
+    "name": "Florencia G.",
+    "role": "Frontend Developer",
+    "quote": "Llegué a Mar del Plata buscando calidad de vida sin dejar el código. MdPDev me conectó con la escena tech local que no sabía que existía. Ahora laburo remoto para afuera desde la costa."
+  },
+  {
+    "name": "Martín P.",
+    "role": "DevOps Engineer",
+    "quote": "La comunidad es increíble. Encontré laburo gracias a la bolsa de trabajo, conocí colegas en los meetups y terminamos armando un grupo de estudio. Esto es exactamente lo que le faltaba a MDP."
+  },
+  {
+    "name": "Camila R.",
+    "role": "UX/UI Designer",
+    "quote": "Venía de Buenos Aires y no sabía si acá había movimiento tech. Resulta que hay 200+ empresas, eventos todos los meses y una comunidad que te recibe con los brazos abiertos. No me arrepiento."
+  },
+  {
+    "name": "Lucas T.",
+    "role": "Backend Developer",
+    "quote": "Empecé yendo a un evento solo, sin conocer a nadie. Hoy tengo una red de contactos que me abrió puertas que ni imaginaba. Si estás en tech y vivís en MDP, sumarte es lo mejor que podés hacer."
+  }
+]

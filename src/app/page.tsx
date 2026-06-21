@@ -18,6 +18,7 @@ import Opportunities from "@/components/Opportunities";
 import Footer from "@/components/Footer";
 import ScrollDriver from "@/components/ScrollDriver";
 import Faq from "@/components/nomad/Faq";
+import Testimonials from "@/components/Testimonials";
 import { createPublicClient } from "@/lib/supabase/public";
 import { IS_MOCK, mockProfiles } from "@/lib/devMock";
 import { cityStats } from "@/content/nomad";
@@ -156,6 +157,7 @@ export default async function Home() {
               </div>
             </section>
           </Reveal>
+          <Reveal delay={120}><Testimonials /></Reveal>
           <Reveal delay={120}><Opportunities jobs={jobs} /></Reveal>
         </main>
         <Footer />
