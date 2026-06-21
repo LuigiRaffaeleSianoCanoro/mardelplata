@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import ScrollDriver from "@/components/ScrollDriver";
 import Faq from "@/components/nomad/Faq";
 import Testimonials from "@/components/Testimonials";
+import Partners from "@/components/Partners";
 import { createPublicClient } from "@/lib/supabase/public";
 import { IS_MOCK, mockProfiles } from "@/lib/devMock";
 import { cityStats } from "@/content/nomad";
@@ -145,6 +146,7 @@ export default async function Home() {
           <Reveal delay={120}><Huevsites members={huevsiteMembers ?? []} /></Reveal>
           <Reveal delay={120}><CityHubStrip /></Reveal>
           <Reveal delay={120}><Channels /></Reveal>
+          <Reveal delay={120}><Partners /></Reveal>
           <Reveal delay={120}><Manifesto /></Reveal>
           <Reveal delay={120}>
             <section className="shell-section shell-section--soft" aria-label="Preguntas frecuentes">

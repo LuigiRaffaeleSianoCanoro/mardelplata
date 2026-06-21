@@ -647,6 +647,21 @@ html.intro-seen .reveal-up * {
   animation-play-state: paused;
 }
 
+@keyframes partners-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.partners-marquee-track {
+  animation: partners-marquee 35s linear infinite;
+  width: fit-content;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.partners-marquee-track:hover {
+  animation-play-state: paused;
+}
+
 /* Ocean wildlife — whale / fish school drift across sections */
 @keyframes swim-across {
   from { transform: translateX(-12%); }
