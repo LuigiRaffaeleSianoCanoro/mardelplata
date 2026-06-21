@@ -56,18 +56,18 @@ export default function Hero({ nextEvent, membersCount, jobsCount }: HeroProps) 
         <div className="hero-x-text">
           <p className="hero-x-eyebrow">
             <span className="hero-x-eyebrow-dot" />
-            COMUNIDAD IT · MAR DEL PLATA
+            HUB TECH · MAR DEL PLATA ⚡
           </p>
 
           <h1 className="hero-x-title">
-            Donde el <em>talento</em> de
+            El polo tecnológico
             <br />
-            Mar del Plata se <em>encuentra.</em>
+            de la costa <em>atlántica.</em>
           </h1>
 
           <p className="hero-x-sub">
-            Aprendemos, creamos y construimos juntos el futuro tecnológico
-            de Mar del Plata y la costa atlántica.
+            200+ empresas, 10.000 talentos, 5 universidades. La comunidad que
+            está transformando Mar del Plata en el próximo hub tech de Argentina.
           </p>
 
           <div className="hero-x-ctas">
@@ -83,6 +83,16 @@ export default function Hero({ nextEvent, membersCount, jobsCount }: HeroProps) 
             <Link href="#manifiesto" className="hero-x-cta-ghost">
               Conocé más
             </Link>
+          </div>
+
+          <div className="hero-x-paths">
+            <Link href="/empresas" className="hero-x-path-tag">Empresas</Link>
+            <span className="hero-x-path-sep">·</span>
+            <Link href="/trabajar" className="hero-x-path-tag">Trabajar</Link>
+            <span className="hero-x-path-sep">·</span>
+            <Link href="/vivir-en-mardelplata" className="hero-x-path-tag">Vivir acá</Link>
+            <span className="hero-x-path-sep">·</span>
+            <Link href="/estudiar" className="hero-x-path-tag">Estudiar</Link>
           </div>
 
         </div>

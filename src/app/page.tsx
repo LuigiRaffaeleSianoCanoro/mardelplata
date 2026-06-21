@@ -17,8 +17,10 @@ import Events from "@/components/Events";
 import Opportunities from "@/components/Opportunities";
 import Footer from "@/components/Footer";
 import ScrollDriver from "@/components/ScrollDriver";
+import Faq from "@/components/nomad/Faq";
 import { createPublicClient } from "@/lib/supabase/public";
 import { IS_MOCK, mockProfiles } from "@/lib/devMock";
+import { cityStats } from "@/content/nomad";
 
 // ISR: la home consulta Supabase en RSC. Revalidar cada 5 min evita pegarle a
 // Supabase en cada request y mejora TTFB/LCP (audit P1). Los datos no necesitan
@@ -143,6 +145,17 @@ export default async function Home() {
           <Reveal delay={120}><CityHubStrip /></Reveal>
           <Reveal delay={120}><Channels /></Reveal>
           <Reveal delay={120}><Manifesto /></Reveal>
+          <Reveal delay={120}>
+            <section className="shell-section shell-section--soft" aria-label="Preguntas frecuentes">
+              <div className="shell-inner">
+                <div style={{ textAlign: "center", marginBottom: "1.8rem" }}>
+                  <p className="shell-eyebrow">¿DUDAS?</p>
+                  <h2 className="shell-title">Preguntas frecuentes</h2>
+                </div>
+                <Faq items={cityStats.faq} />
+              </div>
+            </section>
+          </Reveal>
           <Reveal delay={120}><Opportunities jobs={jobs} /></Reveal>
         </main>
         <Footer />

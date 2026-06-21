@@ -3813,6 +3813,29 @@ html.lenis, html.lenis body { height: auto; }
   transform: translateY(-1px);
 }
 
+.hero-x-paths {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+  margin-bottom: 2rem;
+}
+.hero-x-path-tag {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(180, 200, 235, 0.7);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+}
+.hero-x-path-tag:hover {
+  color: #90e0ef;
+}
+.hero-x-path-sep {
+  font-size: 0.7rem;
+  color: rgba(180, 200, 235, 0.25);
+}
+
 .hero-x-social-proof {
   display: flex;
   flex-direction: column;
@@ -7747,6 +7770,7 @@ a.event-card:hover {
 .hero-x-title,
 .hero-x-sub,
 .hero-x-ctas,
+.hero-x-paths,
 .hero-x-social-proof {
   opacity: 0;
   animation: hero-stagger-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -7755,7 +7779,8 @@ a.event-card:hover {
 .hero-x-title        { animation-delay: 2580ms; }
 .hero-x-sub          { animation-delay: 2780ms; }
 .hero-x-ctas         { animation-delay: 2960ms; }
-.hero-x-social-proof { animation-delay: 3140ms; }
+.hero-x-paths        { animation-delay: 3080ms; }
+.hero-x-social-proof { animation-delay: 3200ms; }
 
 .hero-x-card,
 .hero-x-card--chart {
@@ -7779,6 +7804,7 @@ html.intro-seen .hero-x-eyebrow,
 html.intro-seen .hero-x-title,
 html.intro-seen .hero-x-sub,
 html.intro-seen .hero-x-ctas,
+html.intro-seen .hero-x-paths,
 html.intro-seen .hero-x-social-proof,
 html.intro-seen .hero-x-card,
 html.intro-seen .hero-x-card--chart,
@@ -7792,6 +7818,7 @@ html.intro-seen .hero-x-scroll {
   .hero-x-title,
   .hero-x-sub,
   .hero-x-ctas,
+  .hero-x-paths,
   .hero-x-social-proof,
   .hero-x-card,
   .hero-x-card--chart,
