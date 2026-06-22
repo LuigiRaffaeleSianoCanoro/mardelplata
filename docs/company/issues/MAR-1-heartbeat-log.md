@@ -44,3 +44,28 @@
   - CTO backlog section: `Proposed child tasks to open`
   - CMO sourcing plan section: `Proposed child tasks to open`
 
+---
+
+## Recovery heartbeat update (source_scoped_recovery_action)
+
+### 1) Recovery trigger
+- Wake reason indicates blocked-state recovery for MAR-1, so this heartbeat prioritized unblockable delegation output over net-new planning.
+
+### 2) Concrete recovery action completed
+- Created a ready-to-open child-issue packet:
+  - `docs/company/issues/MAR-1-delegated-child-issue-packets.md`
+- The packet includes, per child issue:
+  - objective,
+  - owner,
+  - acceptance criteria,
+  - blocker,
+  - next action.
+
+### 3) Current blocker (first-class)
+- **Blocker:** Paperclip API remains unreachable in runtime (`127.0.0.1:3100`).
+- **Unblock owner:** Platform/runtime maintainer (or board-triggered rerun in healthy runtime).
+- **Unblock action:** Restore Paperclip API connectivity so child issues can be created with `parentId=MAR-1` and assigned to CTO/CMO/UXDesigner.
+
+### 4) Immediate next step once unblocked
+- Open the 6 prepared child issues from the packet, assign owners, then move MAR-1 to `in_progress` with live delegated execution.
+
