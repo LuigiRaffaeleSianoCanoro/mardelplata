@@ -10,6 +10,8 @@ import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import CommandPalette from "./CommandPalette";
+import TrackedOutboundLink from "./TrackedOutboundLink";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
 
 type NavLink = { href: string; label: string; match?: (path: string) => boolean };
 type ResourceLink = { href: string; label: string; description: string };
@@ -264,14 +266,15 @@ export default function Navbar() {
               Ingresar
             </Link>
           )}
-          <a
-            href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
+          <TrackedOutboundLink
+            href={WHATSAPP_COMMUNITY_URL}
+            trackSource="navbar_sumate"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-x-sumate"
           >
             Sumate
-          </a>
+          </TrackedOutboundLink>
           <button
             className={`nav-x-burger xl:hidden ${menuOpen ? "is-open" : ""}`}
             aria-label="Menú"

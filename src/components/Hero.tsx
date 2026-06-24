@@ -7,6 +7,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import TrackedOutboundLink from "@/components/TrackedOutboundLink";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
 
 export interface HeroProps {
   nextEvent: { id: string; title: string; date: string } | null;
@@ -71,15 +73,16 @@ export default function Hero({ nextEvent, membersCount, jobsCount }: HeroProps) 
           </p>
 
           <div className="hero-x-ctas">
-            <a
-              href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
+            <TrackedOutboundLink
+              href={WHATSAPP_COMMUNITY_URL}
+              trackSource="hero_cta"
               target="_blank"
               rel="noopener noreferrer"
               className="hero-x-cta-primary"
             >
               Sumate a la comunidad
               <span aria-hidden>→</span>
-            </a>
+            </TrackedOutboundLink>
             <Link href="#manifiesto" className="hero-x-cta-ghost">
               Conocé más
             </Link>

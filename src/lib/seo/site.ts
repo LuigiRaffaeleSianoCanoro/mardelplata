@@ -1,6 +1,8 @@
 // Constantes globales del sitio para SEO. Fuente única de verdad para URL
 // canónica, nombre y descripción de marca. Ver docs/nomad-it-hub/04-seo.md.
 
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
+
 export const SITE_URL = "https://mardelplata.dev.ar";
 
 export const SITE_NAME = "MdPDev";
@@ -16,7 +18,7 @@ export const SITE_LOGO = `${SITE_URL}/mdpdev.png`;
 
 // Perfiles sociales oficiales de la comunidad (sameAs en JSON-LD).
 export const SITE_SOCIALS: string[] = [
-  "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs",
+  WHATSAPP_COMMUNITY_URL,
 ];
 
 /** Construye una URL absoluta a partir de un path relativo ("/eventos"). */
