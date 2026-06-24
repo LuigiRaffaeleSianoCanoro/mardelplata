@@ -1,5 +1,7 @@
 // Channels — 3 cards de canales sociales para sumarse: WhatsApp, X, Instagram.
-// Cada card con icon coloreado + título + bajada + arrow.
+
+import TrackedOutboundLink from "@/components/TrackedOutboundLink";
+import { COMMUNITY_SOCIAL } from "@/lib/community";
 
 type Channel = {
   id: string;
@@ -16,7 +18,7 @@ const CHANNELS: Channel[] = [
     id: "whatsapp",
     title: "WhatsApp",
     desc: "Grupos por temática, anuncios y ayuda entre devs.",
-    href: "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs",
+    href: COMMUNITY_SOCIAL.whatsapp,
     iconBg: "rgba(37, 211, 102, 0.18)",
     iconFg: "#25D366",
     icon: (
@@ -29,7 +31,7 @@ const CHANNELS: Channel[] = [
     id: "x",
     title: "X (Twitter)",
     desc: "Novedades de la comunidad, eventos y contenido tech.",
-    href: "https://x.com/Mardeldev",
+    href: COMMUNITY_SOCIAL.x,
     iconBg: "rgba(255, 255, 255, 0.08)",
     iconFg: "#ffffff",
     icon: (
@@ -42,7 +44,7 @@ const CHANNELS: Channel[] = [
     id: "instagram",
     title: "Instagram",
     desc: "Cobertura visual de eventos, anuncios y contenidos.",
-    href: "https://www.instagram.com/mardelplata.dev.ar/",
+    href: COMMUNITY_SOCIAL.instagram,
     iconBg: "rgba(225, 48, 108, 0.18)",
     iconFg: "#E1306C",
     icon: (
@@ -64,27 +66,43 @@ export default function Channels() {
           </h2>
         </header>
         <div className="channels-x-grid">
-          {CHANNELS.map((c) => (
-            <a
-              key={c.id}
-              href={c.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shell-card channel-card"
-            >
-              <span
-                className="channel-card-icon"
-                style={{ background: c.iconBg, color: c.iconFg }}
-              >
-                {c.icon}
-              </span>
-              <div className="channel-card-body">
-                <h3 className="channel-card-title">{c.title}</h3>
-                <p className="channel-card-desc">{c.desc}</p>
-              </div>
-              <span className="channel-card-arrow" aria-hidden>→</span>
-            </a>
-          ))}
+          {CHANNELS.map((c) => {
+            const linkProps = {
+              href: c.href,
+              target: "_blank" as const,
+              rel: "noopener noreferrer",
+              className: "shell-card channel-card",
+            };
+            const inner = (
+              <>
+                <span
+                  className="channel-card-icon"
+                  style={{ background: c.iconBg, color: c.iconFg }}
+                >
+                  {c.icon}
+                </span>
+                <div className="channel-card-body">
+                  <h3 className="channel-card-title">{c.title}</h3>
+                  <p className="channel-card-desc">{c.desc}</p>
+                </div>
+                <span className="channel-card-arrow" aria-hidden>→</span>
+              </>
+            );
+            if (c.id === "whatsapp") {
+              return (
+                <TrackedOutboundLink
+                  key={c.id}
+                  {...linkProps}
+                  trackSource="channels_whatsapp"
+                >
+                  {inner}
+                </TrackedOutboundLink>
+              );
+            }
+            return (
+              <a key={c.id} {...linkProps}>{inner}</a>
+            );
+          })}
         </div>
       </div>
     </section>

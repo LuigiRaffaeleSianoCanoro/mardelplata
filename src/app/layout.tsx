@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk, Fraunces, JetBrains_Mono } from "next/font/google
 import "./globals.css";
 import RouteGlitch from "@/components/RouteGlitch";
 import JsonLd from "@/components/seo/JsonLd";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { organizationSchema, webSiteSchema } from "@/lib/seo/jsonLd";
 import { SITE_URL } from "@/lib/seo/site";
 
@@ -94,6 +95,7 @@ export default function RootLayout({
       </head>
       <body className="bg-[#06070d] text-white/85 antialiased">
         <JsonLd schema={[organizationSchema(), webSiteSchema()]} />
+        <GoogleAnalytics />
         <RouteGlitch />
         {children}
       </body>

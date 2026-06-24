@@ -820,6 +820,73 @@ text-xs font-semibold`}</Code>
           </div>
         </Section>
 
+        {/* ── 7. Brand Book v2 (jun 2026) ──────────────────────────── */}
+        <Section id="identidad-v2" className="bg-transparent">
+          <div className="text-center mb-12">
+            <SectionLabel>07 — Identidad v2</SectionLabel>
+            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90 mb-4">
+              Dos capas, una comunidad
+            </h2>
+            <p className="text-white/65 text-lg max-w-2xl mx-auto">
+              Brand Core (ocean) para comunicación externa. Editorial Shell para la
+              experiencia web inmersiva.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
+              <h3 className="font-display font-bold text-lg text-white/90 mb-3">
+                Capa 1 — Brand Core
+              </h3>
+              <ul className="text-sm text-white/70 space-y-2 list-disc pl-5">
+                <li>Paleta ocean + sand</li>
+                <li>Space Grotesk + Inter</li>
+                <li>Mascota león marino</li>
+                <li>Posts, press, sponsors, marketing kit</li>
+              </ul>
+            </div>
+            <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
+              <h3 className="font-display font-bold text-lg text-white/90 mb-3">
+                Capa 2 — Editorial Shell
+              </h3>
+              <ul className="text-sm text-white/70 space-y-2 list-disc pl-5">
+                <li>Fondo <code className="text-sky-300">#06070d</code></li>
+                <li>Fraunces + JetBrains Mono</li>
+                <li>Wordmark <code className="text-sky-300">mardelplata.dev</code></li>
+                <li>Home y secciones editoriales</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-white/5 rounded-2xl border border-white/10 p-6 mb-6">
+            <h3 className="font-display font-bold text-lg text-white/90 mb-3">
+              Posicionamiento
+            </h3>
+            <p className="text-sm text-white/70 leading-relaxed">
+              Comunidad independiente y grassroots de Mar del Plata y la costa
+              atlántica. Aliados estratégicos de ATICMA — no competidores.
+              WhatsApp-first, bolsa de trabajo, Primer Trabajo OS y Red OSS.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 justify-center text-sm">
+            <a
+              href="https://github.com/LuigiRaffaeleSianoCanoro/mardelplata/blob/main/BRAND.md"
+              className="text-sky-300 hover:text-sky-200 underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              BRAND.md
+            </a>
+            <span className="text-white/30">·</span>
+            <a href="/marketing-kit" className="text-sky-300 hover:text-sky-200 underline">
+              Marketing Kit
+            </a>
+            <span className="text-white/30">·</span>
+            <span className="text-white/50">#MdPDev #MarDelPlata</span>
+          </div>
+        </Section>
+
       </main>
       <Footer />
     </>

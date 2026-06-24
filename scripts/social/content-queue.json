@@ -1,0 +1,179 @@
+{
+  "posts": [
+    {
+      "id": "q3-welcome-ig-001",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-01T13:00:00.000Z",
+      "status": "pending",
+      "text": "¿Sos de Mar del Plata o la costa y te gusta la tech?\n\nMdPDev es la comunidad donde devs, diseñadores y emprendedores se encuentran, aprenden y construyen juntos.\n\nSumate al WhatsApp — link en bio 🌊\n\n#MdPDev #MarDelPlata #ComunidadTech"
+    },
+    {
+      "id": "q3-welcome-x-001",
+      "channel": "x",
+      "scheduledAt": "2026-07-01T12:00:00.000Z",
+      "status": "pending",
+      "text": "¿De MdP y la costa? MdPDev conecta devs, diseñadores y emprendedores. Sumate: mardelplata.dev.ar\n\n#MdPDev"
+    },
+    {
+      "id": "q3-cessi-li-001",
+      "channel": "linkedin",
+      "scheduledAt": "2026-07-02T14:00:00.000Z",
+      "status": "pending",
+      "text": "Mar del Plata es el tercer polo tecnológico de Argentina — y este año la ciudad fue sede del Encuentro Empresarial de la Industria del Software (Cessi).\n\nEn MdPDev celebramos ese momentum desde la comunidad: conectamos desarrolladores, diseñadores y emprendedores de la costa atlántica, con alianza estratégica con ATICMA.\n\n¿Querés sumarte al ecosistema tech local?\n→ mardelplata.dev.ar\n\n#MdPDev #MarDelPlata #TechCommunity"
+    },
+    {
+      "id": "q3-bolsa-ig-001",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-03T13:00:00.000Z",
+      "status": "pending",
+      "text": "🔍 La bolsa de trabajo MdPDev está abierta.\n\nSi tu equipo busca talento tech en Mar del Plata, publicá gratis.\nSi buscás oportunidades, entrá y mirá las búsquedas activas.\n\nmardelplata.dev.ar/bolsa\n\n#MdPDev #MarDelPlata #DevJobs"
+    },
+    {
+      "id": "q3-primer-trabajo-x-001",
+      "channel": "x",
+      "scheduledAt": "2026-07-04T12:00:00.000Z",
+      "status": "pending",
+      "text": "Tip MdPDev: Si estás buscando tu primer trabajo en tech, probá Primer Trabajo OS — herramienta gratis de la comunidad.\n\nmardelplata.dev.ar/primer-trabajo\n\n#MdPDev"
+    },
+    {
+      "id": "q3-valores-ig-001",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-07T13:00:00.000Z",
+      "status": "pending",
+      "text": "Tecnología con propósito, comunidad con valores.\n\nEn MdPDev creemos en espacios inclusivos y abiertos — donde todas las voces suman y el conocimiento se comparte sin fronteras.\n\nSumate: link en bio 🌊\n\n#MdPDev #ComunidadTech #MarDelPlata"
+    },
+    {
+      "id": "q3-aticma-li-001",
+      "channel": "linkedin",
+      "scheduledAt": "2026-07-08T14:00:00.000Z",
+      "status": "pending",
+      "text": "MdPDev y ATICMA trabajan juntos para fortalecer el ecosistema tech de Mar del Plata.\n\nSomos la comunidad independiente de desarrolladores más activa de la región. ATICMA articula el ecosistema empresarial con 20 años de historia.\n\nJuntos: más visibilidad para el talento local, conexión con startups y acceso a programas como ATICMA Emprende.\n\n¿Querés conocernos?\n→ mardelplata.dev.ar\n\n#MdPDev #ATICMA #MarDelPlata"
+    },
+    {
+      "id": "q3-meetup-teaser-x-001",
+      "channel": "x",
+      "scheduledAt": "2026-07-10T12:00:00.000Z",
+      "status": "pending",
+      "text": "Estamos cocinando el próximo meetup MdPDev 🌊\n\nSeguinos para enterarte cuando se anuncie.\n\nmardelplata.dev.ar/eventos\n\n#MdPDev #MarDelPlata"
+    },
+    {
+      "id": "q3-red-oss-ig-001",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-14T13:00:00.000Z",
+      "status": "pending",
+      "text": "La Red MdPDev — proyectos open source de la comunidad.\n\nExplorá herramientas, sumate a un módulo o propone tu idea.\n\nTodo abierto, todo local.\n\nmardelplata.dev.ar/red\n\n#MdPDev #OpenSource #MarDelPlata"
+    },
+    {
+      "id": "q3-whatsapp-cta-x-001",
+      "channel": "x",
+      "scheduledAt": "2026-07-21T12:00:00.000Z",
+      "status": "pending",
+      "text": "El corazón de MdPDev está en WhatsApp: +1200 personas, grupos por tema, ayuda entre devs.\n\nSumate: chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs\n\n#MdPDev"
+    },
+    {
+      "id": "q3-cessi-recap-li-001",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-04T14:00:00.000Z",
+      "status": "pending",
+      "text": "Mar del Plata consolidó su rol en la industria del software con el Encuentro Empresarial Cessi en la ciudad.\n\nEn MdPDev lo celebramos desde la comunidad: el talento local es el motor del ecosistema tech de la costa atlántica.\n\n¿Querés conectar con esa red?\n→ mardelplata.dev.ar\n\n#MdPDev #Cessi2026 #MarDelPlata"
+    },
+    {
+      "id": "q3-primer-trabajo-ig-002",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-05T13:00:00.000Z",
+      "status": "pending",
+      "text": "¿Buscás tu primer trabajo en tech?\n\nPrimer Trabajo OS es una herramienta gratis de MdPDev para prepararte: CV, entrevistas y plan de acción.\n\nmardelplata.dev.ar/primer-trabajo\n\n#MdPDev #PrimerTrabajo #MarDelPlata"
+    },
+    {
+      "id": "q3-founder-spotlight-x-001",
+      "channel": "x",
+      "scheduledAt": "2026-08-06T12:00:00.000Z",
+      "status": "pending",
+      "text": "En MdP construimos startups, productos y comunidad. Si estás armando algo tech desde la costa, la red MdPDev te conecta con talento y feedback.\n\nmardelplata.dev.ar\n\n#MdPDev #Startups"
+    },
+    {
+      "id": "q3-educacion-ig-002",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-11T13:00:00.000Z",
+      "status": "pending",
+      "text": "Aprender haciendo es uno de nuestros pilares.\n\nEn MdPDev compartimos conocimiento práctico: meetups, recursos y proyectos open source de la Red.\n\nSumate — link en bio 🌊\n\n#MdPDev #AprenderHaciendo"
+    },
+    {
+      "id": "q3-empresas-li-001",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-12T14:00:00.000Z",
+      "status": "pending",
+      "text": "Las empresas tech de Mar del Plata necesitan talento local. La bolsa MdPDev les da acceso directo a nuestra comunidad.\n\nPublicar una búsqueda es gratis y toma minutos.\n\nmardelplata.dev.ar/bolsa\n\n#MdPDev #Hiring #MarDelPlata"
+    },
+    {
+      "id": "q3-ecosistema-x-002",
+      "channel": "x",
+      "scheduledAt": "2026-08-13T12:00:00.000Z",
+      "status": "pending",
+      "text": "3er polo tech de Argentina. 200 empresas. 10.000 profesionales. Y una comunidad que lo mueve desde abajo: MdPDev 🌊\n\n#MarDelPlata #TechMdP"
+    },
+    {
+      "id": "q3-comunidad-ig-003",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-18T13:00:00.000Z",
+      "status": "pending",
+      "text": "Juntos es mejor.\n\nEn MdPDev creemos en colaboración, diversidad y comunidad. Un espacio donde el talento de la costa se encuentra.\n\n#MdPDev #ComunidadTech #CostaAtlántica"
+    },
+    {
+      "id": "q3-meetup-aug-li-001",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-19T14:00:00.000Z",
+      "status": "pending",
+      "text": "Los meetups MdPDev son el punto de encuentro del talento tech local: charlas, networking y buena energía marplatense.\n\nSeguinos en mardelplata.dev.ar/eventos para el próximo.\n\n#MdPDev #Meetup #MarDelPlata"
+    },
+    {
+      "id": "q3-red-x-002",
+      "channel": "x",
+      "scheduledAt": "2026-08-20T12:00:00.000Z",
+      "status": "pending",
+      "text": "La Red MdPDev: proyectos OSS de la comunidad. Explorá, contribuí o propone tu idea.\n\nmardelplata.dev.ar/red\n\n#MdPDev #OpenSource"
+    },
+    {
+      "id": "q3-vuelta-clases-ig-001",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-25T13:00:00.000Z",
+      "status": "pending",
+      "text": "Vuelta a clases, vuelta al código 📚\n\nSi estás arrancando en tech este semestre, MdPDev es tu red en Mar del Plata: WhatsApp, eventos y herramientas gratis.\n\nLink en bio\n\n#MdPDev #DevLife #MarDelPlata"
+    },
+    {
+      "id": "q3-spotlight-x-003",
+      "channel": "x",
+      "scheduledAt": "2026-08-26T12:00:00.000Z",
+      "status": "pending",
+      "text": "Spotlight MdPDev: cada semana hay gente increíble construyendo desde la costa. ¿Querés aparecer? Sumate a la comunidad y compartí tu historia.\n\n#MdPDev"
+    },
+    {
+      "id": "q3-q3-review-li-001",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-27T14:00:00.000Z",
+      "status": "pending",
+      "text": "Agosto en MdPDev: más conexiones, más oportunidades, más comunidad.\n\nSi todavía no nos conocés: somos el hub tech independiente de la costa atlántica. Devs, diseñadores y emprendedores construyendo juntos.\n\nmardelplata.dev.ar\n\n#MdPDev #TechCommunity"
+    },
+    {
+      "id": "q3-whatsapp-ig-002",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-28T13:00:00.000Z",
+      "status": "pending",
+      "text": "El WhatsApp de MdPDev es donde pasa todo: anuncios, ayuda entre devs, oportunidades y buena onda marplatense.\n\n+1200 personas ya están adentro. Sumate — link en bio 🌊\n\n#MdPDev #WhatsApp"
+    },
+    {
+      "id": "q3-eventos-x-004",
+      "channel": "x",
+      "scheduledAt": "2026-08-29T12:00:00.000Z",
+      "status": "pending",
+      "text": "¿Querés enterarte de los próximos eventos tech en MdP?\n\nmardelplata.dev.ar/eventos\n\n#MdPDev #EventosTech"
+    },
+    {
+      "id": "q3-inclusiva-ig-004",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-30T13:00:00.000Z",
+      "status": "pending",
+      "text": "Inclusiva · Abierta · Sostenible · Local y global\n\nEsos son nuestros valores. MdPDev es un espacio seguro donde todas las voces suman.\n\n#MdPDev #ComunidadInclusiva #MarDelPlata"
+    }
+  ]
+}

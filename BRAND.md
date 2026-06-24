@@ -1,7 +1,8 @@
-# Brand Book — MdPDev
+# Brand Book — MdPDev (v2)
 
 > **MdPDev** — El Hub Tech de la Costa Atlántica.
-> Comunidad de desarrolladores, diseñadores y emprendedores de Mar del Plata.
+> Comunidad independiente de desarrolladores, diseñadores y emprendedores de Mar del Plata y la costa atlántica.
+> Aliados estratégicos de ATICMA. Web: **mardelplata.dev**
 
 ---
 
@@ -340,3 +341,91 @@ text-xs font-semibold
 | "Unirse a la comunidad" | "Join our community" (en inglés) |
 | "la costa atlántica" | "la región" (genérico) |
 | Tuteo o primera persona del plural | Tercera persona formal |
+
+---
+
+## 7. Brand Book v2 — Identidad unificada (jun 2026)
+
+### Nomenclatura
+
+| Contexto | Usar | No usar |
+|---|---|---|
+| Wordmark institucional | **MdPDev** | mdpdev, MDP Dev |
+| Navbar / dominio público | **mardelplata.dev** | Solo MdPDev sin contexto |
+| Press / legal | MdPDev — Comunidad Dev Mar del Plata | Mar del Plata Dev (legacy) |
+| Redes | @mardelplata.dev.ar (IG), @Mardeldev (X) | Handles inconsistentes |
+
+### Dos capas visuales
+
+MdPDev opera con **dos capas** que coexisten sin competir:
+
+#### Capa 1 — Brand Core (ocean)
+
+Identidad institucional, marketing kit, `/brand`, comunicaciones externas.
+
+- Paleta **ocean** + acento **sand**
+- Tipografía: **Space Grotesk** (display) + **Inter** (body)
+- Mascota: león marino en contenedor gradiente ocean
+- Fondos: ocean-900, ocean-800
+
+#### Capa 2 — Editorial Shell (landing)
+
+Experiencia inmersiva de la home y secciones editoriales.
+
+- Fondo: `#06070d` (`--shell-bg`)
+- Display: **Fraunces** (serif editorial, eje SOFT/WONK)
+- Mono: **JetBrains Mono** (chrome HUD, kickers)
+- Acentos: sapphire `#3b82f6`, cyan `#22d3ee`, magenta neon `#FF2DAA` (puntual)
+- Wordmark nav: `mardelplata.dev` con mark `</>`
+
+**Regla:** marketing externo (posts, press, sponsors) usa **Capa 1**. La web home usa **Capa 2** con elementos de Capa 1 (mascota, ocean CTAs).
+
+### Posicionamiento
+
+| Dimensión | MdPDev |
+|---|---|
+| Tipo | Comunidad independiente, grassroots, abierta |
+| Geografía | Mar del Plata y la costa atlántica |
+| Audiencia | Devs, diseñadores, founders, juniors, curiosos |
+| Diferencial | WhatsApp-first, OSS, bolsa, Primer Trabajo OS |
+| Relación ATICMA | Aliado estratégico — no competidor |
+
+### Taglines (jerarquía)
+
+1. **Principal:** El Hub Tech de la Costa Atlántica
+2. **Hero:** Donde el talento de Mar del Plata se encuentra
+3. **Descriptivo:** Conectamos desarrolladores, diseñadores y emprendedores de la costa atlántica
+4. **Valores:** Tecnología con propósito, comunidad con valores
+
+### Pilares de contenido (marketing)
+
+1. Comunidad y cultura MdP
+2. Eventos y meetups
+3. Oportunidades (bolsa, primer trabajo)
+4. Ecosistema (ATICMA, noticias local)
+5. Educación y recursos OSS
+
+### Marketing assets
+
+| Recurso | Ubicación |
+|---|---|
+| Plan marketing | `docs/marketing/PLAN.md` |
+| Ecosistema research | `docs/marketing/ECOSYSTEM-RESEARCH.md` |
+| Calendario Q3 | `docs/marketing/CONTENT-CALENDAR-Q3-2026.md` |
+| Templates visuales | `docs/marketing/VISUAL-TEMPLATES.md` |
+| Skill voz (Cursor) | `.cursor/skills/mdpdev-marketing-voice/` |
+| Autopublicación | `scripts/social/` |
+| Marketing kit web | `/marketing-kit` |
+
+### Hashtags
+
+- Siempre: `#MdPDev` `#MarDelPlata`
+- Rotativos: `#TechMdP` `#CostaAtlántica` `#ComunidadTech` `#DevLife`
+
+### Links oficiales
+
+- Web: https://mardelplata.dev.ar
+- WhatsApp: https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs
+- Instagram: https://www.instagram.com/mardelplata.dev.ar/
+- X: https://x.com/Mardeldev
+- LinkedIn: https://www.linkedin.com/company/mardelplata-dev

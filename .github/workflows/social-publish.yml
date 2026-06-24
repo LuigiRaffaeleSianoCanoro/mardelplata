@@ -1,0 +1,41 @@
+name: Social autopublish
+
+on:
+  schedule:
+    # 09:00, 12:00, 15:00 ART (UTC-3) → 12:00, 15:00, 18:00 UTC
+    - cron: "0 12,15,18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publish scheduled posts
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_INSTAGRAM: ${{ secrets.BUFFER_CHANNEL_INSTAGRAM }}
+          BUFFER_CHANNEL_X: ${{ secrets.BUFFER_CHANNEL_X }}
+          BUFFER_CHANNEL_LINKEDIN: ${{ secrets.BUFFER_CHANNEL_LINKEDIN }}
+        run: node scripts/social/buffer-publish.mjs
+
+      - name: Commit queue updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scripts/social/content-queue.json
+          git diff --cached --quiet && echo "No queue changes." && exit 0
+          git commit -m "chore(social): update content queue after publish"
+          git push

@@ -8,6 +8,8 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import TrackedOutboundLink from "@/components/TrackedOutboundLink";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 
 interface CommunityMember {
@@ -162,9 +164,10 @@ export default function Community({
             );
           })}
 
-          <a
+          <TrackedOutboundLink
             className="member-card member-card--cta"
-            href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
+            href={WHATSAPP_COMMUNITY_URL}
+            trackSource="community_cta"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -175,7 +178,7 @@ export default function Community({
             <span className="member-card-cta-btn">
               Unirme a la comunidad <span aria-hidden>→</span>
             </span>
-          </a>
+          </TrackedOutboundLink>
         </div>
       </div>
     </section>
