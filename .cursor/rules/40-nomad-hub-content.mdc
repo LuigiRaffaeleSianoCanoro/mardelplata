@@ -1,0 +1,44 @@
+---
+description: Contenido curado del hub — JSON estático, fuentes, voz de marca y traducción EN.
+globs: src/content/nomad/**,src/content/**
+alwaysApply: false
+---
+
+# Nomad Hub — contenido
+
+## Datos curados
+
+- Contenido de baja rotación → JSON estático en `src/content/nomad/` con tipos en `index.ts`
+- Patrón: `src/content/primer-trabajo/` (bundle JSON + índice TS)
+
+## Fuente obligatoria
+
+**Toda métrica lleva `source` + `as_of`.** Sin datos inventados.
+
+```json
+{
+  "value": "120+",
+  "label": "empresas tech",
+  "source": "ATICMA — Nuestros Socios",
+  "as_of": "2026-06"
+}
+```
+
+- Si no se puede verificar, no publicar el dato
+- Usar `SourceTag` en UI para citar fuente
+
+## Voz de marca
+
+- Español, tuteo, cercano, local con orgullo — ver `BRAND.md §4`
+- EN solo en `/en/*` — traducción cuidada, no literal ni corporativa
+- Visa y trámites: explicar + link oficial + disclaimer "verificá, puede cambiar"
+
+## Honestidad
+
+- Mencionar estacionalidad, inflación, limitaciones cuando aplique
+- Datos del polo atribuidos a ATICMA / Municipio con fuente
+
+## Hand-off
+
+- Cada JSON con schema documentado (tipos TS)
+- FAQs acordadas con SEO para alimentar `FAQPage`

@@ -1,0 +1,41 @@
+---
+description: SEO — metadata, JSON-LD, sitemap, i18n y programmatic SEO del hub.
+globs: src/lib/seo/**,src/app/sitemap.ts,src/app/robots.ts,src/components/seo/**
+alwaysApply: false
+---
+
+# Nomad Hub — SEO
+
+## Por cada ruta nueva
+
+1. `generateMetadata` con `title`, `description`, `alternates.canonical`
+2. JSON-LD del tipo correcto vía `src/lib/seo/jsonLd.ts` + `<JsonLd>`
+3. Alta en `src/app/sitemap.ts`
+4. Si hay par EN: `alternates.languages` (hreflang `es`/`en`/`x-default`)
+
+## Helpers
+
+- `SITE_URL` y `absoluteUrl()` en `src/lib/seo/site.ts` — fuente única de URL canónica
+- OG dinámico: `ogImageUrl()` → `/api/og`
+- Metadata routes de Next 15 (`sitemap.ts`, `robots.ts`) — no archivos en `public/`
+
+## JSON-LD por entidad
+
+| Ruta | Schema |
+|------|--------|
+| Global | `Organization`, `WebSite` |
+| `/eventos` | `Event` |
+| `/empresas` | `ItemList` + ficha `Organization` |
+| `/trabajar` | `CafeOrCoffeeShop` / `LocalBusiness` |
+| Guías / FAQ | `FAQPage` + `BreadcrumbList` |
+
+## Programmatic SEO
+
+- Solo con **dato propio** (entidad real, dataset curado, comparativa verificable)
+- Nunca plantillas vacías ni páginas sin contenido único
+- Checklist completo: `docs/nomad-it-hub/04-seo.md §8`
+
+## Contenido para LLMs
+
+- HTML server-rendered; FAQs con respuestas auto-contenidas y datadas
+- `FAQPage` con preguntas reales de la audiencia
