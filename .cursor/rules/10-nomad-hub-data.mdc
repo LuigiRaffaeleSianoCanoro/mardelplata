@@ -1,0 +1,35 @@
+---
+description: Supabase — migraciones, RLS, vistas públicas y tipos para el Nomad & IT Hub.
+globs: scripts/**/*.sql,src/lib/supabase/**,src/lib/types/**,src/lib/cafes.ts
+alwaysApply: false
+---
+
+# Nomad Hub — datos y backend
+
+## Migraciones SQL (`scripts/`)
+
+- Numeradas secuencialmente (`001`, `002`, …). Coordinar el número con el orchestrator si hay agentes en paralelo
+- **Idempotentes**: `IF NOT EXISTS`, `DROP POLICY IF EXISTS`, `ON CONFLICT`
+- Toda tabla nueva con RLS habilitado desde el inicio
+
+## Vistas públicas
+
+- Lectura anónima solo vía vista `*_public` (ej. `cafes_public`, `profiles_public`)
+- No exponer columnas sensibles (`email`, `is_admin`, `added_by`) en vistas públicas
+- Usar `security_invoker = true` donde aplique
+
+## Tipos y fetchers
+
+- Tipos TS en `src/lib/types/` — fuente de verdad del shape
+- Fetchers server tipados; UI no arma queries crudas nuevas
+- Cliente público sin cookies (`createPublicClient`) para ISR; cliente con cookies solo cuando haga falta sesión
+
+## Entidades
+
+- `slug` único en entidades con página propia
+- `status draft/published` en entidades curables por comunidad
+- Helper `is_admin()` con `SECURITY DEFINER` para evitar recursión en policies
+
+## Hand-off a UI
+
+Publicar en orden: migración → tipo TS → fetcher → avisar a UI (o usar `devMock` mientras tanto).

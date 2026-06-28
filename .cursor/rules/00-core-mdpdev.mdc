@@ -1,0 +1,45 @@
+---
+description: Convenciones core de MdPDev — stack, calidad, PRs y documentación. Aplica a todo el proyecto.
+alwaysApply: true
+---
+
+# MdPDev — reglas core
+
+## Stack (no cambiar sin issue de propuesta)
+
+- Next.js 15 App Router, React 19, TypeScript strict, Tailwind CSS v4 (`@theme` en `globals.css`)
+- Supabase (Auth + Postgres + RLS) — sin ORM
+- Deploy en Vercel → `mardelplata.dev.ar`
+
+## Calidad mínima antes de merge
+
+1. `npm run lint` sin errores nuevos
+2. `npm run build` exitoso
+3. Si hay migración SQL: idempotente, numerada, con RLS
+4. Si hay ruta nueva: `ARCHITECTURE.md` actualizado en el mismo PR
+5. Scope mínimo — no refactors no pedidos
+
+## Convenciones de código
+
+- Server component por defecto; `"use client"` solo en islas interactivas
+- Sin librerías de UI (shadcn/MUI/Radix). Excepciones documentadas: `maplibre-gl`, `lucide-react`
+- Animaciones solo CSS en `globals.css`
+- Iconos preferentemente SVG inline
+- Tokens de color desde `@theme` — no hardcodear hex sueltos
+- CTA principal: grupo de WhatsApp (no fragmentar embudos)
+
+## Ramas y PRs
+
+- Rama: `cursor/<area>-<feature>-<suffix>` o convención del equipo
+- Una feature por PR, descripción con link a issue de Linear si existe
+- Commits descriptivos en español o inglés, consistentes con el repo
+
+## Ante ambigüedad
+
+Detenerse, escribir preguntas concretas, no asumir requisitos ni inventar datos.
+
+## Documentos de referencia
+
+- `ARCHITECTURE.md` — arquitectura viva
+- `BRAND.md` — marca y design system
+- `AGENTS.md` — comandos y gotchas para agentes

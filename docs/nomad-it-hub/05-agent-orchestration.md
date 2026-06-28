@@ -4,13 +4,13 @@
 > pisarse. Define **roles (skills)**, **grafo de dependencias (DAG)**, **contratos entre
 > workstreams** y **definición de done**. Cada skill está descripto en detalle en
 > [`skills/`](skills/); las convenciones que cada agente respeta están en
-> [`.cursor/rules/`](../../.cursor/rules/).
+> [`.cursor/rules/`](../../.cursor/rules/) y [`.cursor/skills/`](../../.cursor/skills/).
 
 ---
 
 ## 1. Los roles (skills)
 
-Seis agentes especializados. Cada uno tiene un `SKILL.md` propio en `skills/`:
+Seis agentes especializados. Cada uno tiene un `SKILL.md` en `.cursor/skills/nomad-hub/` (y documentación narrativa en `skills/`):
 
 | Skill | Archivo | Responsabilidad | Toca |
 |---|---|---|---|

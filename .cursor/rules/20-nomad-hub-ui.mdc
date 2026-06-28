@@ -1,0 +1,36 @@
+---
+description: UI del Nomad & IT Hub — AppShell, design system, componentes y páginas.
+globs: src/app/**,src/components/**
+alwaysApply: false
+---
+
+# Nomad Hub — UI y frontend
+
+## Layout
+
+- Páginas internas del hub usan `AppShell` + clases `shell-*` (ver `src/components/app/`)
+- Mobile-first; `flex-wrap` y grids `auto-fit` para reflow
+
+## Design system
+
+- Paleta `ocean` (primaria) y `sand` (acento cálido) — ver `BRAND.md` y `globals.css @theme`
+- Acentos por audiencia: comunidad `ocean-400`, nómade `sand-400`, empresa `ocean-700`
+- Reutilizar `StatCard`, `SourceTag`, `Faq`, `Reveal` antes de crear componentes nuevos
+- Checklist de marca: `docs/nomad-it-hub/03-redesign.md §6`
+
+## Rendering
+
+- Server component por defecto
+- Islas cliente solo para: filtros, formularios, mapas, localStorage, cámara/QR
+- Consumir tipo + fetcher de Data; mock tipado (`devMock`) mientras Data no esté listo
+
+## Prohibiciones
+
+- No agregar librerías de UI sin decisión explícita en PR
+- No Framer Motion ni GSAP — animaciones CSS puras
+- No hardcodear colores fuera de tokens `@theme`
+
+## Navbar
+
+- Máximo ~5 ítems primarios; dropdowns "Vivir acá", "Ecosistema", "Recursos"
+- Agregar rutas nuevas a `CommandPalette`

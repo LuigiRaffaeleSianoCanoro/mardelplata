@@ -41,7 +41,13 @@ next-env.d.ts
 mcp.json
 
 # Editor / IDE configs with local settings
-.cursor/
+# Cursor: ignorar estado local, versionar rules y skills del proyecto
+.cursor/*
+!.cursor/README.md
+!.cursor/rules/
+!.cursor/rules/**
+!.cursor/skills/
+!.cursor/skills/**
 .vscode/settings.json
 .vscode/launch.json
 .idea/
