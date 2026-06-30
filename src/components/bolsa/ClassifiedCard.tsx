@@ -4,9 +4,9 @@ import type { ClassifiedListing } from "@/lib/types/classifieds";
 import { CLASSIFIED_NEW_DAYS } from "@/lib/types/classifieds";
 
 function authorLabel(listing: ClassifiedListing): string {
-  const p = listing.profiles;
+  const p = listing.author;
   if (!p) return "Usuario";
-  return p.full_name?.trim() || p.email?.trim() || "Usuario";
+  return p.full_name?.trim() || "Usuario";
 }
 
 function previewText(text: string, max = 100): string {

@@ -17,7 +17,7 @@ export interface ClassifiedListing {
   tags: string[];
   created_at: string;
   expires_at: string;
-  profiles?: { full_name: string | null; email: string | null } | null;
+  author?: { full_name: string | null } | null;
 }
 
 export const CLASSIFIED_TITLE_MAX = 120;
