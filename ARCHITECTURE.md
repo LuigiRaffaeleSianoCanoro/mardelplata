@@ -169,7 +169,8 @@ mardelplata/
 │   ├── 004_clear_retired_nextsolution_avatar.sql
 │   ├── 005_clear_retired_whatsapp_02_avatar.sql
 │   └── 013_profiles_huevsite.sql            # columna huevsite_username
-│   └── 018_profiles_public_security_invoker.sql  # vista profiles_public (security_invoker) + RPC admin
+│   ├── 018_profiles_public_security_invoker.sql  # vista profiles_public (security_invoker) + RPC admin
+│   └── 019_cafes.sql                             # tablas cafes + cafe_votes + RLS (antes de 015 view)
 ├── public/
 │   ├── avatar-icons/                       # presets servidos a /perfil
 │   ├── avatars/
