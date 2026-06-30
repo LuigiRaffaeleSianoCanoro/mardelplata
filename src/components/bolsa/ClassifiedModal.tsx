@@ -4,9 +4,9 @@ import type { ClassifiedListing, JobPosition } from "@/lib/types/classifieds";
 import ShareButton from "./ShareButton";
 
 function authorLabel(listing: ClassifiedListing): string {
-  const p = listing.profiles;
+  const p = listing.author;
   if (!p) return "Usuario";
-  return p.full_name?.trim() || p.email?.trim() || "Usuario";
+  return p.full_name?.trim() || "Usuario";
 }
 
 function LinkRow({ href, label }: { href: string; label: string }) {

@@ -40,15 +40,14 @@ function parseListing(row: Record<string, unknown>): ClassifiedListing {
     tags,
     created_at: String(row.created_at ?? ""),
     expires_at: String(row.expires_at ?? ""),
-    profiles: (() => {
-      const p = row.profiles;
+    author: (() => {
+      const p = row.author;
       if (!p || typeof p !== "object") return null;
       const one = Array.isArray(p) ? p[0] : p;
       if (!one || typeof one !== "object") return null;
       const o = one as Record<string, unknown>;
       return {
         full_name: typeof o.full_name === "string" ? o.full_name : null,
-        email: typeof o.email === "string" ? o.email : null,
       };
     })(),
   };
@@ -100,9 +99,8 @@ function BolsaInner() {
       .select(
         `
         *,
-        profiles (
-          full_name,
-          email
+        author:profiles_public!author_id (
+          full_name
         )
       `,
       )
