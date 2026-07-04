@@ -96,7 +96,7 @@ Ver `FREE-TOOLS-STACK.md` para detalle completo.
 | MAR-8 | Pipeline Buffer + GH Actions | In progress |
 | MAR-9 | Plan maestro | Done |
 | MAR-10 | Calendario Q3 | In progress |
-| MAR-11 | GA4 | Backlog |
+| MAR-11 | GA4 | Backlog | Ver `docs/marketing/GA4-SETUP.md` + PSI-220 |
 | MAR-12 | Templates Canva | In progress |
 | MAR-13 | Eventos → posts | Backlog |
 | MAR-14 | Reporte mensual | In progress |
