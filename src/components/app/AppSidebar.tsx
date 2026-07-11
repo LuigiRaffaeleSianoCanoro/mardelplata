@@ -53,7 +53,7 @@ function SidebarTooltip({
     >
       {children}
       <div
-        className={`absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-lg whitespace-nowrap text-[12px] font-medium pointer-events-none z-[60] transition-all duration-150 ${
+        className={`absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-lg whitespace-nowrap text-[12px] font-medium pointer-events-none z-[60] transition-[opacity,transform] duration-150 ${
           show ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"
         } ${
           active
@@ -127,7 +127,7 @@ function PillarButton({
   const [hovered, setHovered] = useState(false);
   const Icon = pillar.icon;
 
-  const className = `relative w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-200 overflow-hidden active:scale-95 ${
+  const className = `relative w-11 h-11 flex items-center justify-center rounded-xl transition-[transform,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
     hovered && !isActive ? "scale-105" : ""
   } ${isActive ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""}`;
   const style: React.CSSProperties = {
@@ -208,7 +208,7 @@ function TabButton({
   const Icon = tab.icon;
   const hoverColor = TAB_HOVER_PALETTE[index % TAB_HOVER_PALETTE.length];
 
-  const className = `relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 overflow-hidden active:scale-95 ${
+  const className = `relative w-10 h-10 flex items-center justify-center rounded-xl transition-[transform,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
     hovered && !isActive ? "scale-105" : ""
   } ${isActive ? "bg-[rgba(35,39,50,0.92)]" : ""}`;
   const style: React.CSSProperties = {
@@ -284,7 +284,7 @@ function FooterButton({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 overflow-hidden cursor-pointer ${
+      className={`relative w-10 h-10 flex items-center justify-center rounded-xl transition-[transform,box-shadow,background-color] duration-200 overflow-hidden cursor-pointer ${
         active ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""
       }`}
     >
@@ -521,7 +521,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
           type="button"
           onClick={() => setMobileShowingTabs(false)}
           aria-label="Volver al menú principal"
-          className="app-sidebar-back-chip relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 active:scale-95 text-white/55 hover:text-white"
+          className="app-sidebar-back-chip relative w-10 h-10 flex items-center justify-center rounded-xl transition-[transform,color] duration-200 active:scale-95 text-white/55 hover:text-white"
         >
           <ArrowLeft size={18} strokeWidth={1.6} />
         </button>
