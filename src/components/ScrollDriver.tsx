@@ -53,6 +53,14 @@ export default function ScrollDriver() {
       if (!dest) return;
       e.preventDefault();
 
+      // Reduced-motion: teleport inmediato, sin overlay glitch ni delay.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const top = dest.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top, behavior: "instant" as ScrollBehavior });
+        history.replaceState(null, "", `#${id}`);
+        return;
+      }
+
       const overlay = document.createElement("div");
       overlay.className = "glitch-jump-overlay";
       document.body.appendChild(overlay);

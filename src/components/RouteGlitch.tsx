@@ -66,6 +66,9 @@ export default function RouteGlitch() {
       // Solo en la primera nav de la sesion mostramos el terminal completo.
       // Las siguientes vuelven a flow nativo (sin overlay full-screen).
       if (firstNavSeen) return;
+      // Con reduced-motion activo el overlay (glitch + delay de 720ms) se
+      // salta por completo: navegacion nativa inmediata.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       firstNavSeen = true;
 
       e.preventDefault();
