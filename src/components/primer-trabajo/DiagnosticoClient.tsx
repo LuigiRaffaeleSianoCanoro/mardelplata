@@ -63,7 +63,7 @@ export default function DiagnosticoClient() {
   return (
     <div className="space-y-10">
       {mode === "summary" && diagnosticResult ? (
-        <div className="space-y-6">
+        <div className="space-y-6 fade-up">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="text-slate-600 text-sm">
               Último diagnóstico:{" "}
@@ -109,8 +109,8 @@ export default function DiagnosticoClient() {
                 </div>
                 <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
                   <div
-                    className="h-full bg-ocean-500 transition-all duration-300 rounded-full"
-                    style={{ width: `${Math.min(100, ((index + 1) / total) * 100)}%` }}
+                    className="h-full w-full bg-ocean-500 origin-left transition-transform duration-300 rounded-full"
+                    style={{ transform: `scaleX(${Math.min(1, (index + 1) / total)})` }}
                   />
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function DiagnosticoClient() {
                       <button
                         type="button"
                         onClick={() => select(current.id, opt.id)}
-                        className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-all ${
+                        className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-colors active:scale-[0.99] ${
                           selected
                             ? "border-ocean-500 bg-ocean-50 text-ocean-900"
                             : "border-slate-200 hover:border-ocean-300 bg-white text-slate-800"

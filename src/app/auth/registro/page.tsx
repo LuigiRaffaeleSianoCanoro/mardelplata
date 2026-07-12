@@ -202,7 +202,7 @@ export default function RegistroPage() {
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full px-4 py-3 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-transparent transition-[border-color,box-shadow]"
                 placeholder="Tu nombre"
                 required
               />
@@ -217,7 +217,7 @@ export default function RegistroPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-transparent transition-[border-color,box-shadow]"
                 placeholder="tu@email.com"
                 required
               />
@@ -232,7 +232,7 @@ export default function RegistroPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white placeholder:text-ocean-400 focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-transparent transition-[border-color,box-shadow]"
                 placeholder="Mínimo 6 caracteres"
                 minLength={6}
                 required
@@ -254,7 +254,7 @@ export default function RegistroPage() {
             <button
               type="submit"
               disabled={loading || cooldownSecondsLeft > 0}
-              className="w-full bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-all hover:shadow-lg hover:shadow-ocean-400/40"
+              className="w-full bg-ocean-400 hover:bg-ocean-300 disabled:bg-ocean-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-[background-color,box-shadow] active:scale-[0.98] hover:shadow-lg hover:shadow-ocean-400/40"
             >
               {loading
                 ? "Creando cuenta..."

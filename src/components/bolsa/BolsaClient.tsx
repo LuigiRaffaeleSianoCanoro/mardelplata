@@ -381,7 +381,7 @@ function BolsaInner() {
             No hay avisos en esta categoría todavía. ¡Sé el primero en publicar!
           </p>
         ) : (
-          <div className="bolsa-x-grid">
+          <div className="bolsa-x-grid" key={filterKind}>
             {filtered.map((l) => {
               const v = voteAgg(l.id);
               return (

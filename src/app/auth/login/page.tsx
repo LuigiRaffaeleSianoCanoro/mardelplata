@@ -90,7 +90,7 @@ export default function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 bg-ink-1/80 border border-white/[0.06] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-neon-amber/40 focus:shadow-[inset_0_0_18px_rgba(59,130,246,0.05)] transition-all"
+                    className="w-full px-4 py-3 bg-ink-1/80 border border-white/[0.06] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-neon-amber/40 focus:shadow-[inset_0_0_18px_rgba(59,130,246,0.05)] transition-[border-color,box-shadow]"
                     placeholder="tu@email.com"
                     required
                   />
@@ -105,7 +105,7 @@ export default function LoginPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-ink-1/80 border border-white/[0.06] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-neon-amber/40 focus:shadow-[inset_0_0_18px_rgba(59,130,246,0.05)] transition-all"
+                    className="w-full px-4 py-3 bg-ink-1/80 border border-white/[0.06] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-neon-amber/40 focus:shadow-[inset_0_0_18px_rgba(59,130,246,0.05)] transition-[border-color,box-shadow]"
                     placeholder="••••••••"
                     required
                   />

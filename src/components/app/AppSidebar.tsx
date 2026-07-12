@@ -53,8 +53,8 @@ function SidebarTooltip({
     >
       {children}
       <div
-        className={`absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-lg whitespace-nowrap text-[12px] font-medium pointer-events-none z-[60] transition-[opacity,transform] duration-150 ${
-          show ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"
+        className={`absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-lg whitespace-nowrap text-[12px] font-medium pointer-events-none z-[60] origin-left transition-[opacity,translate,scale] duration-150 ${
+          show ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-1 scale-95"
         } ${
           active
             ? "bg-[rgba(28,31,39,0.95)] border border-[rgba(59,130,246,0.32)] text-[#3B82F6] shadow-lg"
@@ -79,7 +79,7 @@ function Shimmer({ hovered }: { hovered: boolean }) {
     <div
       style={{
         transform: hovered ? "translateX(100%)" : "translateX(-100%)",
-        transition: hovered ? "transform 500ms ease-out" : "none",
+        transition: hovered ? "transform 500ms var(--ease-out-soft)" : "none",
       }}
       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-xl pointer-events-none"
     />
@@ -127,11 +127,11 @@ function PillarButton({
   const [hovered, setHovered] = useState(false);
   const Icon = pillar.icon;
 
-  const className = `relative w-11 h-11 flex items-center justify-center rounded-xl transition-[transform,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
+  const className = `relative w-11 h-11 flex items-center justify-center rounded-xl transition-[scale,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
     hovered && !isActive ? "scale-105" : ""
   } ${isActive ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""}`;
   const style: React.CSSProperties = {
-    animation: `sidebar-tab-in 300ms ease-out ${index * 60}ms both`,
+    animation: `sidebar-tab-in 240ms var(--ease-out-soft) ${index * 40}ms both`,
     ...(isActive
       ? { boxShadow: `0 0 16px ${pillar.accent}30, inset 0 0 0 1px ${pillar.accent}40` }
       : hovered
@@ -208,11 +208,11 @@ function TabButton({
   const Icon = tab.icon;
   const hoverColor = TAB_HOVER_PALETTE[index % TAB_HOVER_PALETTE.length];
 
-  const className = `relative w-10 h-10 flex items-center justify-center rounded-xl transition-[transform,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
+  const className = `relative w-10 h-10 flex items-center justify-center rounded-xl transition-[scale,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
     hovered && !isActive ? "scale-105" : ""
   } ${isActive ? "bg-[rgba(35,39,50,0.92)]" : ""}`;
   const style: React.CSSProperties = {
-    animation: `sidebar-tab-in 280ms ease-out ${index * 50}ms both`,
+    animation: `sidebar-tab-in 240ms var(--ease-out-soft) ${index * 40}ms both`,
     ...(hovered && !isActive ? { boxShadow: `0 0 8px ${hoverColor}40` } : {}),
   };
   const inner = (
@@ -284,7 +284,7 @@ function FooterButton({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative w-10 h-10 flex items-center justify-center rounded-xl transition-[transform,box-shadow,background-color] duration-200 overflow-hidden cursor-pointer ${
+      className={`relative w-10 h-10 flex items-center justify-center rounded-xl transition-[scale,box-shadow,background-color] duration-200 overflow-hidden cursor-pointer active:scale-95 ${
         active ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""
       }`}
     >
@@ -521,7 +521,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
           type="button"
           onClick={() => setMobileShowingTabs(false)}
           aria-label="Volver al menú principal"
-          className="app-sidebar-back-chip relative w-10 h-10 flex items-center justify-center rounded-xl transition-[transform,color] duration-200 active:scale-95 text-white/55 hover:text-white"
+          className="app-sidebar-back-chip relative w-10 h-10 flex items-center justify-center rounded-xl transition-[scale,color] duration-200 active:scale-95 text-white/55 hover:text-white"
         >
           <ArrowLeft size={18} strokeWidth={1.6} />
         </button>
