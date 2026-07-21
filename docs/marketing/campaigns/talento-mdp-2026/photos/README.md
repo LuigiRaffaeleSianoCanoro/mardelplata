@@ -2,15 +2,15 @@
 
 ## Activos (esta tanda)
 
-| Archivo | Persona | Notas |
-|---------|---------|-------|
-| `aeterna.jpg` | Aeterna | Ideal: foto clara del form |
-| `uriel-lema.jpg` | Uriel Lema | Falta |
-| `manu-ponsa.jpg` | Manu | Montañas OK (subir hi-res del chat) |
-| `cristian-blanco.jpg` | Cristian Blanco | Falta (barba canosa del chat) |
-| `emanuel.jpg` | Emanuel | Piercing OK (subir hi-res del chat) |
-| `axel-castano.jpg` | Axel | Falta |
-| `federico-cayrol.jpg` | Federico | Mejorar (evitar badge) |
+| Archivo | Persona | Foto del chat |
+|---------|---------|---------------|
+| `aeterna.jpg` | Aeterna (Nahuel Sigismondi) | Remera con flor + mural |
+| `axel-castano.jpg` | Axel | Traje formal |
+| `manu-ponsa.jpg` | Manu | Montañas / anteojos |
+| `emanuel.jpg` | Emanuel | Curly + piercing |
+| `cristian-blanco.jpg` | Cristian Blanco | Barba canosa / sonrisa |
+| `uriel-lema.jpg` | Uriel Lema | ¿selfie anteojos gruesos? (confirmar) |
+| `federico-cayrol.jpg` | Federico | Completar |
 
 **No generar:** Ian Genta, Day, Matías Celiz.
 
