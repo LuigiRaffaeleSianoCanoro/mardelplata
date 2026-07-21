@@ -307,7 +307,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                                   key={avatar}
                                   type="button"
                                   onClick={() => setSelectedAvatar(avatar)}
-                                  className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-all ${isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500"}`}
+                                  className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-[border-color,box-shadow] active:scale-[0.97] ${isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500"}`}
                                   aria-label="Seleccionar avatar"
                                 >
                                   <img src={avatar} alt="Avatar preset" className="w-full h-full object-cover" />
@@ -330,8 +330,8 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                             </div>
                             <div className="h-2 rounded-full bg-ocean-950/80 overflow-hidden">
                               <div
-                                className="h-full bg-ocean-400 transition-all"
-                                style={{ width: `${Math.min((attendanceCount / 5) * 100, 100)}%` }}
+                                className="h-full w-full bg-ocean-400 origin-left transition-transform duration-300"
+                                style={{ transform: `scaleX(${Math.min(attendanceCount / 5, 1)})` }}
                               />
                             </div>
                           </div>
@@ -358,7 +358,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                                       }
                                       setSelectedAvatar(avatar);
                                     }}
-                                    className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-all ${
+                                    className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-[border-color,box-shadow,opacity] active:scale-[0.97] ${
                                       unlocked
                                         ? (isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500")
                                         : "border-ocean-700/40 opacity-60"

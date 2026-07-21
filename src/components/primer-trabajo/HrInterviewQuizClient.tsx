@@ -63,7 +63,7 @@ export default function HrInterviewQuizClient() {
 
   if (mode === "summary" && hrQuizResult) {
     return (
-      <div className="space-y-8">
+      <div className="space-y-8 fade-up">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm space-y-4">
           <h2 className="font-display font-bold text-xl text-ocean-900">Resultado simulador Recursos Humanos</h2>
           <p className="text-3xl font-bold text-ocean-600">{hrQuizResult.score}%</p>
@@ -158,7 +158,7 @@ export default function HrInterviewQuizClient() {
               <span>{progress}%</span>
             </div>
             <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
-              <div className="h-full bg-ocean-500 transition-all rounded-full" style={{ width: `${Math.min(100, ((index + 1) / total) * 100)}%` }} />
+              <div className="h-full w-full bg-ocean-500 origin-left transition-transform duration-300 rounded-full" style={{ transform: `scaleX(${Math.min(1, (index + 1) / total)})` }} />
             </div>
           </div>
 
@@ -172,7 +172,7 @@ export default function HrInterviewQuizClient() {
                   <button
                     type="button"
                     onClick={() => setSelected((s) => ({ ...s, [current.id]: opt.id }))}
-                    className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-all ${
+                    className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-colors active:scale-[0.99] ${
                       isSelected
                         ? "border-ocean-500 bg-ocean-50 text-ocean-900"
                         : "border-slate-200 hover:border-ocean-300 bg-white text-slate-800"

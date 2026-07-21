@@ -23,7 +23,7 @@ export default function AuthErrorPage() {
           <div className="flex flex-col gap-3">
             <Link 
               href="/auth/login"
-              className="w-full bg-ocean-400 hover:bg-ocean-300 text-white font-semibold py-3 px-4 rounded-xl transition-all hover:shadow-lg hover:shadow-ocean-400/40 text-center"
+              className="w-full bg-ocean-400 hover:bg-ocean-300 text-white font-semibold py-3 px-4 rounded-xl transition-[background-color,box-shadow] active:scale-[0.98] hover:shadow-lg hover:shadow-ocean-400/40 text-center"
             >
               Volver al login
             </Link>

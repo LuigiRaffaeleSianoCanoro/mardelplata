@@ -52,7 +52,7 @@ export default function PlanClient() {
           checklist ({checklistPct}%).
         </p>
         <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
-          <div className="h-full bg-ocean-500 rounded-full transition-all" style={{ width: `${readiness}%` }} />
+          <div className="h-full w-full bg-ocean-500 rounded-full origin-left transition-transform duration-300" style={{ transform: `scaleX(${readiness / 100})` }} />
         </div>
         {!diagnosticResult && (
           <p className="mt-3 text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">

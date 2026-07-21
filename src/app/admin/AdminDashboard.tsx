@@ -90,7 +90,7 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
                 onClick={() => setActiveTab(tab.id)}
                 role="tab"
                 aria-selected={activeTab === tab.id}
-                className={`flex flex-shrink-0 items-center gap-2 px-3 sm:px-5 py-3 text-sm font-medium transition-all border-b-2 ${
+                className={`flex flex-shrink-0 items-center gap-2 px-3 sm:px-5 py-3 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === tab.id
                     ? "text-white border-ocean-300"
                     : "text-ocean-300/60 border-transparent hover:text-white hover:border-ocean-400/30"
@@ -104,8 +104,9 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
         </div>
       </div>
 
-      {/* Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      {/* Content — key={activeTab} re-dispara el fade al cambiar de tab
+          para que el swap de panel no sea un salto en seco */}
+      <main key={activeTab} className="max-w-7xl mx-auto px-4 py-8 fade-up">
         {activeTab === "events" && (
           <EventsTab 
             events={events} 

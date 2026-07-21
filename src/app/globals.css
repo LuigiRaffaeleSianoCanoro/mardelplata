@@ -38,6 +38,15 @@
 
 /* Shared theme tokens (rim/glow/typography) for the app shell */
 :root {
+  /* Motion tokens — curvas compartidas (consolidación de los cubic-bezier
+     que estaban hand-typed por todo el archivo). Referencia:
+     --ease-out       → entradas/salidas de UI (fuerte, arranca rápido)
+     --ease-out-soft  → variante suave histórica del sitio (hovers, reveals)
+     --ease-drawer    → sheets/drawers (curva iOS) */
+  --ease-out:      cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-drawer:   cubic-bezier(0.32, 0.72, 0, 1);
+
   --rim-amber:        rgba(59, 130, 246, 0.18);
   --rim-amber-strong: rgba(59, 130, 246, 0.32);
   --rim-magenta:     rgba(255, 45, 170, 0.32);
@@ -85,7 +94,7 @@
   to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
 }
 .reveal-up {
-  animation: reveal-up 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: reveal-up 0.9s var(--ease-out-soft) both;
 }
 
 /* Soft horizon glow — pulsing aurora behind the hero copy */
@@ -150,7 +159,7 @@
 .glitch-flicker { animation: glitch-flicker 1.6s steps(20) 0ms 1 both; }
 
 .splash-aurora { animation: splash-aurora-fade 450ms ease-out both; }
-.term-line     { animation: term-line-in 320ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.term-line     { animation: term-line-in 320ms var(--ease-out-soft) both; }
 .splash-tide   { animation: splash-tide-drift 3.2s linear infinite; width: 200%; }
 
 /* Pacific-Rim iris lock-off outro. The boot content fades, two big sapphire
@@ -224,8 +233,8 @@
   92%      { transform: translate(-0.4em, -50%); opacity: 0; }
   100%     { opacity: 0; }
 }
-.iris-bracket-l { animation: iris-bracket-in-l 1500ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
-.iris-bracket-r { animation: iris-bracket-in-r 1500ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
+.iris-bracket-l { animation: iris-bracket-in-l 1500ms var(--ease-out-soft) forwards; }
+.iris-bracket-r { animation: iris-bracket-in-r 1500ms var(--ease-out-soft) forwards; }
 
 .iris-line {
   position: absolute;
@@ -572,7 +581,7 @@ html.intro-seen .intro-splash { display: none !important; }
   60%, 100% { opacity: 1; transform: scale(1); filter: none; }
 }
 .page-after-intro {
-  animation: page-reveal-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 1100ms both;
+  animation: page-reveal-in 1.8s var(--ease-out) 1100ms both;
 }
 html.intro-seen .page-after-intro { animation: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -738,7 +747,7 @@ html.intro-seen .reveal-up * {
     0 0 80px -20px rgba(59, 130, 246, 0.4);
   overflow: hidden;
   transform-origin: bottom left;
-  animation: rg-term-in 360ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: rg-term-in 360ms var(--ease-out-soft) both;
 }
 .route-glitch[data-phase="in"] .route-glitch-term {
   animation: rg-term-out 320ms cubic-bezier(0.55, 0.06, 0.18, 1) forwards;
@@ -794,7 +803,7 @@ html.intro-seen .reveal-up * {
   display: block;
   opacity: 0;
   transform: translateX(-6px);
-  animation: rg-line-in 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: rg-line-in 240ms var(--ease-out-soft) both;
 }
 @keyframes rg-line-in {
   from { opacity: 0; transform: translateX(-6px); filter: blur(2px); }
@@ -993,7 +1002,7 @@ html.lenis, html.lenis body { height: auto; }
   border-radius: 28px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  transition: transform 0.4s var(--ease-out-soft), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 .bento-card:hover {
   transform: translateY(-4px);
@@ -1010,7 +1019,7 @@ html.lenis, html.lenis body { height: auto; }
   border-radius: 28px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  transition: transform 0.4s var(--ease-out-soft), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 .bento-card-dark:hover {
   transform: translateY(-4px);
@@ -1150,9 +1159,9 @@ html.lenis, html.lenis body { height: auto; }
   100% { transform: translateX(100%); }
 }
 
-.fade-up        { animation: fade-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
-.count-up       { animation: count-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
-.tab-in         { animation: sidebar-tab-in 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.fade-up        { animation: fade-up 0.45s var(--ease-out-soft) both; }
+.count-up       { animation: count-up 0.5s var(--ease-out-soft) both; }
+.tab-in         { animation: sidebar-tab-in 0.3s var(--ease-out-soft) both; }
 
 /* Liquid glass card — matte black with hairline rim and inner highlight */
 .glass-card {
@@ -1316,7 +1325,7 @@ html.lenis, html.lenis body { height: auto; }
   inset: 0;
   background: linear-gradient(110deg, transparent 30%, rgba(202, 240, 248, 0.18) 50%, transparent 70%);
   transform: translateX(-100%);
-  transition: transform 0.7s ease;
+  transition: transform 0.5s var(--ease-out-soft);
   pointer-events: none;
 }
 .shimmer-x-target:hover::after {
@@ -1330,7 +1339,7 @@ html.lenis, html.lenis body { height: auto; }
   background: var(--color-app-bg);
   color: var(--text-hi);
   overflow-x: hidden;
-  animation: shell-bg-fade 0.6s ease-out both;
+  animation: shell-bg-fade 0.4s ease-out both;
 }
 .app-canvas::before {
   content: '';
@@ -1477,6 +1486,12 @@ html.lenis, html.lenis body { height: auto; }
   mask-image: radial-gradient(circle, transparent 18%, #000 18.5%, #000 99%, transparent 100%);
   animation: sonar-sweep 3.6s linear infinite;
 }
+@media (prefers-reduced-motion: reduce) {
+  /* Loader estático: sin ping expansivo ni barrido; el core glow queda
+     como señal de carga */
+  .sonar-loader > .ring { animation: none; opacity: 0.35; }
+  .sonar-loader > .sweep { animation: none; }
+}
 
 /* Hairline divider */
 .hairline {
@@ -1599,7 +1614,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 .letter-rise {
   display: inline-block;
-  animation: letter-rise 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: letter-rise 1s var(--ease-out-soft) both;
 }
 
 /* Motion — marquees in both directions */
@@ -1618,7 +1633,7 @@ html.lenis, html.lenis body { height: auto; }
 /* Motion — soft 3D tilt on hover */
 .tilt-card {
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.6s ease;
+  transition: transform 0.6s var(--ease-out-soft), box-shadow 0.6s ease;
 }
 .tilt-card:hover {
   transform: perspective(900px) rotateX(4deg) rotateY(-6deg) translateZ(8px);
@@ -1911,7 +1926,7 @@ html.lenis, html.lenis body { height: auto; }
   align-items: center;
   padding: 16px 0;
   overflow: visible;
-  animation: sidebar-slide-in 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: sidebar-slide-in 0.4s var(--ease-out-soft) both;
 }
 
 /* Mobile bottom bar — la sidebar se acuesta abajo en row con todos los
@@ -2026,7 +2041,7 @@ html.lenis, html.lenis body { height: auto; }
     0 -30px 70px -20px rgba(0, 0, 0, 0.7),
     0 0 0 1px rgba(59, 130, 246, 0.05);
   transform: translateY(100%);
-  transition: transform 360ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 360ms var(--ease-drawer);
   overflow: hidden;
 }
 .bottom-sheet-root.is-open .bottom-sheet-panel {
@@ -2135,8 +2150,9 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* El panel aparece sin slide; el backdrop conserva su fade de opacidad
+     (ayuda a entender el cambio de contexto sin movimiento) */
   .bottom-sheet-panel { transition: none; }
-  .bottom-sheet-backdrop { transition: none; }
 }
 
 /* Centered dialog — used for Red modals (new project, new idea, link idea,
@@ -2177,7 +2193,7 @@ html.lenis, html.lenis body { height: auto; }
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.25rem;
   box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.85);
-  animation: red-dialog-in 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: red-dialog-in 240ms var(--ease-out) both;
 }
 .red-dialog-panel::-webkit-scrollbar { width: 6px; }
 .red-dialog-panel::-webkit-scrollbar-thumb {
@@ -2352,7 +2368,7 @@ html.lenis, html.lenis body { height: auto; }
     0 30px 70px -25px rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(59, 130, 246, 0.06),
     0 0 50px -16px rgba(59, 130, 246, 0.32);
-  animation: qr-popover-in 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: qr-popover-in 240ms var(--ease-out-soft) both;
   transform-origin: left center;
 }
 /* En mobile el popover se centra y ocupa casi todo el viewport.
@@ -2371,7 +2387,7 @@ html.lenis, html.lenis body { height: auto; }
     top: 50% !important;
     width: calc(100vw - 24px) !important;
     max-width: 380px;
-    animation: qr-popover-in-mobile 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    animation: qr-popover-in-mobile 240ms var(--ease-out-soft) both;
     transform-origin: center center;
   }
   .qr-popover-arrow { display: none; }
@@ -2478,7 +2494,7 @@ html.lenis, html.lenis body { height: auto; }
 .shell-content-fade {
   /* 240ms: el swap de ruta dentro del shell es una acción frecuente
      (decenas de veces por sesión) — cuanto más corto, más responsivo. */
-  animation: shell-content-fade 240ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: shell-content-fade 240ms var(--ease-out-soft) both;
 }
 
 .shell-scan-line {
@@ -2491,7 +2507,7 @@ html.lenis, html.lenis body { height: auto; }
   box-shadow: 0 0 22px rgba(72, 202, 228, 0.7);
   z-index: 60;
   pointer-events: none;
-  animation: shell-scan-once 0.95s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation: shell-scan-once 0.95s var(--ease-out-soft) forwards;
 }
 
 @media (max-width: 760px) {
@@ -2509,7 +2525,9 @@ html.lenis, html.lenis body { height: auto; }
     animation: none !important;
   }
   .flip-card { transition: none !important; }
-  .app-sidebar, .app-shell-content, .app-canvas, .shell-scan-line {
+  /* `.app-sidebar *` cubre también los `animation:` inline (sidebar-tab-in
+     con stagger) que un selector de clase no puede pisar */
+  .app-sidebar, .app-sidebar *, .app-shell-content, .app-canvas, .shell-scan-line {
     animation: none !important;
   }
 }
@@ -4010,7 +4028,8 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) {
   .hero-x-card,
   .hero-x-card--chart,
-  .hero-x-eyebrow-dot { animation: none; }
+  .hero-x-eyebrow-dot,
+  .hero-x-scroll-line { animation: none; }
 }
 
 /* ─── Scroll cue ─── */
@@ -4188,7 +4207,7 @@ html.lenis, html.lenis body { height: auto; }
   box-shadow:
     0 12px 40px -12px rgba(168, 85, 247, 0.65),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: all 0.25s var(--ease-out-soft);
 }
 .hero-v3-cta-primary:hover {
   transform: translateY(-2px);
@@ -4262,7 +4281,7 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 40;
   padding: 14px 20px 0;
   pointer-events: none;
-  transition: padding 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: padding 0.3s var(--ease-out-soft);
 }
 .nav-hud.is-scrolled { padding-top: 8px; }
 
@@ -4284,7 +4303,7 @@ html.lenis, html.lenis body { height: auto; }
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 12px 32px -16px rgba(0, 0, 0, 0.7);
-  transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: all 0.3s var(--ease-out-soft);
 }
 .nav-hud.is-scrolled .nav-hud-inner {
   background: rgba(10, 14, 28, 0.85);
@@ -4591,7 +4610,7 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-backdrop-filter: blur(8px) saturate(140%);
   color: rgba(220, 230, 250, 0.85);
   transition:
-    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.3s var(--ease-out-soft),
     border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
@@ -4718,7 +4737,7 @@ html.lenis, html.lenis body { height: auto; }
   border: 1px solid rgba(168, 85, 247, 0.5);
   box-shadow: 0 12px 40px -12px rgba(168, 85, 247, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: all 0.25s var(--ease-out-soft);
   white-space: nowrap;
 }
 .hud-cta-primary:hover {
@@ -5006,7 +5025,7 @@ html.lenis, html.lenis body { height: auto; }
   width: 100%;
   margin-left: auto;
   padding: 22px;
-  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.4s var(--ease-out-soft);
 }
 .hud-portrait:hover {
   transform: translateY(-4px) rotate(-0.5deg);
@@ -5725,7 +5744,7 @@ html.lenis, html.lenis body { height: auto; }
   height: clamp(280px, 42vh, 380px);
   transform-style: preserve-3d;
   transform: rotateY(-12deg) rotateX(2deg);
-  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.5s var(--ease-out-soft);
 }
 .scroll-driver:hover .scroll-driver-rail {
   transform: rotateY(-4deg) rotateX(0);
@@ -6954,7 +6973,7 @@ a.event-card:hover {
   padding: 1rem;
   background: rgba(3, 4, 10, 0.78);
   backdrop-filter: blur(6px);
-  animation: huevsite-fade 160ms ease both;
+  animation: huevsite-fade 160ms ease-out both;
 }
 .huevsite-modal {
   width: min(440px, 100%);
@@ -6966,7 +6985,7 @@ a.event-card:hover {
   background: #0a0e1c;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
-  animation: huevsite-rise 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: huevsite-rise 200ms var(--ease-out) both;
 }
 .huevsite-modal-head {
   display: flex;
@@ -7050,8 +7069,8 @@ a.event-card:hover {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .huevsite-modal-overlay,
-  .huevsite-modal { animation: none; }
+  /* Sin rise (movimiento), pero conservando el fade de ambos */
+  .huevsite-modal { animation: huevsite-fade 160ms ease-out both; }
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -7680,9 +7699,10 @@ a.event-card:hover {
   animation: pulse-soft 2.5s ease-in-out infinite;
 }
 
-/* 6) Pillar card subtle hover */
+/* 6) Pillar card subtle hover — crisp, alineado con el resto de las
+   cards (0.22s sin overshoot; el bounce elástico era el único de la home) */
 .pillar-card {
-  transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transition: transform 0.22s var(--ease-out-soft);
 }
 .pillar-card:hover {
   transform: translateY(-2px);
@@ -7719,13 +7739,15 @@ a.event-card:hover {
   opacity: 0;
   transform: translateY(28px);
   transition:
-    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.85s var(--ease-out),
+    transform 0.85s var(--ease-out);
   will-change: opacity, transform;
 }
 .reveal--in {
   opacity: 1;
   transform: translateY(0);
+  /* liberar la capa GPU una vez que el reveal terminó */
+  will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -7755,7 +7777,7 @@ a.event-card:hover {
 .hero-x-ctas,
 .hero-x-social-proof {
   opacity: 0;
-  animation: hero-stagger-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: hero-stagger-in 0.8s var(--ease-out) forwards;
 }
 .hero-x-eyebrow      { animation-delay: 2400ms; }
 .hero-x-title        { animation-delay: 2580ms; }
@@ -7766,7 +7788,7 @@ a.event-card:hover {
 .hero-x-card,
 .hero-x-card--chart {
   opacity: 0;
-  animation: hero-card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+  animation: hero-card-in 0.9s var(--ease-out) forwards,
              hero-x-card-float 8s ease-in-out infinite;
 }
 .hero-x-card--events   { animation-delay: 3200ms, 0s; }
@@ -7777,7 +7799,7 @@ a.event-card:hover {
 
 .hero-x-scroll {
   opacity: 0;
-  animation: hero-stagger-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 3900ms forwards;
+  animation: hero-stagger-in 0.8s var(--ease-out) 3900ms forwards;
 }
 
 /* Si la intro fue saltada (intro-seen) o reduced-motion, todo aparece ya */
@@ -8007,11 +8029,14 @@ a.shell-card:hover {
   font-size: 0.88rem;
   font-weight: 500;
   text-decoration: none;
-  transition: background 0.18s, border-color 0.18s;
+  transition: background 0.18s, border-color 0.18s, transform 160ms var(--ease-out);
 }
 .shell-btn-ghost:hover {
   background: rgba(168, 85, 247, 0.22);
   border-color: rgba(168, 85, 247, 0.7);
+}
+.shell-btn-ghost:active {
+  transform: scale(0.98);
 }
 
 .shell-link {
@@ -8101,10 +8126,11 @@ a.shell-card:hover {
   display: flex;
   justify-content: center;
   padding: 0 1rem;
-  transition: top 0.25s ease;
+  /* transform en lugar de `top` — anima en GPU sin layout */
+  transition: transform 0.25s ease;
 }
 .nav-x.is-scrolled {
-  top: 0.6rem;
+  transform: translateY(-0.4rem);
 }
 
 .nav-x-pill {
@@ -8123,7 +8149,9 @@ a.shell-card:hover {
   box-shadow:
     0 12px 32px -16px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: padding 0.25s ease, box-shadow 0.25s ease;
+  /* padding fuera de la transición: es un cambio de ~1px que animado
+     forzaba layout en cada toggle de is-scrolled */
+  transition: box-shadow 0.25s ease;
 }
 .nav-x.is-scrolled .nav-x-pill {
   padding: 0.45rem 0.65rem 0.45rem 1.15rem;
@@ -8289,8 +8317,11 @@ a.shell-card:hover {
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: background 0.22s, border-color 0.22s, transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transition: background 0.22s, border-color 0.22s, transform 160ms var(--ease-out);
   padding: 0;
+}
+.nav-x-burger:active {
+  transform: scale(0.92);
 }
 .nav-x-burger:hover {
   background: rgba(168, 85, 247, 0.08);
@@ -8320,9 +8351,9 @@ a.shell-card:hover {
   border-radius: 2px;
   transform-origin: center;
   transition:
-    transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1),
-    width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.25s ease;
+    transform 0.3s var(--ease-out),
+    width 0.25s var(--ease-out),
+    opacity 0.2s ease;
 }
 /* 3 barras horizontales */
 .nav-x-burger-bar:nth-child(1) {
@@ -8344,7 +8375,8 @@ a.shell-card:hover {
 .nav-x-burger.is-open .nav-x-burger-bar:nth-child(2) {
   opacity: 0;
   width: 0;
-  transform: translate(-50%, -50%) scale(0);
+  /* scale parcial en vez de scale(0) — la barra hace fade, no implosión */
+  transform: translate(-50%, -50%) scale(0.4);
 }
 .nav-x-burger.is-open .nav-x-burger-bar:nth-child(3) {
   transform: translate(-50%, -50%) rotate(-45deg);
@@ -8354,6 +8386,8 @@ a.shell-card:hover {
 /* Mobile menu */
 .nav-x-mobile {
   pointer-events: auto;
+  animation: nav-x-menu-in 180ms var(--ease-out) both;
+  transform-origin: top center;
   position: absolute;
   top: calc(100% + 0.6rem);
   left: 1rem;
@@ -8606,7 +8640,10 @@ a.shell-card:hover {
   font-weight: 500;
   color: var(--shell-fg-muted);
   cursor: pointer;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 160ms var(--ease-out);
+}
+.bolsa-x-pill:active {
+  transform: scale(0.96);
 }
 .bolsa-x-pill:hover {
   background: rgba(168, 85, 247, 0.12);
@@ -8652,6 +8689,9 @@ a.shell-card:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
+  /* Fade corto al remontar por cambio de filtro (key={filterKind}) —
+     el swap instantáneo de todo el grid era un salto en seco */
+  animation: bottom-sheet-fade-in 180ms ease-out both;
 }
 
 /* ─── Classified card ─── */
@@ -8791,9 +8831,12 @@ a.shell-card:hover {
   border: 1px solid var(--shell-border);
   border-radius: 999px;
   cursor: pointer;
-  transition: background 0.18s, border-color 0.18s;
+  transition: background 0.18s, border-color 0.18s, transform 160ms var(--ease-out);
   color: var(--shell-fg-muted);
   font-size: 0.8rem;
+}
+.bolsa-vote-btn:active {
+  transform: scale(0.94);
 }
 .bolsa-vote-btn:hover {
   background: rgba(168, 85, 247, 0.14);
@@ -8834,7 +8877,7 @@ a.shell-card:hover {
   animation: bottom-sheet-fade-in 150ms ease-out both;
 }
 .classified-modal-dialog {
-  animation: classified-modal-in 200ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: classified-modal-in 200ms var(--ease-out) both;
   position: relative;
   z-index: 1;
   width: 100%;
@@ -8872,11 +8915,14 @@ a.shell-card:hover {
   padding: 0.2rem 0.5rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.18s, color 0.18s;
+  transition: background 0.18s, color 0.18s, transform 160ms var(--ease-out);
 }
 .classified-modal-close:hover {
   background: rgba(255, 255, 255, 0.06);
   color: var(--shell-fg);
+}
+.classified-modal-close:active {
+  transform: scale(0.92);
 }
 
 .classified-modal-title {
@@ -9019,6 +9065,11 @@ a.shell-card:hover {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  /* Los pasos montan/desmontan — sin esto el cambio de paso era un salto en seco */
+  animation: fade-up 0.25s var(--ease-out) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wizard-step { animation: bottom-sheet-fade-in 150ms ease-out both; }
 }
 .wizard-question {
   font-family: var(--shell-font-body);
@@ -9036,11 +9087,14 @@ a.shell-card:hover {
   color: var(--shell-fg);
   cursor: pointer;
   font-family: var(--shell-font-body);
-  transition: background 0.18s, border-color 0.18s;
+  transition: background 0.18s, border-color 0.18s, transform 160ms var(--ease-out);
 }
 .wizard-choice:hover {
   background: rgba(168, 85, 247, 0.12);
   border-color: rgba(168, 85, 247, 0.4);
+}
+.wizard-choice:active {
+  transform: scale(0.99);
 }
 .wizard-back-link {
   align-self: flex-start;
@@ -9631,12 +9685,21 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   z-index: 60;
-  animation: nav-x-resources-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: nav-x-resources-in 180ms var(--ease-out) both;
+  /* El dropdown escala desde su trigger (arriba-centro), no desde el centro */
+  transform-origin: top center;
 }
 
 @keyframes nav-x-resources-in {
-  from { opacity: 0; transform: translate(-50%, -6px); }
-  to   { opacity: 1; transform: translate(-50%, 0); }
+  from { opacity: 0; transform: translate(-50%, -6px) scale(0.97); }
+  to   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+/* Variante para menús anclados a la derecha (perfil): sin el translateX(-50%)
+   del keyframe centrado, que con fill `both` dejaba el panel corrido */
+@keyframes nav-x-menu-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .nav-x-resources-item {
@@ -9773,6 +9836,9 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   border-color: rgba(255, 255, 255, 0.22);
   box-shadow: 0 6px 18px -4px rgba(168, 85, 247, 0.55);
 }
+.nav-x-profile-btn:active {
+  transform: scale(0.95);
+}
 
 .nav-x-profile-menu {
   position: absolute;
@@ -9789,7 +9855,8 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   z-index: 60;
-  animation: nav-x-resources-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: nav-x-menu-in 180ms var(--ease-out) both;
+  transform-origin: top right;
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -9853,10 +9920,12 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   to   { opacity: 1; transform: translateY(0); }
 }
 .member-card:not(.member-card--cta) {
-  animation: member-card-fade-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: member-card-fade-in 360ms var(--ease-out) both;
 }
 @media (prefers-reduced-motion: reduce) {
-  .member-card { animation: none !important; }
+  /* La rotación periódica mantiene un fade de opacidad (sin movimiento)
+     para que el swap de cards no sea un salto en seco */
+  .member-card { animation: bottom-sheet-fade-in 360ms ease-out both !important; }
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -9915,6 +9984,16 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
   .hero-x-cta-primary:hover,
   .hero-x-cta-ghost:hover,
   .nav-x-sumate:hover,
+  .nav-x-profile-btn:hover,
+  .shell-card:hover,
+  a.event-card:hover,
+  .job-card:hover,
+  .huevsite-card:hover,
+  .pillar-card:hover,
+  .events-x-nav:hover,
+  .channel-card:hover .channel-card-arrow,
+  .primer-trabajo-card:hover .primer-trabajo-card-arrow,
+  .job-card--cta:hover .job-card-cta-btn span,
   .btn-app-primary:hover:not(:disabled),
   .btn-app-ghost:hover:not(:disabled),
   .btn-app-danger:hover:not(:disabled),
@@ -9924,8 +10003,17 @@ html.intro-seen .intro-splash > .absolute:not(.splash-iris) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Mantener el fade (evita el cambio brusco) pero sin escala */
-  .classified-modal-dialog {
+  /* Mantener el fade (evita el cambio brusco) pero sin escala/movimiento */
+  .classified-modal-dialog,
+  .nav-x-resources-menu,
+  .nav-x-profile-menu,
+  .nav-x-mobile,
+  .red-dialog-panel {
     animation: bottom-sheet-fade-in 150ms ease-out both;
+  }
+  /* El QR popover depende del frame final de su keyframe para centrarse
+     en mobile (translate(-50%,-50%)) — acortar en vez de reemplazar */
+  .qr-popover {
+    animation-duration: 1ms !important;
   }
 }

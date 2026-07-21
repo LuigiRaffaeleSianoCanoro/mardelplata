@@ -14,6 +14,12 @@ export default function LoginShell() {
   const [shown, setShown] = useState(0);
 
   useEffect(() => {
+    // Con reduced-motion mostramos todas las líneas de una — el goteo
+    // progresivo es puramente decorativo.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShown(BOOT_LINES.length);
+      return;
+    }
     const id = window.setInterval(() => {
       setShown((n) => (n >= BOOT_LINES.length ? n : n + 1));
     }, 140);
