@@ -1,27 +1,23 @@
-# Fotos de postulantes
+# Fotos — Talento MdP v2
 
-Colocá acá la foto de cada persona con este nombre de archivo:
+## Activos (esta tanda)
 
-| Archivo | Persona |
-|---------|---------|
-| `ian-genta.jpg` | Ian Genta |
-| `aeterna.jpg` | Aeterna |
-| `day-aloy.jpg` | Day |
-| `uriel-lema.jpg` | Uriel Lema |
-| `manu-ponsa.jpg` | Manu |
-| `cristian-blanco.jpg` | Cristian Blanco |
-| `emanuel.jpg` | Emanuel |
-| `axel-castano.jpg` | Axel |
-| `federico-cayrol.jpg` | Federico |
+| Archivo | Persona | Notas |
+|---------|---------|-------|
+| `aeterna.jpg` | Aeterna | Ideal: foto clara del form |
+| `uriel-lema.jpg` | Uriel Lema | Falta |
+| `manu-ponsa.jpg` | Manu | Montañas OK (subir hi-res del chat) |
+| `cristian-blanco.jpg` | Cristian Blanco | Falta (barba canosa del chat) |
+| `emanuel.jpg` | Emanuel | Piercing OK (subir hi-res del chat) |
+| `axel-castano.jpg` | Axel | Falta |
+| `federico-cayrol.jpg` | Federico | Mejorar (evitar badge) |
 
-Formatos: `.jpg` / `.jpeg` / `.png` / `.webp`  
-Ideal: retrato claro, una sola persona, buen contraste.
+**No generar:** Ian Genta, Day, Matías Celiz.
 
-Luego regenerá los carrouseles:
+## Regenerar
 
 ```bash
 python3 scripts/marketing/generate-talento-carousels.py
 ```
 
-IDs originales de Drive (form): ver `applicants.json` → `photo_drive_id`.
-Hoy **no son públicos**; hay que compartir “cualquiera con el enlace” o subir el archivo acá.
+Formatos: `.jpg` / `.png` / `.webp` · retrato claro, una sola persona.

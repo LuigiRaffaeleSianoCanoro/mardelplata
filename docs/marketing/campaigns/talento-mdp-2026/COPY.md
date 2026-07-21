@@ -1,3 +1,6 @@
+> **Tanda v2:** no publicar Ian Genta, Day ni Matías Celiz (ya salieron / fuera de alcance).
+> Activos: Aeterna · Uriel · Manu · Cristian · Emanuel · Axel · Federico.
+
 # Copy — Talento MdP
 
 Copy por postulante, alineado a `mdpdev-marketing-voice`.  
