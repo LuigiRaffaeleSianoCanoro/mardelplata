@@ -1,4 +1,4 @@
-# Campaña: Talento MdP — Historias de la costa (v2)
+# Campaña: Talento — Historias de la costa (v2)
 
 > Serie de carrouseles IG + cards X. **No agendar en Buffer hasta OK.**
 > **v2:** foto a sangre, tipografía más grande, menos aire vacío, cards 16:9 para X.

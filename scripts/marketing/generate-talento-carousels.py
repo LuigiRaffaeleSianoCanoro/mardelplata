@@ -177,13 +177,24 @@ def ocean_panel(size: tuple[int, int]) -> Image.Image:
     return img
 
 
-def draw_mark(draw: ImageDraw.ImageDraw, x: int, y: int, compact: bool = False) -> None:
-    s = 36 if compact else 44
-    draw.rounded_rectangle([x, y, x + s, y + s], radius=11, fill=OCEAN_400)
-    draw.ellipse([x + 8, y + 8, x + s // 2 + 2, y + s // 2 + 6], outline=OCEAN_900, width=2)
-    draw.ellipse([x + 12, y + 12, x + 18, y + 18], fill=OCEAN_900)
-    f = font(SG_BOLD, 22 if compact else 26)
-    draw.text((x + s + 10, y + 6), "MdPDev", font=f, fill=WHITE)
+LOGO_PATH = ROOT / "public/mdpdev.png"
+BRAND = "MarDelPlata.Dev.AR"
+
+
+def load_logo(size: int) -> Image.Image:
+    logo = Image.open(LOGO_PATH).convert("RGBA")
+    # Official circular seal — sea lion + MARDELPLATA.DEV.AR
+    return logo.resize((size, size), Image.Resampling.LANCZOS)
+
+
+def paste_logo(img: Image.Image, x: int, y: int, size: int = 72) -> None:
+    logo = load_logo(size)
+    img.paste(logo, (x, y), logo)
+
+
+def draw_brand_text(draw: ImageDraw.ImageDraw, x: int, y: int, size: int = 22, fill=WHITE) -> None:
+    f = font(SG_BOLD, size)
+    draw.text((x, y), BRAND, font=f, fill=fill)
 
 
 def draw_badge(draw: ImageDraw.ImageDraw, x: int, y: int, text: str) -> int:
@@ -206,13 +217,11 @@ def slide_cover(person: dict, n: int, total: int) -> Image.Image:
     img = darken_bottom(photo, 0.97)
     draw = ImageDraw.Draw(img)
 
-    # overlays on photo (no solid header eating space)
     draw.rectangle([0, 0, 16, IG], fill=OCEAN_400)
-    draw_mark(draw, 40, 36)
-    badge_w = draw_badge(draw, 210, 42, "TALENTO MdP")
-    draw.text((210 + badge_w + 16, 50), f"{n:02d}/{total:02d}", font=font(INTER_SEMI, 20), fill=OCEAN_300)
+    paste_logo(img, 36, 28, 78)
+    badge_w = draw_badge(draw, 130, 48, "TALENTO")
+    draw.text((130 + badge_w + 14, 56), f"{n:02d}/{total:02d}", font=font(INTER_SEMI, 20), fill=OCEAN_300)
 
-    # name block — bottom heavy, bigger type
     name_f = font(SG_BOLD, 92)
     role_f = font(INTER_MED, 32)
     name = person["display_name"]
@@ -228,9 +237,8 @@ def slide_cover(person: dict, n: int, total: int) -> Image.Image:
     draw.rounded_rectangle([50, y + 4, 50 + rw + 40, y + 60], radius=12, fill=OCEAN_400)
     draw.text((70, y + 16), role, font=role_f, fill=OCEAN_900)
 
-    # thin bottom kicker overlaid
-    kick = font(INTER_SEMI, 22)
-    draw.text((50, 1025), "Historias de talento · costa atlántica", font=kick, fill=OCEAN_300)
+    kick = font(INTER_SEMI, 20)
+    draw.text((50, 1025), f"{BRAND}  ·  historias de la costa", font=kick, fill=OCEAN_300)
     return img
 
 
@@ -243,18 +251,17 @@ def slide_quote(person: dict) -> Image.Image:
     draw = ImageDraw.Draw(img)
 
     draw.rectangle([0, 0, 16, IG], fill=OCEAN_400)
-    draw_mark(draw, 40, 36)
+    paste_logo(img, 36, 28, 72)
 
-    # top label bar
-    draw.rectangle([40, 110, IG - 40, 175], fill=OCEAN_700)
-    draw.text((60, 130), "SER DEV EN MAR DEL PLATA ES…", font=font(INTER_SEMI, 22), fill=OCEAN_100)
+    draw.rectangle([40, 120, IG - 40, 185], fill=OCEAN_700)
+    draw.text((60, 140), "SER DEV EN MAR DEL PLATA ES…", font=font(INTER_SEMI, 22), fill=OCEAN_100)
 
     qmark = font(SG_BOLD, 180)
-    draw.text((24, 190), "“", font=qmark, fill=OCEAN_400)
+    draw.text((24, 200), "“", font=qmark, fill=OCEAN_400)
 
     qf = font(SG_BOLD, 52)
     lines = wrap(draw, person["quote"], qf, IG - 110)
-    y = 360
+    y = 370
     for line in lines[:7]:
         draw.text((44, y + 3), line, font=qf, fill=BLACK)
         draw.text((40, y), line, font=qf, fill=WHITE)
@@ -270,7 +277,7 @@ def slide_moment(person: dict) -> Image.Image:
     img = ocean_panel((IG, IG))
     draw = ImageDraw.Draw(img)
     draw.rectangle([0, 0, 14, IG], fill=OCEAN_400)
-    draw_mark(draw, 40, 40)
+    paste_logo(img, 36, 28, 72)
 
     # big label block
     draw.rectangle([40, 140, IG - 40, 230], fill=OCEAN_700)
@@ -308,7 +315,7 @@ def slide_building(person: dict) -> Image.Image:
     img = ocean_panel((IG, IG))
     draw = ImageDraw.Draw(img)
     draw.rectangle([0, 0, 14, IG], fill=OCEAN_400)
-    draw_mark(draw, 40, 40)
+    paste_logo(img, 36, 28, 72)
 
     has = bool(person.get("building"))
     lab = font(INTER_SEMI, 22)
@@ -338,7 +345,7 @@ def slide_building(person: dict) -> Image.Image:
 
     # bottom strip
     draw.rectangle([0, 990, IG, IG], fill=OCEAN_400)
-    draw.text((40, 1015), f"{person['display_name']}  ·  #TalentoMdP", font=font(SG_BOLD, 26), fill=OCEAN_900)
+    draw.text((40, 1015), f"{person['display_name']}  ·  {BRAND}", font=font(SG_BOLD, 22), fill=OCEAN_900)
     return img
 
 
@@ -355,43 +362,41 @@ def slide_cta(person: dict) -> Image.Image:
     draw = ImageDraw.Draw(img)
 
     draw.rectangle([split - 10, 0, split + 10, IG], fill=OCEAN_400)
-    rx = split + 36
-    draw_mark(draw, rx, 36)
+    rx = split + 28
+    paste_logo(img, rx, 28, 70)
 
-    title = font(SG_BOLD, 44)
-    y = 130
-    for line in wrap(draw, "Este es el talento de la costa.", title, IG - rx - 40):
+    title = font(SG_BOLD, 40)
+    y = 120
+    for line in wrap(draw, "Este es el talento de la costa.", title, IG - rx - 36):
         draw.text((rx, y), line, font=title, fill=WHITE)
-        y += 54
+        y += 50
 
-    body = font(INTER_MED, 24)
-    y += 16
-    for line in wrap(draw, "MdPDev conecta devs, diseñadores y emprendedores de Mar del Plata.", body, IG - rx - 40):
+    body = font(INTER_MED, 22)
+    y += 12
+    for line in wrap(draw, f"{BRAND} conecta devs, diseñadores y emprendedores de Mar del Plata.", body, IG - rx - 36):
         draw.text((rx, y), line, font=body, fill=OCEAN_100)
-        y += 34
+        y += 32
 
-    # dense info blocks to kill empty space
-    y += 36
-    draw.rectangle([rx, y, IG - 36, y + 100], fill=OCEAN_700)
-    draw.text((rx + 18, y + 22), "Serie", font=font(INTER_SEMI, 18), fill=OCEAN_300)
-    draw.text((rx + 18, y + 50), "Talento MdP", font=font(SG_BOLD, 30), fill=WHITE)
+    y += 28
+    draw.rectangle([rx, y, IG - 36, y + 88], fill=OCEAN_700)
+    draw.text((rx + 16, y + 18), "Serie", font=font(INTER_SEMI, 16), fill=OCEAN_300)
+    draw.text((rx + 16, y + 44), "Talento", font=font(SG_BOLD, 28), fill=WHITE)
 
-    y += 120
-    draw.rectangle([rx, y, IG - 36, y + 100], fill=OCEAN_800)
-    draw.text((rx + 18, y + 22), "Spotlight", font=font(INTER_SEMI, 18), fill=OCEAN_300)
-    draw.text((rx + 18, y + 50), person["display_name"], font=font(SG_BOLD, 28), fill=WHITE)
+    y += 106
+    draw.rectangle([rx, y, IG - 36, y + 88], fill=OCEAN_800)
+    draw.text((rx + 16, y + 18), "Spotlight", font=font(INTER_SEMI, 16), fill=OCEAN_300)
+    draw.text((rx + 16, y + 44), person["display_name"], font=font(SG_BOLD, 26), fill=WHITE)
 
-    y += 130
+    y += 116
     cta = "Sumate — link en bio"
-    cf = font(INTER_BOLD if INTER_BOLD.exists() else INTER_SEMI, 24)
+    cf = font(INTER_BOLD if INTER_BOLD.exists() else INTER_SEMI, 22)
     tw = draw.textlength(cta, font=cf)
-    draw.rounded_rectangle([rx, y, rx + tw + 40, y + 56], radius=14, fill=OCEAN_400)
-    draw.text((rx + 20, y + 14), cta, font=cf, fill=OCEAN_900)
+    draw.rounded_rectangle([rx, y, rx + tw + 36, y + 52], radius=14, fill=OCEAN_400)
+    draw.text((rx + 18, y + 14), cta, font=cf, fill=OCEAN_900)
 
-    draw.text((rx, 980), "@mardelplata.dev.ar", font=font(INTER_SEMI, 20), fill=OCEAN_300)
-    draw.text((rx, 1015), "#MdPDev  #TalentoMdP", font=font(INTER_SEMI, 18), fill=OCEAN_100)
+    draw.text((rx, 980), BRAND, font=font(INTER_SEMI, 18), fill=OCEAN_300)
+    draw.text((rx, 1012), "#MarDelPlata  #Talento", font=font(INTER_SEMI, 16), fill=OCEAN_100)
 
-    # name plate over photo
     draw.rectangle([0, 900, split - 10, IG], fill=OCEAN_900)
     draw.text((36, 940), person["display_name"], font=font(SG_BOLD, 36), fill=WHITE)
     draw.text((36, 995), person["role"], font=font(INTER_MED, 24), fill=OCEAN_300)
@@ -409,9 +414,9 @@ def card_x(person: dict, n: int, total: int) -> Image.Image:
     img = Image.alpha_composite(img.convert("RGBA"), panel).convert("RGB")
     draw = ImageDraw.Draw(img)
 
-    draw_mark(draw, 48, 36)
-    badge_w = draw_badge(draw, 200, 42, "TALENTO MdP")
-    draw.text((200 + badge_w + 16, 50), f"{n:02d}/{total:02d}", font=font(INTER_SEMI, 18), fill=OCEAN_300)
+    paste_logo(img, 40, 28, 72)
+    badge_w = draw_badge(draw, 130, 48, "TALENTO")
+    draw.text((130 + badge_w + 14, 56), f"{n:02d}/{total:02d}", font=font(INTER_SEMI, 18), fill=OCEAN_300)
 
     name_f = font(SG_BOLD, 72)
     y = 140
@@ -424,7 +429,6 @@ def card_x(person: dict, n: int, total: int) -> Image.Image:
     draw.rounded_rectangle([48, y + 4, 48 + rw + 36, y + 56], radius=12, fill=OCEAN_400)
     draw.text((66, y + 14), person["role"], font=role_f, fill=OCEAN_900)
 
-    # quote block fills middle
     y += 90
     draw.rectangle([48, y, 740, y + 280], fill=OCEAN_800)
     draw.text((68, y + 10), "“", font=font(SG_BOLD, 72), fill=OCEAN_400)
@@ -435,7 +439,7 @@ def card_x(person: dict, n: int, total: int) -> Image.Image:
         qy += 44
 
     draw.rectangle([0, 820, 780, X_H], fill=OCEAN_400)
-    draw.text((48, 848), "mardelplata.dev.ar   ·   #MdPDev   ·   #TalentoMdP", font=font(SG_BOLD, 26), fill=OCEAN_900)
+    draw.text((48, 848), f"{BRAND}   ·   #MarDelPlata   ·   #Talento", font=font(SG_BOLD, 24), fill=OCEAN_900)
     return img
 
 
