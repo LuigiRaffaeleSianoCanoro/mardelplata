@@ -244,23 +244,29 @@ En MarDelPlata.Dev.AR queremos una comunidad donde esas trayectorias se vean y e
 **Assets:** `carousels/manu-ponsa/`  
 **Menciones:** @manuponsa · picsel.app · blueprintdata.xyz
 
+> Investigación: picsel.app · blueprintdata.xyz · LinkedIn/manuponsa · ponsa.xyz
+> Trayectoria verificada: Capgemini → Mercado Libre (Sr SWE) → belo → Decentraland (Sr Data Eng) → founder full-time (dic 2025, "blueprintdata y picsel. all in.")
+> Picsel: fundada 2023, HQ Mar del Plata. Face search con IA, watermark automático, cobro global vía Stripe (USD desde Argentina), entrega por WhatsApp, Picsel Studio.
+> Blueprint Data: fundada 2024 con Marco Porracin (ex Mercado Libre). Data foundations, dbt/Snowflake, open source (taps Singer), Google Cloud Partner. Casos: Takenos, VC de SF, Kiwi.
+
 ### Instagram
 
 ```
-Hay gente que llega a Mar del Plata para bajar un cambio.
-Manu Ponsa llegó para construir.
+“Ser dev en Mar del Plata es… lo mejor del mundo.”
 
-Software & Data Engineer. Pasó por Mercado Libre y hoy empuja dos productos con una misma idea: usar tecnología para crear valor real.
+Eso contestó Manu Ponsa cuando le preguntamos. Y su historia lo respalda.
 
-→ Picsel: una plataforma para fotógrafos latinoamericanos.
-→ Blueprint Data: plataformas de datos end-to-end para empresas.
+Diez años construyendo software: Mercado Libre, belo, Decentraland. En diciembre dejó todo eso para ir all-in con sus dos proyectos — desde la costa.
 
-No hace falta irse de la costa para pensar en grande.
+📸 PICSEL (picsel.app)
+La plataforma donde fotógrafos de toda LATAM venden sus fotos: face search con IA, watermark automático y cobros globales con Stripe. Nacida en Mar del Plata.
 
-Este es el talento tech que construye desde Mar del Plata para LATAM.
+📊 BLUEPRINT DATA (blueprintdata.xyz)
+Data foundations para equipos que crecen. Open source first y Google Cloud Partner, con casos en fintech, venture y lending.
 
-¿Qué estás construyendo vos?
-Sumate a MarDelPlata.Dev.AR — link en bio.
+Se mudó a la costa. Se quedó por lo que se puede construir acá.
+
+El próximo spotlight podés ser vos → link en bio
 
 #MarDelPlata #TalentoTech #TechArgentina
 ```
@@ -268,29 +274,30 @@ Sumate a MarDelPlata.Dev.AR — link en bio.
 ### X
 
 ```
-Manu Ponsa construye desde Mar del Plata:
+“Ser dev en Mar del Plata es… lo mejor del mundo.”
 
-→ Picsel, una plataforma para fotógrafos LATAM
-→ Blueprint Data, plataformas de datos end-to-end
+Manu Ponsa: 10 años de software (Mercado Libre → Decentraland), hoy all-in con sus dos productos desde la costa:
 
-El talento tech de la costa piensa y construye en grande.
+📸 picsel.app — fotógrafos LATAM
+📊 blueprintdata.xyz — data foundations
 
-MarDelPlata.Dev.AR
+Mar del Plata tiene talento tech.
 ```
 
 ### LinkedIn
 
 ```
-Hay gente que ve en Mar del Plata una ciudad para vivir. Manu Ponsa también ve un lugar desde donde construir productos con impacto.
+“Ser dev en Mar del Plata es… lo mejor del mundo.”
 
-Software & Data Engineer, con paso por Mercado Libre, hoy lleva adelante dos proyectos:
+Cuando Manu Ponsa completó esa frase en nuestro formulario, no era una expresión de deseo: era la conclusión de alguien que ya probó lo otro.
 
-• Picsel, una plataforma para fotógrafos latinoamericanos.
-• Blueprint Data, donde construyen plataformas de datos end-to-end para empresas.
+Diez años de carrera: BI en Capgemini, Sr. Software Engineer en Mercado Libre, belo, Sr. Data Engineer en Decentraland. En diciembre cerró esa etapa para dedicarse por completo a lo suyo — y lo suyo se construye desde la costa:
 
-No son productos “locales” en escala. Son productos creados desde la costa, para una audiencia mucho más amplia.
+📸 Picsel (picsel.app) — la plataforma donde fotógrafos de LATAM venden su trabajo: búsqueda por rostro con IA, watermark automático y cobros internacionales vía Stripe. Fundada en Mar del Plata.
 
-Esa es parte de la historia que queremos contar en MarDelPlata.Dev.AR: el talento tech de la ciudad no es una promesa; ya está construyendo.
+📊 Blueprint Data (blueprintdata.xyz) — data foundations para equipos en crecimiento: métricas compartidas, modelos gobernados, tooling open source. Google Cloud Partner, con casos en fintech, venture y lending.
+
+Esta es la historia que queremos contar desde MarDelPlata.Dev.AR: el talento tech de la ciudad no es una promesa a futuro. Ya está acá, construyendo para toda la región.
 
 → mardelplata.dev.ar
 
