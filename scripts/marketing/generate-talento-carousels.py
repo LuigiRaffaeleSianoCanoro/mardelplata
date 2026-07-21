@@ -491,7 +491,7 @@ def manu_v3_cover() -> Image.Image:
 
 def manu_v3_picsel() -> Image.Image:
     img = Image.new("RGB", (IG, IG), OCEAN_400)
-    draw = manu_header(img, "PICSĒL", "02/05")
+    draw = manu_header(img, "PICSEL", "02/05")
     # Make header readable on cyan.
     draw.rectangle([0, 0, IG, 130], fill=OCEAN_900)
     paste_logo(img, 38, 30, 70)
