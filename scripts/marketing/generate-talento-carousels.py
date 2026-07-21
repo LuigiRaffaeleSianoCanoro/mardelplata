@@ -443,6 +443,198 @@ def card_x(person: dict, n: int, total: int) -> Image.Image:
     return img
 
 
+def manu_photo(size: tuple[int, int]) -> Image.Image:
+    """Tighter Manu crop: face stays visible instead of leaving a sky-heavy frame."""
+    source = Image.open(PHOTOS / "manu-ponsa.jpg").convert("RGB")
+    source = ImageOps.exif_transpose(source)
+    return ImageOps.fit(source, size, method=Image.Resampling.LANCZOS, centering=(0.58, 0.66))
+
+
+def manu_header(img: Image.Image, label: str, number: str) -> ImageDraw.ImageDraw:
+    draw = ImageDraw.Draw(img)
+    paste_logo(img, 38, 34, 70)
+    draw_badge(draw, 128, 52, label)
+    draw.text((IG - 130, 60), number, font=font(INTER_SEMI, 19), fill=OCEAN_300)
+    return draw
+
+
+def manu_v3_cover() -> Image.Image:
+    """Editorial cover: Manu + products, with photo as a compositional asset."""
+    img = ocean_panel((IG, IG))
+    draw = manu_header(img, "TALENTO", "01/05")
+
+    # Photo takes the right side, framed by an angular cyan edge.
+    photo = manu_photo((510, 870))
+    img.paste(photo, (570, 160))
+    overlay = Image.new("RGBA", (510, 870), (2, 0, 48, 0))
+    od = ImageDraw.Draw(overlay)
+    od.rectangle([0, 630, 510, 870], fill=(*OCEAN_900, 220))
+    img.paste(Image.alpha_composite(photo.convert("RGBA"), overlay).convert("RGB"), (570, 160))
+    draw = ImageDraw.Draw(img)
+    draw.polygon([(535, 160), (570, 160), (570, 1030), (535, 1030)], fill=OCEAN_400)
+
+    draw.text((44, 205), "MANU", font=font(SG_BOLD, 128), fill=WHITE)
+    draw.text((44, 330), "PONSA", font=font(SG_BOLD, 128), fill=OCEAN_400)
+    draw.rectangle([44, 485, 440, 493], fill=SAND)
+    draw.text((44, 525), "SOFTWARE", font=font(SG_BOLD, 39), fill=WHITE)
+    draw.text((44, 570), "+ DATA", font=font(SG_BOLD, 39), fill=WHITE)
+
+    body = font(INTER_MED, 27)
+    for i, line in enumerate(wrap(draw, "Construye productos para quienes crean y empresas que necesitan decidir mejor.", body, 460)[:4]):
+        draw.text((44, 660 + i * 37), line, font=body, fill=OCEAN_100)
+
+    draw.rectangle([0, 935, 535, IG], fill=OCEAN_700)
+    draw.text((44, 960), "PICSEL", font=font(SG_BOLD, 35), fill=WHITE)
+    draw.text((44, 1005), "+ BLUEPRINT DATA", font=font(INTER_SEMI, 21), fill=OCEAN_100)
+    return img
+
+
+def manu_v3_picsel() -> Image.Image:
+    img = Image.new("RGB", (IG, IG), OCEAN_400)
+    draw = manu_header(img, "PICSĒL", "02/05")
+    # Make header readable on cyan.
+    draw.rectangle([0, 0, IG, 130], fill=OCEAN_900)
+    paste_logo(img, 38, 30, 70)
+    draw_badge(draw, 128, 48, "PICSEL")
+    draw.text((IG - 130, 60), "02/05", font=font(INTER_SEMI, 19), fill=OCEAN_300)
+
+    draw.text((44, 190), "FOTOS", font=font(SG_BOLD, 110), fill=OCEAN_900)
+    draw.text((44, 290), "QUE", font=font(SG_BOLD, 110), fill=OCEAN_900)
+    draw.text((44, 390), "VIVEN", font=font(SG_BOLD, 110), fill=OCEAN_900)
+    draw.text((44, 490), "MEJOR.", font=font(SG_BOLD, 110), fill=WHITE)
+
+    # Editorial picture tile, not a generic circular avatar.
+    photo = manu_photo((410, 410))
+    img.paste(photo, (625, 170))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle([605, 150, 1035, 170], fill=OCEAN_900)
+    draw.rectangle([605, 150, 625, 580], fill=OCEAN_900)
+    draw.rectangle([625, 580, 1035, 600], fill=OCEAN_900)
+
+    draw.rectangle([44, 650, IG - 44, 900], fill=OCEAN_900)
+    title = font(SG_BOLD, 45)
+    draw.text((74, 690), "PICSEL", font=title, fill=OCEAN_300)
+    body = font(INTER_MED, 30)
+    for i, line in enumerate(wrap(draw, "Una plataforma para fotógrafos latinoamericanos.", body, 880)[:3]):
+        draw.text((74, 760 + i * 39), line, font=body, fill=WHITE)
+
+    draw.text((44, 970), "Construido desde Mar del Plata para LATAM.", font=font(INTER_SEMI, 24), fill=OCEAN_900)
+    return img
+
+
+def manu_v3_blueprint() -> Image.Image:
+    img = ocean_panel((IG, IG))
+    draw = manu_header(img, "DATA", "03/05")
+    draw.text((44, 190), "DATOS", font=font(SG_BOLD, 104), fill=WHITE)
+    draw.text((44, 285), "QUE", font=font(SG_BOLD, 104), fill=WHITE)
+    draw.text((44, 380), "MUEVEN", font=font(SG_BOLD, 104), fill=OCEAN_400)
+    draw.text((44, 475), "NEGOCIOS.", font=font(SG_BOLD, 88), fill=OCEAN_400)
+
+    # Data-system visual language: real information blocks, no empty filler.
+    cards = [
+        ("01", "FUENTES", "Todo conectado."),
+        ("02", "MODELOS", "Todo entendible."),
+        ("03", "DECISIONES", "Todo accionable."),
+    ]
+    y = 570
+    for num, label, desc in cards:
+        draw.rectangle([44, y, 1036, y + 102], fill=OCEAN_800)
+        draw.rectangle([44, y, 130, y + 102], fill=OCEAN_400)
+        draw.text((66, y + 33), num, font=font(SG_BOLD, 28), fill=OCEAN_900)
+        draw.text((160, y + 20), label, font=font(INTER_SEMI, 21), fill=OCEAN_300)
+        draw.text((160, y + 53), desc, font=font(SG_BOLD, 31), fill=WHITE)
+        y += 116
+
+    draw.text((44, 946), "BLUEPRINT DATA", font=font(SG_BOLD, 39), fill=WHITE)
+    draw.text((44, 997), "Plataformas de datos end-to-end.", font=font(INTER_MED, 25), fill=OCEAN_100)
+    return img
+
+
+def manu_v3_city() -> Image.Image:
+    photo = manu_photo((IG, IG))
+    photo = ImageEnhance.Contrast(photo).enhance(1.2)
+    tint = Image.new("RGBA", (IG, IG), (*OCEAN_900, 165))
+    img = Image.alpha_composite(photo.convert("RGBA"), tint).convert("RGB")
+    draw = manu_header(img, "MAR DEL PLATA", "04/05")
+
+    quote = ["EL TALENTO", "TECH NO", "TERMINA", "EN LA", "ORILLA."]
+    y = 220
+    for index, line in enumerate(quote):
+        color = OCEAN_400 if index in (0, 4) else WHITE
+        draw.text((42, y), line, font=font(SG_BOLD, 105), fill=color)
+        y += 106
+
+    draw.rectangle([0, 825, IG, IG], fill=OCEAN_400)
+    body = font(INTER_SEMI, 30)
+    draw.text((42, 860), "Construye local. Impacta global.", font=body, fill=OCEAN_900)
+    draw.text((42, 920), "Manu eligió la costa para construir.", font=body, fill=OCEAN_900)
+    return img
+
+
+def manu_v3_cta() -> Image.Image:
+    img = Image.new("RGB", (IG, IG), OCEAN_900)
+    draw = manu_header(img, "CONEXIONES", "05/05")
+
+    draw.text((44, 200), "¿QUÉ", font=font(SG_BOLD, 114), fill=WHITE)
+    draw.text((44, 305), "ESTÁS", font=font(SG_BOLD, 114), fill=WHITE)
+    draw.text((44, 410), "CONSTRUYENDO", font=font(SG_BOLD, 77), fill=OCEAN_400)
+    draw.text((44, 485), "VOS?", font=font(SG_BOLD, 114), fill=OCEAN_400)
+
+    draw.rectangle([44, 590, IG - 44, 780], fill=OCEAN_700)
+    body = font(INTER_MED, 31)
+    for i, line in enumerate(wrap(draw, "En Mar del Plata hay personas, productos e ideas para conectar.", body, 890)[:3]):
+        draw.text((76, 630 + i * 39), line, font=body, fill=WHITE)
+
+    cta = "SUMATE A LA COMUNIDAD"
+    cta_f = font(SG_BOLD, 27)
+    cta_w = draw.textlength(cta, font=cta_f)
+    draw.rounded_rectangle([44, 840, 44 + cta_w + 54, 902], radius=18, fill=OCEAN_400)
+    draw.text((71, 857), cta, font=cta_f, fill=OCEAN_900)
+    draw.text((44, 968), BRAND, font=font(SG_BOLD, 29), fill=WHITE)
+    draw.text((44, 1015), "mardelplata.dev.ar", font=font(INTER_MED, 25), fill=OCEAN_300)
+    return img
+
+
+def save_manu_v3() -> None:
+    """Dedicated campaign direction for Manu, intentionally unlike the generic spotlight template."""
+    slides = [
+        (manu_v3_cover(), "01-cover"),
+        (manu_v3_picsel(), "02-picsel"),
+        (manu_v3_blueprint(), "03-blueprint-data"),
+        (manu_v3_city(), "04-mar-del-plata"),
+        (manu_v3_cta(), "05-cta"),
+    ]
+    for base in (OUT_DOCS / "manu-ponsa", OUT_PUBLIC / "manu-ponsa"):
+        base.mkdir(parents=True, exist_ok=True)
+        for old_file in base.glob("*.png"):
+            old_file.unlink()
+        for image, filename in slides:
+            image.save(base / f"{filename}.png", "PNG", optimize=True)
+
+
+def manu_v3_x() -> Image.Image:
+    """X adaptation of the new Manu art direction."""
+    img = Image.new("RGB", (X_W, X_H), OCEAN_900)
+    photo = manu_photo((740, X_H))
+    img.paste(photo, (860, 0))
+    shade = Image.new("RGBA", (740, X_H), (*OCEAN_900, 85))
+    img.paste(Image.alpha_composite(photo.convert("RGBA"), shade).convert("RGB"), (860, 0))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle([820, 0, 860, X_H], fill=OCEAN_400)
+    paste_logo(img, 46, 42, 78)
+    draw_badge(draw, 150, 62, "TALENTO")
+
+    draw.text((48, 182), "MANU", font=font(SG_BOLD, 116), fill=WHITE)
+    draw.text((48, 302), "PONSA", font=font(SG_BOLD, 116), fill=OCEAN_400)
+    draw.text((48, 455), "SOFTWARE + DATA", font=font(SG_BOLD, 45), fill=WHITE)
+    for i, line in enumerate(wrap(draw, "Construye productos para quienes crean y empresas que necesitan decidir mejor.", font(INTER_MED, 31), 690)[:3]):
+        draw.text((48, 530 + i * 43), line, font=font(INTER_MED, 31), fill=OCEAN_100)
+    draw.rectangle([48, 730, 770, 810], fill=OCEAN_700)
+    draw.text((76, 755), "PICSEL  +  BLUEPRINT DATA", font=font(SG_BOLD, 31), fill=WHITE)
+    draw.text((48, 848), f"{BRAND}  ·  Mar del Plata tiene talento tech.", font=font(INTER_SEMI, 23), fill=OCEAN_300)
+    return img
+
+
 def main() -> None:
     data = json.loads(APPLICANTS.read_text(encoding="utf-8"))
     people = [p for p in data["applicants"] if p["slug"] not in SKIP]
@@ -454,6 +646,13 @@ def main() -> None:
     for i, person in enumerate(people, start=1):
         slug = person["slug"]
         print(f"[{i}/{total}] {slug}  photo={'yes' if find_photo(slug) else 'NO'}")
+        if slug == "manu-ponsa":
+            save_manu_v3()
+            xcard = manu_v3_x()
+            for base in (OUT_X, OUT_PUBLIC_X):
+                base.mkdir(parents=True, exist_ok=True)
+                xcard.save(base / f"{slug}.png", "PNG", optimize=True)
+            continue
         save(slide_cover(person, i, total), slug, 1, "cover")
         save(slide_quote(person), slug, 2, "quote")
         save(slide_moment(person), slug, 3, "moment")

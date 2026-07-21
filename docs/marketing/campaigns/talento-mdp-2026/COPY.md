@@ -247,43 +247,54 @@ En MarDelPlata.Dev.AR queremos una comunidad donde esas trayectorias se vean y e
 ### Instagram
 
 ```
-Ser dev en Mar del Plata es… lo mejor del mundo.
+Hay gente que llega a Mar del Plata para bajar un cambio.
+Manu Ponsa llegó para construir.
 
-Hoy en Talento: Manu. Software & Data Engineer. Se mudó a la costa y se quedó.
+Software & Data Engineer. Pasó por Mercado Libre y hoy empuja dos productos con una misma idea: usar tecnología para crear valor real.
 
-Un momento: laburar en Mercado Libre. Después, construir.
+→ Picsel: una plataforma para fotógrafos latinoamericanos.
+→ Blueprint Data: plataformas de datos end-to-end para empresas.
 
-Hoy: Picsel (plataforma para fotógrafos latinoamericanos) y Blueprint Data (plataformas de datos end-to-end).
+No hace falta irse de la costa para pensar en grande.
 
-Si llegaste a MdP a construir — o te quedaste porque acá se puede — esta serie es para vos.
-Sumate — link en bio
+Este es el talento tech que construye desde Mar del Plata para LATAM.
 
-#MarDelPlata #Talento
+¿Qué estás construyendo vos?
+Sumate a MarDelPlata.Dev.AR — link en bio.
+
+#MarDelPlata #TalentoTech #TechArgentina
 ```
 
 ### X
 
 ```
-Talento → Manu (Software & Data)
+Manu Ponsa construye desde Mar del Plata:
 
-Se mudó a la costa. Construye Picsel + Blueprint Data.
-“Ser dev en Mar del Plata es lo mejor del mundo.”
+→ Picsel, una plataforma para fotógrafos LATAM
+→ Blueprint Data, plataformas de datos end-to-end
 
-#MarDelPlata
+El talento tech de la costa piensa y construye en grande.
+
+MarDelPlata.Dev.AR
 ```
 
 ### LinkedIn
 
 ```
-No todos los que construyen el ecosistema tech de Mar del Plata nacieron acá. Algunos eligieron la costa.
+Hay gente que ve en Mar del Plata una ciudad para vivir. Manu Ponsa también ve un lugar desde donde construir productos con impacto.
 
-Manu — Software & Data Engineer — se mudó a MdP y lo resume sin vueltas: “ser dev en Mar del Plata es lo mejor del mundo”. Pasó por Mercado Libre y hoy construye Picsel (para fotógrafos LATAM) y Blueprint Data (plataformas de datos end-to-end).
+Software & Data Engineer, con paso por Mercado Libre, hoy lleva adelante dos proyectos:
 
-En MarDelPlata.Dev.AR conectamos a quienes eligen construir desde acá.
+• Picsel, una plataforma para fotógrafos latinoamericanos.
+• Blueprint Data, donde construyen plataformas de datos end-to-end para empresas.
+
+No son productos “locales” en escala. Son productos creados desde la costa, para una audiencia mucho más amplia.
+
+Esa es parte de la historia que queremos contar en MarDelPlata.Dev.AR: el talento tech de la ciudad no es una promesa; ya está construyendo.
 
 → mardelplata.dev.ar
 
-#MarDelPlata #Talento
+#MarDelPlata #TalentoTech #TechArgentina
 ```
 
 ---
