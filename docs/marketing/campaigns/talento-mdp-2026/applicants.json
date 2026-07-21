@@ -43,7 +43,8 @@
       "permission": true,
       "notes": "Quiere aparecer como Aeterna (no Nahuel).",
       "status": "active",
-      "include_in_campaign": true
+      "include_in_campaign": true,
+      "photo_note": "Foto chat confirmada: remera con flor + mural (Nahuel Sigismondi). Placeholder actual = avatar X."
     },
     {
       "id": "03",
@@ -85,7 +86,8 @@
       "permission": true,
       "notes": "Estudiante 2º año Tecnicatura en Análisis de Sistemas. Priorizar inclusión en el copy.",
       "status": "active",
-      "include_in_campaign": true
+      "include_in_campaign": true,
+      "photo_note": "Posible selfie anteojos gruesos/hoodie — confirmar."
     },
     {
       "id": "05",
@@ -106,7 +108,8 @@
       "permission": true,
       "notes": null,
       "status": "active",
-      "include_in_campaign": true
+      "include_in_campaign": true,
+      "photo_note": "Foto chat: montañas / Fitz Roy."
     },
     {
       "id": "06",
@@ -127,7 +130,8 @@
       "permission": true,
       "notes": null,
       "status": "active",
-      "include_in_campaign": true
+      "include_in_campaign": true,
+      "photo_note": "Foto chat: barba canosa / sonrisa. Falta archivo."
     },
     {
       "id": "07",
@@ -148,7 +152,8 @@
       "permission": true,
       "notes": "Proyecto IG: inkodeweb",
       "status": "active",
-      "include_in_campaign": true
+      "include_in_campaign": true,
+      "photo_note": "Foto chat: curly + piercing."
     },
     {
       "id": "08",
@@ -169,7 +174,8 @@
       "permission": true,
       "notes": "Junior buscando primeras oportunidades. Tono alentador, no lastimero.",
       "status": "active",
-      "include_in_campaign": true
+      "include_in_campaign": true,
+      "photo_note": "Foto chat confirmada: traje formal. Falta archivo en photos/."
     },
     {
       "id": "09",
@@ -190,7 +196,8 @@
       "permission": true,
       "notes": "En el form puso 'No' como display name — usamos Federico. Confirmar con él antes de publicar.",
       "status": "active",
-      "include_in_campaign": true
+      "include_in_campaign": true,
+      "photo_note": "Completar foto hi-res; display name confirmado como Federico."
     }
   ],
   "active_count": 7,

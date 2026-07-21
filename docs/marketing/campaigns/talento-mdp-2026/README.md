@@ -33,26 +33,28 @@ Las 6 fotos del chat **no llegaron como archivos** al entorno del agente (solo d
 |------|------------|----------------------------|
 | `manu-ponsa.jpg` | X @manuponsa (400px) | ✅ montañas / Fitz Roy |
 | `emanuel.jpg` | LinkedIn (200px) | ✅ curly + piercing |
-| `aeterna.jpg` | X @nahuelsigis (400px) | ⚠️ otra foto (beanie en auto) |
+| `aeterna.jpg` | X @nahuelsigis (400px) | ⚠️ placeholder — la correcta es **remera con flor + mural** |
+| `axel-castano` | ❌ initials | ✅ **traje formal** (confirmar) |
+| `cristian-blanco` | ❌ initials | barba canosa / sonrisa |
 | `federico-cayrol.jpg` | LinkedIn badge (200px) | ⚠️ no es la del chat |
-| `cristian-blanco` | ❌ initials | salt-and-pepper / sonrisa (foto 5 del chat) |
-| `uriel-lema` | ❌ initials | completar |
-| `axel-castano` | ❌ initials | completar |
+| `uriel-lema` | ❌ initials | ¿selfie anteojos gruesos / hoodie? |
 
-**Para calidad final:** dropeá JPGs en `photos/` con estos nombres y corré:
+**Para calidad final:** dropeá JPGs en `photos/` con estos nombres y regeneramos:
 
 ```bash
 python3 scripts/marketing/generate-talento-carousels.py
 ```
 
-Mapa sugerido de las 6 del chat → archivo:
+Mapa confirmado del chat → archivo:
 
-1. Selfie anteojos gruesos / hoodie → ¿Uriel o Axel? (confirmar)
-2. Circular curly + piercing → `emanuel.jpg`
-3. Traje formal → confirmar nombre
-4. Remera flor + mural → confirmar nombre
-5. Barba canosa sonrisa → `cristian-blanco.jpg`
-6. Montañas / anteojos → `manu-ponsa.jpg`
+| Foto del chat | Archivo |
+|---------------|---------|
+| Traje formal | `axel-castano.jpg` |
+| Remera con flor + mural (Nahuel / Aeterna) | `aeterna.jpg` |
+| Montañas / anteojos | `manu-ponsa.jpg` |
+| Circular curly + piercing | `emanuel.jpg` |
+| Barba canosa sonrisa | `cristian-blanco.jpg` |
+| Selfie anteojos gruesos / hoodie | confirmar (¿Uriel o Federico?) |
 
 ## Archivos
 
