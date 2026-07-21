@@ -1,0 +1,178 @@
+{
+  "campaign": "talento-mdp-2026",
+  "design_version": 2,
+  "status": "draft — NO publicar hasta OK",
+  "skipped": [
+    "ian-genta",
+    "day-aloy",
+    "matias-celiz"
+  ],
+  "note": "v2 punchy. Copiar a content-queue.json con status pending tras OK.",
+  "posts": [
+    {
+      "id": "talento-intro-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-28T13:00:00.000Z",
+      "status": "draft",
+      "text": "Seguimos con Talento: más historias de quien construye tech desde la costa atlántica.\n\nDeslizá →\n\n#MarDelPlata #Talento"
+    },
+    {
+      "id": "talento-intro-x",
+      "channel": "x",
+      "scheduledAt": "2026-07-28T13:00:00.000Z",
+      "status": "draft",
+      "text": "Seguimos Talento: historias de quien construye tech desde la costa.\n\nIG @mardelplata.dev.ar\n\n#MarDelPlata"
+    },
+    {
+      "id": "talento-02-aeterna-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-28T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es ser constructor social\n\nHoy en Talento: Aeterna, Fullstack.\n\nEntrar a laburar en una startup chilena YC S21 cambió su escala de lo posible.\n\nConstruye: SpectraLab — medidor de coherencia de ondas de vibraciones\n\nSumate — link en bio\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/aeterna/01-cover.png",
+      "note": "Subir carrousel 5 PNGs en Buffer UI; imageUrl=cover ref"
+    },
+    {
+      "id": "talento-02-aeterna-x",
+      "channel": "x",
+      "scheduledAt": "2026-07-28T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento → Aeterna (Fullstack)\n\n“Ser constructor social”\n\nSerie en IG @mardelplata.dev.ar\n\n#MarDelPlata",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cards-x/aeterna.png"
+    },
+    {
+      "id": "talento-02-aeterna-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-07-29T17:00:00.000Z",
+      "status": "draft",
+      "text": "“Ser constructor social”\n\nEn la serie Talento presentamos a Aeterna (Fullstack).\n\nEntrar a laburar en una startup chilena YC S21 cambió su escala de lo posible.\n\nHoy: SpectraLab — medidor de coherencia de ondas de vibraciones\n\n→ mardelplata.dev.ar\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/aeterna/01-cover.png"
+    },
+    {
+      "id": "talento-04-uriel-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-31T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es progresar: convertir cada barrera de comunicación en una línea de código\n\nHoy en Talento: Uriel Lema, Fullstack.\n\nSu discapacidad auditiva lo obligó a ser más metódico y claro al escribir código. Entregar su primer freelance le demostró que la comunicación escrita era su superpoder.\n\nConstruye: Herramienta de accesibilidad y comunicación (en planificación)\n\nSumate — link en bio\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/uriel-lema/01-cover.png",
+      "note": "Subir carrousel 5 PNGs en Buffer UI; imageUrl=cover ref"
+    },
+    {
+      "id": "talento-04-uriel-x",
+      "channel": "x",
+      "scheduledAt": "2026-07-31T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento → Uriel Lema (Fullstack)\n\n“Progresar: convertir cada barrera de comunicación en una línea de código”\n\nSerie en IG @mardelplata.dev.ar\n\n#MarDelPlata",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cards-x/uriel-lema.png"
+    },
+    {
+      "id": "talento-05-manu-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-04T16:00:00.000Z",
+      "status": "draft",
+      "text": "“Ser dev en Mar del Plata es… lo mejor del mundo.”\n\nEso contestó Manu Ponsa cuando le preguntamos. Y su historia lo respalda.\n\nDiez años construyendo software: Mercado Libre, belo, Decentraland. En diciembre dejó todo eso para ir all-in con sus dos proyectos — desde la costa.\n\n📸 PICSEL (picsel.app)\nLa plataforma donde fotógrafos de toda LATAM venden sus fotos: face search con IA, watermark automático y cobros globales con Stripe. Nacida en Mar del Plata.\n\n📊 BLUEPRINT DATA (blueprintdata.xyz)\nData foundations para equipos que crecen. Open source first y Google Cloud Partner, con casos en fintech, venture y lending.\n\nSe mudó a la costa. Se quedó por lo que se puede construir acá.\n\nEl próximo spotlight podés ser vos → link en bio\n\n#MarDelPlata #TalentoTech #TechArgentina",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/manu-ponsa/01-cover.png",
+      "note": "Subir los 5 PNGs de la dirección editorial Manu v3 en Buffer UI; imageUrl = cover de referencia."
+    },
+    {
+      "id": "talento-05-manu-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-04T15:00:00.000Z",
+      "status": "draft",
+      "text": "“Ser dev en Mar del Plata es… lo mejor del mundo.”\n\nManu Ponsa: 10 años de software (Mercado Libre → Decentraland), hoy all-in con sus dos productos desde la costa:\n\n📸 picsel.app — fotógrafos LATAM\n📊 blueprintdata.xyz — data foundations\n\nMar del Plata tiene talento tech.",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cards-x/manu-ponsa.png"
+    },
+    {
+      "id": "talento-05-manu-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-05T17:00:00.000Z",
+      "status": "draft",
+      "text": "“Ser dev en Mar del Plata es… lo mejor del mundo.”\n\nCuando Manu Ponsa completó esa frase en nuestro formulario, no era una expresión de deseo: era la conclusión de alguien que ya probó lo otro.\n\nDiez años de carrera: BI en Capgemini, Sr. Software Engineer en Mercado Libre, belo, Sr. Data Engineer en Decentraland. En diciembre cerró esa etapa para dedicarse por completo a lo suyo — y lo suyo se construye desde la costa:\n\n📸 Picsel (picsel.app) — la plataforma donde fotógrafos de LATAM venden su trabajo: búsqueda por rostro con IA, watermark automático y cobros internacionales vía Stripe. Fundada en Mar del Plata.\n\n📊 Blueprint Data (blueprintdata.xyz) — data foundations para equipos en crecimiento: métricas compartidas, modelos gobernados, tooling open source. Google Cloud Partner, con casos en fintech, venture y lending.\n\nEsta es la historia que queremos contar desde MarDelPlata.Dev.AR: el talento tech de la ciudad no es una promesa a futuro. Ya está acá, construyendo para toda la región.\n\n→ mardelplata.dev.ar\n\n#MarDelPlata #TalentoTech #TechArgentina",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/manu-ponsa/01-cover.png"
+    },
+    {
+      "id": "talento-06-cristian-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-07T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es un sueño hecho realidad hace 20 años\n\nHoy en Talento: Cristian Blanco, Emprendedor Tech.\n\nDe la primera pasantía en Macrofer al primer laburo para el exterior — y también sistemas que no despegaron. 20 años de camino construyendo.\n\nConstruye: HealthyFleet — gestión inteligente de mantenimientos en embarcaciones\n\nSumate — link en bio\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cristian-blanco/01-cover.png",
+      "note": "Subir carrousel 5 PNGs en Buffer UI; imageUrl=cover ref"
+    },
+    {
+      "id": "talento-06-cristian-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-07T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento → Cristian Blanco (Emprendedor Tech)\n\n“Un sueño hecho realidad hace 20 años”\n\nSerie en IG @mardelplata.dev.ar\n\n#MarDelPlata",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cards-x/cristian-blanco.png"
+    },
+    {
+      "id": "talento-07-emanuel-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-11T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es un desafío: muchas universidades, muchos egresados — y eso motiva a crear proyectos nuevos\n\nHoy en Talento: Emanuel, Fullstack.\n\nEn la UTN recursó casi todas las materias, incluyendo programación. Ahí se propuso ponerse las pilas — y nació INKODE.\n\nConstruye: INKODE — canvas infinito con editor de código para estudiar y explicar\n\nSumate — link en bio\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/emanuel/01-cover.png",
+      "note": "Subir carrousel 5 PNGs en Buffer UI; imageUrl=cover ref"
+    },
+    {
+      "id": "talento-07-emanuel-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-11T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento → Emanuel (Fullstack)\n\n“Un desafío: muchas universidades, muchos egresados — y eso motiva a crear proyectos nuevos”\n\nSerie en IG @mardelplata.dev.ar\n\n#MarDelPlata",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cards-x/emanuel.png"
+    },
+    {
+      "id": "talento-07-emanuel-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-12T17:00:00.000Z",
+      "status": "draft",
+      "text": "“Un desafío: muchas universidades, muchos egresados — y eso motiva a crear proyectos nuevos”\n\nEn la serie Talento presentamos a Emanuel (Fullstack).\n\nEn la UTN recursó casi todas las materias, incluyendo programación. Ahí se propuso ponerse las pilas — y nació INKODE.\n\nHoy: INKODE — canvas infinito con editor de código para estudiar y explicar\n\n→ mardelplata.dev.ar\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/emanuel/01-cover.png"
+    },
+    {
+      "id": "talento-08-axel-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-14T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es complicado — y por eso vale la pena\n\nHoy en Talento: Axel, Frontend · Full Stack · Data.\n\nPrograma desde los 15 (hoy tiene 19). Empezó con automatizaciones en Python, pasó por web/apps y ahora estudia ciencias de datos e IA en ISET.\n\nConstruye: Sistema de gestión para kioscos / drugstore (en construcción)\n\nSumate — link en bio\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/axel-castano/01-cover.png",
+      "note": "Subir carrousel 5 PNGs en Buffer UI; imageUrl=cover ref"
+    },
+    {
+      "id": "talento-08-axel-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-14T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento → Axel (Frontend · Full Stack · Data)\n\n“Complicado — y por eso vale la pena”\n\nSerie en IG @mardelplata.dev.ar\n\n#MarDelPlata",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cards-x/axel-castano.png"
+    },
+    {
+      "id": "talento-09-federico-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-18T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es bañarte en el mar con sol, lluvia y un arcoíris\n\nHoy en Talento: Federico, Emprendedor · Builder.\n\nEl día que prendió una 386 — y arrancó todo.\n\nConstruye: Gastuki.ai — fidelización agéntica para negocios de cercanía low-tech\n\nSumate — link en bio\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/federico-cayrol/01-cover.png",
+      "note": "Subir carrousel 5 PNGs en Buffer UI; imageUrl=cover ref"
+    },
+    {
+      "id": "talento-09-federico-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-18T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento → Federico (Emprendedor · Builder)\n\n“Bañarte en el mar con sol, lluvia y un arcoíris”\n\nSerie en IG @mardelplata.dev.ar\n\n#MarDelPlata",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cards-x/federico-cayrol.png"
+    },
+    {
+      "id": "talento-09-federico-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-19T17:00:00.000Z",
+      "status": "draft",
+      "text": "“Bañarte en el mar con sol, lluvia y un arcoíris”\n\nEn la serie Talento presentamos a Federico (Emprendedor · Builder).\n\nEl día que prendió una 386 — y arrancó todo.\n\nHoy: Gastuki.ai — fidelización agéntica para negocios de cercanía low-tech\n\n→ mardelplata.dev.ar\n\n#MarDelPlata #Talento",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/federico-cayrol/01-cover.png"
+    }
+  ]
+}
