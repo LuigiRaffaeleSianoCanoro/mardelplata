@@ -1,0 +1,213 @@
+{
+  "campaign": "talento-mdp-2026",
+  "status": "draft — NO publicar hasta OK",
+  "note": "Copiar a content-queue.json cambiando status a pending tras aprobación. Carrouseles IG: subir 5 slides en Buffer UI.",
+  "posts": [
+    {
+      "id": "talento-intro-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-28T13:00:00.000Z",
+      "status": "draft",
+      "text": "Arranca Talento MdP: historias reales de gente que construye tech desde la costa atlántica.\n\nDevs, builders, juniors, emprendedores. Nueve voces que se postularon para contarnos cómo se vive el oficio acá.\n\nEsta semana empezamos. Deslizá →\n\n#MdPDev #MarDelPlata #TalentoMdP"
+    },
+    {
+      "id": "talento-intro-x",
+      "channel": "x",
+      "scheduledAt": "2026-07-28T13:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP: historias de quien construye tech desde la costa.\n\nArrancamos la serie en IG @mardelplata.dev.ar\n\n#MdPDev"
+    },
+    {
+      "id": "talento-01-ian-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-28T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es escalar a la velocidad de la industria global… con la mente en la calma de la costa.\n\nHoy en Talento MdP: Ian Genta, Python Dev.\n\nPasó de seguir instrucciones a ser el máximo responsable de una solución integral. Aprendió a sostener el criterio cuando nada salía según el plan.\n\nAhora construye CoraSmart: gestión clínica con IA para consultorios.\n\nSi también estás construyendo desde la costa, este es tu lugar.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/ian-genta/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-01-ian-x",
+      "channel": "x",
+      "scheduledAt": "2026-07-28T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Ian Genta (Python Dev)\n\n“Escalar a la velocidad de la industria global con la mente en la calma de la costa.”\n\nConstruye CoraSmart desde MdP.\nSerie completa en IG @mardelplata.dev.ar\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/ian-genta/01-cover.png"
+    },
+    {
+      "id": "talento-01-ian-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-07-29T17:00:00.000Z",
+      "status": "draft",
+      "text": "Ser desarrollador en Mar del Plata es escalar a ritmo global sin soltar la calma de la costa.\n\nEn la serie Talento MdP presentamos a Ian Genta, Python Dev. Un proyecto de gran escala lo pasó de ejecutar instrucciones a ser responsable integral de la solución — incluyendo gestionar frustración, plazos y expectativas.\n\nHoy construye CoraSmart, un SaaS de gestión clínica con IA pensado para consultorios.\n\nEn MdPDev creemos que el talento de la costa atlántica merece visibilidad. Si querés sumarte a la comunidad:\n→ mardelplata.dev.ar\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/ian-genta/01-cover.png"
+    },
+    {
+      "id": "talento-02-aeterna-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-07-31T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser constructor social.\n\nHoy en Talento MdP: Aeterna, fullstack marplatense.\n\nUn hito: entrar a una startup chilena YC S21. La escala cambió para siempre.\n\nAhora construye SpectraLab — un medidor de coherencia de ondas de vibraciones.\nY sobre la comunidad local lo dice claro: la falta de red… “pero ya no más”.\n\nSi estás construyendo algo desde MdP, acá hay gente.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/aeterna/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-02-aeterna-x",
+      "channel": "x",
+      "scheduledAt": "2026-07-31T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Aeterna (fullstack)\n\nSer dev en MdP = ser constructor social.\n\nConstruye SpectraLab (spectralab.tech)\nSerie en IG @mardelplata.dev.ar\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/aeterna/01-cover.png"
+    },
+    {
+      "id": "talento-03-day-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-04T16:00:00.000Z",
+      "status": "draft",
+      "text": "Conectar el talento local con oportunidades globales… sin perder la esencia de nuestra ciudad.\n\nHoy en Talento MdP: Day. Soporte técnico, con un pie en QA y hardware.\n\nArrancó desarmando dispositivos por curiosidad. Hoy diagnostica el ciclo completo: de la electrónica al software.\n\nImpulsa Daloy Tech, servicio técnico integral para la comunidad — y también experimenta con tools digitales desde la música.\n\nSi laburás en tech desde MdP (o querés), hay red.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/day-aloy/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-03-day-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-04T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Day (soporte · QA & hardware)\n\nDe desarmar dispositivos a diagnosticar el ciclo completo.\nAhora: Daloy Tech, desde Mar del Plata.\n\nIG @mardelplata.dev.ar\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/day-aloy/01-cover.png"
+    },
+    {
+      "id": "talento-03-day-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-05T17:00:00.000Z",
+      "status": "draft",
+      "text": "Hay mucho talento técnico en Mar del Plata que todavía no está conectado con las oportunidades que necesita.\n\nDay lo vive desde el soporte técnico, con mirada en QA y hardware: entiende el ciclo completo, de la electrónica al software. Impulsa Daloy Tech para dar soluciones concretas a la comunidad local.\n\nEn MdPDev queremos que esas historias se vean — y que la red local facilite el salto sin tener que dejar la ciudad.\n\n→ mardelplata.dev.ar\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/day-aloy/01-cover.png"
+    },
+    {
+      "id": "talento-04-uriel-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-07T16:00:00.000Z",
+      "status": "draft",
+      "text": "Convertir cada barrera de comunicación en una línea de código.\n\nHoy en Talento MdP: Uriel Lema, fullstack. Estudiante de Análisis de Sistemas en MdP.\n\nSu discapacidad auditiva lo empujó a ser más metódico y claro al escribir código y documentación. El primer freelance se lo confirmó: la comunicación escrita era su ventaja.\n\nEstá planificando una herramienta de accesibilidad y comunicación — tecnología para resolver barreras del día a día.\n\nEn MdPDev creemos en una comunidad inclusiva de verdad.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/uriel-lema/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-04-uriel-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-07T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Uriel Lema (fullstack)\n\nClaridad en el código. Accesibilidad como brújula.\nConstruyendo herramientas de comunicación desde MdP.\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/uriel-lema/01-cover.png"
+    },
+    {
+      "id": "talento-05-manu-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-11T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es… lo mejor del mundo.\n\nHoy en Talento MdP: Manu. Software & Data Engineer. Se mudó a la costa y se quedó.\n\nUn momento: laburar en Mercado Libre. Después, construir.\n\nHoy: Picsel (plataforma para fotógrafos latinoamericanos) y Blueprint Data (plataformas de datos end-to-end).\n\nSi llegaste a MdP a construir — o te quedaste porque acá se puede — esta serie es para vos.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/manu-ponsa/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-05-manu-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-11T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Manu (Software & Data)\n\nSe mudó a la costa. Construye Picsel + Blueprint Data.\n“Ser dev en Mar del Plata es lo mejor del mundo.”\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/manu-ponsa/01-cover.png"
+    },
+    {
+      "id": "talento-05-manu-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-12T17:00:00.000Z",
+      "status": "draft",
+      "text": "No todos los que construyen el ecosistema tech de Mar del Plata nacieron acá. Algunos eligieron la costa.\n\nManu — Software & Data Engineer — se mudó a MdP y lo resume sin vueltas: “ser dev en Mar del Plata es lo mejor del mundo”. Pasó por Mercado Libre y hoy construye Picsel (para fotógrafos LATAM) y Blueprint Data (plataformas de datos end-to-end).\n\nEn MdPDev conectamos a quienes eligen construir desde acá.\n\n→ mardelplata.dev.ar\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/manu-ponsa/01-cover.png"
+    },
+    {
+      "id": "talento-06-cristian-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-14T16:00:00.000Z",
+      "status": "draft",
+      "text": "Un sueño hecho realidad… hace 20 años.\n\nHoy en Talento MdP: Cristian Blanco, emprendedor tech marplatense.\n\nPrimera pasantía. Primer laburo en una multi. Primer proyecto para el exterior. Y también sistemas que no despegaron — parte del camino.\n\nAhora: HealthyFleet, gestión inteligente de mantenimientos en embarcaciones.\n\nNunca terminás de aprender. Desde la costa, se construye.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cristian-blanco/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-06-cristian-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-14T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Cristian Blanco\n\n20 años construyendo tech desde MdP.\nAhora: HealthyFleet — mantenimiento inteligente para embarcaciones.\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/cristian-blanco/01-cover.png"
+    },
+    {
+      "id": "talento-07-emanuel-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-18T16:00:00.000Z",
+      "status": "draft",
+      "text": "Muchas universidades. Muchos egresados. Eso no es solo competencia: también es combustible.\n\nHoy en Talento MdP: Emanuel, fullstack.\n\nEn la UTN recursó casi todas las materias — incluida programación. Ahí se propuso ponerse las pilas. De ese momento nació INKODE: un canvas infinito con editor de código para anotar, explicar y enseñar sin “manchar” el código.\n\nHecho por y para estudiantes, profes y devs.\n\nSi estás arrancando (o re-arrancando), hay comunidad.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/emanuel/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-07-emanuel-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-18T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Emanuel (fullstack)\n\nDe recursar en la UTN a construir INKODE: canvas + código para estudiar y enseñar.\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/emanuel/01-cover.png"
+    },
+    {
+      "id": "talento-07-emanuel-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-19T17:00:00.000Z",
+      "status": "draft",
+      "text": "A veces el momento que marca el camino no es un éxito: es un tropiezo.\n\nEmanuel, fullstack marplatense, recursó casi todas las materias en la UTN — incluida programación. Ese punto de inflexión lo llevó a construir INKODE: un canvas infinito con editor de código pensado para estudiar, anotar y explicar sin ensuciar el código.\n\nEs el tipo de herramienta que nace cuando el aprendizaje duele… y se transforma en producto.\n\n→ mardelplata.dev.ar\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/emanuel/01-cover.png"
+    },
+    {
+      "id": "talento-08-axel-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-21T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es complicado. Y por eso vale la pena.\n\nHoy en Talento MdP: Axel. Frontend, fullstack, Python, datos. Programa desde los 15 — hoy tiene 19.\n\nAutomatizaciones → web → datos e IA (ISET). Sueña con remoto y conocer mundo. Lo que más le cuesta: encontrar la primera oportunidad local sin mudarse a Capital.\n\nEstá armando un sistema de gestión para kioscos / drugstore. Quiere feedback de gente con más cancha.\n\nSi tu equipo busca junior con hambre de aprender — o si sos junior y necesitás red:\nSumate — link en bio · mirá también la bolsa\n\n#MdPDev #MarDelPlata #TalentoMdP #PrimerTrabajo",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/axel-castano/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-08-axel-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-21T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Axel (19, frontend/data)\n\nPrograma desde los 15. Busca su primera oportunidad sin dejar MdP.\nSerie en IG @mardelplata.dev.ar\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/axel-castano/01-cover.png"
+    },
+    {
+      "id": "talento-09-federico-ig",
+      "channel": "instagram",
+      "scheduledAt": "2026-08-25T16:00:00.000Z",
+      "status": "draft",
+      "text": "Ser dev en Mar del Plata es bañarte en el mar con sol, lluvia y un arcoíris.\n\nHoy en Talento MdP: Federico.\n\nEl momento que lo marcó: el día que prendió una 386. De ahí para adelante, todos los sectores que tocás cuando laburás en tech.\n\nAhora construye Gastuki.ai — fidelización agéntica para negocios de cercanía low-tech.\n\nBuilders de la costa: esta serie es para ustedes.\nSumate — link en bio\n\n#MdPDev #MarDelPlata #TalentoMdP",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/federico-cayrol/01-cover.png",
+      "note": "Subir carrousel completo (5 PNGs) manualmente en Buffer/Meta; imageUrl es cover de referencia"
+    },
+    {
+      "id": "talento-09-federico-x",
+      "channel": "x",
+      "scheduledAt": "2026-08-25T15:00:00.000Z",
+      "status": "draft",
+      "text": "Talento MdP → Federico\n\nDel 386 a Gastuki.ai: fidelización agéntica para negocios de cercanía.\nDesde Mar del Plata.\n\n#MdPDev",
+      "imageUrl": "https://mardelplata.dev.ar/campaigns/talento-mdp-2026/federico-cayrol/01-cover.png"
+    },
+    {
+      "id": "talento-cierre-li",
+      "channel": "linkedin",
+      "scheduledAt": "2026-08-26T17:00:00.000Z",
+      "status": "draft",
+      "text": "Cerramos la primera tanda de Talento MdP: nueve historias de quien construye tecnología desde Mar del Plata y la costa atlántica.\n\nDevs, juniors, emprendedores, soporte, data. Distintos caminos, misma ciudad.\n\nSi te viste reflejado — o querés que tu historia sea la próxima — sumate a la comunidad MdPDev.\n→ mardelplata.dev.ar\n→ WhatsApp: https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs\n\n#MdPDev #MarDelPlata #TalentoMdP"
+    }
+  ]
+}
