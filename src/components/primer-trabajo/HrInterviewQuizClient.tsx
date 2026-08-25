@@ -135,6 +135,8 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
   }, [savedResult]);
 
   const showSpokenModels = Boolean(current?.spokenModels && selected[current.id]);
+  const selectedOption = current ? current.options.find((o) => o.id === selected[current.id]) : undefined;
+  const showWrongFeedback = Boolean(selectedOption && !selectedOption.isIdeal);
 
   if (!hydrated) {
     return (
@@ -202,16 +204,16 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
                       <span className="font-medium">{t.rewrite}</span> {opt.rewriteHint}
                     </p>
                     {item.spokenModels ? (
-                      <div className="mt-3 space-y-2 rounded-xl border border-amber-200/60 bg-white/60 p-3">
-                        <p className="text-xs font-semibold uppercase tracking-wide text-amber-900">{t.spokenTitle}</p>
-                        <p>
-                          <span className="font-semibold">{t.levelA2}:</span> {item.spokenModels.a2}
+                      <div className="mt-3 space-y-2 rounded-xl border border-amber-300 bg-white p-3">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-amber-950">{t.spokenTitle}</p>
+                        <p className="text-slate-900 leading-relaxed">
+                          <span className="font-semibold text-ocean-800">{t.levelA2}:</span> {item.spokenModels.a2}
                         </p>
-                        <p>
-                          <span className="font-semibold">{t.levelB1}:</span> {item.spokenModels.b1}
+                        <p className="text-slate-900 leading-relaxed">
+                          <span className="font-semibold text-ocean-800">{t.levelB1}:</span> {item.spokenModels.b1}
                         </p>
-                        <p>
-                          <span className="font-semibold">{t.levelB2}:</span> {item.spokenModels.b2}
+                        <p className="text-slate-900 leading-relaxed">
+                          <span className="font-semibold text-ocean-800">{t.levelB2}:</span> {item.spokenModels.b2}
                         </p>
                       </div>
                     ) : null}
@@ -284,23 +286,34 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
             })}
           </ul>
 
+          {showWrongFeedback && selectedOption ? (
+            <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 space-y-2">
+              <p className="leading-relaxed">{selectedOption.whyWrong}</p>
+              {selectedOption.rewriteHint ? (
+                <p className="leading-relaxed">
+                  <span className="font-semibold">{t.rewrite}</span> {selectedOption.rewriteHint}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
           {showSpokenModels && current.spokenModels ? (
-            <div className="mt-6 rounded-xl border border-ocean-200 bg-ocean-50/60 p-4 space-y-3 text-sm text-ocean-950">
+            <div className="mt-6 rounded-xl border border-ocean-300 bg-white p-4 space-y-3 text-sm">
               <p className="font-semibold text-ocean-900">{t.spokenTitle}</p>
-              <p>
-                <span className="inline-flex items-center rounded-full bg-ocean-200/80 px-2 py-0.5 text-xs font-bold text-ocean-900 mr-2">
+              <p className="text-slate-900 leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-ocean-100 px-2.5 py-0.5 text-xs font-bold text-ocean-900 mr-2 align-middle">
                   {t.levelA2}
                 </span>
                 {current.spokenModels.a2}
               </p>
-              <p>
-                <span className="inline-flex items-center rounded-full bg-ocean-300/80 px-2 py-0.5 text-xs font-bold text-ocean-900 mr-2">
+              <p className="text-slate-900 leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-ocean-200 px-2.5 py-0.5 text-xs font-bold text-ocean-950 mr-2 align-middle">
                   {t.levelB1}
                 </span>
                 {current.spokenModels.b1}
               </p>
-              <p>
-                <span className="inline-flex items-center rounded-full bg-ocean-500/90 px-2 py-0.5 text-xs font-bold text-white mr-2">
+              <p className="text-slate-900 leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-ocean-600 px-2.5 py-0.5 text-xs font-bold text-white mr-2 align-middle">
                   {t.levelB2}
                 </span>
                 {current.spokenModels.b2}
