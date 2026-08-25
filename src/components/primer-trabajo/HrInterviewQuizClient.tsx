@@ -2,33 +2,112 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import hrQuizData from "@/content/primer-trabajo/hr-interview-quiz.json";
+import hrQuizDataEs from "@/content/primer-trabajo/hr-interview-quiz.json";
+import hrQuizDataEn from "@/content/primer-trabajo/hr-interview-quiz-en.json";
 import type { HrQuizBundle } from "@/lib/primer-trabajo/hr-quiz";
 import { scoreHrQuiz } from "@/lib/primer-trabajo/hr-quiz";
 import { usePrimerTrabajoPersist } from "@/lib/primer-trabajo/persist";
 
-const bundle = hrQuizData as HrQuizBundle;
+const COPY = {
+  es: {
+    loading: "Cargando…",
+    summaryTitle: "Resultado simulador Recursos Humanos",
+    summaryBlurb:
+      "Este puntaje se fusiona con la señal \"Respuestas de Recursos Humanos / screening\" cuando completás el",
+    diagnostic: "diagnóstico",
+    summaryBlurbEnd: "o si ya lo tenías guardado, se actualizó al terminar este quiz.",
+    completed: "Completado:",
+    restart: "Repetir simulador",
+    goDiagnostic: "Ir al diagnóstico",
+    backHome: "Volver al inicio",
+    reviewTitle: "Repasá estas respuestas",
+    chose: "Elegiste:",
+    rewrite: "Rewrite:",
+    practiceIntro: "Para práctica con otra persona:",
+    question: "Pregunta",
+    back: "Atrás",
+    finish: "Ver resultado",
+    next: "Siguiente",
+    spokenTitle: "Modelos hablados (compará niveles)",
+    levelA2: "A2",
+    levelB1: "B1",
+    levelB2: "B2",
+  },
+  en: {
+    loading: "Loading…",
+    summaryTitle: "HR interview simulator — results",
+    summaryBlurb:
+      "This score feeds the \"HR / screening responses\" signal when you complete the",
+    diagnostic: "diagnostic",
+    summaryBlurbEnd: "or, if you already had one saved, it was updated when you finished this quiz.",
+    completed: "Completed:",
+    restart: "Retake simulator",
+    goDiagnostic: "Go to diagnostic",
+    backHome: "Back to hub",
+    reviewTitle: "Review these answers",
+    chose: "You chose:",
+    rewrite: "Rewrite:",
+    practiceIntro: "For live practice with someone else:",
+    question: "Question",
+    back: "Back",
+    finish: "See results",
+    next: "Next",
+    spokenTitle: "Spoken answer models (compare levels)",
+    levelA2: "A2",
+    levelB1: "B1",
+    levelB2: "B2",
+  },
+} as const;
 
-export default function HrInterviewQuizClient() {
-  const { hydrated, hrQuizResult, saveHrQuiz, clearHrQuiz } = usePrimerTrabajoPersist();
+export type HrQuizVariant = keyof typeof COPY;
+
+type Props = {
+  variant?: HrQuizVariant;
+  bundle?: HrQuizBundle;
+};
+
+const DEFAULT_BUNDLES: Record<HrQuizVariant, HrQuizBundle> = {
+  es: hrQuizDataEs as HrQuizBundle,
+  en: hrQuizDataEn as HrQuizBundle,
+};
+
+export default function HrInterviewQuizClient({ variant = "es", bundle }: Props) {
+  const quizBundle = bundle ?? DEFAULT_BUNDLES[variant];
+  const t = COPY[variant];
+  const locale = variant === "en" ? "en-US" : "es-AR";
+
+  const {
+    hydrated,
+    hrQuizResult,
+    hrQuizEnResult,
+    saveHrQuiz,
+    saveHrQuizEn,
+    clearHrQuiz,
+    clearHrQuizEn,
+  } = usePrimerTrabajoPersist();
+
+  const savedResult = variant === "en" ? hrQuizEnResult : hrQuizResult;
+  const saveResult = variant === "en" ? saveHrQuizEn : saveHrQuiz;
+  const clearResult = variant === "en" ? clearHrQuizEn : clearHrQuiz;
+
   const [mode, setMode] = useState<"quiz" | "summary">("quiz");
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<Record<string, string>>({});
 
-  const items = bundle.items;
+  const items = quizBundle.items;
   const total = items.length;
   const current = items[index];
 
   useEffect(() => {
     if (!hydrated) return;
-    if (hrQuizResult) setMode("summary");
-  }, [hydrated, hrQuizResult]);
+    if (savedResult) setMode("summary");
+  }, [hydrated, savedResult]);
 
   const progress = total === 0 ? 0 : Math.round(((index + (selected[current?.id ?? ""] ? 1 : 0)) / total) * 100);
 
   const finish = () => {
-    const result = scoreHrQuiz(bundle, selected);
-    saveHrQuiz(result);
+    const result = scoreHrQuiz(quizBundle, selected);
+    saveResult(result);
     setMode("summary");
   };
 
@@ -44,39 +123,44 @@ export default function HrInterviewQuizClient() {
   const back = () => setIndex((i) => Math.max(0, i - 1));
 
   const restart = () => {
-    clearHrQuiz();
+    clearResult();
     setSelected({});
     setIndex(0);
     setMode("quiz");
   };
 
   const wrongPicks = useMemo(() => {
-    if (!hrQuizResult) return [];
-    return hrQuizResult.answers.filter((a) => !a.ideal);
-  }, [hrQuizResult]);
+    if (!savedResult) return [];
+    return savedResult.answers.filter((a) => !a.ideal);
+  }, [savedResult]);
+
+  const showSpokenModels = Boolean(current?.spokenModels && selected[current.id]);
+  const selectedOption = current ? current.options.find((o) => o.id === selected[current.id]) : undefined;
+  const showWrongFeedback = Boolean(selectedOption && !selectedOption.isIdeal);
 
   if (!hydrated) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-600 shadow-sm">Cargando…</div>
+      <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-600 shadow-sm">{t.loading}</div>
     );
   }
 
-  if (mode === "summary" && hrQuizResult) {
+  if (mode === "summary" && savedResult) {
     return (
       <div className="space-y-8 fade-up">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm space-y-4">
-          <h2 className="font-display font-bold text-xl text-ocean-900">Resultado simulador Recursos Humanos</h2>
-          <p className="text-3xl font-bold text-ocean-600">{hrQuizResult.score}%</p>
+          <h2 className="font-display font-bold text-xl text-ocean-900">{t.summaryTitle}</h2>
+          <p className="text-3xl font-bold text-ocean-600">{savedResult.score}%</p>
           <p className="text-sm text-slate-600 leading-relaxed">
-            Este puntaje se fusiona con la señal &quot;Respuestas de Recursos Humanos / screening&quot; cuando completás el{" "}
+            {t.summaryBlurb}{" "}
             <Link href="/primer-trabajo/diagnostico" className="text-ocean-700 font-semibold underline">
-              diagnóstico
+              {t.diagnostic}
             </Link>
-            {` `}o si ya lo tenías guardado, se actualizó al terminar este quiz.
+            {` `}
+            {t.summaryBlurbEnd}
           </p>
           <p className="text-xs text-slate-500">
-            Completado:{" "}
-            {new Date(hrQuizResult.completedAt).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" })}
+            {t.completed}{" "}
+            {new Date(savedResult.completedAt).toLocaleString(locale, { dateStyle: "short", timeStyle: "short" })}
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <button
@@ -84,41 +168,55 @@ export default function HrInterviewQuizClient() {
               onClick={restart}
               className="rounded-full border border-ocean-500 text-ocean-700 px-5 py-2.5 text-sm font-semibold hover:bg-ocean-50"
             >
-              Repetir simulador
+              {t.restart}
             </button>
             <Link
               href="/primer-trabajo/diagnostico"
               className="inline-flex items-center justify-center rounded-full bg-ocean-500 text-white px-6 py-2.5 text-sm font-semibold hover:bg-ocean-600"
             >
-              Ir al diagnóstico
+              {t.goDiagnostic}
             </Link>
             <Link
               href="/primer-trabajo"
               className="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
             >
-              Volver al inicio
+              {t.backHome}
             </Link>
           </div>
         </div>
 
         {wrongPicks.length > 0 && (
           <div className="rounded-2xl border border-amber-200 bg-amber-50/80 p-6 shadow-sm space-y-4">
-            <h3 className="font-display font-bold text-lg text-amber-950">Repasá estas respuestas</h3>
+            <h3 className="font-display font-bold text-lg text-amber-950">{t.reviewTitle}</h3>
             <ul className="space-y-4 text-sm text-amber-950/95">
               {wrongPicks.map((a) => {
-                const item = bundle.items.find((i) => i.id === a.questionId);
+                const item = quizBundle.items.find((i) => i.id === a.questionId);
                 const opt = item?.options.find((o) => o.id === a.optionId);
                 if (!item || !opt) return null;
                 return (
                   <li key={a.questionId} className="border-t border-amber-200/80 pt-4 first:border-t-0 first:pt-0">
                     <p className="font-semibold text-amber-950 mb-1">{item.prompt}</p>
                     <p className="text-amber-900/90 mb-2">
-                      <span className="font-medium">Elegiste:</span> {opt.label}
+                      <span className="font-medium">{t.chose}</span> {opt.label}
                     </p>
                     <p className="text-amber-900/85 mb-1">{opt.whyWrong}</p>
                     <p className="text-amber-950">
-                      <span className="font-medium">Rewrite:</span> {opt.rewriteHint}
+                      <span className="font-medium">{t.rewrite}</span> {opt.rewriteHint}
                     </p>
+                    {item.spokenModels ? (
+                      <div className="mt-3 space-y-2 rounded-xl border border-amber-300 bg-white p-3">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-amber-950">{t.spokenTitle}</p>
+                        <p className="text-slate-900 leading-relaxed">
+                          <span className="font-semibold text-ocean-800">{t.levelA2}:</span> {item.spokenModels.a2}
+                        </p>
+                        <p className="text-slate-900 leading-relaxed">
+                          <span className="font-semibold text-ocean-800">{t.levelB1}:</span> {item.spokenModels.b1}
+                        </p>
+                        <p className="text-slate-900 leading-relaxed">
+                          <span className="font-semibold text-ocean-800">{t.levelB2}:</span> {item.spokenModels.b2}
+                        </p>
+                      </div>
+                    ) : null}
                   </li>
                 );
               })}
@@ -127,7 +225,7 @@ export default function HrInterviewQuizClient() {
         )}
 
         <p className="text-sm text-slate-600 text-center">
-          Para práctica con otra persona:{" "}
+          {t.practiceIntro}{" "}
           <a href="https://www.pramp.com/" className="text-ocean-700 font-medium underline" target="_blank" rel="noopener noreferrer">
             Pramp
           </a>
@@ -153,12 +251,15 @@ export default function HrInterviewQuizClient() {
           <div className="mb-6">
             <div className="flex justify-between text-xs font-medium text-slate-500 mb-2">
               <span>
-                Pregunta {index + 1} / {total}
+                {t.question} {index + 1} / {total}
               </span>
               <span>{progress}%</span>
             </div>
             <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
-              <div className="h-full w-full bg-ocean-500 origin-left transition-transform duration-300 rounded-full" style={{ transform: `scaleX(${Math.min(1, (index + 1) / total)})` }} />
+              <div
+                className="h-full w-full bg-ocean-500 origin-left transition-transform duration-300 rounded-full"
+                style={{ transform: `scaleX(${Math.min(1, (index + 1) / total)})` }}
+              />
             </div>
           </div>
 
@@ -185,6 +286,42 @@ export default function HrInterviewQuizClient() {
             })}
           </ul>
 
+          {showWrongFeedback && selectedOption ? (
+            <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 space-y-2">
+              <p className="leading-relaxed">{selectedOption.whyWrong}</p>
+              {selectedOption.rewriteHint ? (
+                <p className="leading-relaxed">
+                  <span className="font-semibold">{t.rewrite}</span> {selectedOption.rewriteHint}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
+          {showSpokenModels && current.spokenModels ? (
+            <div className="mt-6 rounded-xl border border-ocean-300 bg-white p-4 space-y-3 text-sm">
+              <p className="font-semibold text-ocean-900">{t.spokenTitle}</p>
+              <p className="text-slate-900 leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-ocean-100 px-2.5 py-0.5 text-xs font-bold text-ocean-900 mr-2 align-middle">
+                  {t.levelA2}
+                </span>
+                {current.spokenModels.a2}
+              </p>
+              <p className="text-slate-900 leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-ocean-200 px-2.5 py-0.5 text-xs font-bold text-ocean-950 mr-2 align-middle">
+                  {t.levelB1}
+                </span>
+                {current.spokenModels.b1}
+              </p>
+              <p className="text-slate-900 leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-ocean-600 px-2.5 py-0.5 text-xs font-bold text-white mr-2 align-middle">
+                  {t.levelB2}
+                </span>
+                {current.spokenModels.b2}
+              </p>
+            </div>
+          ) : null}
+
+
           <div className="mt-8 flex flex-wrap gap-3">
             <button
               type="button"
@@ -192,7 +329,7 @@ export default function HrInterviewQuizClient() {
               disabled={index === 0}
               className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 disabled:opacity-40 hover:bg-slate-50"
             >
-              Atrás
+              {t.back}
             </button>
             <button
               type="button"
@@ -200,7 +337,7 @@ export default function HrInterviewQuizClient() {
               disabled={!selected[current.id]}
               className="rounded-full bg-ocean-500 text-white px-6 py-2.5 text-sm font-semibold disabled:opacity-40 hover:bg-ocean-600"
             >
-              {index + 1 >= total ? "Ver resultado" : "Siguiente"}
+              {index + 1 >= total ? t.finish : t.next}
             </button>
           </div>
         </>

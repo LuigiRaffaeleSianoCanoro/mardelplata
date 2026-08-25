@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { runDiagnostic } from "./engine";
+import { pickInterviewReadinessScore } from "./hr-quiz";
 import type { DiagnosticResult, HrQuizResult, PrimerTrabajoPersisted } from "./types";
 
 const STORAGE_KEY = "mdpdev-primer-trabajo-v1";
@@ -20,6 +21,7 @@ function read(): PrimerTrabajoPersisted {
       diagnosticResult: parsed.diagnosticResult,
       checklistCheckedIds: Array.isArray(parsed.checklistCheckedIds) ? parsed.checklistCheckedIds : [],
       hrQuizResult: parsed.hrQuizResult,
+      hrQuizEnResult: parsed.hrQuizEnResult,
     };
   } catch {
     return { schemaVersion: 1, checklistCheckedIds: [] };
@@ -35,12 +37,14 @@ export function usePrimerTrabajoPersist() {
   const [diagnosticResult, setDiagnosticResult] = useState<DiagnosticResult | undefined>(undefined);
   const [checklistCheckedIds, setChecklistCheckedIds] = useState<string[]>([]);
   const [hrQuizResult, setHrQuizResult] = useState<HrQuizResult | undefined>(undefined);
+  const [hrQuizEnResult, setHrQuizEnResult] = useState<HrQuizResult | undefined>(undefined);
 
   useEffect(() => {
     const p = read();
     setDiagnosticResult(p.diagnosticResult);
     setChecklistCheckedIds(p.checklistCheckedIds);
     setHrQuizResult(p.hrQuizResult);
+    setHrQuizEnResult(p.hrQuizEnResult);
     setHydrated(true);
   }, []);
 
@@ -52,6 +56,7 @@ export function usePrimerTrabajoPersist() {
       diagnosticResult: result,
       checklistCheckedIds: p.checklistCheckedIds,
       hrQuizResult: p.hrQuizResult,
+      hrQuizEnResult: p.hrQuizEnResult,
     });
   }, []);
 
@@ -68,6 +73,24 @@ export function usePrimerTrabajoPersist() {
       diagnosticResult: nextDiagnostic,
       checklistCheckedIds: p.checklistCheckedIds,
       hrQuizResult: quiz,
+      hrQuizEnResult: p.hrQuizEnResult,
+    });
+  }, []);
+
+  const saveHrQuizEn = useCallback((quiz: HrQuizResult) => {
+    setHrQuizEnResult(quiz);
+    const p = read();
+    let nextDiagnostic = p.diagnosticResult;
+    if (p.diagnosticResult?.answers) {
+      nextDiagnostic = runDiagnostic(p.diagnosticResult.answers, { interviewReadinessScore: quiz.score });
+      setDiagnosticResult(nextDiagnostic);
+    }
+    write({
+      schemaVersion: 1,
+      diagnosticResult: nextDiagnostic,
+      checklistCheckedIds: p.checklistCheckedIds,
+      hrQuizResult: p.hrQuizResult,
+      hrQuizEnResult: quiz,
     });
   }, []);
 
@@ -76,13 +99,34 @@ export function usePrimerTrabajoPersist() {
     const p = read();
     let nextDiagnostic = p.diagnosticResult;
     if (p.diagnosticResult?.answers) {
-      nextDiagnostic = runDiagnostic(p.diagnosticResult.answers);
+      nextDiagnostic = runDiagnostic(p.diagnosticResult.answers, {
+        interviewReadinessScore: p.hrQuizEnResult?.score,
+      });
       setDiagnosticResult(nextDiagnostic);
     }
     write({
       schemaVersion: 1,
       diagnosticResult: nextDiagnostic,
       checklistCheckedIds: p.checklistCheckedIds,
+      hrQuizEnResult: p.hrQuizEnResult,
+    });
+  }, []);
+
+  const clearHrQuizEn = useCallback(() => {
+    setHrQuizEnResult(undefined);
+    const p = read();
+    let nextDiagnostic = p.diagnosticResult;
+    if (p.diagnosticResult?.answers) {
+      nextDiagnostic = runDiagnostic(p.diagnosticResult.answers, {
+        interviewReadinessScore: p.hrQuizResult?.score,
+      });
+      setDiagnosticResult(nextDiagnostic);
+    }
+    write({
+      schemaVersion: 1,
+      diagnosticResult: nextDiagnostic,
+      checklistCheckedIds: p.checklistCheckedIds,
+      hrQuizResult: p.hrQuizResult,
     });
   }, []);
 
@@ -95,6 +139,7 @@ export function usePrimerTrabajoPersist() {
         diagnosticResult: p.diagnosticResult,
         checklistCheckedIds: next,
         hrQuizResult: p.hrQuizResult,
+        hrQuizEnResult: p.hrQuizEnResult,
       });
       return next;
     });
@@ -108,6 +153,7 @@ export function usePrimerTrabajoPersist() {
       diagnosticResult: p.diagnosticResult,
       checklistCheckedIds: ids,
       hrQuizResult: p.hrQuizResult,
+      hrQuizEnResult: p.hrQuizEnResult,
     });
   }, []);
 
@@ -116,9 +162,13 @@ export function usePrimerTrabajoPersist() {
     diagnosticResult,
     checklistCheckedIds,
     hrQuizResult,
+    hrQuizEnResult,
+    interviewReadinessScore: pickInterviewReadinessScore(hrQuizResult, hrQuizEnResult),
     saveDiagnostic,
     saveHrQuiz,
+    saveHrQuizEn,
     clearHrQuiz,
+    clearHrQuizEn,
     toggleChecklistItem,
     setCheckedIds,
   };

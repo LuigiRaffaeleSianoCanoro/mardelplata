@@ -57,6 +57,7 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: "/primer-trabajo/plan", changeFrequency: "monthly", priority: 0.5 },
   { path: "/primer-trabajo/empresas", changeFrequency: "monthly", priority: 0.5 },
   { path: "/primer-trabajo/entrevista-hr", changeFrequency: "monthly", priority: 0.5 },
+  { path: "/primer-trabajo/entrevista-hr-en", changeFrequency: "monthly", priority: 0.5 },
   { path: "/primer-trabajo/guia/cv", changeFrequency: "monthly", priority: 0.5 },
   { path: "/primer-trabajo/guia/linkedin", changeFrequency: "monthly", priority: 0.5 },
   { path: "/reglamento", changeFrequency: "yearly", priority: 0.3 },

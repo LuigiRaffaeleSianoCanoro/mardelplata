@@ -99,4 +99,5 @@ export interface PrimerTrabajoPersisted {
   diagnosticResult?: DiagnosticResult;
   checklistCheckedIds: string[];
   hrQuizResult?: HrQuizResult;
+  hrQuizEnResult?: HrQuizResult;
 }
