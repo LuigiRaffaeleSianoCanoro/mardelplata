@@ -8,14 +8,29 @@ export interface HrQuizOption {
   rewriteHint: string;
 }
 
+export interface HrQuizSpokenModels {
+  a2: string;
+  b1: string;
+  b2: string;
+}
+
 export interface HrQuizItem {
   id: string;
   prompt: string;
   options: HrQuizOption[];
+  spokenModels?: HrQuizSpokenModels;
 }
 
 export interface HrQuizBundle {
   items: HrQuizItem[];
+}
+
+/** Picks the interview-readiness score from the most recently completed HR quiz (ES or EN). */
+export function pickInterviewReadinessScore(es?: HrQuizResult, en?: HrQuizResult): number | undefined {
+  if (!es && !en) return undefined;
+  if (!es) return en!.score;
+  if (!en) return es.score;
+  return new Date(en.completedAt) > new Date(es.completedAt) ? en.score : es.score;
 }
 
 export function scoreHrQuiz(bundle: HrQuizBundle, selectedByQuestionId: Record<string, string>): HrQuizResult {

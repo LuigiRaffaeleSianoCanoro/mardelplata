@@ -1,0 +1,304 @@
+{
+  "items": [
+    {
+      "id": "en_about",
+      "prompt": "Tell me a bit about yourself and your background in tech.",
+      "options": [
+        {
+          "id": "a",
+          "label": "I'm a developer. I like computers and coding.",
+          "isIdeal": false,
+          "whyWrong": "Too vague and generic; doesn't show what you've built or what you're aiming for.",
+          "rewriteHint": "Role + what you studied or built + stack + what kind of team you want to join."
+        },
+        {
+          "id": "b",
+          "label": "I'm a junior developer who studied web development and built projects with HTML, CSS, and JavaScript. I want to join a team where I can keep learning and contribute.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "Hi! I am a junior developer. I like coding and solving problems. I studied web development and I built projects using HTML, CSS, and JavaScript. I want to work in a team where I can learn and help.",
+        "b1": "Hello! I've always been interested in technology, so I decided to transition into software development. Recently, I worked on several hands-on projects, where I built responsive web pages using JavaScript and React. I'm excited to bring my energy and skills to a collaborative team.",
+        "b2": "Hi there! I've always been driven by curiosity and logical problem-solving, which led me to pivot into tech. Over the past months, I've gained hands-on experience building scalable web applications with modern JavaScript. I thrive in fast-paced environments and I'm eager to contribute my technical foundation to a forward-thinking team."
+      }
+    },
+    {
+      "id": "en_motivation",
+      "prompt": "Why do you want to work in this industry/company?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Because I need a job and you're hiring.",
+          "isIdeal": false,
+          "whyWrong": "Sounds generic and self-centered; doesn't show you researched the company.",
+          "rewriteHint": "One sentence about what they do + a concrete stack or product + how your project or goal fits."
+        },
+        {
+          "id": "b",
+          "label": "I've been following your company and I admire how you build [product type] while focusing on [company value]. Working in an environment that supports junior growth is my priority.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "I like [Company Name] because you make [product type]. I want to work here to learn, grow as a [your role], and help the team.",
+        "b1": "I've been following [Company Name] for a time, and I admire how you build [product type] while focusing on [company value]. Working in an environment that supports junior growth is my priority.",
+        "b2": "I've been tracking [Company Name] and I'm really inspired by how you scale [product type] while prioritizing [company value]. As a developer eager to expand my impact, joining an innovative team like yours is an ideal step for me."
+      }
+    },
+    {
+      "id": "en_challenge",
+      "prompt": "Tell me about a time when you faced a difficult challenge while coding. How did you handle it?",
+      "options": [
+        {
+          "id": "a",
+          "label": "I never really had big problems — if something broke I usually just restarted.",
+          "isIdeal": false,
+          "whyWrong": "No STAR story; sounds like you give up instead of debugging methodically.",
+          "rewriteHint": "Specific bug + what you tried (docs, break down, search) + what you learned."
+        },
+        {
+          "id": "b",
+          "label": "During my last project I spent hours on a bug related to [technical issue]. I broke the problem down, reviewed documentation, and searched online until I fixed it — it taught me methodical debugging.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "In my project, I had a bug with [technical issue]. I did not stop. I checked the code, looked at documentation, and found the solution. It helped me learn how to debug better.",
+        "b1": "During my last project, I spent hours trying to fix a bug related to [technical issue]. Instead of getting stuck, I broke the problem down, reviewed documentation, and searched online. Fixing it taught me the importance of methodical debugging.",
+        "b2": "While building [project], I ran into a stubborn bottleneck regarding [technical issue]. Rather than getting blocked, I isolated the issue, analyzed the stack trace, and consulted technical resources until I uncovered the root cause. Overcoming that challenge reinforced my persistence and structured troubleshooting skills."
+      }
+    },
+    {
+      "id": "en_conflict",
+      "prompt": "How do you handle disagreements with a team member about code quality or implementation?",
+      "options": [
+        {
+          "id": "a",
+          "label": "No, I always get along with everyone — I never disagree.",
+          "isIdeal": false,
+          "whyWrong": "Not credible; doesn't show maturity for teamwork.",
+          "rewriteHint": "Concrete situation, your data- or user-based stance, and how you closed (even agreeing to experiment)."
+        },
+        {
+          "id": "b",
+          "label": "I believe technical disagreements help improve the product. My approach is to focus on objective criteria like requirements or performance, have an open conversation, and find the best approach for the team.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "I think discussions are normal. I talk with my partner, listen to their ideas, and we choose the best option for the project.",
+        "b1": "I believe technical disagreements help improve the product. My approach is to focus on objective criteria, like requirements or performance. I like to have an open conversation and find the best approach for the team.",
+        "b2": "I view technical differences as an opportunity to refine our output. When a conflict arises, I pivot the discussion toward objective metrics—like maintainability or performance—rather than personal preference. Open dialogue and a shared focus on the end-user always lead us to the right compromise."
+      }
+    },
+    {
+      "id": "en_deadline",
+      "prompt": "Imagine you are given a task with a tight deadline and you realize you won't finish on time. What do you do?",
+      "options": [
+        {
+          "id": "a",
+          "label": "I'd stay quiet and try to finish everything anyway, even if it means delivering late without warning.",
+          "isIdeal": false,
+          "whyWrong": "No proactive communication; misses prioritization and transparency.",
+          "rewriteHint": "Flag the risk early, propose an MVP or revised plan, align with your lead."
+        },
+        {
+          "id": "b",
+          "label": "As soon as I see a risk, I check if we can deliver a solid MVP on time, then proactively reach out to my manager, explain the bottleneck, and propose a realistic revised plan.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "If I see I cannot finish on time, I look at the main features. I talk to my manager or team lead early. I explain the problem and propose a realistic revised plan to finish what is most important.",
+        "b1": "My first step would be to check if we can deliver a solid Minimum Viable Product on time. As soon as I realize there's a risk of missing the deadline, I proactively reach out to my manager or team lead, explain the bottleneck, and propose a realistic revised plan.",
+        "b2": "My initial priority is to evaluate the core requirements to determine if a functional Minimum Viable Product is still feasible. The moment I spot a potential delay, I transparently flag the bottleneck to my manager or team lead, outline my progress, and present a realistic revised plan instead of staying silent."
+      }
+    },
+    {
+      "id": "en_remote",
+      "prompt": "How do you usually keep up with your team when working remotely or in a hybrid setup?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Whatever works for the team — I don't really have a routine.",
+          "isIdeal": false,
+          "whyWrong": "Avoids showing how you communicate; sounds like a default answer.",
+          "rewriteHint": "Honest preference + tools you use (Slack, daily updates) + availability during core hours."
+        },
+        {
+          "id": "b",
+          "label": "I make sure to maintain clear communication using tools like Slack or Teams. I provide daily updates on what I've completed and my next blockers, and I'm available during core hours to join a quick call or review code.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "I use tools like Slack or Teams to talk every day. I share what I've completed and my next blockers and I am online during core hours to help the team.",
+        "b1": "I make sure to maintain clear communication using tools like Slack or Teams. I provide daily updates on what I've completed and my next blockers, and I'm available during core hours to join a quick call or review code.",
+        "b2": "I prioritize async-first yet proactive communication through platforms like Slack or Teams. I consistently share daily updates regarding what I've completed and my next blockers, remaining fully accessible during core hours for impromptu syncing or pull request reviews."
+      }
+    },
+    {
+      "id": "en_feedback",
+      "prompt": "How do you usually react when someone gives you constructive feedback or points out a mistake in your code?",
+      "options": [
+        {
+          "id": "a",
+          "label": "I get defensive at first — it's my code and I know what I meant.",
+          "isIdeal": false,
+          "whyWrong": "Signals ego over growth; interviewers look for collaboration.",
+          "rewriteHint": "Thank them, ask clarifying questions, apply the fix, treat it as learning."
+        },
+        {
+          "id": "b",
+          "label": "I see code reviews as a great opportunity to learn. If someone points out a mistake or suggests a change, I appreciate the feedback, ask questions if I don't understand, and apply the improvements.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "I like feedback. If someone finds an error in my code, I say thank you, look at the suggestion, and fix it to learn for the next time.",
+        "b1": "I see code reviews as a great opportunity to learn. If someone points out a mistake or suggests a change, I appreciate the feedback, ask questions if I don't understand, and apply the improvements.",
+        "b2": "I actively welcome code reviews and constructive criticism. When a peer points out an edge case or an optimization opportunity, I treat it as a collaborative learning moment rather than personal criticism, applying the fix to level up my code quality."
+      }
+    },
+    {
+      "id": "en_weakness",
+      "prompt": "Tell me about a weakness.",
+      "options": [
+        {
+          "id": "a",
+          "label": "I'm a perfectionist / I work too hard.",
+          "isIdeal": false,
+          "whyWrong": "Cliché that sounds like evasion; many recruiters flag it as a red flag.",
+          "rewriteHint": "Something real and minor, plus what you do to mitigate it (e.g. estimation, asking for feedback early)."
+        },
+        {
+          "id": "b",
+          "label": "I find it hard to estimate time on brand-new tasks; I break work into smaller tasks and check in with the team mid-sprint.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "Sometimes I spend too much time on small details. Now I set a time limit and ask a teammate if it is good enough.",
+        "b1": "I find it hard to estimate time on new tasks. I break them into smaller pieces and review my progress with the team halfway through the sprint.",
+        "b2": "Estimating unfamiliar work used to slow me down. I've improved by decomposing tasks, tracking actuals against estimates, and syncing with my lead early when scope shifts — which keeps delivery predictable without hiding uncertainty."
+      }
+    },
+    {
+      "id": "en_gap",
+      "prompt": "You don't have much formal experience. Why should we hire you?",
+      "options": [
+        {
+          "id": "a",
+          "label": "I learn fast and I work really hard.",
+          "isIdeal": false,
+          "whyWrong": "Empty promise without evidence; everyone says the same.",
+          "rewriteHint": "Concrete repo or link + problem you solved + stack + observable outcome if you can."
+        },
+        {
+          "id": "b",
+          "label": "I showed in [repo/URL] how I solved [problem] with [stack]; I can walk you through the decisions and trade-offs in two minutes.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "I don't have a long job history, but I built [project] and put it on GitHub. I can show you the code and explain what I did.",
+        "b1": "Although my formal experience is limited, I've shipped [project] using [stack], where I handled [specific feature or bug]. I'm happy to demo it and explain the technical choices I made.",
+        "b2": "My formal tenure is short, but I've demonstrated impact through [repo/URL]: I architected [feature], navigated [trade-off], and documented the outcome. I'd welcome the chance to walk you through that work and how I'd apply the same rigor here."
+      }
+    },
+    {
+      "id": "en_salary",
+      "prompt": "What salary range are you expecting? (junior candidate, first role)",
+      "options": [
+        {
+          "id": "a",
+          "label": "Whatever you pay / I'm not sure, anything is fine.",
+          "isIdeal": false,
+          "whyWrong": "Sounds unprepared or desperate; makes negotiation harder later.",
+          "rewriteHint": "Reasonable range anchored to local references for juniors + flexibility on benefits and learning."
+        },
+        {
+          "id": "b",
+          "label": "I have a range in mind based on what I've seen for candidates without formal experience in Argentina and in the industry; I'm open to hearing your proposal and discussing it in context of the role.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "I looked at junior salaries in Argentina. I have a number in mind, but I want to hear your offer first.",
+        "b1": "Based on market data for junior developers in Argentina, I'm targeting a range around [X–Y]. I'm flexible depending on benefits, growth, and the full scope of the role.",
+        "b2": "I've benchmarked junior compensation in Argentina against role scope and stack. My expectation sits in the [X–Y] band, with room to align on total package — equity, learning budget, and career path matter as much as base pay."
+      }
+    },
+    {
+      "id": "en_questions",
+      "prompt": "At the end they ask: \"Do you have any questions for us?\"",
+      "options": [
+        {
+          "id": "a",
+          "label": "No, everything is clear.",
+          "isIdeal": false,
+          "whyWrong": "Misses a signal of interest and that you thought about fit.",
+          "rewriteHint": "1–2 questions about day-to-day work, production stack, or how success is measured in the role."
+        },
+        {
+          "id": "b",
+          "label": "Yes: what does technical onboarding look like in the first few weeks? What stack do you use in production for [area of the role]?",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "Yes. What will I do in the first week? What tools does the team use every day?",
+        "b1": "I'd love to know how onboarding works for juniors here and which technologies you run in production for this team.",
+        "b2": "I'm curious how you measure success for this role in the first ninety days, how the team balances delivery with mentorship, and which parts of the stack I'd own early on."
+      }
+    },
+    {
+      "id": "en_notice",
+      "prompt": "When could you start?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Tomorrow — whatever you need.",
+          "isIdeal": false,
+          "whyWrong": "Can sound like you don't value current commitments (studies, other obligations).",
+          "rewriteHint": "Realistic timeline (exams, informal notice if applicable) + willingness to align."
+        },
+        {
+          "id": "b",
+          "label": "I can start from [date] considering finals / deliverables; if there's urgency, we can see how to prioritize.",
+          "isIdeal": true,
+          "whyWrong": "",
+          "rewriteHint": ""
+        }
+      ],
+      "spokenModels": {
+        "a2": "I can start in two weeks. I need a little time to finish my current classes.",
+        "b1": "I could begin around [date], once I wrap up my current coursework. If the timeline is tight, I'm happy to discuss what flexibility I have.",
+        "b2": "I'm available from [date], which allows me to close out existing academic commitments responsibly. If the role requires an earlier start, I can outline what I'd need to rearrange and propose a realistic handover plan."
+      }
+    }
+  ]
+}

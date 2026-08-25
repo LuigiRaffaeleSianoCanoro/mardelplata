@@ -19,6 +19,13 @@ const TOOLS = [
     glow: "cyan" as const,
   },
   {
+    href: "/primer-trabajo/entrevista-hr-en",
+    title: "Simulador HR en inglés",
+    desc: "12 preguntas en inglés con modelos hablados A2/B1/B2; el puntaje actualiza la señal de entrevista en el diagnóstico.",
+    icon: "🇬🇧",
+    glow: "cyan" as const,
+  },
+  {
     href: "/primer-trabajo/plan",
     title: "Plan de acción",
     desc: "Checklist con mal/bien, rewrites y foco semanal. Progreso guardado en el navegador.",

@@ -106,6 +106,7 @@ mardelplata/
 │   │       ├── plan/page.tsx
 │   │       ├── empresas/page.tsx
 │   │       ├── entrevista-hr/page.tsx
+│   │       ├── entrevista-hr-en/page.tsx
 │   │       └── guia/
 │   │           ├── layout.tsx
 │   │           ├── cv/page.tsx
@@ -213,6 +214,7 @@ mardelplata/
 | `/primer-trabajo/diagnostico` | Client | `localStorage` (`mdpdev-primer-trabajo-v1`) |
 | `/primer-trabajo/plan` | Client | `localStorage` |
 | `/primer-trabajo/entrevista-hr` | Client | `localStorage` |
+| `/primer-trabajo/entrevista-hr-en` | Client | `localStorage` (`hrQuizEnResult`) |
 | `/primer-trabajo/empresas` | Client | JSON bundle |
 | `/primer-trabajo/guia/cv` | Client | JSON bundle |
 | `/primer-trabajo/guia/linkedin` | Client | JSON bundle |
@@ -421,6 +423,7 @@ Estado persistido (`PrimerTrabajoPersisted`):
   diagnosticResult?: DiagnosticResult,
   checklistCheckedIds: string[],
   hrQuizResult?: HrQuizResult,
+  hrQuizEnResult?: HrQuizResult,
 }
 ```
 

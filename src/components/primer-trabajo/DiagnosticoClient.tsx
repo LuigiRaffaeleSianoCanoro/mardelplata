@@ -10,7 +10,7 @@ import MissionCallout from "./MissionCallout";
 import type { DiagnosticResult } from "@/lib/primer-trabajo/types";
 
 export default function DiagnosticoClient() {
-  const { hydrated, diagnosticResult, hrQuizResult, saveDiagnostic } = usePrimerTrabajoPersist();
+  const { hydrated, diagnosticResult, interviewReadinessScore, saveDiagnostic } = usePrimerTrabajoPersist();
   const [mode, setMode] = useState<"summary" | "wizard">("wizard");
   const [bootstrapped, setBootstrapped] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -35,7 +35,7 @@ export default function DiagnosticoClient() {
     if (!current || !answers[current.id]) return;
     if (index + 1 >= total) {
       const result = runDiagnostic(answers, {
-        interviewReadinessScore: hrQuizResult?.score,
+        interviewReadinessScore,
       });
       saveDiagnostic(result);
       setMode("summary");
@@ -275,6 +275,12 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
             className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-500 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-ocean-50"
           >
             Simulador Recursos Humanos
+          </Link>
+          <Link
+            href="/primer-trabajo/entrevista-hr-en"
+            className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-500 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-ocean-50"
+          >
+            Simulador HR en inglés
           </Link>
           <Link
             href="/primer-trabajo/plan"
