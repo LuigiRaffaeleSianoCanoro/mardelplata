@@ -41,6 +41,7 @@ const MENUS: NavMenu[] = [
     label: "Recursos",
     items: [
       { href: "/blog",       label: "Blog",       description: "Lo que la red está leyendo" },
+      { href: "/prensa",     label: "Prensa",     description: "Archivo de notas sobre la comunidad" },
       { href: "/reglamento", label: "Reglamento", description: "Cómo nos organizamos" },
     ],
   },

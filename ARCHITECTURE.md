@@ -79,6 +79,9 @@ mardelplata/
 │   │   ├── layout.tsx                      # root layout (metadata, fuentes)
 │   │   ├── page.tsx                        # home (/) — server component, Supabase
 │   │   ├── reglamento/page.tsx             # código de conducta
+│   │   ├── prensa/
+│   │   │   ├── page.tsx                    # listado por tema
+│   │   │   └── [id]/page.tsx               # ficha + snapshot archivado
 │   │   ├── brand/page.tsx                  # brand book público
 │   │   ├── marketing-kit/page.tsx          # templates de comunicación
 │   │   ├── miembro/page.tsx                # /miembro?code=… — vista pública vía QR
@@ -136,6 +139,11 @@ mardelplata/
 │   │       ├── GuiaSubnav.tsx
 │   │       └── MissionCallout.tsx
 │   ├── content/
+│   │   ├── prensa/                         # archivo de clippings periodísticos
+│   │   │   ├── items.ts                    # metadata curada
+│   │   │   ├── types.ts
+│   │   │   ├── index.ts                    # loaders (readArchive, etc.)
+│   │   │   └── archives/*.md               # copias de respaldo por clipping
 │   │   └── primer-trabajo/                 # bundles JSON + index TS
 │   │       ├── bundle-base.json
 │   │       ├── bundle-sections.json
@@ -200,6 +208,8 @@ mardelplata/
 | `/reglamento` | Static | — |
 | `/brand` | Static | — |
 | `/marketing-kit` | Static | — |
+| `/prensa` | Static (RSC) | JSON `content/prensa/items.ts` + markdown `archives/` |
+| `/prensa/[id]` | SSG (`generateStaticParams`) | Ítem + archivo markdown por clipping |
 | `/miembro?code=:qr_code` | Client (Suspense) | Supabase: `profiles` por `qr_code` |
 | `/auth/login` | Client | Supabase Auth (`signInWithPassword`) |
 | `/auth/registro` | Client | Supabase Auth (`signUp`) + cooldown sessionStorage |
@@ -229,7 +239,7 @@ mardelplata/
 | `/trabajar/[slug]` | SSG + ISR 10m (`generateStaticParams`) | Supabase `cafes_public` + voto comunidad |
 | `/en/invest` | Static (RSC en AppShell) | JSON `content/nomad/invest.en.json` |
 | `/en/live-in-mar-del-plata` | Static (RSC en AppShell) | JSON `content/nomad/living.en.json` |
-| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + cafés (Supabase) + fecha del último evento |
+| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + cafés (Supabase) + clippings `/prensa/[id]` + fecha del último evento |
 | `/robots.txt` | Metadata route (estática) | — |
 
 > No hay API routes propias. Toda la lectura/escritura va directo al cliente Supabase desde el browser o desde server components.

@@ -8509,6 +8509,322 @@ a.shell-card:hover {
 }
 
 /* ════════════════════════════════════════════════════════════════════
+   PRENSA — archivo de clippings
+   ════════════════════════════════════════════════════════════════════ */
+
+.prensa-x {
+  min-height: 100vh;
+  padding-top: 5rem;
+  background: var(--shell-bg);
+}
+
+.prensa-x-header {
+  padding-bottom: 0;
+}
+
+.prensa-x-notice {
+  margin: 0 0 2rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(220, 230, 250, 0.75);
+}
+
+.prensa-x-notice strong {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.prensa-x-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.prensa-x-topic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.prensa-x-topic-pill:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.prensa-x-topic-count {
+  font-family: var(--shell-font-mono);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.prensa-x-group {
+  margin-bottom: 3rem;
+}
+
+.prensa-x-group-title {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.prensa-x-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .prensa-x-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.prensa-x-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.25rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  height: 100%;
+}
+
+.prensa-x-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+}
+
+.prensa-x-card-outlet {
+  font-family: var(--shell-font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 176, 112, 0.9);
+}
+
+.prensa-x-card-date {
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+.prensa-x-card-title {
+  font-size: 1.05rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.prensa-x-card-title a {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+}
+
+.prensa-x-card-title a:hover {
+  color: #93c5fd;
+}
+
+.prensa-x-card-outlet-title {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  font-style: italic;
+}
+
+.prensa-x-card-excerpt {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(220, 230, 250, 0.72);
+  margin: 0;
+  flex: 1;
+}
+
+.prensa-x-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.prensa-x-card-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.prensa-x-link {
+  font-size: 0.82rem;
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.prensa-x-link:hover {
+  text-decoration: underline;
+}
+
+.prensa-x-link--external::after {
+  content: " ↗";
+  font-size: 0.75em;
+}
+
+.prensa-x-link--muted {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.prensa-x-stats {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.prensa-x-breadcrumb {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1.5rem;
+}
+
+.prensa-x-breadcrumb a {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.prensa-x-detail-header {
+  margin-bottom: 2rem;
+}
+
+.prensa-x-detail-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+
+.prensa-x-detail-meta dt {
+  font-family: var(--shell-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.2rem;
+}
+
+.prensa-x-detail-meta dd {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.prensa-x-detail-original {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #93c5fd;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.prensa-x-detail-pending {
+  color: rgba(255, 176, 112, 0.9);
+  font-size: 0.9rem;
+}
+
+.prensa-x-partial {
+  font-size: 0.85rem;
+  color: rgba(255, 176, 112, 0.85);
+  margin: 0 0 1rem;
+}
+
+.prensa-x-media {
+  margin: 0 0 1.5rem;
+  max-width: 28rem;
+}
+
+.prensa-x-media-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.prensa-x-media figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.45;
+}
+
+.prensa-x-media figcaption a {
+  color: #93c5fd;
+}
+
+.prensa-x-archive-body {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(220, 230, 250, 0.88);
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+
+.prensa-x-archive-body h1,
+.prensa-x-archive-body h2,
+.prensa-x-archive-body h3 {
+  color: rgba(255, 255, 255, 0.95);
+  margin: 1.25rem 0 0.75rem;
+  line-height: 1.3;
+}
+
+.prensa-x-archive-body h1 { font-size: 1.35rem; }
+.prensa-x-archive-body h2 { font-size: 1.15rem; }
+.prensa-x-archive-body h3 { font-size: 1rem; }
+
+.prensa-x-archive-body p {
+  margin: 0 0 1rem;
+}
+
+.prensa-x-archive-body a {
+  color: #93c5fd;
+}
+
+.prensa-x-archive-body ul {
+  margin: 0 0 1rem 1.25rem;
+}
+
+.prensa-x-archive-missing {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
+}
+
+.prensa-x-detail-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ════════════════════════════════════════════════════════════════════
    PRIMER TRABAJO — page-specific layout
    ════════════════════════════════════════════════════════════════════ */
 
