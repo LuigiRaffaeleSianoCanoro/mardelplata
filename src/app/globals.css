@@ -8751,6 +8751,29 @@ a.shell-card:hover {
   margin: 0 0 1rem;
 }
 
+.prensa-x-media {
+  margin: 0 0 1.5rem;
+  max-width: 28rem;
+}
+
+.prensa-x-media-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.prensa-x-media figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.45;
+}
+
+.prensa-x-media figcaption a {
+  color: #93c5fd;
+}
+
 .prensa-x-archive-body {
   margin-top: 1.5rem;
   padding: 1.5rem;

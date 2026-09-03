@@ -235,19 +235,21 @@ export const pressItems: PressItem[] = [
     primarySource: true,
   },
 
-  // —— Encuentro con intendente Neme (pendiente) ——
+  // —— Respaldo institucional — intendente Neme (31 may 2026) ——
   {
-    id: "neme-encuentro-pendiente",
-    title: "Encuentro con el intendente Agustín Neme — pendiente de fuente",
-    outlet: "—",
-    date: "2026-01-01",
-    url: "",
+    id: "neme-x-2026-05-31",
+    title:
+      "Agustín Neme respaldó públicamente a Mar del Plata DEV",
+    outlet: "X / Twitter — @agustin_neme",
+    date: "2026-05-31",
+    url: "https://x.com/agustin_neme/status/2061182050581827836",
     excerpt:
-      "Sin URL periodística pública verificada al 3 de septiembre de 2026. Luigi puede agregar el enlace cuando esté disponible.",
+      "El intendente publicó un video el 31 de mayo de 2026 respaldando a la comunidad y citando más de 500 desarrolladores (cifra del post oficial, no del sitio).",
     events: ["municipio-neme"],
     type: "institucional",
-    archivePath: "neme-encuentro-pendiente.md",
+    archivePath: "neme-x-2026-05-31.md",
     capturedAt: "2026-09-03",
-    pendingSource: true,
+    thumbnailPath: "/prensa/neme-x-2026-05-31-poster.jpg",
+    videoUrl: "https://x.com/agustin_neme/status/2061182050581827836",
   },
 ];

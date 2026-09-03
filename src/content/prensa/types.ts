@@ -21,6 +21,10 @@ export interface PressItem {
   type: PressType;
   archivePath?: string;
   capturedAt?: string;
+  /** Imagen local en /public (ej. poster de video archivado). */
+  thumbnailPath?: string;
+  /** URL del video original cuando el clipping incluye multimedia. */
+  videoUrl?: string;
   /** Sin URL periodística verificada (stub). */
   pendingSource?: boolean;
   /** Fuente primaria del evento, no cobertura de prensa. */

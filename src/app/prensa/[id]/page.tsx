@@ -150,6 +150,31 @@ export default async function PrensaDetailPage({ params }: PageProps) {
               </p>
             )}
 
+            {item.thumbnailPath && (
+              <figure className="prensa-x-media">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.thumbnailPath}
+                  alt="Poster del video archivado"
+                  className="prensa-x-media-poster"
+                  loading="lazy"
+                />
+                {item.videoUrl && (
+                  <figcaption>
+                    Video (~44s) en{" "}
+                    <a
+                      href={item.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      la publicación original
+                    </a>
+                    . Miniatura archivada desde el post oficial.
+                  </figcaption>
+                )}
+              </figure>
+            )}
+
             {archiveHtml ? (
               <div
                 className="prensa-x-archive-body"
