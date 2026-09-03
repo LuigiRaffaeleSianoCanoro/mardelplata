@@ -9,7 +9,8 @@
     "lint": "next lint",
     "security:verify": "node scripts/verify-rls.mjs",
     "security:regression": "node scripts/regression-rls.mjs",
-    "security:migrate": "node scripts/apply-security-migrations.mjs"
+    "security:migrate": "node scripts/apply-security-migrations.mjs",
+    "verify:prensa": "node scripts/verify-prensa.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
