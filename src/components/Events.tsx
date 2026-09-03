@@ -1,53 +1,19 @@
 "use client";
 
-// Events — "Lo que se viene en la costa". Layout horizontal con 4 cards
+// Events — "Lo que se viene en la costa". Layout horizontal con cards
 // minimalistas: date strip (DD/MMM big), título, hora + ubicación, tag pill.
 
 import Link from "next/link";
-
-interface Event {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  description: string | null;
-  date: string;
-  end_date: string | null;
-  location: string | null;
-  tags: string[];
-  registration_url: string | null;
-  is_mystery: boolean;
-  codename: string | null;
-  teaser: string | null;
-  is_published: boolean;
-}
+import type { PublicEvent } from "@/lib/events";
+import {
+  formatEventDay,
+  formatEventMonth,
+  formatEventTime,
+  getTagFlavor,
+} from "@/lib/events/format";
 
 interface EventsProps {
-  events: Event[];
-}
-
-function formatDay(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("es-AR", { day: "2-digit" });
-}
-function formatMonth(dateStr: string) {
-  return new Date(dateStr)
-    .toLocaleDateString("es-AR", { month: "short" })
-    .replace(".", "")
-    .toUpperCase();
-}
-function formatTime(dateStr: string) {
-  return new Date(dateStr).toLocaleTimeString("es-AR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function getTagFlavor(tags: string[]): { label: string; color: "violet" | "cyan" | "amber" | "rose" } {
-  const t = (tags?.[0] ?? "meetup").toLowerCase();
-  if (t.includes("taller") || t.includes("workshop")) return { label: "TALLER", color: "cyan" };
-  if (t.includes("charla") || t.includes("talk")) return { label: "CHARLA", color: "violet" };
-  if (t.includes("hackat")) return { label: "HACKATÓN", color: "rose" };
-  if (t.includes("meetup")) return { label: "MEETUP", color: "violet" };
-  return { label: t.toUpperCase(), color: "amber" };
+  events: PublicEvent[];
 }
 
 export default function Events({ events }: EventsProps) {
@@ -64,13 +30,13 @@ export default function Events({ events }: EventsProps) {
           <h2 className="events-x-title">
             Lo que se viene en la <em>costa.</em>
           </h2>
-          <Link href="#" className="events-x-link">
+          <Link href="/eventos" className="events-x-link">
             Ver calendario completo <span aria-hidden>→</span>
           </Link>
         </header>
 
         <div className="events-x-rail">
-          <button className="events-x-nav events-x-nav--left" aria-label="Anterior">
+          <button className="events-x-nav events-x-nav--left" aria-label="Anterior" type="button">
             <ArrowIcon dir="left" />
           </button>
 
@@ -82,7 +48,7 @@ export default function Events({ events }: EventsProps) {
             )}
           </div>
 
-          <button className="events-x-nav events-x-nav--right" aria-label="Siguiente">
+          <button className="events-x-nav events-x-nav--right" aria-label="Siguiente" type="button">
             <ArrowIcon dir="right" />
           </button>
         </div>
@@ -91,10 +57,10 @@ export default function Events({ events }: EventsProps) {
   );
 }
 
-function EventCard({ event }: { event: Event }) {
-  const day = formatDay(event.date);
-  const month = formatMonth(event.date);
-  const time = formatTime(event.date);
+function EventCard({ event }: { event: PublicEvent }) {
+  const day = formatEventDay(event.date);
+  const month = formatEventMonth(event.date);
+  const time = formatEventTime(event.date);
   const tag = getTagFlavor(event.tags);
   const isMystery = event.is_mystery;
 
@@ -117,7 +83,7 @@ function EventCard({ event }: { event: Event }) {
             </>
           )}
         </p>
-        <span className="event-card-tag" data-flavor={tag.color}>
+        <span className="event-card-tag" data-flavor={tag.flavor}>
           {tag.label}
         </span>
       </div>
@@ -147,7 +113,11 @@ function EmptyState() {
         Estamos cocinando el próximo encuentro.
       </h3>
       <p className="events-x-empty-desc">
-        Seguinos en redes para enterarte cuando se anuncie.
+        Mientras tanto, revisá el{" "}
+        <Link href="/eventos" className="events-x-empty-link">
+          histórico de encuentros
+        </Link>{" "}
+        o seguinos en redes para enterarte cuando se anuncie.
       </p>
     </div>
   );

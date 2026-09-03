@@ -1,0 +1,14 @@
+{
+  "id": "bit-beat-mdp-2026",
+  "title": "Bit & Beat — Mar del Plata Dev",
+  "excerpt": "Charlas, código en vivo y música en dos pisos. Jam libre arriba, escenario abajo — puerta abierta a quien crea.",
+  "date": "2026-06-06T15:00:00-03:00",
+  "endDate": "2026-06-06T20:00:00-03:00",
+  "venue": "Espacio Núcleo · Av. Independencia 3251",
+  "city": "Mar del Plata",
+  "hosts": ["Tomás Sisterna", "Luigi Canoro", "Franco Petruccelli", "Mar del Plata Dev"],
+  "lumaUrl": "https://luma.com/dafe55xv",
+  "tags": ["meetup", "música", "comunidad"],
+  "tier": "community",
+  "verifiedAt": "2026-09-03"
+}

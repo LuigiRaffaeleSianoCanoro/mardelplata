@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { companies } from "@/content/nomad";
 import { pressItems } from "@/content/prensa/items";
 import { getCafes, cafeSlug } from "@/lib/cafes";
+import { getCuratedPublicEvents } from "@/lib/events";
 
 // Metadata route de Next 15. Rutas públicas estáticas + fecha dinámica de
 // /eventos según el último evento publicado. A medida que se sumen rutas-entidad
@@ -68,6 +69,13 @@ const STATIC_ROUTES: StaticRoute[] = [
 ];
 
 async function latestEventDate(): Promise<Date | null> {
+  const curated = getCuratedPublicEvents();
+  const curatedLatest = curated.reduce<Date | null>((acc, e) => {
+    const d = new Date(e.date);
+    if (Number.isNaN(d.getTime())) return acc;
+    return !acc || d > acc ? d : acc;
+  }, null);
+
   try {
     const supabase = await createClient();
     const { data } = await supabase
@@ -77,11 +85,12 @@ async function latestEventDate(): Promise<Date | null> {
       .order("date", { ascending: false })
       .limit(1);
     const row = data?.[0];
-    if (!row) return null;
+    if (!row) return curatedLatest;
     const d = new Date(row.updated_at ?? row.date);
-    return Number.isNaN(d.getTime()) ? null : d;
+    if (Number.isNaN(d.getTime())) return curatedLatest;
+    return curatedLatest && curatedLatest > d ? curatedLatest : d;
   } catch {
-    return null;
+    return curatedLatest;
   }
 }
 

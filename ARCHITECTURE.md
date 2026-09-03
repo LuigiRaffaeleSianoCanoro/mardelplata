@@ -139,6 +139,11 @@ mardelplata/
 │   │       ├── GuiaSubnav.tsx
 │   │       └── MissionCallout.tsx
 │   ├── content/
+│   │   ├── events/                       # eventos públicos Luma (sync quincenal)
+│   │   │   ├── items/*.json
+│   │   │   ├── index.ts
+│   │   │   ├── types.ts
+│   │   │   └── README.md                 # workflow de sync Luma
 │   │   ├── prensa/                         # archivo de clippings periodísticos
 │   │   │   ├── items.ts                    # metadata curada
 │   │   │   ├── types.ts
@@ -157,6 +162,9 @@ mardelplata/
 │       ├── avatarPresets.ts                # presets, allowlist de fotos, retiros
 │       ├── huevsite.ts                      # API/embed de huevsite.io + normalización de handle
 │       ├── urls.ts                         # normalización de URLs externas
+│       ├── events/
+│       │   ├── index.ts                    # merge Luma curado + Supabase
+│       │   └── format.ts                   # helpers de fecha/tag para cards
 │       ├── supabase/
 │       │   ├── client.ts                   # createBrowserClient
 │       │   ├── server.ts                   # createServerClient (RSC)
@@ -204,7 +212,7 @@ mardelplata/
 
 | Ruta | Tipo | Datos |
 |---|---|---|
-| `/` | Static + ISR (revalidate 5m) | Supabase (cliente público sin cookies): `events`, `profiles_public`, jobs |
+| `/` | Static + ISR (revalidate 5m) | Luma curado (`content/events`) + merge Supabase `events`, `profiles_public`, jobs |
 | `/reglamento` | Static | — |
 | `/brand` | Static | — |
 | `/marketing-kit` | Static | — |
@@ -228,6 +236,7 @@ mardelplata/
 | `/primer-trabajo/empresas` | Client | JSON bundle |
 | `/primer-trabajo/guia/cv` | Client | JSON bundle |
 | `/primer-trabajo/guia/linkedin` | Client | JSON bundle |
+| `/eventos` | Static + ISR (revalidate 5m) | Luma curado (`content/events`) + merge Supabase `events`; canonical de agenda |
 | `/invertir` | Static (RSC en AppShell) | JSON `content/nomad/city-stats.json` |
 | `/estudiar` | Static (RSC en AppShell) | JSON `content/nomad/institutions.json` |
 | `/vivir-en-mardelplata` | Static (RSC en AppShell) | JSON `content/nomad/living.json` + deep-link Roomix |
@@ -623,7 +632,7 @@ Fundaciones del proyecto **Nomad & IT Hub** (plan completo en [`docs/nomad-it-hu
 
 **Metadata routes** (Next 15, no archivos en `public/`):
 - [`src/app/robots.ts`](src/app/robots.ts) — permite el crawl, bloquea `/admin`, `/auth`, `/perfil`, `/asistencias`, `/preview`; apunta al sitemap.
-- [`src/app/sitemap.ts`](src/app/sitemap.ts) — rutas públicas estáticas + `lastModified` de `/eventos` según el último evento publicado (query defensiva a Supabase con fallback). Las rutas-entidad futuras (`/empresas/[slug]`, `/trabajar/[slug]`) se generan acá desde su fuente.
+- [`src/app/sitemap.ts`](src/app/sitemap.ts) — rutas públicas estáticas + `lastModified` de `/eventos` según el último evento (curado en `content/events` o Supabase). Las rutas-entidad futuras (`/empresas/[slug]`, `/trabajar/[slug]`) se generan acá desde su fuente.
 
 > Regla: cada ruta nueva debe cumplir el checklist SEO de [`04-seo.md §8`](docs/nomad-it-hub/04-seo.md) (metadata propia + canonical + JSON-LD del tipo correcto + alta en `sitemap.ts`).
 

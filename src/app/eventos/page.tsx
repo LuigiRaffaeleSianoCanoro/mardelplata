@@ -7,43 +7,18 @@ import {
   eventSchema,
   type JsonLdObject,
 } from "@/lib/seo/jsonLd";
-
-interface Event {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  description: string | null;
-  date: string;
-  end_date: string | null;
-  location: string | null;
-  tags: string[];
-  registration_url: string | null;
-  is_mystery: boolean;
-  codename: string | null;
-  teaser: string | null;
-  is_published: boolean;
-}
-
-function formatDay(d: string) {
-  return new Date(d).toLocaleDateString("es-AR", { day: "2-digit" });
-}
-function formatMonth(d: string) {
-  return new Date(d)
-    .toLocaleDateString("es-AR", { month: "short" })
-    .replace(".", "")
-    .toUpperCase();
-}
-function formatTime(d: string) {
-  return new Date(d).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
-}
-function getTagFlavor(tags: string[]): { label: string; flavor: "violet" | "cyan" | "amber" | "rose" } {
-  const t = (tags?.[0] ?? "meetup").toLowerCase();
-  if (t.includes("taller") || t.includes("workshop")) return { label: "TALLER", flavor: "cyan" };
-  if (t.includes("charla") || t.includes("talk")) return { label: "CHARLA", flavor: "violet" };
-  if (t.includes("hackat")) return { label: "HACKATÓN", flavor: "rose" };
-  if (t.includes("meetup")) return { label: "MEETUP", flavor: "violet" };
-  return { label: t.toUpperCase(), flavor: "amber" };
-}
+import {
+  mergePublicEvents,
+  partitionEvents,
+  type PublicEvent,
+} from "@/lib/events";
+import {
+  formatEventDay,
+  formatEventMonth,
+  formatEventTime,
+  getTagFlavor,
+  isOnlineEvent,
+} from "@/lib/events/format";
 
 export const metadata = {
   title: "Eventos",
@@ -52,30 +27,17 @@ export const metadata = {
   alternates: { canonical: "/eventos" },
 };
 
-function isOnlineEvent(e: Event): boolean {
-  const haystack = `${e.location ?? ""} ${e.tags?.join(" ") ?? ""}`.toLowerCase();
-  return /online|virtual|remoto|zoom|meet|stream/.test(haystack);
-}
-
 export default async function EventosPage() {
   const supabase = await createClient();
-  const { data: events } = await supabase
+  const { data: supabaseEvents } = await supabase
     .from("events")
     .select("*")
     .eq("is_published", true)
     .order("date", { ascending: false });
 
-  const now = Date.now();
-  const all = (events ?? []) as Event[];
-  const upcoming = all
-    .filter((e) => new Date(e.date).getTime() >= now)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  const past = all
-    .filter((e) => new Date(e.date).getTime() < now)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const all = mergePublicEvents(supabaseEvents);
+  const { upcoming, pastCommunity, pastCity } = partitionEvents(all);
 
-  // JSON-LD: sólo eventos próximos (los pasados no aportan rich results).
-  // Excluimos misteriosos sin fecha de valor SEO real.
   const eventSchemas: JsonLdObject[] = upcoming
     .filter((e) => !e.is_mystery)
     .map((e) =>
@@ -86,7 +48,7 @@ export default async function EventosPage() {
         endDate: e.end_date,
         locationName: e.location,
         url: e.registration_url,
-        isOnline: isOnlineEvent(e),
+        isOnline: isOnlineEvent(e.location, e.tags),
       }),
     );
   const schemas: JsonLdObject[] = [
@@ -96,6 +58,8 @@ export default async function EventosPage() {
     ]),
     ...eventSchemas,
   ];
+
+  const hasPast = pastCommunity.length > 0 || pastCity.length > 0;
 
   return (
     <AppShell>
@@ -109,14 +73,14 @@ export default async function EventosPage() {
             </h1>
             <p className="shell-lead" style={{ marginInline: "auto" }}>
               Meetups, workshops, charlas y hackatones para aprender, enseñar y conectar
-              en persona.
+              en persona. Agenda sincronizada con eventos públicos en Luma.
             </p>
           </div>
         </header>
 
         <section className="shell-section shell-section--soft">
           <div className="shell-inner">
-            {upcoming.length > 0 && (
+            {upcoming.length > 0 ? (
               <Reveal>
                 <h2 className="eventos-x-section-title">Próximos</h2>
                 <div className="eventos-x-grid">
@@ -125,20 +89,48 @@ export default async function EventosPage() {
                   ))}
                 </div>
               </Reveal>
+            ) : (
+              <Reveal>
+                <p className="bolsa-x-empty">
+                  No hay encuentros próximos publicados en Luma. Seguinos en{" "}
+                  <a href="/eventos" className="shell-link">
+                    el histórico
+                  </a>{" "}
+                  o unite al grupo de WhatsApp para enterarte primero.
+                </p>
+              </Reveal>
             )}
 
-            {past.length > 0 && (
+            {pastCommunity.length > 0 && (
               <Reveal delay={120}>
-                <h2 className="eventos-x-section-title eventos-x-section-title--muted">Pasados</h2>
+                <h2 className="eventos-x-section-title eventos-x-section-title--muted">
+                  Histórico — comunidad
+                </h2>
                 <div className="eventos-x-grid">
-                  {past.map((e) => (
+                  {pastCommunity.map((e) => (
                     <EventoCard key={e.id} event={e} past={true} />
                   ))}
                 </div>
               </Reveal>
             )}
 
-            {upcoming.length === 0 && past.length === 0 && (
+            {pastCity.length > 0 && (
+              <Reveal delay={180}>
+                <h2 className="eventos-x-section-title eventos-x-section-title--muted">
+                  En la ciudad
+                </h2>
+                <p className="shell-lead eventos-x-city-lead">
+                  Encuentros del ecosistema tech local que sumamos a la agenda.
+                </p>
+                <div className="eventos-x-grid">
+                  {pastCity.map((e) => (
+                    <EventoCard key={e.id} event={e} past={true} cityTone />
+                  ))}
+                </div>
+              </Reveal>
+            )}
+
+            {upcoming.length === 0 && !hasPast && (
               <p className="bolsa-x-empty">
                 Todavía no hay eventos publicados. Volvé pronto.
               </p>
@@ -150,12 +142,21 @@ export default async function EventosPage() {
   );
 }
 
-function EventoCard({ event, past }: { event: Event; past: boolean }) {
-  const day = formatDay(event.date);
-  const month = formatMonth(event.date);
-  const time = formatTime(event.date);
+function EventoCard({
+  event,
+  past,
+  cityTone = false,
+}: {
+  event: PublicEvent;
+  past: boolean;
+  cityTone?: boolean;
+}) {
+  const day = formatEventDay(event.date);
+  const month = formatEventMonth(event.date);
+  const time = formatEventTime(event.date);
   const tag = getTagFlavor(event.tags);
   const isMystery = event.is_mystery;
+  const hostsLine = event.hosts.length > 0 ? event.hosts.join(" · ") : null;
 
   const inner = (
     <>
@@ -174,6 +175,7 @@ function EventoCard({ event, past }: { event: Event; past: boolean }) {
               : event.subtitle ?? event.description ?? ""}
           </p>
         )}
+        {hostsLine && <p className="event-card-hosts">{hostsLine}</p>}
         <p className="event-card-meta">
           {time}
           {event.location && (
@@ -182,27 +184,43 @@ function EventoCard({ event, past }: { event: Event; past: boolean }) {
               {event.location}
             </>
           )}
+          {event.city && (
+            <>
+              <span className="event-card-meta-sep">·</span>
+              {event.city}
+            </>
+          )}
         </p>
-        <span className={`shell-tag shell-tag--${tag.flavor}`}>{tag.label}</span>
+        <div className="event-card-footer">
+          <span className={`shell-tag shell-tag--${tag.flavor}`}>{tag.label}</span>
+          {event.registration_url && (
+            <span className="event-card-luma">Ver en Luma ↗</span>
+          )}
+        </div>
       </div>
     </>
   );
 
-  if (event.registration_url && !past) {
+  const className = [
+    "event-card",
+    "eventos-x-card",
+    past ? "eventos-x-card--past" : "",
+    cityTone ? "eventos-x-card--city" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  if (event.registration_url) {
     return (
       <a
         href={event.registration_url}
         target="_blank"
         rel="noopener noreferrer"
-        className={`event-card eventos-x-card ${past ? "eventos-x-card--past" : ""}`}
+        className={className}
       >
         {inner}
       </a>
     );
   }
-  return (
-    <article className={`event-card eventos-x-card ${past ? "eventos-x-card--past" : ""}`}>
-      {inner}
-    </article>
-  );
+  return <article className={className}>{inner}</article>;
 }

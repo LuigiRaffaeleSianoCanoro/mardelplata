@@ -1,0 +1,14 @@
+{
+  "id": "crecimiento-aleph-mdp-2026",
+  "title": "Crecimiento × Mar del Plata",
+  "excerpt": "Capítulo local del Aleph Hackathon: DeFi, IA y Web3 con equipos construyendo en Fauno Bar.",
+  "date": "2026-03-21T09:00:00-03:00",
+  "endDate": "2026-03-21T17:00:00-03:00",
+  "venue": "Fauno Bar Cervecería · Olavarría 3232",
+  "city": "Mar del Plata",
+  "hosts": ["Mar del Plata Dev", "Nicolas E. Giménez", "Franco Petruccelli"],
+  "lumaUrl": "https://luma.com/78n9t2fp",
+  "tags": ["hackatón", "Web3", "DeFi"],
+  "tier": "community",
+  "verifiedAt": "2026-09-03"
+}

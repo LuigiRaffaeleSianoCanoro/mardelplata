@@ -1,0 +1,14 @@
+{
+  "id": "cafe-cursor-mdp-2026",
+  "title": "Café Cursor Mar del Plata",
+  "excerpt": "Primera edición de Cursor Café en La Feliz: co-working, lightning demos y networking con la comunidad MdPDev.",
+  "date": "2026-04-26T09:00:00-03:00",
+  "endDate": "2026-04-26T15:00:00-03:00",
+  "venue": "Hotel Konke · 11 de Septiembre 2670",
+  "city": "Mar del Plata",
+  "hosts": ["Mar del Plata Dev", "Franco Petruccelli", "Luigi Canoro"],
+  "lumaUrl": "https://luma.com/ckcid73b",
+  "tags": ["meetup", "IA", "Cursor"],
+  "tier": "community",
+  "verifiedAt": "2026-09-03"
+}

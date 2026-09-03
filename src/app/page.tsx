@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import ScrollDriver from "@/components/ScrollDriver";
 import { createPublicClient } from "@/lib/supabase/public";
 import { IS_MOCK, mockProfiles } from "@/lib/devMock";
+import { mergePublicEvents, partitionEvents } from "@/lib/events";
 
 // ISR: la home consulta Supabase en RSC. Revalidar cada 5 min evita pegarle a
 // Supabase en cada request y mejora TTFB/LCP (audit P1). Los datos no necesitan
@@ -40,11 +41,14 @@ function isCofounderProfile(fullName: string | null): boolean {
 
 export default async function Home() {
   const supabase = createPublicClient();
-  const { data: events } = await supabase
+  const { data: supabaseEvents } = await supabase
     .from("events")
     .select("*")
     .eq("is_published", true)
     .order("date", { ascending: false });
+
+  const events = mergePublicEvents(supabaseEvents);
+  const { nextEvent } = partitionEvents(events);
 
   const { data: foundersRaw } = await supabase
     .from("profiles_public")
@@ -89,14 +93,6 @@ export default async function Home() {
     .not("full_name", "is", null);
 
   const nowIso = new Date().toISOString();
-  const { data: nextEventRows } = await supabase
-    .from("events")
-    .select("id, title, date")
-    .eq("is_published", true)
-    .gt("date", nowIso)
-    .order("date", { ascending: true })
-    .limit(1);
-  const nextEvent = nextEventRows?.[0] ?? null;
 
   const { data: jobsRaw } = await supabase
     .from("classified_listings")
@@ -131,13 +127,17 @@ export default async function Home() {
         <Navbar />
         <main>
           <Hero
-            nextEvent={nextEvent}
+            nextEvent={
+              nextEvent
+                ? { id: nextEvent.id, title: nextEvent.title, date: nextEvent.date }
+                : null
+            }
             membersCount={membersCount ?? 0}
             jobsCount={jobs.length}
           />
           <Reveal delay={0}><Pillars /></Reveal>
           <Reveal delay={120}><AudienceSwitchboard /></Reveal>
-          <Reveal delay={120}><Events events={events ?? []} /></Reveal>
+          <Reveal delay={120}><Events events={events} /></Reveal>
           <Reveal delay={120}><Community members={communityMembers ?? []} /></Reveal>
           <Reveal delay={120}><Huevsites members={huevsiteMembers ?? []} /></Reveal>
           <Reveal delay={120}><CityHubStrip /></Reveal>
