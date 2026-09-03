@@ -1,0 +1,14 @@
+{
+  "id": "bnb-builder-session-mdp-2026",
+  "title": "BNB Builder Session: Mar del Plata",
+  "excerpt": "Workshop técnico de BNB Agent Studio: construí y deployá tu agente de IA onchain con wallet propia. Edición local de la serie global de BNB Chain.",
+  "date": "2026-09-19T10:00:00-03:00",
+  "endDate": "2026-09-19T16:00:00-03:00",
+  "venue": "Mar del Plata",
+  "city": "Mar del Plata",
+  "hosts": ["BNB Chain LatAm", "Stefano Cintioli", "Luigi Canoro", "Scalynn Growth"],
+  "lumaUrl": "https://luma.com/t1ivp3zm",
+  "tags": ["taller", "Web3", "IA"],
+  "tier": "community",
+  "verifiedAt": "2026-09-03"
+}

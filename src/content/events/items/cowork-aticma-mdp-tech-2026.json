@@ -1,0 +1,14 @@
+{
+  "id": "cowork-aticma-mdp-tech-2026",
+  "title": "Cowork ATICMA — MDP Tech",
+  "excerpt": "Jornada de co-working con la comunidad tech de Mar del Plata en las oficinas de ATICMA.",
+  "date": "2026-08-26T09:00:00-03:00",
+  "endDate": "2026-08-26T17:00:00-03:00",
+  "venue": "ATICMA · Chaco 1670",
+  "city": "Mar del Plata",
+  "hosts": ["Manuel Ponsa", "Luigi Canoro", "Andres Cuñer"],
+  "lumaUrl": "https://luma.com/b884jjl2",
+  "tags": ["meetup", "cowork", "ATICMA"],
+  "tier": "community",
+  "verifiedAt": "2026-09-03"
+}

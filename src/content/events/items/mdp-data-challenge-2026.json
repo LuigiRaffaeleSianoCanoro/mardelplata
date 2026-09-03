@@ -1,0 +1,14 @@
+{
+  "id": "mdp-data-challenge-2026",
+  "title": "Mar del Plata Data Challenge",
+  "excerpt": "Desafío de 4 horas con datasets reales: analizar, visualizar, predecir o prototipar con IA. Organizado por Mar del Plata Dev y blueprintdata — USD 400 para el equipo ganador.",
+  "date": "2026-10-16T14:00:00-03:00",
+  "endDate": "2026-10-16T18:00:00-03:00",
+  "venue": "UCIP · Av. Pedro Luro 3030",
+  "city": "Mar del Plata",
+  "hosts": ["Manuel Ponsa", "Mar del Plata Dev", "blueprintdata"],
+  "lumaUrl": "https://luma.com/ot4itlsp",
+  "tags": ["hackatón", "datos", "IA"],
+  "tier": "community",
+  "verifiedAt": "2026-09-03"
+}

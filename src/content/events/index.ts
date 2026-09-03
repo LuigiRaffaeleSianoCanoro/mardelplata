@@ -3,11 +3,16 @@
 
 import type { CuratedEvent } from "./types";
 import aticmaEmprendeLaunch2026 from "./items/aticma-emprende-launch-2026.json";
+import aticmaEmprendeUtn2026 from "./items/aticma-emprende-utn-2026.json";
 import aticmaIaTalks2025 from "./items/aticma-ia-talks-2025.json";
+import aticmaModeloNegocio2026 from "./items/aticma-modelo-negocio-2026.json";
 import bitBeatMdp2026 from "./items/bit-beat-mdp-2026.json";
+import bnbBuilderSessionMdp2026 from "./items/bnb-builder-session-mdp-2026.json";
 import cafeCursorMdp2026 from "./items/cafe-cursor-mdp-2026.json";
+import coworkAticmaMdpTech2026 from "./items/cowork-aticma-mdp-tech-2026.json";
 import crecimientoAlephMdp2026 from "./items/crecimiento-aleph-mdp-2026.json";
 import cursorHackathonMdp2026 from "./items/cursor-hackathon-mdp-2026.json";
+import mdpDataChallenge2026 from "./items/mdp-data-challenge-2026.json";
 
 export type { CuratedEvent, EventTier } from "./types";
 
@@ -18,11 +23,17 @@ const ALL_CURATED: CuratedEvent[] = [
   cursorHackathonMdp2026 as CuratedEvent,
   aticmaIaTalks2025 as CuratedEvent,
   aticmaEmprendeLaunch2026 as CuratedEvent,
+  aticmaModeloNegocio2026 as CuratedEvent,
+  coworkAticmaMdpTech2026 as CuratedEvent,
+  aticmaEmprendeUtn2026 as CuratedEvent,
+  bnbBuilderSessionMdp2026 as CuratedEvent,
+  mdpDataChallenge2026 as CuratedEvent,
 ];
 
 /** Slugs de Luma que nunca deben publicarse (privados, no tech, embudos ajenos). */
 export const LUMA_EXCLUDE_SLUGS = new Set([
   "fktjzk1y", // Grok Bot Meetup — privado hasta que Luigi publique
+  "b8qc0zng", // Inauguración PSICOCONECTA Castelli
 ]);
 
 /** Títulos o hosts que indican evento fuera de scope (case-insensitive). */
