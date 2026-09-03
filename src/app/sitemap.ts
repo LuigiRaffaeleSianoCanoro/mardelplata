@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo/site";
 import { createClient } from "@/lib/supabase/server";
 import { companies } from "@/content/nomad";
+import { pressItems } from "@/content/prensa/items";
 import { getCafes, cafeSlug } from "@/lib/cafes";
 import { getCuratedPublicEvents } from "@/lib/events";
 
@@ -53,6 +54,7 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: "/bolsa", changeFrequency: "daily", priority: 0.8 },
   { path: "/proyectos", changeFrequency: "weekly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.6 },
+  { path: "/prensa", changeFrequency: "monthly", priority: 0.5 },
   { path: "/primer-trabajo", changeFrequency: "monthly", priority: 0.7 },
   { path: "/primer-trabajo/diagnostico", changeFrequency: "monthly", priority: 0.5 },
   { path: "/primer-trabajo/plan", changeFrequency: "monthly", priority: 0.5 },
@@ -129,5 +131,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...companyEntries, ...cafeEntries];
+  const prensaEntries: MetadataRoute.Sitemap = pressItems.map((item) => ({
+    url: absoluteUrl(`/prensa/${item.id}`),
+    lastModified: now,
+    changeFrequency: "yearly",
+    priority: 0.4,
+  }));
+
+  return [...staticEntries, ...companyEntries, ...cafeEntries, ...prensaEntries];
 }
