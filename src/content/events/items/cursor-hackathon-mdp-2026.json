@@ -1,0 +1,14 @@
+{
+  "id": "cursor-hackathon-mdp-2026",
+  "title": "Cursor Hackathon Mar del Plata",
+  "excerpt": "Jornada intensiva de prototipado con Cursor en Line Up Coworking: building, lightning demos y premio en sala.",
+  "date": "2026-08-22T10:00:00-03:00",
+  "endDate": "2026-08-22T19:30:00-03:00",
+  "venue": "Line Up Coworking · Bernardo de Irigoyen 3918",
+  "city": "Mar del Plata",
+  "hosts": ["Luigi Canoro", "Franco Petruccelli"],
+  "lumaUrl": "https://luma.com/cursor-myvz",
+  "tags": ["hackatón", "IA", "Cursor"],
+  "tier": "community",
+  "verifiedAt": "2026-09-03"
+}

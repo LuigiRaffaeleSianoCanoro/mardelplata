@@ -6506,6 +6506,14 @@ a.event-card:hover {
   line-height: 1.5;
   margin: 0;
 }
+.events-x-empty-link {
+  color: rgba(196, 181, 253, 0.95);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.events-x-empty-link:hover {
+  color: rgba(245, 248, 255, 0.96);
+}
 
 /* ════════════════════════════════════════════════════════════════════
    COMMUNITY — Nuestra comunidad (5 miembros + CTA)
@@ -9302,6 +9310,39 @@ a.shell-card:hover {
 }
 .eventos-x-card--past {
   opacity: 0.65;
+}
+.eventos-x-card--city {
+  opacity: 0.55;
+}
+.eventos-x-city-lead {
+  margin: -0.75rem 0 1.25rem;
+  max-width: 42rem;
+}
+.event-card-desc {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: rgba(180, 200, 230, 0.72);
+  margin: 0;
+}
+.event-card-hosts {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: rgba(196, 181, 253, 0.75);
+  margin: 0;
+}
+.event-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+.event-card-luma {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(103, 232, 249, 0.8);
+  white-space: nowrap;
 }
 
 /* ════════════════════════════════════════════════════════════════════
