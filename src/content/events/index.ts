@@ -12,6 +12,7 @@ import cafeCursorMdp2026 from "./items/cafe-cursor-mdp-2026.json";
 import coworkAticmaMdpTech2026 from "./items/cowork-aticma-mdp-tech-2026.json";
 import crecimientoAlephMdp2026 from "./items/crecimiento-aleph-mdp-2026.json";
 import cursorHackathonMdp2026 from "./items/cursor-hackathon-mdp-2026.json";
+import ieeeUnmdpIaFalla2026 from "./items/ieee-unmdp-ia-falla-2026.json";
 import mdpDataChallenge2026 from "./items/mdp-data-challenge-2026.json";
 
 export type { CuratedEvent, EventTier } from "./types";
@@ -28,6 +29,7 @@ const ALL_CURATED: CuratedEvent[] = [
   aticmaEmprendeUtn2026 as CuratedEvent,
   bnbBuilderSessionMdp2026 as CuratedEvent,
   mdpDataChallenge2026 as CuratedEvent,
+  ieeeUnmdpIaFalla2026 as CuratedEvent,
 ];
 
 /** Slugs de Luma que nunca deben publicarse (privados, no tech, embudos ajenos). */
