@@ -59,6 +59,8 @@ Status values: `pending`, `published`, `failed`, `cancelled`
 
 Calendario editorial: `docs/marketing/CONTENT-CALENDAR-Q3-2026.md`
 
+Campaña Talento MdP (draft, no publicar sin OK): `talento-queue-draft.json` + `docs/marketing/campaigns/talento-mdp-2026/`
+
 ## Copy guidelines
 
 Usar el skill `.cursor/skills/mdpdev-marketing-voice/` o `BRAND.md` §4.

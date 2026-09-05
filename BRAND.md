@@ -413,6 +413,7 @@ Experiencia inmersiva de la home y secciones editoriales.
 | Ecosistema research | `docs/marketing/ECOSYSTEM-RESEARCH.md` |
 | Calendario Q3 | `docs/marketing/CONTENT-CALENDAR-Q3-2026.md` |
 | Templates visuales | `docs/marketing/VISUAL-TEMPLATES.md` |
+| Campaña Talento MdP | `docs/marketing/campaigns/talento-mdp-2026/` |
 | Skill voz (Cursor) | `.cursor/skills/mdpdev-marketing-voice/` |
 | Autopublicación | `scripts/social/` |
 | Marketing kit web | `/marketing-kit` |
