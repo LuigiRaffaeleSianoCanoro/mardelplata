@@ -6,7 +6,8 @@ export type PressEventTag =
   | "bit-beat"
   | "aleph"
   | "cursor-hackathon"
-  | "municipio-neme";
+  | "municipio-neme"
+  | "spacex-ai";
 
 export interface PressItem {
   id: string;
@@ -40,6 +41,7 @@ export const PRESS_EVENT_LABELS: Record<PressEventTag, string> = {
   aleph: "Aleph Hackathon",
   "cursor-hackathon": "Cursor Hackathon",
   "municipio-neme": "Municipio / Neme",
+  "spacex-ai": "SpaceX AI",
 };
 
 export const PRESS_TYPE_LABELS: Record<PressType, string> = {

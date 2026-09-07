@@ -235,6 +235,24 @@ export const pressItems: PressItem[] = [
     primarySource: true,
   },
 
+  // —— SpaceX AI Ambassadors (sep 2026) ——
+  {
+    id: "spacex-ai-0223",
+    title:
+      "Fueron elegidos embajadores de SpaceX AI y llevarán el talento marplatense a Nueva York",
+    outletTitle:
+      "Dos marplatenses fueron elegidos embajadores de SpaceX AI: qué implica para la ciudad",
+    outlet: "0223",
+    date: "2026-09-02",
+    url: "https://www.0223.com.ar/nota/2026-9-2-22-10-0-fueron-elegidos-embajadores-de-spacex-ai-y-llevaran-el-talento-marplatense-a-nueva-york",
+    excerpt:
+      "Luigi Canoro y Franco Petruccelli, impulsores de Mar del Plata Dev, designados SpaceX AI Ambassadors; viajan a Compile en Nueva York y buscan traer eventos gratis a la ciudad (UTN, noviembre).",
+    events: ["spacex-ai"],
+    type: "reportaje",
+    archivePath: "spacex-ai-0223.md",
+    capturedAt: "2026-09-07",
+  },
+
   // —— Respaldo institucional — intendente Neme (31 may 2026) ——
   {
     id: "neme-x-2026-05-31",
