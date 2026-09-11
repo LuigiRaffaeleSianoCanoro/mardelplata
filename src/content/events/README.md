@@ -2,18 +2,31 @@
 
 Fuente en repo de eventos públicos de Luma para la home y `/eventos`. Complementa (y tiene prioridad sobre) filas legacy en Supabase `events`.
 
-## Cuándo actualizar
+## Cómo se actualiza (sin PR por cambio)
 
-Sync **dos veces por semana** (o cuando Luigi publique un evento nuevo en Luma):
+Los eventos viven como JSON en `items/`. El script `scripts/sync-luma-events.mjs` consulta la API pública de Luma y actualiza fechas, título y hosts.
 
-1. Revisar perfiles Luma: [Mar del Plata Dev](https://luma.com/user/usr-de5FTdclyBwZ9cE), [Luigi Canoro](https://luma.com/user/usr-AiGJBby7CcB6NfQ), [ATICMA events](https://luma.com/user/ATICMA).
-2. Solo incluir páginas **públicas** (no 404, no “private”, no waitlist cerrada sin página).
-3. Verificar fecha, venue y hosts en la página de Luma.
-4. Excluir siempre: Pavla, PsicoConecta, Disro, Builders OFF The Record, eventos privados de embajador Cursor, `luma.com/fktjzk1y` hasta publicación.
+**Automático (recomendado):** GitHub Action `.github/workflows/events-sync.yml` corre **lunes y jueves 08:00 ART**, commitea directo a `main` (mismo patrón que `social-publish.yml`). Vercel redeploya solo.
 
-## Agregar o editar un evento
+**Manual local:**
 
-1. Crear `src/content/events/items/<slug-estable>.json` con este shape:
+```bash
+npm run sync:events          # refrescar JSON existentes
+npm run sync:events:discover   # + buscar eventos nuevos cerca de MDP
+npm run verify:events
+```
+
+**Disparo manual en GitHub:** Actions → "Events Luma sync" → Run workflow. Opción `discover` para eventos nuevos.
+
+**Grok Bot / agentes:** disparar el workflow con `workflow_dispatch` (GitHub API) en lugar de abrir un PR de contenido. Solo hace falta un PR cuando cambia el tooling (script, exclusiones, workflow).
+
+## Agregar un evento nuevo (primera vez)
+
+1. Crear `items/<slug-estable>.json` **o** correr `npm run sync:events:discover` y revisar el diff.
+2. Ajustar `excerpt`, `tier` y `tags` si el auto-generado no alcanza.
+3. Ya no hace falta editar `index.ts` — los JSON se cargan con glob.
+
+Shape mínimo:
 
 ```json
 {
@@ -24,27 +37,29 @@ Sync **dos veces por semana** (o cuando Luigi publique un evento nuevo en Luma):
   "endDate": "2026-10-17T17:30:00-03:00",
   "venue": "Lugar · dirección corta",
   "city": "Mar del Plata",
-  "hosts": ["Organizador", "Luigi Canoro"],
+  "hosts": ["Organizador"],
   "lumaUrl": "https://luma.com/xxxx",
   "tags": ["meetup", "IA"],
   "tier": "community",
-  "verifiedAt": "2026-09-03"
+  "verifiedAt": "2026-09-11"
 }
 ```
 
-- `tier`: `community` (MdPDev / Luigi / Franco) o `city` (ecosistema local: ATICMA, hackathons de terceros, etc.).
+- `tier`: `community` (MdPDev / Luigi) o `city` (ecosistema local).
 - Fechas en ISO con offset `-03:00` (Argentina).
 
-2. Importar el JSON en `src/content/events/index.ts` y sumarlo al array `ALL_CURATED`.
+## Exclusiones
 
-3. `npm run lint && npm run build`.
+En `index.ts`: slugs privados (`fktjzk1y`, `b8qc0zng`) y patrones Pavla, PsicoConecta, Disro, Builders OFF The Record. El script de sync replica estas reglas.
 
-## Criterios de inclusión
+## Fuentes Luma
 
-Incluir si:
+Perfiles a vigilar: [Mar del Plata Dev](https://luma.com/user/usr-de5FTdclyBwZ9cE), [Luigi Canoro](https://luma.com/user/usr-AiGJBby7CcB6NfQ), [ATICMA](https://luma.com/user/ATICMA).
 
-- Ocurre en Mar del Plata **o**
-- Lo organiza Luigi / Mar del Plata Dev **o**
-- Es evento tech/ecosistema público en la ciudad (ATICMA, hackathons, meetups, coworks).
+Descubrimiento geo configurado en `sources.json` (coordenadas MDP).
 
-No inventar eventos sin URL Luma pública verificable.
+## Qué NO cubre hoy
+
+- `/admin` edita solo Supabase legacy — no los JSON curados.
+- No hay API HTTP en el sitio para sync (el path es GitHub Action o script local).
+- Luma MCP no está conectado en este entorno; el script usa `api.lu.ma` / `api2.luma.com`.

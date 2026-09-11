@@ -1,0 +1,54 @@
+name: Events Luma sync
+
+on:
+  schedule:
+    # Lun y jue 08:00 ART (UTC-3) → 11:00 UTC
+    - cron: "0 11 * * 1,4"
+  workflow_dispatch:
+    inputs:
+      discover:
+        description: "Buscar eventos nuevos en Luma (además de refrescar existentes)"
+        type: boolean
+        default: false
+      dry_run:
+        description: "Solo reportar cambios, sin commit"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Sync events from Luma
+        run: |
+          FLAGS="--refresh"
+          if [ "${{ inputs.discover }}" = "true" ]; then FLAGS="$FLAGS --discover"; fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="$FLAGS --dry-run"; fi
+          node scripts/sync-luma-events.mjs $FLAGS
+
+      - name: Verify events
+        if: inputs.dry_run != true
+        run: node scripts/verify-events.mjs
+
+      - name: Commit event updates
+        if: inputs.dry_run != true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/events/
+          git diff --cached --quiet && echo "No event changes." && exit 0
+          git commit -m "chore(events): sync from Luma [skip ci]"
+          git push

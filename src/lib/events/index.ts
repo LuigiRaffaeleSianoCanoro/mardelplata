@@ -1,9 +1,9 @@
 import {
-  curatedEvents,
   isExcludedEvent,
   lumaSlug,
   type CuratedEvent,
 } from "@/content/events";
+import { loadCuratedEvents } from "./load-curated";
 
 /** Evento unificado para UI pública (Luma curado + opcional Supabase). */
 export interface PublicEvent {
@@ -114,13 +114,13 @@ function mergeEvents(
 }
 
 export function getCuratedPublicEvents(): PublicEvent[] {
-  return curatedEvents().map(curatedToPublic);
+  return loadCuratedEvents().map(curatedToPublic);
 }
 
 export function mergePublicEvents(
   supabaseRows: SupabaseEventRow[] | null,
 ): PublicEvent[] {
-  return mergeEvents(curatedEvents(), supabaseRows);
+  return mergeEvents(loadCuratedEvents(), supabaseRows);
 }
 
 export function partitionEvents(events: PublicEvent[], now = Date.now()) {
