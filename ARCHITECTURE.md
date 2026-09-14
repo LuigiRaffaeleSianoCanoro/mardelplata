@@ -139,11 +139,12 @@ mardelplata/
 │   │       ├── GuiaSubnav.tsx
 │   │       └── MissionCallout.tsx
 │   ├── content/
-│   │   ├── events/                       # eventos públicos Luma (sync quincenal)
-│   │   │   ├── items/*.json
+│   │   ├── events/                       # eventos públicos Luma (sync automático)
+│   │   │   ├── items/*.json              # un JSON por evento (glob en index.ts)
+│   │   │   ├── sources.json              # fuentes geo para --discover
 │   │   │   ├── index.ts
 │   │   │   ├── types.ts
-│   │   │   └── README.md                 # workflow de sync Luma
+│   │   │   └── README.md
 │   │   ├── prensa/                         # archivo de clippings periodísticos
 │   │   │   ├── items.ts                    # metadata curada
 │   │   │   ├── types.ts
@@ -545,6 +546,18 @@ graph LR
 - `images.unoptimized: true` (avatares vienen de Supabase Storage / paths arbitrarios).
 - Headers específicos para `/admin/scanner` (camera + frame-options).
 
+### Sync de eventos Luma (sin PR de contenido)
+
+Los eventos públicos viven en `src/content/events/items/*.json` (Luma = fuente de verdad). Antes, cada sync abría un PR de contenido (#59, #61). Ahora:
+
+| Componente | Rol |
+|---|---|
+| `scripts/sync-luma-events.mjs` | Refresca fechas/título/hosts desde `api.lu.ma`; opción `--discover` para eventos nuevos |
+| `scripts/verify-events.mjs` | Smoke test (`npm run verify:events`) |
+| `.github/workflows/events-sync.yml` | Cron lun/jue 08:00 ART → commit directo a `main` (patrón `social-publish.yml`) |
+
+`/admin` sigue editando solo Supabase legacy — no los JSON curados. Grok Bot puede disparar el workflow vía `workflow_dispatch` en lugar de abrir PRs.
+
 ---
 
 ## 15. Comandos
@@ -556,6 +569,8 @@ graph LR
 | Lint | `npm run lint` (deprecated en Next 16; warnings de `<img>` vs `<Image>` son pre-existentes) |
 | Build | `npm run build` |
 | Start (prod local) | `npm run start` |
+| Sync eventos Luma | `npm run sync:events` / `npm run sync:events:discover` |
+| Verificar eventos | `npm run verify:events` |
 
 Scripts SQL: ejecutar en orden (`001` → `005`) desde el SQL Editor de Supabase.
 

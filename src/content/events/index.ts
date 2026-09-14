@@ -1,38 +1,7 @@
 // Eventos públicos curados desde Luma — fuente en repo para sync quincenal.
-// Ver README.md en esta carpeta.
-
-import type { CuratedEvent } from "./types";
-import aticmaEmprendeLaunch2026 from "./items/aticma-emprende-launch-2026.json";
-import aticmaEmprendeUtn2026 from "./items/aticma-emprende-utn-2026.json";
-import aticmaIaTalks2025 from "./items/aticma-ia-talks-2025.json";
-import aticmaModeloNegocio2026 from "./items/aticma-modelo-negocio-2026.json";
-import bitBeatMdp2026 from "./items/bit-beat-mdp-2026.json";
-import bnbBuilderSessionMdp2026 from "./items/bnb-builder-session-mdp-2026.json";
-import cafeCursorMdp2026 from "./items/cafe-cursor-mdp-2026.json";
-import coworkAticmaMdpTech2026 from "./items/cowork-aticma-mdp-tech-2026.json";
-import crecimientoAlephMdp2026 from "./items/crecimiento-aleph-mdp-2026.json";
-import cursorHackathonMdp2026 from "./items/cursor-hackathon-mdp-2026.json";
-import ieeeUnmdpIaFalla2026 from "./items/ieee-unmdp-ia-falla-2026.json";
-import mdpDataChallenge2026 from "./items/mdp-data-challenge-2026.json";
-import slaLiveBasementMdp2026 from "./items/sla-live-basement-mdp-2026.json";
+// Ver README.md en esta carpeta. Los JSON se cargan en server via lib/events/load-curated.ts.
 
 export type { CuratedEvent, EventTier } from "./types";
-
-const ALL_CURATED: CuratedEvent[] = [
-  cafeCursorMdp2026 as CuratedEvent,
-  crecimientoAlephMdp2026 as CuratedEvent,
-  bitBeatMdp2026 as CuratedEvent,
-  cursorHackathonMdp2026 as CuratedEvent,
-  aticmaIaTalks2025 as CuratedEvent,
-  aticmaEmprendeLaunch2026 as CuratedEvent,
-  aticmaModeloNegocio2026 as CuratedEvent,
-  coworkAticmaMdpTech2026 as CuratedEvent,
-  aticmaEmprendeUtn2026 as CuratedEvent,
-  bnbBuilderSessionMdp2026 as CuratedEvent,
-  slaLiveBasementMdp2026 as CuratedEvent,
-  mdpDataChallenge2026 as CuratedEvent,
-  ieeeUnmdpIaFalla2026 as CuratedEvent,
-];
 
 /** Slugs de Luma que nunca deben publicarse (privados, no tech, embudos ajenos). */
 export const LUMA_EXCLUDE_SLUGS = new Set([
@@ -69,9 +38,4 @@ export function isExcludedEvent(input: {
     ...(input.hosts ?? []),
   ].join(" ");
   return EVENT_EXCLUDE_PATTERNS.some((re) => re.test(haystack));
-}
-
-/** Lista curada en repo, ya filtrada por exclusiones. */
-export function curatedEvents(): CuratedEvent[] {
-  return ALL_CURATED.filter((e) => !isExcludedEvent(e));
 }

@@ -10,7 +10,10 @@
     "security:verify": "node scripts/verify-rls.mjs",
     "security:regression": "node scripts/regression-rls.mjs",
     "security:migrate": "node scripts/apply-security-migrations.mjs",
-    "verify:prensa": "node scripts/verify-prensa.mjs"
+    "verify:prensa": "node scripts/verify-prensa.mjs",
+    "sync:events": "node scripts/sync-luma-events.mjs --refresh",
+    "sync:events:discover": "node scripts/sync-luma-events.mjs --refresh --discover",
+    "verify:events": "node scripts/verify-events.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",

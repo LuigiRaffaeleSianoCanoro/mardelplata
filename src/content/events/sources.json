@@ -1,0 +1,11 @@
+{
+  "discover": {
+    "latitude": -38.0055,
+    "longitude": -57.5426,
+    "paginationLimit": 50
+  },
+  "calendars": [
+    "spacexai-mar-del-plata"
+  ],
+  "notes": "Fuentes para --discover. Refresh usa solo los JSON existentes en items/."
+}
