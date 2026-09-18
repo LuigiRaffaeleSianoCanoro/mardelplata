@@ -16,6 +16,7 @@
 - **Auth completa** (signup, login, email verification) con Supabase Auth
 - **Perfiles de miembros** con avatar, bio, redes y QR personal
 - **Bolsa de trabajo** (empleos + freelance con votos comunitarios)
+- **Marketplace de startups** (`/marketplace`) — oferta y demanda, pendiente de aprobación de Luigi antes de nav pública
 - **Primer Trabajo OS** — sistema de diagnóstico de empleabilidad para juniors (CV, LinkedIn, simulador HR)
 - **Admin dashboard** + scanner QR para registrar asistencia a eventos
 - **Red** (`/red`) — directorio de proyectos open source de la comunidad (público)

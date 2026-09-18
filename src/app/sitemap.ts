@@ -5,6 +5,7 @@ import { companies } from "@/content/nomad";
 import { pressItems } from "@/content/prensa/items";
 import { getCafes, cafeSlug } from "@/lib/cafes";
 import { getCuratedPublicEvents } from "@/lib/events";
+import { getPublishedPedidos, getPublishedStartups } from "@/lib/marketplace";
 
 // Metadata route de Next 15. Rutas públicas estáticas + fecha dinámica de
 // /eventos según el último evento publicado. A medida que se sumen rutas-entidad
@@ -52,6 +53,9 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: "/empresas", changeFrequency: "weekly", priority: 0.9 },
   { path: "/estudiar", changeFrequency: "monthly", priority: 0.7 },
   { path: "/bolsa", changeFrequency: "daily", priority: 0.8 },
+  { path: "/marketplace", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/marketplace/startups", changeFrequency: "weekly", priority: 0.6 },
+  { path: "/marketplace/pedidos", changeFrequency: "weekly", priority: 0.6 },
   { path: "/proyectos", changeFrequency: "weekly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.6 },
   { path: "/prensa", changeFrequency: "monthly", priority: 0.5 },
@@ -131,6 +135,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
+  const [publishedStartups, publishedPedidos] = await Promise.all([
+    getPublishedStartups(),
+    getPublishedPedidos(),
+  ]);
+  const marketplaceStartupEntries: MetadataRoute.Sitemap = publishedStartups.map((s) => ({
+    url: absoluteUrl(`/marketplace/startups/${s.slug}`),
+    lastModified: s.published_at ? new Date(s.published_at) : now,
+    changeFrequency: "weekly",
+    priority: 0.5,
+  }));
+  const marketplacePedidoEntries: MetadataRoute.Sitemap = publishedPedidos.map((p) => ({
+    url: absoluteUrl(`/marketplace/pedidos/${p.id}`),
+    lastModified: p.published_at ? new Date(p.published_at) : now,
+    changeFrequency: "weekly",
+    priority: 0.5,
+  }));
+
   const prensaEntries: MetadataRoute.Sitemap = pressItems.map((item) => ({
     url: absoluteUrl(`/prensa/${item.id}`),
     lastModified: now,
@@ -138,5 +159,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.4,
   }));
 
-  return [...staticEntries, ...companyEntries, ...cafeEntries, ...prensaEntries];
+  return [
+    ...staticEntries,
+    ...companyEntries,
+    ...cafeEntries,
+    ...prensaEntries,
+    ...marketplaceStartupEntries,
+    ...marketplacePedidoEntries,
+  ];
 }

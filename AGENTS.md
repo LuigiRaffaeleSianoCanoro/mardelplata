@@ -37,7 +37,9 @@ El proyecto tiene una estructura de agentes en `.cursor/`:
 
 The app requires `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `.env.local`. Without real credentials, the home page (`/`) still renders (Supabase calls fail silently and data defaults to `[]`). All other routes are static and work without Supabase.
 
-If you need to test auth, profiles, events, admin, or job board features, real Supabase credentials must be provided as secrets.
+Optional: `NEXT_PUBLIC_MARKETPLACE_NAV=true` to show Marketplace in the Ecosistema dropdown. Default off until Luigi approves the public ship.
+
+If you need to test auth, profiles, events, admin, job board, or marketplace apply/moderation, real Supabase credentials must be provided as secrets. Marketplace also needs `scripts/020_marketplace.sql` applied.
 
 ### Gotchas
 

@@ -126,6 +126,52 @@ async function main() {
     "  → Correr scripts/012_security_audit_check.sql para detalle de pg_policies",
   );
 
+  header("Test 6: marketplace — anon no lee emails de startups");
+  const marketplaceEmails = await rest(
+    "/rest/v1/marketplace_startups?select=contact_email&limit=5",
+    { key: anon },
+  );
+  const marketplaceMissing =
+    marketplaceEmails.status === 404 ||
+    /could not find the table|relation .* does not exist|schema cache/i.test(
+      typeof marketplaceEmails.json === "string"
+        ? marketplaceEmails.json
+        : JSON.stringify(marketplaceEmails.json ?? {}),
+    );
+  if (marketplaceMissing) {
+    pass("020_marketplace.sql aún no aplicado (skip)");
+  } else if (
+    marketplaceEmails.status === 200 &&
+    Array.isArray(marketplaceEmails.json) &&
+    marketplaceEmails.json.some((row) => row.contact_email)
+  ) {
+    fail("anon obtuvo contact_email de marketplace_startups");
+    issues++;
+  } else {
+    pass("anon no lee contact_email de marketplace_startups");
+  }
+
+  header("Test 7: marketplace_startups_public sin columnas privadas");
+  const publicEmailCol = await rest(
+    "/rest/v1/marketplace_startups_public?select=contact_email&limit=1",
+    { key: anon },
+  );
+  const publicMissing =
+    publicEmailCol.status === 404 ||
+    /could not find the table|relation .* does not exist|schema cache/i.test(
+      typeof publicEmailCol.json === "string"
+        ? publicEmailCol.json
+        : JSON.stringify(publicEmailCol.json ?? {}),
+    );
+  if (publicMissing) {
+    pass("vista marketplace_startups_public aún no aplicada (skip)");
+  } else if (publicEmailCol.status >= 400) {
+    pass("contact_email no expuesto en marketplace_startups_public");
+  } else {
+    fail("marketplace_startups_public podría exponer contact_email");
+    issues++;
+  }
+
   header("Resumen");
   if (issues === 0) {
     console.log("  Todos los tests REST pasaron.");
