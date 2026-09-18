@@ -18,6 +18,7 @@ Lo que hay hoy:
 - **Admin dashboard** (eventos, usuarios) restringido a `is_admin`.
 - **Scanner QR** para registrar asistencia a eventos en tiempo real.
 - **Bolsa de trabajo** (clasificados de empleo y freelance con votos).
+- **Marketplace de startups** (`/marketplace`) — oferta (startups) y demanda (pedidos), con cola de moderación. Nav pública apagada hasta OK de Luigi (`NEXT_PUBLIC_MARKETPLACE_NAV`).
 - **Primer Trabajo OS** — herramienta autocontenida con diagnóstico, plan de acción, guías y simulador HR (estado en `localStorage`, sin backend).
 - **Marketing Kit y Brand Book** estáticos.
 
@@ -61,6 +62,7 @@ Definir en `.env.local` (no se commitea — `.gitignore` cubre `.env*.local`):
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto Supabase |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | API key pública (anon role) |
+| `NEXT_PUBLIC_MARKETPLACE_NAV` | Opcional. `true` para mostrar Marketplace en el dropdown Ecosistema. Default: ausente/false (Luigi no aprobó el ship público). |
 
 Sin estas variables:
 - La home renderiza pero los queries fallan en silencio y los datos quedan en `[]`.
@@ -102,6 +104,13 @@ mardelplata/
 │   │   ├── bolsa/
 │   │   │   ├── layout.tsx
 │   │   │   └── page.tsx                    # → BolsaClient
+│   │   ├── marketplace/
+│   │   │   ├── page.tsx                    # hub Oferta/Demanda (ISR)
+│   │   │   ├── startups/page.tsx
+│   │   │   ├── startups/[slug]/page.tsx
+│   │   │   ├── pedidos/page.tsx
+│   │   │   ├── pedidos/[id]/page.tsx
+│   │   │   └── aplicar/{startup,pedido}/page.tsx
 │   │   └── primer-trabajo/
 │   │       ├── layout.tsx                  # metadata
 │   │       ├── page.tsx                    # índice de la herramienta
@@ -116,6 +125,10 @@ mardelplata/
 │   │           └── linkedin/page.tsx
 │   ├── components/
 │   │   ├── Navbar.tsx                      # client — scroll + auth state + mobile menu
+│   │   ├── marketplace/
+│   │   │   ├── MarketplaceShell.tsx
+│   │   │   ├── StartupApplyForm.tsx / PedidoApplyForm.tsx / LeadForm.tsx
+│   │   │   └── MarketplaceModeration.tsx   # cola admin (approve/reject)
 │   │   ├── Hero.tsx
 │   │   ├── Collaborators.tsx               # marquee de miembros
 │   │   ├── CommunityPlatforms.tsx
@@ -179,16 +192,15 @@ mardelplata/
 │       │   ├── mission-callouts.ts
 │       │   └── silver-dev.ts
 │       └── types/
-│           └── classifieds.ts
+│           ├── classifieds.ts
+│           └── marketplace.ts
 ├── scripts/                                # SQL de Supabase (correr en SQL Editor)
 │   ├── 001_create_profiles_and_events.sql
-│   ├── 002_seed_initial_events.sql
-│   ├── 003_classified_listings.sql
-│   ├── 004_clear_retired_nextsolution_avatar.sql
-│   ├── 005_clear_retired_whatsapp_02_avatar.sql
+│   ├── 019_cafes.sql
 │   └── 013_profiles_huevsite.sql            # columna huevsite_username
 │   ├── 018_profiles_public_security_invoker.sql  # vista profiles_public (security_invoker) + RPC admin
-│   └── 019_cafes.sql                             # tablas cafes + cafe_votes + RLS (antes de 015 view)
+│   ├── 019_cafes.sql                             # tablas cafes + cafe_votes + RLS (antes de 015 view)
+│   └── 020_marketplace.sql                       # startups + pedidos + leads + RLS
 ├── public/
 │   ├── avatar-icons/                       # presets servidos a /perfil
 │   ├── avatars/
@@ -229,6 +241,13 @@ mardelplata/
 | `/admin` | Client | Gate por `is_admin`; carga `events` + `profiles` |
 | `/admin/scanner` | Client | `getUserMedia` + zxing + insert en `event_attendance` |
 | `/bolsa` | Client | Supabase: `classified_listings` + `classified_votes` |
+| `/marketplace` | Static + ISR 5m (Navbar) | Hub Oferta/Demanda; vistas `marketplace_*_public` |
+| `/marketplace/startups` | ISR 5m | Startups `published` |
+| `/marketplace/startups/[slug]` | ISR 5m | Ficha pública (404 si pending) |
+| `/marketplace/pedidos` | ISR 5m | Pedidos `published` |
+| `/marketplace/pedidos/[id]` | ISR 5m | Detalle pedido aprobado |
+| `/marketplace/aplicar/startup` | Static + form client | Insert `pending` |
+| `/marketplace/aplicar/pedido` | Static + form client | Insert `pending` |
 | `/primer-trabajo` | Static | Índice — links a sub-páginas |
 | `/primer-trabajo/diagnostico` | Client | `localStorage` (`mdpdev-primer-trabajo-v1`) |
 | `/primer-trabajo/plan` | Client | `localStorage` |
@@ -249,7 +268,7 @@ mardelplata/
 | `/trabajar/[slug]` | SSG + ISR 10m (`generateStaticParams`) | Supabase `cafes_public` + voto comunidad |
 | `/en/invest` | Static (RSC en AppShell) | JSON `content/nomad/invest.en.json` |
 | `/en/live-in-mar-del-plata` | Static (RSC en AppShell) | JSON `content/nomad/living.en.json` |
-| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + cafés (Supabase) + clippings `/prensa/[id]` + fecha del último evento |
+| `/sitemap.xml` | Metadata route (dinámica) | Rutas estáticas + empresas + cafés + startups/pedidos publicados + clippings `/prensa/[id]` + fecha del último evento |
 | `/robots.txt` | Metadata route (estática) | — |
 
 > No hay API routes propias. Toda la lectura/escritura va directo al cliente Supabase desde el browser o desde server components.
@@ -270,6 +289,8 @@ App Router con **React Server Components por defecto**. Los componentes que usan
 | `app/admin/*` | Client | Gate por rol + dashboards interactivos |
 | `app/admin/scanner/page.tsx` | Client | `getUserMedia` + zxing |
 | `app/bolsa/page.tsx` (+ children) | Client | Wizard de publicación + votos |
+| `marketplace` apply/lead/moderation | Client | Forms + cola admin |
+| `app/marketplace/**` listados | Server ISR | Vistas públicas |
 | `app/auth/login` / `registro` / `callback` / `miembro` | Client | Forms con submit a Supabase, querystring |
 | `app/primer-trabajo/*` (la mayoría) | Client | Persistencia en localStorage |
 
@@ -341,6 +362,29 @@ classified_listings
 classified_votes
   PRIMARY KEY (listing_id, user_id)
   vote                SMALLINT CHECK (1 | -1)
+
+marketplace_startups
+  id UUID PK, slug UNIQUE, name, one_liner, description
+  stage CHECK (idea|mvp|early_revenue|growth)
+  tags TEXT[], city, website, logo_url, founders JSONB
+  looking_for TEXT[] (capital|clientes|talento|partners|mentores)
+  ticket_range, contact_email, contact_phone, deck_url, extra_docs_url
+  has_deck GENERATED, status DEFAULT 'pending'
+  admin_notes, reviewed_by, reviewed_at, published_at
+  UNIQUE (email_lc, día ART) WHERE status IN (pending, published)
+
+marketplace_pedidos
+  id UUID PK, title, kind, description, publisher_display, organization
+  tags, budget, deadline, preferred_contact
+  contact_email, linkedin_url (privados)
+  status DEFAULT 'pending' + cola admin
+
+marketplace_leads
+  kind CHECK (startup_contact|startup_deck|pedido_interest)
+  startup_id / pedido_id, from_name, from_email, message, status
+
+marketplace_startups_public / marketplace_pedidos_public
+  Vistas SECURITY DEFINER: solo status=published, sin emails/decks/teléfonos
 ```
 
 ### 7.3 Row Level Security
@@ -354,6 +398,9 @@ Todas las tablas tienen RLS habilitado.
 | `event_attendance` | Sólo `is_admin()` | Sólo `is_admin()` |
 | `classified_listings` | Autenticados, vigentes (o propio si vencido) | Insert/delete del autor |
 | `classified_votes` | Autenticados, sobre listings vigentes | Sólo voto propio |
+| `marketplace_startups` | Admin (`is_admin()`). Público vía vista | INSERT anon/auth solo `pending`. UPDATE/DELETE admin |
+| `marketplace_pedidos` | Idem | Idem |
+| `marketplace_leads` | Admin | INSERT si el target está `published` |
 
 Helper `public.is_admin()` con `SECURITY DEFINER` evita recursión leyendo `profiles.is_admin` por fuera de las policies.
 
@@ -428,6 +475,20 @@ Runbook operativo: [`docs/admin-qr-scanner-runbook.md`](docs/admin-qr-scanner-ru
 - **Vencimiento**: 30 días desde `created_at`. RLS oculta vencidos a terceros pero el autor sigue viéndolos.
 
 Tipos en [`src/lib/types/classifieds.ts`](src/lib/types/classifieds.ts). Constantes: `CLASSIFIED_TITLE_MAX = 120`, `CLASSIFIED_DESC_MAX = 2000`, `CLASSIFIED_NEW_DAYS = 7`.
+
+---
+
+## 10.1 Marketplace de startups
+
+Sección **separada de `/bolsa`**. Hub `/marketplace` con caras Oferta (startups) y Demanda (pedidos / RFS). MVP forms-first: apply → `pending` → admin aprueba → card pública.
+
+**Ship gate:** Luigi aprueba listings, pedidos y el link de nav. `NEXT_PUBLIC_MARKETPLACE_NAV` (default off) es el único interruptor de nav. Las rutas existen para review en preview.
+
+**Datos:** [`scripts/020_marketplace.sql`](scripts/020_marketplace.sql). Fetchers en [`src/lib/marketplace.ts`](src/lib/marketplace.ts) leen solo las vistas `*_public`. Inserts de formularios van a las tablas base (trigger fuerza `pending` y sanitiza `founders` para que no viajen emails).
+
+**Moderación:** tab Marketplace en `/admin`. Approve / reject / archive. Los leads de “Contactar / Pedir deck / Me interesa” quedan en `marketplace_leads` (sin inbox ni mail transaccional en v1: el admin reenvía a mano).
+
+**Privacidad:** emails, teléfonos, deck URLs y LinkedIn de verificación no salen en HTML público. Badge “Deck a pedido” usa la columna generada `has_deck`.
 
 ---
 
@@ -572,7 +633,7 @@ Los eventos públicos viven en `src/content/events/items/*.json` (Luma = fuente 
 | Sync eventos Luma | `npm run sync:events` / `npm run sync:events:discover` |
 | Verificar eventos | `npm run verify:events` |
 
-Scripts SQL: ejecutar en orden (`001` → `005`) desde el SQL Editor de Supabase.
+Scripts SQL: ejecutar en orden desde el SQL Editor de Supabase. Marketplace requiere `020_marketplace.sql` (después de `is_admin()` de `001`).
 
 ---
 

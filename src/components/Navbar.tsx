@@ -12,6 +12,7 @@ import type { User } from "@supabase/supabase-js";
 import CommandPalette from "./CommandPalette";
 import TrackedOutboundLink from "./TrackedOutboundLink";
 import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
+import { MARKETPLACE_NAV_ENABLED } from "@/lib/flags";
 
 type NavLink = { href: string; label: string; match?: (path: string) => boolean };
 type ResourceLink = { href: string; label: string; description: string };
@@ -35,6 +36,9 @@ const MENUS: NavMenu[] = [
     items: [
       { href: "/empresas",   label: "Empresas",   description: "Directorio del ecosistema tech" },
       { href: "/invertir",   label: "Invertir",   description: "El polo tech para empresas IT" },
+      ...(MARKETPLACE_NAV_ENABLED
+        ? [{ href: "/marketplace", label: "Marketplace", description: "Startups y pedidos de la costa" }]
+        : []),
     ],
   },
   {

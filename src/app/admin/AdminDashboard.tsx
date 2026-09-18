@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 import { Button, GlassCard, PageHeader } from "@/components/ui";
+import MarketplaceModeration from "@/components/marketplace/MarketplaceModeration";
 
 interface Event {
   id: string;
@@ -51,7 +52,7 @@ interface AdminDashboardProps {
   currentUserId: string;
 }
 
-type Tab = "events" | "users" | "scanner" | "newsletter";
+type Tab = "events" | "users" | "scanner" | "newsletter" | "marketplace";
 
 export default function AdminDashboard({ events, profiles, subscribers, currentUserId }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<Tab>("events");
@@ -72,7 +73,7 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
         <PageHeader
           eyebrow="/ Panel admin"
           title={<>Centro de <span className="gradient-text">control</span></>}
-          description="Eventos, miembros, escáner QR y suscriptores del newsletter."
+          description="Eventos, miembros, escáner QR, newsletter y cola del Marketplace."
         />
       </div>
 
@@ -84,6 +85,7 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
               { id: "users" as Tab, label: "Usuarios", icon: UsersIcon },
               { id: "scanner" as Tab, label: "Escáner QR", icon: QrIcon },
               { id: "newsletter" as Tab, label: "Newsletter", icon: MailIcon },
+              { id: "marketplace" as Tab, label: "Marketplace", icon: StoreIcon },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -126,6 +128,9 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
         )}
         {activeTab === "newsletter" && (
           <NewsletterTab subscribers={subscribers} />
+        )}
+        {activeTab === "marketplace" && (
+          <MarketplaceModeration />
         )}
       </main>
 
@@ -718,6 +723,16 @@ function QrIcon({ size = 16 }: { size?: number }) {
       <rect x="14" y="3" width="7" height="7"/>
       <rect x="14" y="14" width="7" height="7"/>
       <rect x="3" y="14" width="7" height="7"/>
+    </svg>
+  );
+}
+
+function StoreIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9 5.12 3.5A2 2 0 0 1 7 2.5h10a2 2 0 0 1 1.88 1L21 9" />
+      <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+      <path d="M9 21v-6h6v6" />
     </svg>
   );
 }

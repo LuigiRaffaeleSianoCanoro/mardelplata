@@ -31,6 +31,14 @@ async function rest(path, { key, method = "GET", body } = {}) {
   return { status: res.status, ok: res.ok, json };
 }
 
+function missingRelation(r) {
+  const msg = typeof r.json === "string" ? r.json : JSON.stringify(r.json ?? {});
+  return (
+    r.status === 404 ||
+    /could not find the table|relation .* does not exist|schema cache/i.test(msg)
+  );
+}
+
 async function main() {
   console.log("MdPDev — tests de regresión RLS\n");
 
@@ -86,6 +94,37 @@ async function main() {
       run: async () => {
         const r = await rest("/rest/v1/profiles_public?select=is_admin&limit=1", { key: anon });
         if (r.ok && Array.isArray(r.json)) return "is_admin expuesto en profiles_public";
+        return null;
+      },
+    },
+    {
+      name: "anon no lee contact_email de marketplace_startups",
+      run: async () => {
+        const r = await rest("/rest/v1/marketplace_startups?select=contact_email&limit=5", { key: anon });
+        if (missingRelation(r)) return null;
+        if (r.status === 200 && Array.isArray(r.json) && r.json.some((row) => row.contact_email)) {
+          return "anon obtuvo contact_email de marketplace_startups";
+        }
+        return null;
+      },
+    },
+    {
+      name: "vista marketplace_startups_public no expone contact_email",
+      run: async () => {
+        const r = await rest("/rest/v1/marketplace_startups_public?select=contact_email&limit=1", { key: anon });
+        if (missingRelation(r)) return null;
+        if (r.ok && Array.isArray(r.json)) return "contact_email expuesto en marketplace_startups_public";
+        return null;
+      },
+    },
+    {
+      name: "anon no lee contact_email de marketplace_pedidos",
+      run: async () => {
+        const r = await rest("/rest/v1/marketplace_pedidos?select=contact_email&limit=5", { key: anon });
+        if (missingRelation(r)) return null;
+        if (r.status === 200 && Array.isArray(r.json) && r.json.some((row) => row.contact_email)) {
+          return "anon obtuvo contact_email de marketplace_pedidos";
+        }
         return null;
       },
     },
