@@ -1,0 +1,1640 @@
+{
+  "guest": "nahuel",
+  "language": "es",
+  "duration": 108.4109375,
+  "segments": [
+    {
+      "start": 1.13,
+      "end": 5.75,
+      "text": "Bueno, estamos acá en la UCIP, en el evento BNB Builder Session.",
+      "words": [
+        {
+          "start": 1.13,
+          "end": 1.59,
+          "word": " Bueno,"
+        },
+        {
+          "start": 1.73,
+          "end": 1.93,
+          "word": " estamos"
+        },
+        {
+          "start": 1.93,
+          "end": 2.25,
+          "word": " acá"
+        },
+        {
+          "start": 2.25,
+          "end": 2.43,
+          "word": " en"
+        },
+        {
+          "start": 2.43,
+          "end": 2.59,
+          "word": " la"
+        },
+        {
+          "start": 2.59,
+          "end": 3.45,
+          "word": " UCIP,"
+        },
+        {
+          "start": 3.61,
+          "end": 3.83,
+          "word": " en"
+        },
+        {
+          "start": 3.83,
+          "end": 4.03,
+          "word": " el"
+        },
+        {
+          "start": 4.03,
+          "end": 4.37,
+          "word": " evento"
+        },
+        {
+          "start": 4.37,
+          "end": 4.93,
+          "word": " BNB"
+        },
+        {
+          "start": 4.93,
+          "end": 5.35,
+          "word": " Builder"
+        },
+        {
+          "start": 5.35,
+          "end": 5.75,
+          "word": " Session."
+        }
+      ]
+    },
+    {
+      "start": 5.89,
+      "end": 8.79,
+      "text": "Estamos acá con Fernando. Fernando, contadlo un poquito, ¿cuál es tu background?",
+      "words": [
+        {
+          "start": 5.89,
+          "end": 6.01,
+          "word": " Estamos"
+        },
+        {
+          "start": 6.01,
+          "end": 6.19,
+          "word": " acá"
+        },
+        {
+          "start": 6.19,
+          "end": 6.35,
+          "word": " con"
+        },
+        {
+          "start": 6.35,
+          "end": 6.73,
+          "word": " Fernando."
+        },
+        {
+          "start": 7.03,
+          "end": 7.23,
+          "word": " Fernando,"
+        },
+        {
+          "start": 7.37,
+          "end": 7.73,
+          "word": " contadlo"
+        },
+        {
+          "start": 7.73,
+          "end": 7.81,
+          "word": " un"
+        },
+        {
+          "start": 7.81,
+          "end": 7.95,
+          "word": " poquito,"
+        },
+        {
+          "start": 8.17,
+          "end": 8.29,
+          "word": " ¿cuál"
+        },
+        {
+          "start": 8.29,
+          "end": 8.43,
+          "word": " es"
+        },
+        {
+          "start": 8.43,
+          "end": 8.51,
+          "word": " tu"
+        },
+        {
+          "start": 8.51,
+          "end": 8.79,
+          "word": " background?"
+        }
+      ]
+    },
+    {
+      "start": 9.47,
+      "end": 15.81,
+      "text": "Bueno, originalmente estudié electrónica, después me especialicé en energía renovable,",
+      "words": [
+        {
+          "start": 9.47,
+          "end": 9.59,
+          "word": " Bueno,"
+        },
+        {
+          "start": 9.71,
+          "end": 10.49,
+          "word": " originalmente"
+        },
+        {
+          "start": 10.49,
+          "end": 11.11,
+          "word": " estudié"
+        },
+        {
+          "start": 11.11,
+          "end": 11.95,
+          "word": " electrónica,"
+        },
+        {
+          "start": 12.11,
+          "end": 12.31,
+          "word": " después"
+        },
+        {
+          "start": 12.31,
+          "end": 12.65,
+          "word": " me"
+        },
+        {
+          "start": 12.65,
+          "end": 13.37,
+          "word": " especialicé"
+        },
+        {
+          "start": 13.37,
+          "end": 13.91,
+          "word": " en"
+        },
+        {
+          "start": 13.91,
+          "end": 14.75,
+          "word": " energía"
+        },
+        {
+          "start": 14.75,
+          "end": 15.81,
+          "word": " renovable,"
+        }
+      ]
+    },
+    {
+      "start": 15.97,
+      "end": 20.37,
+      "text": "inmediatamente, y últimamente trabajé mucho con los que son bonos de carbono,",
+      "words": [
+        {
+          "start": 15.97,
+          "end": 16.53,
+          "word": " inmediatamente,"
+        },
+        {
+          "start": 17.21,
+          "end": 17.39,
+          "word": " y"
+        },
+        {
+          "start": 17.39,
+          "end": 18.23,
+          "word": " últimamente"
+        },
+        {
+          "start": 18.23,
+          "end": 18.95,
+          "word": " trabajé"
+        },
+        {
+          "start": 18.95,
+          "end": 19.19,
+          "word": " mucho"
+        },
+        {
+          "start": 19.19,
+          "end": 19.39,
+          "word": " con"
+        },
+        {
+          "start": 19.39,
+          "end": 19.49,
+          "word": " los"
+        },
+        {
+          "start": 19.49,
+          "end": 19.61,
+          "word": " que"
+        },
+        {
+          "start": 19.61,
+          "end": 19.73,
+          "word": " son"
+        },
+        {
+          "start": 19.73,
+          "end": 20.03,
+          "word": " bonos"
+        },
+        {
+          "start": 20.03,
+          "end": 20.17,
+          "word": " de"
+        },
+        {
+          "start": 20.17,
+          "end": 20.37,
+          "word": " carbono,"
+        }
+      ]
+    },
+    {
+      "start": 20.81,
+      "end": 22.51,
+      "text": "y en estos momentos estoy trabajando mucho con energía.",
+      "words": [
+        {
+          "start": 20.81,
+          "end": 20.97,
+          "word": " y"
+        },
+        {
+          "start": 20.97,
+          "end": 21.05,
+          "word": " en"
+        },
+        {
+          "start": 21.05,
+          "end": 21.17,
+          "word": " estos"
+        },
+        {
+          "start": 21.17,
+          "end": 21.41,
+          "word": " momentos"
+        },
+        {
+          "start": 21.41,
+          "end": 21.61,
+          "word": " estoy"
+        },
+        {
+          "start": 21.61,
+          "end": 21.81,
+          "word": " trabajando"
+        },
+        {
+          "start": 21.81,
+          "end": 22.07,
+          "word": " mucho"
+        },
+        {
+          "start": 22.07,
+          "end": 22.23,
+          "word": " con"
+        },
+        {
+          "start": 22.23,
+          "end": 22.51,
+          "word": " energía."
+        }
+      ]
+    },
+    {
+      "start": 23.13,
+      "end": 27.45,
+      "text": "Genial. ¿Y cuál era tu expectativa viniendo al evento BNB Builder Session?",
+      "words": [
+        {
+          "start": 23.13,
+          "end": 23.39,
+          "word": " Genial."
+        },
+        {
+          "start": 23.81,
+          "end": 23.95,
+          "word": " ¿Y"
+        },
+        {
+          "start": 23.95,
+          "end": 24.25,
+          "word": " cuál"
+        },
+        {
+          "start": 24.25,
+          "end": 24.39,
+          "word": " era"
+        },
+        {
+          "start": 24.39,
+          "end": 24.55,
+          "word": " tu"
+        },
+        {
+          "start": 24.55,
+          "end": 25.37,
+          "word": " expectativa"
+        },
+        {
+          "start": 25.37,
+          "end": 25.99,
+          "word": " viniendo"
+        },
+        {
+          "start": 25.99,
+          "end": 26.13,
+          "word": " al"
+        },
+        {
+          "start": 26.13,
+          "end": 26.39,
+          "word": " evento"
+        },
+        {
+          "start": 26.39,
+          "end": 26.85,
+          "word": " BNB"
+        },
+        {
+          "start": 26.85,
+          "end": 27.17,
+          "word": " Builder"
+        },
+        {
+          "start": 27.17,
+          "end": 27.45,
+          "word": " Session?"
+        }
+      ]
+    },
+    {
+      "start": 28.11,
+      "end": 33.15,
+      "text": "Originalmente, primero era entender un poquito cómo podríamos implementar estas nuevas herramientas",
+      "words": [
+        {
+          "start": 28.11,
+          "end": 28.67,
+          "word": " Originalmente,"
+        },
+        {
+          "start": 28.77,
+          "end": 29.01,
+          "word": " primero"
+        },
+        {
+          "start": 29.01,
+          "end": 29.27,
+          "word": " era"
+        },
+        {
+          "start": 29.27,
+          "end": 29.71,
+          "word": " entender"
+        },
+        {
+          "start": 29.71,
+          "end": 29.97,
+          "word": " un"
+        },
+        {
+          "start": 29.97,
+          "end": 30.25,
+          "word": " poquito"
+        },
+        {
+          "start": 30.25,
+          "end": 30.53,
+          "word": " cómo"
+        },
+        {
+          "start": 30.53,
+          "end": 31.03,
+          "word": " podríamos"
+        },
+        {
+          "start": 31.03,
+          "end": 32.07,
+          "word": " implementar"
+        },
+        {
+          "start": 32.07,
+          "end": 32.25,
+          "word": " estas"
+        },
+        {
+          "start": 32.25,
+          "end": 32.43,
+          "word": " nuevas"
+        },
+        {
+          "start": 32.43,
+          "end": 33.15,
+          "word": " herramientas"
+        }
+      ]
+    },
+    {
+      "start": 33.15,
+      "end": 36.01,
+      "text": "para el proyecto propio que tengo y que estamos lanzando en breve,",
+      "words": [
+        {
+          "start": 33.15,
+          "end": 33.43,
+          "word": " para"
+        },
+        {
+          "start": 33.43,
+          "end": 33.57,
+          "word": " el"
+        },
+        {
+          "start": 33.57,
+          "end": 33.85,
+          "word": " proyecto"
+        },
+        {
+          "start": 33.85,
+          "end": 34.23,
+          "word": " propio"
+        },
+        {
+          "start": 34.23,
+          "end": 34.47,
+          "word": " que"
+        },
+        {
+          "start": 34.47,
+          "end": 34.81,
+          "word": " tengo"
+        },
+        {
+          "start": 34.81,
+          "end": 34.99,
+          "word": " y"
+        },
+        {
+          "start": 34.99,
+          "end": 35.07,
+          "word": " que"
+        },
+        {
+          "start": 35.07,
+          "end": 35.29,
+          "word": " estamos"
+        },
+        {
+          "start": 35.29,
+          "end": 35.67,
+          "word": " lanzando"
+        },
+        {
+          "start": 35.67,
+          "end": 35.79,
+          "word": " en"
+        },
+        {
+          "start": 35.79,
+          "end": 36.01,
+          "word": " breve,"
+        }
+      ]
+    },
+    {
+      "start": 36.23,
+      "end": 40.91,
+      "text": "y luego de escuchar las charlas, bueno, te abre mucho más el panorama",
+      "words": [
+        {
+          "start": 36.23,
+          "end": 36.87,
+          "word": " y"
+        },
+        {
+          "start": 36.87,
+          "end": 38.01,
+          "word": " luego"
+        },
+        {
+          "start": 38.01,
+          "end": 38.21,
+          "word": " de"
+        },
+        {
+          "start": 38.21,
+          "end": 38.61,
+          "word": " escuchar"
+        },
+        {
+          "start": 38.61,
+          "end": 38.75,
+          "word": " las"
+        },
+        {
+          "start": 38.75,
+          "end": 39.23,
+          "word": " charlas,"
+        },
+        {
+          "start": 39.39,
+          "end": 39.41,
+          "word": " bueno,"
+        },
+        {
+          "start": 39.55,
+          "end": 39.63,
+          "word": " te"
+        },
+        {
+          "start": 39.63,
+          "end": 39.73,
+          "word": " abre"
+        },
+        {
+          "start": 39.73,
+          "end": 40.03,
+          "word": " mucho"
+        },
+        {
+          "start": 40.03,
+          "end": 40.25,
+          "word": " más"
+        },
+        {
+          "start": 40.25,
+          "end": 40.43,
+          "word": " el"
+        },
+        {
+          "start": 40.43,
+          "end": 40.91,
+          "word": " panorama"
+        }
+      ]
+    },
+    {
+      "start": 40.91,
+      "end": 44.49,
+      "text": "como nuevas alternativas y nuevas posibilidades.",
+      "words": [
+        {
+          "start": 40.91,
+          "end": 41.37,
+          "word": " como"
+        },
+        {
+          "start": 41.37,
+          "end": 42.05,
+          "word": " nuevas"
+        },
+        {
+          "start": 42.05,
+          "end": 42.87,
+          "word": " alternativas"
+        },
+        {
+          "start": 42.87,
+          "end": 43.59,
+          "word": " y"
+        },
+        {
+          "start": 43.59,
+          "end": 43.85,
+          "word": " nuevas"
+        },
+        {
+          "start": 43.85,
+          "end": 44.49,
+          "word": " posibilidades."
+        }
+      ]
+    },
+    {
+      "start": 45.13,
+      "end": 48.83,
+      "text": "Y para otra persona que venga otro evento de BNB Builder Session en Argentina,",
+      "words": [
+        {
+          "start": 45.13,
+          "end": 45.49,
+          "word": " Y"
+        },
+        {
+          "start": 45.49,
+          "end": 45.77,
+          "word": " para"
+        },
+        {
+          "start": 45.77,
+          "end": 45.91,
+          "word": " otra"
+        },
+        {
+          "start": 45.91,
+          "end": 46.23,
+          "word": " persona"
+        },
+        {
+          "start": 46.23,
+          "end": 46.41,
+          "word": " que"
+        },
+        {
+          "start": 46.41,
+          "end": 46.63,
+          "word": " venga"
+        },
+        {
+          "start": 46.63,
+          "end": 46.91,
+          "word": " otro"
+        },
+        {
+          "start": 46.91,
+          "end": 47.15,
+          "word": " evento"
+        },
+        {
+          "start": 47.15,
+          "end": 47.33,
+          "word": " de"
+        },
+        {
+          "start": 47.33,
+          "end": 47.65,
+          "word": " BNB"
+        },
+        {
+          "start": 47.65,
+          "end": 47.99,
+          "word": " Builder"
+        },
+        {
+          "start": 47.99,
+          "end": 48.29,
+          "word": " Session"
+        },
+        {
+          "start": 48.29,
+          "end": 48.49,
+          "word": " en"
+        },
+        {
+          "start": 48.49,
+          "end": 48.83,
+          "word": " Argentina,"
+        }
+      ]
+    },
+    {
+      "start": 49.09,
+      "end": 50.55,
+      "text": "¿qué es lo que ellos pueden esperar a aprender?",
+      "words": [
+        {
+          "start": 49.09,
+          "end": 49.17,
+          "word": " ¿qué"
+        },
+        {
+          "start": 49.17,
+          "end": 49.25,
+          "word": " es"
+        },
+        {
+          "start": 49.25,
+          "end": 49.29,
+          "word": " lo"
+        },
+        {
+          "start": 49.29,
+          "end": 49.41,
+          "word": " que"
+        },
+        {
+          "start": 49.41,
+          "end": 49.55,
+          "word": " ellos"
+        },
+        {
+          "start": 49.55,
+          "end": 49.83,
+          "word": " pueden"
+        },
+        {
+          "start": 49.83,
+          "end": 50.19,
+          "word": " esperar"
+        },
+        {
+          "start": 50.19,
+          "end": 50.33,
+          "word": " a"
+        },
+        {
+          "start": 50.33,
+          "end": 50.55,
+          "word": " aprender?"
+        }
+      ]
+    },
+    {
+      "start": 51.31,
+      "end": 56.21,
+      "text": "Bueno, originalmente decidí hacer porque abre muchas alternativas,",
+      "words": [
+        {
+          "start": 51.31,
+          "end": 51.41,
+          "word": " Bueno,"
+        },
+        {
+          "start": 51.79,
+          "end": 52.71,
+          "word": " originalmente"
+        },
+        {
+          "start": 52.71,
+          "end": 53.81,
+          "word": " decidí"
+        },
+        {
+          "start": 53.81,
+          "end": 54.11,
+          "word": " hacer"
+        },
+        {
+          "start": 54.11,
+          "end": 54.75,
+          "word": " porque"
+        },
+        {
+          "start": 54.75,
+          "end": 55.25,
+          "word": " abre"
+        },
+        {
+          "start": 55.25,
+          "end": 55.49,
+          "word": " muchas"
+        },
+        {
+          "start": 55.49,
+          "end": 56.21,
+          "word": " alternativas,"
+        }
+      ]
+    },
+    {
+      "start": 56.21,
+      "end": 59.23,
+      "text": "pero las herramientas que te brindan te abren posibilidades",
+      "words": [
+        {
+          "start": 56.21,
+          "end": 56.51,
+          "word": " pero"
+        },
+        {
+          "start": 56.51,
+          "end": 56.67,
+          "word": " las"
+        },
+        {
+          "start": 56.67,
+          "end": 57.25,
+          "word": " herramientas"
+        },
+        {
+          "start": 57.25,
+          "end": 57.41,
+          "word": " que"
+        },
+        {
+          "start": 57.41,
+          "end": 57.53,
+          "word": " te"
+        },
+        {
+          "start": 57.53,
+          "end": 57.97,
+          "word": " brindan"
+        },
+        {
+          "start": 57.97,
+          "end": 58.31,
+          "word": " te"
+        },
+        {
+          "start": 58.31,
+          "end": 58.47,
+          "word": " abren"
+        },
+        {
+          "start": 58.47,
+          "end": 59.23,
+          "word": " posibilidades"
+        }
+      ]
+    },
+    {
+      "start": 59.23,
+      "end": 63.65,
+      "text": "tanto en el ámbito de herramientas reales y de construcción a futura.",
+      "words": [
+        {
+          "start": 59.23,
+          "end": 59.79,
+          "word": " tanto"
+        },
+        {
+          "start": 59.79,
+          "end": 60.11,
+          "word": " en"
+        },
+        {
+          "start": 60.11,
+          "end": 60.23,
+          "word": " el"
+        },
+        {
+          "start": 60.23,
+          "end": 60.63,
+          "word": " ámbito"
+        },
+        {
+          "start": 60.63,
+          "end": 61.31,
+          "word": " de"
+        },
+        {
+          "start": 61.31,
+          "end": 61.77,
+          "word": " herramientas"
+        },
+        {
+          "start": 61.77,
+          "end": 62.29,
+          "word": " reales"
+        },
+        {
+          "start": 62.29,
+          "end": 62.39,
+          "word": " y"
+        },
+        {
+          "start": 62.39,
+          "end": 62.49,
+          "word": " de"
+        },
+        {
+          "start": 62.49,
+          "end": 63.07,
+          "word": " construcción"
+        },
+        {
+          "start": 63.07,
+          "end": 63.21,
+          "word": " a"
+        },
+        {
+          "start": 63.21,
+          "end": 63.65,
+          "word": " futura."
+        }
+      ]
+    },
+    {
+      "start": 64.15,
+      "end": 68.73,
+      "text": "Genial. Bueno, para los que quieren sumarse más eventos de BNB Builder Session,",
+      "words": [
+        {
+          "start": 64.15,
+          "end": 64.39,
+          "word": " Genial."
+        },
+        {
+          "start": 64.97,
+          "end": 64.99,
+          "word": " Bueno,"
+        },
+        {
+          "start": 65.73,
+          "end": 65.91,
+          "word": " para"
+        },
+        {
+          "start": 65.91,
+          "end": 66.07,
+          "word": " los"
+        },
+        {
+          "start": 66.07,
+          "end": 66.27,
+          "word": " que"
+        },
+        {
+          "start": 66.27,
+          "end": 66.65,
+          "word": " quieren"
+        },
+        {
+          "start": 66.65,
+          "end": 66.99,
+          "word": " sumarse"
+        },
+        {
+          "start": 66.99,
+          "end": 67.21,
+          "word": " más"
+        },
+        {
+          "start": 67.21,
+          "end": 67.65,
+          "word": " eventos"
+        },
+        {
+          "start": 67.65,
+          "end": 67.79,
+          "word": " de"
+        },
+        {
+          "start": 67.79,
+          "end": 68.11,
+          "word": " BNB"
+        },
+        {
+          "start": 68.11,
+          "end": 68.43,
+          "word": " Builder"
+        },
+        {
+          "start": 68.43,
+          "end": 68.73,
+          "word": " Session,"
+        }
+      ]
+    },
+    {
+      "start": 68.89,
+      "end": 71.59,
+      "text": "se pueden sumar en el QR a la comunidad de BNB Builder Session",
+      "words": [
+        {
+          "start": 68.89,
+          "end": 68.97,
+          "word": " se"
+        },
+        {
+          "start": 68.97,
+          "end": 69.13,
+          "word": " pueden"
+        },
+        {
+          "start": 69.13,
+          "end": 69.43,
+          "word": " sumar"
+        },
+        {
+          "start": 69.43,
+          "end": 69.57,
+          "word": " en"
+        },
+        {
+          "start": 69.57,
+          "end": 69.67,
+          "word": " el"
+        },
+        {
+          "start": 69.67,
+          "end": 69.89,
+          "word": " QR"
+        },
+        {
+          "start": 69.89,
+          "end": 70.15,
+          "word": " a"
+        },
+        {
+          "start": 70.15,
+          "end": 70.21,
+          "word": " la"
+        },
+        {
+          "start": 70.21,
+          "end": 70.39,
+          "word": " comunidad"
+        },
+        {
+          "start": 70.39,
+          "end": 70.63,
+          "word": " de"
+        },
+        {
+          "start": 70.63,
+          "end": 70.91,
+          "word": " BNB"
+        },
+        {
+          "start": 70.91,
+          "end": 71.29,
+          "word": " Builder"
+        },
+        {
+          "start": 71.29,
+          "end": 71.59,
+          "word": " Session"
+        }
+      ]
+    },
+    {
+      "start": 71.59,
+      "end": 74.63,
+      "text": "y pueden sumarse también a la comunidad de eventos de Mar del Plata,",
+      "words": [
+        {
+          "start": 71.59,
+          "end": 72.15,
+          "word": " y"
+        },
+        {
+          "start": 72.15,
+          "end": 72.29,
+          "word": " pueden"
+        },
+        {
+          "start": 72.29,
+          "end": 72.75,
+          "word": " sumarse"
+        },
+        {
+          "start": 72.75,
+          "end": 73.05,
+          "word": " también"
+        },
+        {
+          "start": 73.05,
+          "end": 73.25,
+          "word": " a"
+        },
+        {
+          "start": 73.25,
+          "end": 73.31,
+          "word": " la"
+        },
+        {
+          "start": 73.31,
+          "end": 73.53,
+          "word": " comunidad"
+        },
+        {
+          "start": 73.53,
+          "end": 73.79,
+          "word": " de"
+        },
+        {
+          "start": 73.79,
+          "end": 74.05,
+          "word": " eventos"
+        },
+        {
+          "start": 74.05,
+          "end": 74.15,
+          "word": " de"
+        },
+        {
+          "start": 74.15,
+          "end": 74.25,
+          "word": " Mar"
+        },
+        {
+          "start": 74.25,
+          "end": 74.37,
+          "word": " del"
+        },
+        {
+          "start": 74.37,
+          "end": 74.63,
+          "word": " Plata,"
+        }
+      ]
+    },
+    {
+      "start": 74.79,
+      "end": 76.91,
+      "text": "que es mardelplata.dev.ar.",
+      "words": [
+        {
+          "start": 74.79,
+          "end": 74.83,
+          "word": " que"
+        },
+        {
+          "start": 74.83,
+          "end": 74.97,
+          "word": " es"
+        },
+        {
+          "start": 74.97,
+          "end": 75.69,
+          "word": " mardelplata"
+        },
+        {
+          "start": 75.69,
+          "end": 76.29,
+          "word": ".dev"
+        },
+        {
+          "start": 76.29,
+          "end": 76.91,
+          "word": ".ar."
+        }
+      ]
+    },
+    {
+      "start": 77.29,
+      "end": 80.89,
+      "text": "Nos encuentran en esa página, tenemos el grupo WhatsApp, redes en Instagram,",
+      "words": [
+        {
+          "start": 77.29,
+          "end": 77.61,
+          "word": " Nos"
+        },
+        {
+          "start": 77.61,
+          "end": 78.01,
+          "word": " encuentran"
+        },
+        {
+          "start": 78.01,
+          "end": 78.15,
+          "word": " en"
+        },
+        {
+          "start": 78.15,
+          "end": 78.29,
+          "word": " esa"
+        },
+        {
+          "start": 78.29,
+          "end": 78.59,
+          "word": " página,"
+        },
+        {
+          "start": 78.83,
+          "end": 78.87,
+          "word": " tenemos"
+        },
+        {
+          "start": 78.87,
+          "end": 79.11,
+          "word": " el"
+        },
+        {
+          "start": 79.11,
+          "end": 79.11,
+          "word": " grupo"
+        },
+        {
+          "start": 79.11,
+          "end": 79.57,
+          "word": " WhatsApp,"
+        },
+        {
+          "start": 79.89,
+          "end": 80.37,
+          "word": " redes"
+        },
+        {
+          "start": 80.37,
+          "end": 80.59,
+          "word": " en"
+        },
+        {
+          "start": 80.59,
+          "end": 80.89,
+          "word": " Instagram,"
+        }
+      ]
+    },
+    {
+      "start": 81.17,
+      "end": 83.37,
+      "text": "y ahí avisamos todos los otros eventos que hacemos.",
+      "words": [
+        {
+          "start": 81.17,
+          "end": 81.33,
+          "word": " y"
+        },
+        {
+          "start": 81.33,
+          "end": 81.85,
+          "word": " ahí"
+        },
+        {
+          "start": 81.85,
+          "end": 82.19,
+          "word": " avisamos"
+        },
+        {
+          "start": 82.19,
+          "end": 82.33,
+          "word": " todos"
+        },
+        {
+          "start": 82.33,
+          "end": 82.49,
+          "word": " los"
+        },
+        {
+          "start": 82.49,
+          "end": 82.63,
+          "word": " otros"
+        },
+        {
+          "start": 82.63,
+          "end": 82.95,
+          "word": " eventos"
+        },
+        {
+          "start": 82.95,
+          "end": 83.07,
+          "word": " que"
+        },
+        {
+          "start": 83.07,
+          "end": 83.37,
+          "word": " hacemos."
+        }
+      ]
+    },
+    {
+      "start": 83.37,
+      "end": 84.15,
+      "text": "Lo esperamos.",
+      "words": [
+        {
+          "start": 83.37,
+          "end": 83.73,
+          "word": " Lo"
+        },
+        {
+          "start": 83.73,
+          "end": 84.15,
+          "word": " esperamos."
+        }
+      ]
+    },
+    {
+      "start": 85.51,
+      "end": 87.87,
+      "text": "¿Hay una empresa tuya que quiere estar promocionando?",
+      "words": [
+        {
+          "start": 85.51,
+          "end": 86.07,
+          "word": " ¿Hay"
+        },
+        {
+          "start": 86.07,
+          "end": 86.21,
+          "word": " una"
+        },
+        {
+          "start": 86.21,
+          "end": 86.47,
+          "word": " empresa"
+        },
+        {
+          "start": 86.47,
+          "end": 86.91,
+          "word": " tuya"
+        },
+        {
+          "start": 86.91,
+          "end": 87.03,
+          "word": " que"
+        },
+        {
+          "start": 87.03,
+          "end": 87.17,
+          "word": " quiere"
+        },
+        {
+          "start": 87.17,
+          "end": 87.31,
+          "word": " estar"
+        },
+        {
+          "start": 87.31,
+          "end": 87.87,
+          "word": " promocionando?"
+        }
+      ]
+    },
+    {
+      "start": 88.19,
+      "end": 90.77,
+      "text": "Bueno, genial, genial.",
+      "words": [
+        {
+          "start": 88.19,
+          "end": 88.19,
+          "word": " Bueno,"
+        },
+        {
+          "start": 89.01,
+          "end": 89.99,
+          "word": " genial,"
+        },
+        {
+          "start": 90.55,
+          "end": 90.77,
+          "word": " genial."
+        }
+      ]
+    },
+    {
+      "start": 91.25,
+      "end": 95.49,
+      "text": "Estamos lanzando Nexit, Nexit es una startup que nace en Mar del Plata",
+      "words": [
+        {
+          "start": 91.25,
+          "end": 91.79,
+          "word": " Estamos"
+        },
+        {
+          "start": 91.79,
+          "end": 92.33,
+          "word": " lanzando"
+        },
+        {
+          "start": 92.33,
+          "end": 92.71,
+          "word": " Nexit,"
+        },
+        {
+          "start": 92.85,
+          "end": 93.13,
+          "word": " Nexit"
+        },
+        {
+          "start": 93.13,
+          "end": 93.35,
+          "word": " es"
+        },
+        {
+          "start": 93.35,
+          "end": 93.59,
+          "word": " una"
+        },
+        {
+          "start": 93.59,
+          "end": 94.09,
+          "word": " startup"
+        },
+        {
+          "start": 94.09,
+          "end": 94.33,
+          "word": " que"
+        },
+        {
+          "start": 94.33,
+          "end": 94.63,
+          "word": " nace"
+        },
+        {
+          "start": 94.63,
+          "end": 94.77,
+          "word": " en"
+        },
+        {
+          "start": 94.77,
+          "end": 94.85,
+          "word": " Mar"
+        },
+        {
+          "start": 94.85,
+          "end": 95.03,
+          "word": " del"
+        },
+        {
+          "start": 95.03,
+          "end": 95.49,
+          "word": " Plata"
+        }
+      ]
+    },
+    {
+      "start": 95.49,
+      "end": 98.51,
+      "text": "y va a brindar soluciones de energía a las pymes.",
+      "words": [
+        {
+          "start": 95.49,
+          "end": 95.97,
+          "word": " y"
+        },
+        {
+          "start": 95.97,
+          "end": 96.07,
+          "word": " va"
+        },
+        {
+          "start": 96.07,
+          "end": 96.11,
+          "word": " a"
+        },
+        {
+          "start": 96.11,
+          "end": 96.31,
+          "word": " brindar"
+        },
+        {
+          "start": 96.31,
+          "end": 96.81,
+          "word": " soluciones"
+        },
+        {
+          "start": 96.81,
+          "end": 97.07,
+          "word": " de"
+        },
+        {
+          "start": 97.07,
+          "end": 97.59,
+          "word": " energía"
+        },
+        {
+          "start": 97.59,
+          "end": 97.97,
+          "word": " a"
+        },
+        {
+          "start": 97.97,
+          "end": 98.09,
+          "word": " las"
+        },
+        {
+          "start": 98.09,
+          "end": 98.51,
+          "word": " pymes."
+        }
+      ]
+    },
+    {
+      "start": 98.89,
+      "end": 102.29,
+      "text": "Estamos participando de programas emprendedores que salen ahora,",
+      "words": [
+        {
+          "start": 98.89,
+          "end": 99.33,
+          "word": " Estamos"
+        },
+        {
+          "start": 99.33,
+          "end": 99.97,
+          "word": " participando"
+        },
+        {
+          "start": 99.97,
+          "end": 100.15,
+          "word": " de"
+        },
+        {
+          "start": 100.15,
+          "end": 100.65,
+          "word": " programas"
+        },
+        {
+          "start": 100.65,
+          "end": 101.23,
+          "word": " emprendedores"
+        },
+        {
+          "start": 101.23,
+          "end": 101.39,
+          "word": " que"
+        },
+        {
+          "start": 101.39,
+          "end": 101.97,
+          "word": " salen"
+        },
+        {
+          "start": 101.97,
+          "end": 102.29,
+          "word": " ahora,"
+        }
+      ]
+    },
+    {
+      "start": 102.89,
+      "end": 104.83,
+      "text": "así que bueno, dentro de un poco van a decir nuestras.",
+      "words": [
+        {
+          "start": 102.89,
+          "end": 102.89,
+          "word": " así"
+        },
+        {
+          "start": 102.89,
+          "end": 103.15,
+          "word": " que"
+        },
+        {
+          "start": 103.15,
+          "end": 103.37,
+          "word": " bueno,"
+        },
+        {
+          "start": 103.47,
+          "end": 103.61,
+          "word": " dentro"
+        },
+        {
+          "start": 103.61,
+          "end": 103.61,
+          "word": " de"
+        },
+        {
+          "start": 103.61,
+          "end": 103.79,
+          "word": " un"
+        },
+        {
+          "start": 103.79,
+          "end": 103.91,
+          "word": " poco"
+        },
+        {
+          "start": 103.91,
+          "end": 104.13,
+          "word": " van"
+        },
+        {
+          "start": 104.13,
+          "end": 104.29,
+          "word": " a"
+        },
+        {
+          "start": 104.29,
+          "end": 104.55,
+          "word": " decir"
+        },
+        {
+          "start": 104.55,
+          "end": 104.83,
+          "word": " nuestras."
+        }
+      ]
+    },
+    {
+      "start": 105.29,
+      "end": 106.33,
+      "text": "Genial, muchas gracias Fer.",
+      "words": [
+        {
+          "start": 105.29,
+          "end": 105.63,
+          "word": " Genial,"
+        },
+        {
+          "start": 105.77,
+          "end": 105.87,
+          "word": " muchas"
+        },
+        {
+          "start": 105.87,
+          "end": 106.13,
+          "word": " gracias"
+        },
+        {
+          "start": 106.13,
+          "end": 106.33,
+          "word": " Fer."
+        }
+      ]
+    }
+  ]
+}

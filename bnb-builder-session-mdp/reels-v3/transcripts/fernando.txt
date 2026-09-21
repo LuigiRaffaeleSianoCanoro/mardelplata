@@ -1,0 +1,31 @@
+[   1.01 →    7.67] Bueno, estamos acá en la BNB Builder Session de Mar del Plata con Noel Siery, nuestro compañero
+[   7.67 →   12.49] acá en la organización. ¿Hablan un poquito más? ¿De qué trabajamos? ¿De qué industria
+[  12.49 →   12.77] venís?
+[  13.15 →   17.31] Yo vengo más que nada de la industria del marketing, marketing growth. Tenemos una agencia
+[  17.31 →   22.25] llamada Scaling que ayudamos a proyectos de protocolos, blockchain, más que nada
+[  22.25 →   28.15] fintech y startups a ayudarlos con un sistema de crecimiento, por así hacerlo, en
+[  28.15 →   29.73] marketing growth, más que nada de eso.
+[  29.73 →   33.59] Genial. Y bueno, vos ayudaste un montón en la organización, en la promoción del evento
+[  33.59 →   38.17] acá en Mar del Plata. ¿Previo venir al evento? ¿Cuál era la expectativa que esperabas ver
+[  38.17 →   38.69] en el evento?
+[  39.17 →   44.49] Y más que nada, un montón de Builders, Builders de la región de Mar del Plata que construyen
+[  44.49 →   49.43] y ya los conocemos a varios, acá en la región hay un montón de cracks que están
+[  49.43 →   56.07] construyendo y lo sabemos. Así que me esperaba un nivel alto y superar las expectativas.
+[  56.63 →   61.09] Genial. Bueno, esa era mi próxima pregunta directamente. Ahora que ya tuvimos las charlas, ¿qué
+[  61.09 →   64.39] puede esperar una persona que vaya a una BNB Builder Session? ¿Qué es lo que puede ver?
+[  64.95 →   70.27] Y la verdad que puede ver un montón de gente que tiene mucha gana de construir. También
+[  70.27 →   75.61] un stack de tecnología, por así hacerlo, muy grande. Hoy, por ejemplo, hablamos
+[  75.61 →   81.05] mucho de agentes on-chain, como implementar estos agentes, como darle, por así hacerlo,
+[  81.05 →   86.73] sumar a estos agentes dentro de todo lo que es el mundo on-chain. En este caso le hicimos
+[  86.73 →   92.97] en BNB Chain, así que hubo un workshop donde lo dio nuestro compañero Leann y otro workshop
+[  92.97 →   99.67] que lo dio Javi. Así que la gente se va con una idea mucho mayor de lo que es BNB y
+[  99.67 →  101.79] cómo on-chain se está construyendo con agentes.
+[ 102.49 →  106.27] Genial. Bueno, a los que quieren sumarse a más eventos de BNB Builder Session,
+[ 106.41 →  110.61] puedes ver el correo que tenemos atrás nosotros, sumarse a la comunidad de BNB. Para
+[ 110.61 →  114.57] los que quieren sumarse a más eventos en Mardel Plata, pueden buscar la comunidad MardelPlata.dev.
+[ 115.55 →  121.67] MardelPlata.dev.ar y la gente que quiera buscar a Scaling, que quiere trabajar con Groov y promocionar
+[ 121.67 →  126.65] su marca, ¿dónde te pueden encontrar? Me pueden encontrar en Scaling, arroba o Scaling.com,
+[ 126.79 →  133.37] que es la página, o en Twitter, que es Scaling y enbajo, con WN Scaling, WN y enbajo.
+[ 133.47 →  138.35] O también me pueden encontrar en Twitter, que subo mucho sobre finanzas on-chain. Hago
+[ 138.35 →  141.93] contenido sobre finanzas on-chain, así que me pueden encontrar como NaweelSieri en Twitter.
+[ 142.53 →  144.73] Y nada, eso. Muchas gracias. Muchas gracias.

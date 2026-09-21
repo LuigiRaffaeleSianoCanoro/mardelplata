@@ -1,0 +1,2184 @@
+{
+  "guest": "matias",
+  "language": "es",
+  "duration": 134.9973125,
+  "segments": [
+    {
+      "start": 1.37,
+      "end": 5.05,
+      "text": "Bueno, estamos acá en la OZIP, en el evento BNB Builder Session.",
+      "words": [
+        {
+          "start": 1.37,
+          "end": 1.77,
+          "word": " Bueno,"
+        },
+        {
+          "start": 1.87,
+          "end": 2.01,
+          "word": " estamos"
+        },
+        {
+          "start": 2.01,
+          "end": 2.35,
+          "word": " acá"
+        },
+        {
+          "start": 2.35,
+          "end": 2.47,
+          "word": " en"
+        },
+        {
+          "start": 2.47,
+          "end": 2.57,
+          "word": " la"
+        },
+        {
+          "start": 2.57,
+          "end": 3.01,
+          "word": " OZIP,"
+        },
+        {
+          "start": 3.15,
+          "end": 3.23,
+          "word": " en"
+        },
+        {
+          "start": 3.23,
+          "end": 3.31,
+          "word": " el"
+        },
+        {
+          "start": 3.31,
+          "end": 3.57,
+          "word": " evento"
+        },
+        {
+          "start": 3.57,
+          "end": 4.05,
+          "word": " BNB"
+        },
+        {
+          "start": 4.05,
+          "end": 4.63,
+          "word": " Builder"
+        },
+        {
+          "start": 4.63,
+          "end": 5.05,
+          "word": " Session."
+        }
+      ]
+    },
+    {
+      "start": 5.25,
+      "end": 6.77,
+      "text": "Estoy acá con mi amigo Matías Elis.",
+      "words": [
+        {
+          "start": 5.25,
+          "end": 5.39,
+          "word": " Estoy"
+        },
+        {
+          "start": 5.39,
+          "end": 5.55,
+          "word": " acá"
+        },
+        {
+          "start": 5.55,
+          "end": 5.71,
+          "word": " con"
+        },
+        {
+          "start": 5.71,
+          "end": 5.79,
+          "word": " mi"
+        },
+        {
+          "start": 5.79,
+          "end": 6.01,
+          "word": " amigo"
+        },
+        {
+          "start": 6.01,
+          "end": 6.37,
+          "word": " Matías"
+        },
+        {
+          "start": 6.37,
+          "end": 6.77,
+          "word": " Elis."
+        }
+      ]
+    },
+    {
+      "start": 6.99,
+      "end": 12.03,
+      "text": "Matías, contadme un poquito cuál es tu industria si ya fuiste a un evento cripto antes.",
+      "words": [
+        {
+          "start": 6.99,
+          "end": 7.25,
+          "word": " Matías,"
+        },
+        {
+          "start": 7.43,
+          "end": 7.73,
+          "word": " contadme"
+        },
+        {
+          "start": 7.73,
+          "end": 7.85,
+          "word": " un"
+        },
+        {
+          "start": 7.85,
+          "end": 8.11,
+          "word": " poquito"
+        },
+        {
+          "start": 8.11,
+          "end": 9.01,
+          "word": " cuál"
+        },
+        {
+          "start": 9.01,
+          "end": 9.15,
+          "word": " es"
+        },
+        {
+          "start": 9.15,
+          "end": 9.23,
+          "word": " tu"
+        },
+        {
+          "start": 9.23,
+          "end": 10.25,
+          "word": " industria"
+        },
+        {
+          "start": 10.25,
+          "end": 10.45,
+          "word": " si"
+        },
+        {
+          "start": 10.45,
+          "end": 10.59,
+          "word": " ya"
+        },
+        {
+          "start": 10.59,
+          "end": 10.79,
+          "word": " fuiste"
+        },
+        {
+          "start": 10.79,
+          "end": 10.89,
+          "word": " a"
+        },
+        {
+          "start": 10.89,
+          "end": 10.97,
+          "word": " un"
+        },
+        {
+          "start": 10.97,
+          "end": 11.19,
+          "word": " evento"
+        },
+        {
+          "start": 11.19,
+          "end": 11.67,
+          "word": " cripto"
+        },
+        {
+          "start": 11.67,
+          "end": 12.03,
+          "word": " antes."
+        }
+      ]
+    },
+    {
+      "start": 12.51,
+      "end": 14.55,
+      "text": "Bien, te comento un poco, Luigi.",
+      "words": [
+        {
+          "start": 12.51,
+          "end": 12.91,
+          "word": " Bien,"
+        },
+        {
+          "start": 13.43,
+          "end": 13.55,
+          "word": " te"
+        },
+        {
+          "start": 13.55,
+          "end": 14.01,
+          "word": " comento"
+        },
+        {
+          "start": 14.01,
+          "end": 14.17,
+          "word": " un"
+        },
+        {
+          "start": 14.17,
+          "end": 14.29,
+          "word": " poco,"
+        },
+        {
+          "start": 14.43,
+          "end": 14.55,
+          "word": " Luigi."
+        }
+      ]
+    },
+    {
+      "start": 15.07,
+      "end": 19.29,
+      "text": "Yo vengo trabajando hace más o menos dos años en la industria como desarrollador web.",
+      "words": [
+        {
+          "start": 15.07,
+          "end": 15.17,
+          "word": " Yo"
+        },
+        {
+          "start": 15.17,
+          "end": 15.31,
+          "word": " vengo"
+        },
+        {
+          "start": 15.31,
+          "end": 15.67,
+          "word": " trabajando"
+        },
+        {
+          "start": 15.67,
+          "end": 16.07,
+          "word": " hace"
+        },
+        {
+          "start": 16.07,
+          "end": 16.25,
+          "word": " más"
+        },
+        {
+          "start": 16.25,
+          "end": 16.39,
+          "word": " o"
+        },
+        {
+          "start": 16.39,
+          "end": 16.49,
+          "word": " menos"
+        },
+        {
+          "start": 16.49,
+          "end": 16.71,
+          "word": " dos"
+        },
+        {
+          "start": 16.71,
+          "end": 17.03,
+          "word": " años"
+        },
+        {
+          "start": 17.03,
+          "end": 17.25,
+          "word": " en"
+        },
+        {
+          "start": 17.25,
+          "end": 17.35,
+          "word": " la"
+        },
+        {
+          "start": 17.35,
+          "end": 17.73,
+          "word": " industria"
+        },
+        {
+          "start": 17.73,
+          "end": 17.95,
+          "word": " como"
+        },
+        {
+          "start": 17.95,
+          "end": 18.93,
+          "word": " desarrollador"
+        },
+        {
+          "start": 18.93,
+          "end": 19.29,
+          "word": " web."
+        }
+      ]
+    },
+    {
+      "start": 20.25,
+      "end": 26.27,
+      "text": "Sí, básicamente he hecho varios trabajos acá en el Aria de Mar del Plata para la empresa CIA, que se mueve el julio.",
+      "words": [
+        {
+          "start": 20.25,
+          "end": 20.37,
+          "word": " Sí,"
+        },
+        {
+          "start": 20.63,
+          "end": 20.69,
+          "word": " básicamente"
+        },
+        {
+          "start": 20.69,
+          "end": 21.07,
+          "word": " he"
+        },
+        {
+          "start": 21.07,
+          "end": 21.25,
+          "word": " hecho"
+        },
+        {
+          "start": 21.25,
+          "end": 21.45,
+          "word": " varios"
+        },
+        {
+          "start": 21.45,
+          "end": 21.89,
+          "word": " trabajos"
+        },
+        {
+          "start": 21.89,
+          "end": 22.11,
+          "word": " acá"
+        },
+        {
+          "start": 22.11,
+          "end": 22.27,
+          "word": " en"
+        },
+        {
+          "start": 22.27,
+          "end": 22.39,
+          "word": " el"
+        },
+        {
+          "start": 22.39,
+          "end": 22.53,
+          "word": " Aria"
+        },
+        {
+          "start": 22.53,
+          "end": 22.63,
+          "word": " de"
+        },
+        {
+          "start": 22.63,
+          "end": 22.69,
+          "word": " Mar"
+        },
+        {
+          "start": 22.69,
+          "end": 22.81,
+          "word": " del"
+        },
+        {
+          "start": 22.81,
+          "end": 23.11,
+          "word": " Plata"
+        },
+        {
+          "start": 23.11,
+          "end": 23.35,
+          "word": " para"
+        },
+        {
+          "start": 23.35,
+          "end": 23.97,
+          "word": " la"
+        },
+        {
+          "start": 23.97,
+          "end": 24.23,
+          "word": " empresa"
+        },
+        {
+          "start": 24.23,
+          "end": 24.87,
+          "word": " CIA,"
+        },
+        {
+          "start": 24.99,
+          "end": 25.03,
+          "word": " que"
+        },
+        {
+          "start": 25.03,
+          "end": 25.15,
+          "word": " se"
+        },
+        {
+          "start": 25.15,
+          "end": 25.37,
+          "word": " mueve"
+        },
+        {
+          "start": 25.37,
+          "end": 25.51,
+          "word": " el"
+        },
+        {
+          "start": 25.51,
+          "end": 26.27,
+          "word": " julio."
+        }
+      ]
+    },
+    {
+      "start": 26.27,
+      "end": 29.35,
+      "text": "Después una empresa de remolque de autos.",
+      "words": [
+        {
+          "start": 26.27,
+          "end": 26.51,
+          "word": " Después"
+        },
+        {
+          "start": 26.51,
+          "end": 26.89,
+          "word": " una"
+        },
+        {
+          "start": 26.89,
+          "end": 27.47,
+          "word": " empresa"
+        },
+        {
+          "start": 27.47,
+          "end": 27.91,
+          "word": " de"
+        },
+        {
+          "start": 27.91,
+          "end": 28.75,
+          "word": " remolque"
+        },
+        {
+          "start": 28.75,
+          "end": 28.89,
+          "word": " de"
+        },
+        {
+          "start": 28.89,
+          "end": 29.35,
+          "word": " autos."
+        }
+      ]
+    },
+    {
+      "start": 29.77,
+      "end": 32.11,
+      "text": "Y ahora estoy trabajando para una startup de Estados Unidos.",
+      "words": [
+        {
+          "start": 29.77,
+          "end": 29.79,
+          "word": " Y"
+        },
+        {
+          "start": 29.79,
+          "end": 29.87,
+          "word": " ahora"
+        },
+        {
+          "start": 29.87,
+          "end": 30.01,
+          "word": " estoy"
+        },
+        {
+          "start": 30.01,
+          "end": 30.31,
+          "word": " trabajando"
+        },
+        {
+          "start": 30.31,
+          "end": 30.59,
+          "word": " para"
+        },
+        {
+          "start": 30.59,
+          "end": 30.73,
+          "word": " una"
+        },
+        {
+          "start": 30.73,
+          "end": 31.07,
+          "word": " startup"
+        },
+        {
+          "start": 31.07,
+          "end": 31.37,
+          "word": " de"
+        },
+        {
+          "start": 31.37,
+          "end": 31.75,
+          "word": " Estados"
+        },
+        {
+          "start": 31.75,
+          "end": 32.11,
+          "word": " Unidos."
+        }
+      ]
+    },
+    {
+      "start": 32.69,
+      "end": 33.03,
+      "text": "Genial.",
+      "words": [
+        {
+          "start": 32.69,
+          "end": 33.03,
+          "word": " Genial."
+        }
+      ]
+    },
+    {
+      "start": 33.23,
+      "end": 35.05,
+      "text": "Y a un evento cripto ya fuiste en el pasado.",
+      "words": [
+        {
+          "start": 33.23,
+          "end": 33.35,
+          "word": " Y"
+        },
+        {
+          "start": 33.35,
+          "end": 33.39,
+          "word": " a"
+        },
+        {
+          "start": 33.39,
+          "end": 33.53,
+          "word": " un"
+        },
+        {
+          "start": 33.53,
+          "end": 33.75,
+          "word": " evento"
+        },
+        {
+          "start": 33.75,
+          "end": 34.21,
+          "word": " cripto"
+        },
+        {
+          "start": 34.21,
+          "end": 34.35,
+          "word": " ya"
+        },
+        {
+          "start": 34.35,
+          "end": 34.61,
+          "word": " fuiste"
+        },
+        {
+          "start": 34.61,
+          "end": 34.73,
+          "word": " en"
+        },
+        {
+          "start": 34.73,
+          "end": 34.83,
+          "word": " el"
+        },
+        {
+          "start": 34.83,
+          "end": 35.05,
+          "word": " pasado."
+        }
+      ]
+    },
+    {
+      "start": 35.43,
+      "end": 41.19,
+      "text": "Sí, había ido a la DevConnect, que se hizo en Buenos Aires el año pasado si no estoy mal y también hicimos un global.",
+      "words": [
+        {
+          "start": 35.43,
+          "end": 35.57,
+          "word": " Sí,"
+        },
+        {
+          "start": 35.61,
+          "end": 35.79,
+          "word": " había"
+        },
+        {
+          "start": 35.79,
+          "end": 36.05,
+          "word": " ido"
+        },
+        {
+          "start": 36.05,
+          "end": 36.47,
+          "word": " a"
+        },
+        {
+          "start": 36.47,
+          "end": 37.17,
+          "word": " la"
+        },
+        {
+          "start": 37.17,
+          "end": 37.73,
+          "word": " DevConnect,"
+        },
+        {
+          "start": 37.87,
+          "end": 38.03,
+          "word": " que"
+        },
+        {
+          "start": 38.03,
+          "end": 38.13,
+          "word": " se"
+        },
+        {
+          "start": 38.13,
+          "end": 38.31,
+          "word": " hizo"
+        },
+        {
+          "start": 38.31,
+          "end": 38.45,
+          "word": " en"
+        },
+        {
+          "start": 38.45,
+          "end": 38.61,
+          "word": " Buenos"
+        },
+        {
+          "start": 38.61,
+          "end": 38.89,
+          "word": " Aires"
+        },
+        {
+          "start": 38.89,
+          "end": 39.19,
+          "word": " el"
+        },
+        {
+          "start": 39.19,
+          "end": 39.33,
+          "word": " año"
+        },
+        {
+          "start": 39.33,
+          "end": 39.57,
+          "word": " pasado"
+        },
+        {
+          "start": 39.57,
+          "end": 39.75,
+          "word": " si"
+        },
+        {
+          "start": 39.75,
+          "end": 39.81,
+          "word": " no"
+        },
+        {
+          "start": 39.81,
+          "end": 39.93,
+          "word": " estoy"
+        },
+        {
+          "start": 39.93,
+          "end": 40.15,
+          "word": " mal"
+        },
+        {
+          "start": 40.15,
+          "end": 40.31,
+          "word": " y"
+        },
+        {
+          "start": 40.31,
+          "end": 40.49,
+          "word": " también"
+        },
+        {
+          "start": 40.49,
+          "end": 40.77,
+          "word": " hicimos"
+        },
+        {
+          "start": 40.77,
+          "end": 40.93,
+          "word": " un"
+        },
+        {
+          "start": 40.93,
+          "end": 41.19,
+          "word": " global."
+        }
+      ]
+    },
+    {
+      "start": 41.77,
+      "end": 42.93,
+      "text": "Que había un hackathon.",
+      "words": [
+        {
+          "start": 41.77,
+          "end": 42.17,
+          "word": " Que"
+        },
+        {
+          "start": 42.17,
+          "end": 42.33,
+          "word": " había"
+        },
+        {
+          "start": 42.33,
+          "end": 42.49,
+          "word": " un"
+        },
+        {
+          "start": 42.49,
+          "end": 42.93,
+          "word": " hackathon."
+        }
+      ]
+    },
+    {
+      "start": 43.43,
+      "end": 47.13,
+      "text": "Había como 500 mil dólares en premios y por suerte puede ganar mil dólares.",
+      "words": [
+        {
+          "start": 43.43,
+          "end": 43.69,
+          "word": " Había"
+        },
+        {
+          "start": 43.69,
+          "end": 43.87,
+          "word": " como"
+        },
+        {
+          "start": 43.87,
+          "end": 44.11,
+          "word": " 500"
+        },
+        {
+          "start": 44.11,
+          "end": 44.43,
+          "word": " mil"
+        },
+        {
+          "start": 44.43,
+          "end": 44.67,
+          "word": " dólares"
+        },
+        {
+          "start": 44.67,
+          "end": 44.91,
+          "word": " en"
+        },
+        {
+          "start": 44.91,
+          "end": 45.25,
+          "word": " premios"
+        },
+        {
+          "start": 45.25,
+          "end": 45.67,
+          "word": " y"
+        },
+        {
+          "start": 45.67,
+          "end": 45.87,
+          "word": " por"
+        },
+        {
+          "start": 45.87,
+          "end": 46.13,
+          "word": " suerte"
+        },
+        {
+          "start": 46.13,
+          "end": 46.33,
+          "word": " puede"
+        },
+        {
+          "start": 46.33,
+          "end": 46.61,
+          "word": " ganar"
+        },
+        {
+          "start": 46.61,
+          "end": 46.81,
+          "word": " mil"
+        },
+        {
+          "start": 46.81,
+          "end": 47.13,
+          "word": " dólares."
+        }
+      ]
+    },
+    {
+      "start": 47.45,
+      "end": 47.89,
+      "text": "Ah, genial.",
+      "words": [
+        {
+          "start": 47.45,
+          "end": 47.65,
+          "word": " Ah,"
+        },
+        {
+          "start": 47.83,
+          "end": 47.89,
+          "word": " genial."
+        }
+      ]
+    },
+    {
+      "start": 48.57,
+      "end": 52.13,
+      "text": "Y bueno, ¿cuál era tu expectativa hoy del evento BNP Builder Session?",
+      "words": [
+        {
+          "start": 48.57,
+          "end": 48.77,
+          "word": " Y"
+        },
+        {
+          "start": 48.77,
+          "end": 49.03,
+          "word": " bueno,"
+        },
+        {
+          "start": 49.19,
+          "end": 49.27,
+          "word": " ¿cuál"
+        },
+        {
+          "start": 49.27,
+          "end": 49.39,
+          "word": " era"
+        },
+        {
+          "start": 49.39,
+          "end": 49.55,
+          "word": " tu"
+        },
+        {
+          "start": 49.55,
+          "end": 50.17,
+          "word": " expectativa"
+        },
+        {
+          "start": 50.17,
+          "end": 50.55,
+          "word": " hoy"
+        },
+        {
+          "start": 50.55,
+          "end": 50.75,
+          "word": " del"
+        },
+        {
+          "start": 50.75,
+          "end": 51.05,
+          "word": " evento"
+        },
+        {
+          "start": 51.05,
+          "end": 51.59,
+          "word": " BNP"
+        },
+        {
+          "start": 51.59,
+          "end": 51.95,
+          "word": " Builder"
+        },
+        {
+          "start": 51.95,
+          "end": 52.13,
+          "word": " Session?"
+        }
+      ]
+    },
+    {
+      "start": 52.13,
+      "end": 60.33,
+      "text": "Hoy mi expectativa era poder desplegar una gente en la BNP Chain, porque yo me había quedado con las ganas.",
+      "words": [
+        {
+          "start": 52.13,
+          "end": 52.65,
+          "word": " Hoy"
+        },
+        {
+          "start": 52.65,
+          "end": 52.77,
+          "word": " mi"
+        },
+        {
+          "start": 52.77,
+          "end": 53.29,
+          "word": " expectativa"
+        },
+        {
+          "start": 53.29,
+          "end": 53.51,
+          "word": " era"
+        },
+        {
+          "start": 53.51,
+          "end": 54.43,
+          "word": " poder"
+        },
+        {
+          "start": 54.43,
+          "end": 55.05,
+          "word": " desplegar"
+        },
+        {
+          "start": 55.05,
+          "end": 55.53,
+          "word": " una"
+        },
+        {
+          "start": 55.53,
+          "end": 55.89,
+          "word": " gente"
+        },
+        {
+          "start": 55.89,
+          "end": 56.55,
+          "word": " en"
+        },
+        {
+          "start": 56.55,
+          "end": 56.73,
+          "word": " la"
+        },
+        {
+          "start": 56.73,
+          "end": 57.49,
+          "word": " BNP"
+        },
+        {
+          "start": 57.49,
+          "end": 57.75,
+          "word": " Chain,"
+        },
+        {
+          "start": 57.99,
+          "end": 58.49,
+          "word": " porque"
+        },
+        {
+          "start": 58.49,
+          "end": 58.73,
+          "word": " yo"
+        },
+        {
+          "start": 58.73,
+          "end": 58.81,
+          "word": " me"
+        },
+        {
+          "start": 58.81,
+          "end": 58.95,
+          "word": " había"
+        },
+        {
+          "start": 58.95,
+          "end": 59.27,
+          "word": " quedado"
+        },
+        {
+          "start": 59.27,
+          "end": 59.49,
+          "word": " con"
+        },
+        {
+          "start": 59.49,
+          "end": 60.11,
+          "word": " las"
+        },
+        {
+          "start": 60.11,
+          "end": 60.33,
+          "word": " ganas."
+        }
+      ]
+    },
+    {
+      "start": 60.87,
+      "end": 67.75,
+      "text": "En su momento, el año pasado en el hackathon de Ethereum Global, de hacer algo con el protocolo X402 y agentes,",
+      "words": [
+        {
+          "start": 60.87,
+          "end": 60.93,
+          "word": " En"
+        },
+        {
+          "start": 60.93,
+          "end": 61.03,
+          "word": " su"
+        },
+        {
+          "start": 61.03,
+          "end": 61.31,
+          "word": " momento,"
+        },
+        {
+          "start": 61.47,
+          "end": 61.63,
+          "word": " el"
+        },
+        {
+          "start": 61.63,
+          "end": 61.85,
+          "word": " año"
+        },
+        {
+          "start": 61.85,
+          "end": 62.13,
+          "word": " pasado"
+        },
+        {
+          "start": 62.13,
+          "end": 62.37,
+          "word": " en"
+        },
+        {
+          "start": 62.37,
+          "end": 62.47,
+          "word": " el"
+        },
+        {
+          "start": 62.47,
+          "end": 62.87,
+          "word": " hackathon"
+        },
+        {
+          "start": 62.87,
+          "end": 63.13,
+          "word": " de"
+        },
+        {
+          "start": 63.13,
+          "end": 63.65,
+          "word": " Ethereum"
+        },
+        {
+          "start": 63.65,
+          "end": 64.01,
+          "word": " Global,"
+        },
+        {
+          "start": 64.27,
+          "end": 64.79,
+          "word": " de"
+        },
+        {
+          "start": 64.79,
+          "end": 64.95,
+          "word": " hacer"
+        },
+        {
+          "start": 64.95,
+          "end": 65.15,
+          "word": " algo"
+        },
+        {
+          "start": 65.15,
+          "end": 65.33,
+          "word": " con"
+        },
+        {
+          "start": 65.33,
+          "end": 65.45,
+          "word": " el"
+        },
+        {
+          "start": 65.45,
+          "end": 65.89,
+          "word": " protocolo"
+        },
+        {
+          "start": 65.89,
+          "end": 66.79,
+          "word": " X402"
+        },
+        {
+          "start": 66.79,
+          "end": 67.33,
+          "word": " y"
+        },
+        {
+          "start": 67.33,
+          "end": 67.75,
+          "word": " agentes,"
+        }
+      ]
+    },
+    {
+      "start": 67.95,
+      "end": 70.01,
+      "text": "pero tuvimos que pivotar para otro lado.",
+      "words": [
+        {
+          "start": 67.95,
+          "end": 68.15,
+          "word": " pero"
+        },
+        {
+          "start": 68.15,
+          "end": 68.93,
+          "word": " tuvimos"
+        },
+        {
+          "start": 68.93,
+          "end": 69.11,
+          "word": " que"
+        },
+        {
+          "start": 69.11,
+          "end": 69.49,
+          "word": " pivotar"
+        },
+        {
+          "start": 69.49,
+          "end": 69.65,
+          "word": " para"
+        },
+        {
+          "start": 69.65,
+          "end": 69.77,
+          "word": " otro"
+        },
+        {
+          "start": 69.77,
+          "end": 70.01,
+          "word": " lado."
+        }
+      ]
+    },
+    {
+      "start": 70.27,
+      "end": 70.39,
+      "text": "Mira.",
+      "words": [
+        {
+          "start": 70.27,
+          "end": 70.39,
+          "word": " Mira."
+        }
+      ]
+    },
+    {
+      "start": 70.57,
+      "end": 71.79,
+      "text": "Así me había quedado con esas ganas.",
+      "words": [
+        {
+          "start": 70.57,
+          "end": 70.69,
+          "word": " Así"
+        },
+        {
+          "start": 70.69,
+          "end": 70.85,
+          "word": " me"
+        },
+        {
+          "start": 70.85,
+          "end": 70.93,
+          "word": " había"
+        },
+        {
+          "start": 70.93,
+          "end": 71.15,
+          "word": " quedado"
+        },
+        {
+          "start": 71.15,
+          "end": 71.29,
+          "word": " con"
+        },
+        {
+          "start": 71.29,
+          "end": 71.43,
+          "word": " esas"
+        },
+        {
+          "start": 71.43,
+          "end": 71.79,
+          "word": " ganas."
+        }
+      ]
+    },
+    {
+      "start": 72.07,
+      "end": 75.79,
+      "text": "Bueno, y hoy el evento ya tuvo las charlas, ahora vamos a pasar a las workshops.",
+      "words": [
+        {
+          "start": 72.07,
+          "end": 72.21,
+          "word": " Bueno,"
+        },
+        {
+          "start": 72.43,
+          "end": 72.49,
+          "word": " y"
+        },
+        {
+          "start": 72.49,
+          "end": 72.75,
+          "word": " hoy"
+        },
+        {
+          "start": 72.75,
+          "end": 73.07,
+          "word": " el"
+        },
+        {
+          "start": 73.07,
+          "end": 73.25,
+          "word": " evento"
+        },
+        {
+          "start": 73.25,
+          "end": 73.47,
+          "word": " ya"
+        },
+        {
+          "start": 73.47,
+          "end": 73.65,
+          "word": " tuvo"
+        },
+        {
+          "start": 73.65,
+          "end": 73.83,
+          "word": " las"
+        },
+        {
+          "start": 73.83,
+          "end": 74.39,
+          "word": " charlas,"
+        },
+        {
+          "start": 74.51,
+          "end": 74.67,
+          "word": " ahora"
+        },
+        {
+          "start": 74.67,
+          "end": 74.87,
+          "word": " vamos"
+        },
+        {
+          "start": 74.87,
+          "end": 75.01,
+          "word": " a"
+        },
+        {
+          "start": 75.01,
+          "end": 75.19,
+          "word": " pasar"
+        },
+        {
+          "start": 75.19,
+          "end": 75.37,
+          "word": " a"
+        },
+        {
+          "start": 75.37,
+          "end": 75.45,
+          "word": " las"
+        },
+        {
+          "start": 75.45,
+          "end": 75.79,
+          "word": " workshops."
+        }
+      ]
+    },
+    {
+      "start": 76.97,
+      "end": 81.41,
+      "text": "¿Qué es lo que alguien puede esperar de aprender viniendo un evento BNP Builder Session?",
+      "words": [
+        {
+          "start": 76.97,
+          "end": 77.11,
+          "word": " ¿Qué"
+        },
+        {
+          "start": 77.11,
+          "end": 77.23,
+          "word": " es"
+        },
+        {
+          "start": 77.23,
+          "end": 77.29,
+          "word": " lo"
+        },
+        {
+          "start": 77.29,
+          "end": 77.43,
+          "word": " que"
+        },
+        {
+          "start": 77.43,
+          "end": 77.57,
+          "word": " alguien"
+        },
+        {
+          "start": 77.57,
+          "end": 77.81,
+          "word": " puede"
+        },
+        {
+          "start": 77.81,
+          "end": 78.33,
+          "word": " esperar"
+        },
+        {
+          "start": 78.33,
+          "end": 78.91,
+          "word": " de"
+        },
+        {
+          "start": 78.91,
+          "end": 79.43,
+          "word": " aprender"
+        },
+        {
+          "start": 79.43,
+          "end": 80.01,
+          "word": " viniendo"
+        },
+        {
+          "start": 80.01,
+          "end": 80.15,
+          "word": " un"
+        },
+        {
+          "start": 80.15,
+          "end": 80.35,
+          "word": " evento"
+        },
+        {
+          "start": 80.35,
+          "end": 80.79,
+          "word": " BNP"
+        },
+        {
+          "start": 80.79,
+          "end": 81.15,
+          "word": " Builder"
+        },
+        {
+          "start": 81.15,
+          "end": 81.41,
+          "word": " Session?"
+        }
+      ]
+    },
+    {
+      "start": 81.41,
+      "end": 85.05,
+      "text": "Lo que alguien puede esperar de, bueno, de vinir un evento de BNP,",
+      "words": [
+        {
+          "start": 81.41,
+          "end": 82.09,
+          "word": " Lo"
+        },
+        {
+          "start": 82.09,
+          "end": 82.19,
+          "word": " que"
+        },
+        {
+          "start": 82.19,
+          "end": 82.33,
+          "word": " alguien"
+        },
+        {
+          "start": 82.33,
+          "end": 82.51,
+          "word": " puede"
+        },
+        {
+          "start": 82.51,
+          "end": 82.87,
+          "word": " esperar"
+        },
+        {
+          "start": 82.87,
+          "end": 83.19,
+          "word": " de,"
+        },
+        {
+          "start": 83.35,
+          "end": 83.57,
+          "word": " bueno,"
+        },
+        {
+          "start": 83.79,
+          "end": 83.79,
+          "word": " de"
+        },
+        {
+          "start": 83.79,
+          "end": 84.01,
+          "word": " vinir"
+        },
+        {
+          "start": 84.01,
+          "end": 84.25,
+          "word": " un"
+        },
+        {
+          "start": 84.25,
+          "end": 84.49,
+          "word": " evento"
+        },
+        {
+          "start": 84.49,
+          "end": 84.71,
+          "word": " de"
+        },
+        {
+          "start": 84.71,
+          "end": 85.05,
+          "word": " BNP,"
+        }
+      ]
+    },
+    {
+      "start": 85.37,
+      "end": 89.45,
+      "text": "es que los chicos que dan las charlas son gente súper capacitada",
+      "words": [
+        {
+          "start": 85.37,
+          "end": 85.95,
+          "word": " es"
+        },
+        {
+          "start": 85.95,
+          "end": 86.13,
+          "word": " que"
+        },
+        {
+          "start": 86.13,
+          "end": 86.61,
+          "word": " los"
+        },
+        {
+          "start": 86.61,
+          "end": 86.87,
+          "word": " chicos"
+        },
+        {
+          "start": 86.87,
+          "end": 87.09,
+          "word": " que"
+        },
+        {
+          "start": 87.09,
+          "end": 87.29,
+          "word": " dan"
+        },
+        {
+          "start": 87.29,
+          "end": 87.45,
+          "word": " las"
+        },
+        {
+          "start": 87.45,
+          "end": 87.77,
+          "word": " charlas"
+        },
+        {
+          "start": 87.77,
+          "end": 88.25,
+          "word": " son"
+        },
+        {
+          "start": 88.25,
+          "end": 88.49,
+          "word": " gente"
+        },
+        {
+          "start": 88.49,
+          "end": 88.75,
+          "word": " súper"
+        },
+        {
+          "start": 88.75,
+          "end": 89.45,
+          "word": " capacitada"
+        }
+      ]
+    },
+    {
+      "start": 89.45,
+      "end": 94.91,
+      "text": "y que realmente te va a servir para básicamente desplegar tu agente en blockchain.",
+      "words": [
+        {
+          "start": 89.45,
+          "end": 90.09,
+          "word": " y"
+        },
+        {
+          "start": 90.09,
+          "end": 90.25,
+          "word": " que"
+        },
+        {
+          "start": 90.25,
+          "end": 90.71,
+          "word": " realmente"
+        },
+        {
+          "start": 90.71,
+          "end": 90.97,
+          "word": " te"
+        },
+        {
+          "start": 90.97,
+          "end": 91.09,
+          "word": " va"
+        },
+        {
+          "start": 91.09,
+          "end": 91.15,
+          "word": " a"
+        },
+        {
+          "start": 91.15,
+          "end": 91.35,
+          "word": " servir"
+        },
+        {
+          "start": 91.35,
+          "end": 91.73,
+          "word": " para"
+        },
+        {
+          "start": 91.73,
+          "end": 92.73,
+          "word": " básicamente"
+        },
+        {
+          "start": 92.73,
+          "end": 93.37,
+          "word": " desplegar"
+        },
+        {
+          "start": 93.37,
+          "end": 93.63,
+          "word": " tu"
+        },
+        {
+          "start": 93.63,
+          "end": 93.95,
+          "word": " agente"
+        },
+        {
+          "start": 93.95,
+          "end": 94.61,
+          "word": " en"
+        },
+        {
+          "start": 94.61,
+          "end": 94.91,
+          "word": " blockchain."
+        }
+      ]
+    },
+    {
+      "start": 95.61,
+      "end": 95.97,
+      "text": "Genial.",
+      "words": [
+        {
+          "start": 95.61,
+          "end": 95.97,
+          "word": " Genial."
+        }
+      ]
+    },
+    {
+      "start": 96.61,
+      "end": 100.11,
+      "text": "Bueno, a la gente que quiera participar de más eventos de BNP Builder Session,",
+      "words": [
+        {
+          "start": 96.61,
+          "end": 96.69,
+          "word": " Bueno,"
+        },
+        {
+          "start": 97.21,
+          "end": 97.35,
+          "word": " a"
+        },
+        {
+          "start": 97.35,
+          "end": 97.37,
+          "word": " la"
+        },
+        {
+          "start": 97.37,
+          "end": 97.55,
+          "word": " gente"
+        },
+        {
+          "start": 97.55,
+          "end": 97.71,
+          "word": " que"
+        },
+        {
+          "start": 97.71,
+          "end": 97.89,
+          "word": " quiera"
+        },
+        {
+          "start": 97.89,
+          "end": 98.25,
+          "word": " participar"
+        },
+        {
+          "start": 98.25,
+          "end": 98.49,
+          "word": " de"
+        },
+        {
+          "start": 98.49,
+          "end": 98.61,
+          "word": " más"
+        },
+        {
+          "start": 98.61,
+          "end": 99.05,
+          "word": " eventos"
+        },
+        {
+          "start": 99.05,
+          "end": 99.15,
+          "word": " de"
+        },
+        {
+          "start": 99.15,
+          "end": 99.51,
+          "word": " BNP"
+        },
+        {
+          "start": 99.51,
+          "end": 99.83,
+          "word": " Builder"
+        },
+        {
+          "start": 99.83,
+          "end": 100.11,
+          "word": " Session,"
+        }
+      ]
+    },
+    {
+      "start": 100.25,
+      "end": 102.75,
+      "text": "nos puede seguir acá a la comunidad de BNP en este QR.",
+      "words": [
+        {
+          "start": 100.25,
+          "end": 100.35,
+          "word": " nos"
+        },
+        {
+          "start": 100.35,
+          "end": 100.53,
+          "word": " puede"
+        },
+        {
+          "start": 100.53,
+          "end": 100.77,
+          "word": " seguir"
+        },
+        {
+          "start": 100.77,
+          "end": 101.05,
+          "word": " acá"
+        },
+        {
+          "start": 101.05,
+          "end": 101.25,
+          "word": " a"
+        },
+        {
+          "start": 101.25,
+          "end": 101.31,
+          "word": " la"
+        },
+        {
+          "start": 101.31,
+          "end": 101.53,
+          "word": " comunidad"
+        },
+        {
+          "start": 101.53,
+          "end": 101.75,
+          "word": " de"
+        },
+        {
+          "start": 101.75,
+          "end": 102.17,
+          "word": " BNP"
+        },
+        {
+          "start": 102.17,
+          "end": 102.35,
+          "word": " en"
+        },
+        {
+          "start": 102.35,
+          "end": 102.51,
+          "word": " este"
+        },
+        {
+          "start": 102.51,
+          "end": 102.75,
+          "word": " QR."
+        }
+      ]
+    },
+    {
+      "start": 112.85,
+      "end": 115.55,
+      "text": "Mati, ¿dónde la gente te puede encontrar en redes sociales",
+      "words": [
+        {
+          "start": 112.85,
+          "end": 113.29,
+          "word": " Mati,"
+        },
+        {
+          "start": 113.67,
+          "end": 113.93,
+          "word": " ¿dónde"
+        },
+        {
+          "start": 113.93,
+          "end": 114.07,
+          "word": " la"
+        },
+        {
+          "start": 114.07,
+          "end": 114.21,
+          "word": " gente"
+        },
+        {
+          "start": 114.21,
+          "end": 114.39,
+          "word": " te"
+        },
+        {
+          "start": 114.39,
+          "end": 114.55,
+          "word": " puede"
+        },
+        {
+          "start": 114.55,
+          "end": 114.75,
+          "word": " encontrar"
+        },
+        {
+          "start": 114.75,
+          "end": 114.93,
+          "word": " en"
+        },
+        {
+          "start": 114.93,
+          "end": 115.07,
+          "word": " redes"
+        },
+        {
+          "start": 115.07,
+          "end": 115.55,
+          "word": " sociales"
+        }
+      ]
+    },
+    {
+      "start": 115.55,
+      "end": 117.85,
+      "text": "o en una empresa tuya que vos quieras promocionar?",
+      "words": [
+        {
+          "start": 115.55,
+          "end": 115.89,
+          "word": " o"
+        },
+        {
+          "start": 115.89,
+          "end": 116.01,
+          "word": " en"
+        },
+        {
+          "start": 116.01,
+          "end": 116.11,
+          "word": " una"
+        },
+        {
+          "start": 116.11,
+          "end": 116.35,
+          "word": " empresa"
+        },
+        {
+          "start": 116.35,
+          "end": 116.83,
+          "word": " tuya"
+        },
+        {
+          "start": 116.83,
+          "end": 117.01,
+          "word": " que"
+        },
+        {
+          "start": 117.01,
+          "end": 117.15,
+          "word": " vos"
+        },
+        {
+          "start": 117.15,
+          "end": 117.37,
+          "word": " quieras"
+        },
+        {
+          "start": 117.37,
+          "end": 117.85,
+          "word": " promocionar?"
+        }
+      ]
+    },
+    {
+      "start": 118.21,
+      "end": 120.21,
+      "text": "Bien, a mí me pueden encontrar como Selicin,",
+      "words": [
+        {
+          "start": 118.21,
+          "end": 118.31,
+          "word": " Bien,"
+        },
+        {
+          "start": 118.43,
+          "end": 118.45,
+          "word": " a"
+        },
+        {
+          "start": 118.45,
+          "end": 118.51,
+          "word": " mí"
+        },
+        {
+          "start": 118.51,
+          "end": 118.63,
+          "word": " me"
+        },
+        {
+          "start": 118.63,
+          "end": 118.81,
+          "word": " pueden"
+        },
+        {
+          "start": 118.81,
+          "end": 119.15,
+          "word": " encontrar"
+        },
+        {
+          "start": 119.15,
+          "end": 119.47,
+          "word": " como"
+        },
+        {
+          "start": 119.47,
+          "end": 120.21,
+          "word": " Selicin,"
+        }
+      ]
+    },
+    {
+      "start": 120.31,
+      "end": 123.37,
+      "text": "yo me bajo en Instagram o Selicin en X o Twitter.",
+      "words": [
+        {
+          "start": 120.31,
+          "end": 120.39,
+          "word": " yo"
+        },
+        {
+          "start": 120.39,
+          "end": 120.47,
+          "word": " me"
+        },
+        {
+          "start": 120.47,
+          "end": 120.67,
+          "word": " bajo"
+        },
+        {
+          "start": 120.67,
+          "end": 120.81,
+          "word": " en"
+        },
+        {
+          "start": 120.81,
+          "end": 121.13,
+          "word": " Instagram"
+        },
+        {
+          "start": 121.13,
+          "end": 121.49,
+          "word": " o"
+        },
+        {
+          "start": 121.49,
+          "end": 122.07,
+          "word": " Selicin"
+        },
+        {
+          "start": 122.07,
+          "end": 122.35,
+          "word": " en"
+        },
+        {
+          "start": 122.35,
+          "end": 122.75,
+          "word": " X"
+        },
+        {
+          "start": 122.75,
+          "end": 123.07,
+          "word": " o"
+        },
+        {
+          "start": 123.07,
+          "end": 123.37,
+          "word": " Twitter."
+        }
+      ]
+    },
+    {
+      "start": 123.99,
+      "end": 128.53,
+      "text": "Y si no, también yo soy un poco conocido por bondimdp.com.ar,",
+      "words": [
+        {
+          "start": 123.99,
+          "end": 124.43,
+          "word": " Y"
+        },
+        {
+          "start": 124.43,
+          "end": 124.61,
+          "word": " si"
+        },
+        {
+          "start": 124.61,
+          "end": 124.73,
+          "word": " no,"
+        },
+        {
+          "start": 124.87,
+          "end": 125.01,
+          "word": " también"
+        },
+        {
+          "start": 125.01,
+          "end": 125.31,
+          "word": " yo"
+        },
+        {
+          "start": 125.31,
+          "end": 125.65,
+          "word": " soy"
+        },
+        {
+          "start": 125.65,
+          "end": 125.75,
+          "word": " un"
+        },
+        {
+          "start": 125.75,
+          "end": 125.87,
+          "word": " poco"
+        },
+        {
+          "start": 125.87,
+          "end": 126.37,
+          "word": " conocido"
+        },
+        {
+          "start": 126.37,
+          "end": 126.77,
+          "word": " por"
+        },
+        {
+          "start": 126.77,
+          "end": 127.65,
+          "word": " bondimdp"
+        },
+        {
+          "start": 127.65,
+          "end": 128.03,
+          "word": ".com"
+        },
+        {
+          "start": 128.03,
+          "end": 128.53,
+          "word": ".ar,"
+        }
+      ]
+    },
+    {
+      "start": 128.99,
+      "end": 132.67,
+      "text": "la aplicación que viene a reemplazar a cuando llega acá el mar de plantas.",
+      "words": [
+        {
+          "start": 128.99,
+          "end": 129.15,
+          "word": " la"
+        },
+        {
+          "start": 129.15,
+          "end": 129.61,
+          "word": " aplicación"
+        },
+        {
+          "start": 129.61,
+          "end": 129.79,
+          "word": " que"
+        },
+        {
+          "start": 129.79,
+          "end": 130.33,
+          "word": " viene"
+        },
+        {
+          "start": 130.33,
+          "end": 130.49,
+          "word": " a"
+        },
+        {
+          "start": 130.49,
+          "end": 130.93,
+          "word": " reemplazar"
+        },
+        {
+          "start": 130.93,
+          "end": 131.17,
+          "word": " a"
+        },
+        {
+          "start": 131.17,
+          "end": 131.49,
+          "word": " cuando"
+        },
+        {
+          "start": 131.49,
+          "end": 131.83,
+          "word": " llega"
+        },
+        {
+          "start": 131.83,
+          "end": 132.03,
+          "word": " acá"
+        },
+        {
+          "start": 132.03,
+          "end": 132.15,
+          "word": " el"
+        },
+        {
+          "start": 132.15,
+          "end": 132.23,
+          "word": " mar"
+        },
+        {
+          "start": 132.23,
+          "end": 132.33,
+          "word": " de"
+        },
+        {
+          "start": 132.33,
+          "end": 132.67,
+          "word": " plantas."
+        }
+      ]
+    },
+    {
+      "start": 132.89,
+      "end": 133.87,
+      "text": "Gracias Mati.",
+      "words": [
+        {
+          "start": 132.89,
+          "end": 133.07,
+          "word": " Gracias"
+        },
+        {
+          "start": 133.07,
+          "end": 133.87,
+          "word": " Mati."
+        }
+      ]
+    },
+    {
+      "start": 133.97,
+      "end": 134.31,
+      "text": "Gracias Luigi.",
+      "words": [
+        {
+          "start": 133.97,
+          "end": 134.07,
+          "word": " Gracias"
+        },
+        {
+          "start": 134.07,
+          "end": 134.31,
+          "word": " Luigi."
+        }
+      ]
+    }
+  ]
+}

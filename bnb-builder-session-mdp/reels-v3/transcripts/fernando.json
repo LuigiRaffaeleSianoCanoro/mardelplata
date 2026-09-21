@@ -1,0 +1,2409 @@
+{
+  "guest": "fernando",
+  "language": "es",
+  "duration": 145.4469375,
+  "segments": [
+    {
+      "start": 1.01,
+      "end": 7.67,
+      "text": "Bueno, estamos acá en la BNB Builder Session de Mar del Plata con Noel Siery, nuestro compañero",
+      "words": [
+        {
+          "start": 1.01,
+          "end": 1.49,
+          "word": " Bueno,"
+        },
+        {
+          "start": 1.57,
+          "end": 1.73,
+          "word": " estamos"
+        },
+        {
+          "start": 1.73,
+          "end": 2.13,
+          "word": " acá"
+        },
+        {
+          "start": 2.13,
+          "end": 2.79,
+          "word": " en"
+        },
+        {
+          "start": 2.79,
+          "end": 3.03,
+          "word": " la"
+        },
+        {
+          "start": 3.03,
+          "end": 3.67,
+          "word": " BNB"
+        },
+        {
+          "start": 3.67,
+          "end": 4.27,
+          "word": " Builder"
+        },
+        {
+          "start": 4.27,
+          "end": 4.67,
+          "word": " Session"
+        },
+        {
+          "start": 4.67,
+          "end": 4.83,
+          "word": " de"
+        },
+        {
+          "start": 4.83,
+          "end": 5.01,
+          "word": " Mar"
+        },
+        {
+          "start": 5.01,
+          "end": 5.15,
+          "word": " del"
+        },
+        {
+          "start": 5.15,
+          "end": 5.61,
+          "word": " Plata"
+        },
+        {
+          "start": 5.61,
+          "end": 6.07,
+          "word": " con"
+        },
+        {
+          "start": 6.07,
+          "end": 6.43,
+          "word": " Noel"
+        },
+        {
+          "start": 6.43,
+          "end": 6.89,
+          "word": " Siery,"
+        },
+        {
+          "start": 7.09,
+          "end": 7.23,
+          "word": " nuestro"
+        },
+        {
+          "start": 7.23,
+          "end": 7.67,
+          "word": " compañero"
+        }
+      ]
+    },
+    {
+      "start": 7.67,
+      "end": 12.49,
+      "text": "acá en la organización. ¿Hablan un poquito más? ¿De qué trabajamos? ¿De qué industria",
+      "words": [
+        {
+          "start": 7.67,
+          "end": 7.83,
+          "word": " acá"
+        },
+        {
+          "start": 7.83,
+          "end": 7.91,
+          "word": " en"
+        },
+        {
+          "start": 7.91,
+          "end": 7.99,
+          "word": " la"
+        },
+        {
+          "start": 7.99,
+          "end": 8.51,
+          "word": " organización."
+        },
+        {
+          "start": 8.81,
+          "end": 9.39,
+          "word": " ¿Hablan"
+        },
+        {
+          "start": 9.39,
+          "end": 9.51,
+          "word": " un"
+        },
+        {
+          "start": 9.51,
+          "end": 9.69,
+          "word": " poquito"
+        },
+        {
+          "start": 9.69,
+          "end": 10.01,
+          "word": " más?"
+        },
+        {
+          "start": 10.35,
+          "end": 10.69,
+          "word": " ¿De"
+        },
+        {
+          "start": 10.69,
+          "end": 10.75,
+          "word": " qué"
+        },
+        {
+          "start": 10.75,
+          "end": 11.21,
+          "word": " trabajamos?"
+        },
+        {
+          "start": 11.63,
+          "end": 11.77,
+          "word": " ¿De"
+        },
+        {
+          "start": 11.77,
+          "end": 12.17,
+          "word": " qué"
+        },
+        {
+          "start": 12.17,
+          "end": 12.49,
+          "word": " industria"
+        }
+      ]
+    },
+    {
+      "start": 12.49,
+      "end": 12.77,
+      "text": "venís?",
+      "words": [
+        {
+          "start": 12.49,
+          "end": 12.77,
+          "word": " venís?"
+        }
+      ]
+    },
+    {
+      "start": 13.15,
+      "end": 17.31,
+      "text": "Yo vengo más que nada de la industria del marketing, marketing growth. Tenemos una agencia",
+      "words": [
+        {
+          "start": 13.15,
+          "end": 13.35,
+          "word": " Yo"
+        },
+        {
+          "start": 13.35,
+          "end": 13.55,
+          "word": " vengo"
+        },
+        {
+          "start": 13.55,
+          "end": 13.77,
+          "word": " más"
+        },
+        {
+          "start": 13.77,
+          "end": 13.85,
+          "word": " que"
+        },
+        {
+          "start": 13.85,
+          "end": 13.99,
+          "word": " nada"
+        },
+        {
+          "start": 13.99,
+          "end": 14.13,
+          "word": " de"
+        },
+        {
+          "start": 14.13,
+          "end": 14.19,
+          "word": " la"
+        },
+        {
+          "start": 14.19,
+          "end": 14.59,
+          "word": " industria"
+        },
+        {
+          "start": 14.59,
+          "end": 15.03,
+          "word": " del"
+        },
+        {
+          "start": 15.03,
+          "end": 15.37,
+          "word": " marketing,"
+        },
+        {
+          "start": 15.61,
+          "end": 15.97,
+          "word": " marketing"
+        },
+        {
+          "start": 15.97,
+          "end": 16.29,
+          "word": " growth."
+        },
+        {
+          "start": 16.57,
+          "end": 16.73,
+          "word": " Tenemos"
+        },
+        {
+          "start": 16.73,
+          "end": 16.99,
+          "word": " una"
+        },
+        {
+          "start": 16.99,
+          "end": 17.31,
+          "word": " agencia"
+        }
+      ]
+    },
+    {
+      "start": 17.31,
+      "end": 22.25,
+      "text": "llamada Scaling que ayudamos a proyectos de protocolos, blockchain, más que nada",
+      "words": [
+        {
+          "start": 17.31,
+          "end": 17.69,
+          "word": " llamada"
+        },
+        {
+          "start": 17.69,
+          "end": 18.01,
+          "word": " Scaling"
+        },
+        {
+          "start": 18.01,
+          "end": 18.37,
+          "word": " que"
+        },
+        {
+          "start": 18.37,
+          "end": 18.69,
+          "word": " ayudamos"
+        },
+        {
+          "start": 18.69,
+          "end": 18.99,
+          "word": " a"
+        },
+        {
+          "start": 18.99,
+          "end": 19.77,
+          "word": " proyectos"
+        },
+        {
+          "start": 19.77,
+          "end": 20.17,
+          "word": " de"
+        },
+        {
+          "start": 20.17,
+          "end": 20.89,
+          "word": " protocolos,"
+        },
+        {
+          "start": 21.03,
+          "end": 21.43,
+          "word": " blockchain,"
+        },
+        {
+          "start": 21.95,
+          "end": 22.03,
+          "word": " más"
+        },
+        {
+          "start": 22.03,
+          "end": 22.09,
+          "word": " que"
+        },
+        {
+          "start": 22.09,
+          "end": 22.25,
+          "word": " nada"
+        }
+      ]
+    },
+    {
+      "start": 22.25,
+      "end": 28.15,
+      "text": "fintech y startups a ayudarlos con un sistema de crecimiento, por así hacerlo, en",
+      "words": [
+        {
+          "start": 22.25,
+          "end": 22.97,
+          "word": " fintech"
+        },
+        {
+          "start": 22.97,
+          "end": 23.35,
+          "word": " y"
+        },
+        {
+          "start": 23.35,
+          "end": 24.03,
+          "word": " startups"
+        },
+        {
+          "start": 24.03,
+          "end": 24.83,
+          "word": " a"
+        },
+        {
+          "start": 24.83,
+          "end": 25.63,
+          "word": " ayudarlos"
+        },
+        {
+          "start": 25.63,
+          "end": 25.81,
+          "word": " con"
+        },
+        {
+          "start": 25.81,
+          "end": 25.93,
+          "word": " un"
+        },
+        {
+          "start": 25.93,
+          "end": 26.29,
+          "word": " sistema"
+        },
+        {
+          "start": 26.29,
+          "end": 26.45,
+          "word": " de"
+        },
+        {
+          "start": 26.45,
+          "end": 26.91,
+          "word": " crecimiento,"
+        },
+        {
+          "start": 27.01,
+          "end": 27.15,
+          "word": " por"
+        },
+        {
+          "start": 27.15,
+          "end": 27.33,
+          "word": " así"
+        },
+        {
+          "start": 27.33,
+          "end": 27.59,
+          "word": " hacerlo,"
+        },
+        {
+          "start": 27.97,
+          "end": 28.15,
+          "word": " en"
+        }
+      ]
+    },
+    {
+      "start": 28.15,
+      "end": 29.73,
+      "text": "marketing growth, más que nada de eso.",
+      "words": [
+        {
+          "start": 28.15,
+          "end": 28.45,
+          "word": " marketing"
+        },
+        {
+          "start": 28.45,
+          "end": 28.79,
+          "word": " growth,"
+        },
+        {
+          "start": 29.07,
+          "end": 29.29,
+          "word": " más"
+        },
+        {
+          "start": 29.29,
+          "end": 29.37,
+          "word": " que"
+        },
+        {
+          "start": 29.37,
+          "end": 29.47,
+          "word": " nada"
+        },
+        {
+          "start": 29.47,
+          "end": 29.61,
+          "word": " de"
+        },
+        {
+          "start": 29.61,
+          "end": 29.73,
+          "word": " eso."
+        }
+      ]
+    },
+    {
+      "start": 29.73,
+      "end": 33.59,
+      "text": "Genial. Y bueno, vos ayudaste un montón en la organización, en la promoción del evento",
+      "words": [
+        {
+          "start": 29.73,
+          "end": 30.47,
+          "word": " Genial."
+        },
+        {
+          "start": 30.77,
+          "end": 30.85,
+          "word": " Y"
+        },
+        {
+          "start": 30.85,
+          "end": 31.11,
+          "word": " bueno,"
+        },
+        {
+          "start": 31.21,
+          "end": 31.33,
+          "word": " vos"
+        },
+        {
+          "start": 31.33,
+          "end": 31.63,
+          "word": " ayudaste"
+        },
+        {
+          "start": 31.63,
+          "end": 31.73,
+          "word": " un"
+        },
+        {
+          "start": 31.73,
+          "end": 31.89,
+          "word": " montón"
+        },
+        {
+          "start": 31.89,
+          "end": 32.01,
+          "word": " en"
+        },
+        {
+          "start": 32.01,
+          "end": 32.07,
+          "word": " la"
+        },
+        {
+          "start": 32.07,
+          "end": 32.57,
+          "word": " organización,"
+        },
+        {
+          "start": 32.65,
+          "end": 32.67,
+          "word": " en"
+        },
+        {
+          "start": 32.67,
+          "end": 32.73,
+          "word": " la"
+        },
+        {
+          "start": 32.73,
+          "end": 33.11,
+          "word": " promoción"
+        },
+        {
+          "start": 33.11,
+          "end": 33.25,
+          "word": " del"
+        },
+        {
+          "start": 33.25,
+          "end": 33.59,
+          "word": " evento"
+        }
+      ]
+    },
+    {
+      "start": 33.59,
+      "end": 38.17,
+      "text": "acá en Mar del Plata. ¿Previo venir al evento? ¿Cuál era la expectativa que esperabas ver",
+      "words": [
+        {
+          "start": 33.59,
+          "end": 33.75,
+          "word": " acá"
+        },
+        {
+          "start": 33.75,
+          "end": 33.87,
+          "word": " en"
+        },
+        {
+          "start": 33.87,
+          "end": 33.95,
+          "word": " Mar"
+        },
+        {
+          "start": 33.95,
+          "end": 34.07,
+          "word": " del"
+        },
+        {
+          "start": 34.07,
+          "end": 34.45,
+          "word": " Plata."
+        },
+        {
+          "start": 35.01,
+          "end": 35.45,
+          "word": " ¿Previo"
+        },
+        {
+          "start": 35.45,
+          "end": 35.67,
+          "word": " venir"
+        },
+        {
+          "start": 35.67,
+          "end": 35.83,
+          "word": " al"
+        },
+        {
+          "start": 35.83,
+          "end": 36.17,
+          "word": " evento?"
+        },
+        {
+          "start": 36.43,
+          "end": 36.61,
+          "word": " ¿Cuál"
+        },
+        {
+          "start": 36.61,
+          "end": 36.75,
+          "word": " era"
+        },
+        {
+          "start": 36.75,
+          "end": 36.85,
+          "word": " la"
+        },
+        {
+          "start": 36.85,
+          "end": 37.35,
+          "word": " expectativa"
+        },
+        {
+          "start": 37.35,
+          "end": 37.51,
+          "word": " que"
+        },
+        {
+          "start": 37.51,
+          "end": 37.91,
+          "word": " esperabas"
+        },
+        {
+          "start": 37.91,
+          "end": 38.17,
+          "word": " ver"
+        }
+      ]
+    },
+    {
+      "start": 38.17,
+      "end": 38.69,
+      "text": "en el evento?",
+      "words": [
+        {
+          "start": 38.17,
+          "end": 38.33,
+          "word": " en"
+        },
+        {
+          "start": 38.33,
+          "end": 38.41,
+          "word": " el"
+        },
+        {
+          "start": 38.41,
+          "end": 38.69,
+          "word": " evento?"
+        }
+      ]
+    },
+    {
+      "start": 39.17,
+      "end": 44.49,
+      "text": "Y más que nada, un montón de Builders, Builders de la región de Mar del Plata que construyen",
+      "words": [
+        {
+          "start": 39.17,
+          "end": 39.39,
+          "word": " Y"
+        },
+        {
+          "start": 39.39,
+          "end": 39.47,
+          "word": " más"
+        },
+        {
+          "start": 39.47,
+          "end": 39.59,
+          "word": " que"
+        },
+        {
+          "start": 39.59,
+          "end": 39.71,
+          "word": " nada,"
+        },
+        {
+          "start": 39.79,
+          "end": 39.87,
+          "word": " un"
+        },
+        {
+          "start": 39.87,
+          "end": 40.05,
+          "word": " montón"
+        },
+        {
+          "start": 40.05,
+          "end": 40.45,
+          "word": " de"
+        },
+        {
+          "start": 40.45,
+          "end": 41.51,
+          "word": " Builders,"
+        },
+        {
+          "start": 41.71,
+          "end": 42.11,
+          "word": " Builders"
+        },
+        {
+          "start": 42.11,
+          "end": 42.25,
+          "word": " de"
+        },
+        {
+          "start": 42.25,
+          "end": 42.39,
+          "word": " la"
+        },
+        {
+          "start": 42.39,
+          "end": 42.67,
+          "word": " región"
+        },
+        {
+          "start": 42.67,
+          "end": 42.79,
+          "word": " de"
+        },
+        {
+          "start": 42.79,
+          "end": 42.91,
+          "word": " Mar"
+        },
+        {
+          "start": 42.91,
+          "end": 43.03,
+          "word": " del"
+        },
+        {
+          "start": 43.03,
+          "end": 43.29,
+          "word": " Plata"
+        },
+        {
+          "start": 43.29,
+          "end": 43.79,
+          "word": " que"
+        },
+        {
+          "start": 43.79,
+          "end": 44.49,
+          "word": " construyen"
+        }
+      ]
+    },
+    {
+      "start": 44.49,
+      "end": 49.43,
+      "text": "y ya los conocemos a varios, acá en la región hay un montón de cracks que están",
+      "words": [
+        {
+          "start": 44.49,
+          "end": 44.83,
+          "word": " y"
+        },
+        {
+          "start": 44.83,
+          "end": 45.11,
+          "word": " ya"
+        },
+        {
+          "start": 45.11,
+          "end": 45.23,
+          "word": " los"
+        },
+        {
+          "start": 45.23,
+          "end": 45.57,
+          "word": " conocemos"
+        },
+        {
+          "start": 45.57,
+          "end": 45.77,
+          "word": " a"
+        },
+        {
+          "start": 45.77,
+          "end": 45.97,
+          "word": " varios,"
+        },
+        {
+          "start": 46.17,
+          "end": 46.37,
+          "word": " acá"
+        },
+        {
+          "start": 46.37,
+          "end": 46.57,
+          "word": " en"
+        },
+        {
+          "start": 46.57,
+          "end": 46.65,
+          "word": " la"
+        },
+        {
+          "start": 46.65,
+          "end": 46.93,
+          "word": " región"
+        },
+        {
+          "start": 46.93,
+          "end": 47.11,
+          "word": " hay"
+        },
+        {
+          "start": 47.11,
+          "end": 47.23,
+          "word": " un"
+        },
+        {
+          "start": 47.23,
+          "end": 47.49,
+          "word": " montón"
+        },
+        {
+          "start": 47.49,
+          "end": 47.91,
+          "word": " de"
+        },
+        {
+          "start": 47.91,
+          "end": 48.27,
+          "word": " cracks"
+        },
+        {
+          "start": 48.27,
+          "end": 49.01,
+          "word": " que"
+        },
+        {
+          "start": 49.01,
+          "end": 49.43,
+          "word": " están"
+        }
+      ]
+    },
+    {
+      "start": 49.43,
+      "end": 56.07,
+      "text": "construyendo y lo sabemos. Así que me esperaba un nivel alto y superar las expectativas.",
+      "words": [
+        {
+          "start": 49.43,
+          "end": 49.97,
+          "word": " construyendo"
+        },
+        {
+          "start": 49.97,
+          "end": 50.19,
+          "word": " y"
+        },
+        {
+          "start": 50.19,
+          "end": 50.47,
+          "word": " lo"
+        },
+        {
+          "start": 50.47,
+          "end": 50.81,
+          "word": " sabemos."
+        },
+        {
+          "start": 51.31,
+          "end": 51.63,
+          "word": " Así"
+        },
+        {
+          "start": 51.63,
+          "end": 51.85,
+          "word": " que"
+        },
+        {
+          "start": 51.85,
+          "end": 52.07,
+          "word": " me"
+        },
+        {
+          "start": 52.07,
+          "end": 52.47,
+          "word": " esperaba"
+        },
+        {
+          "start": 52.47,
+          "end": 52.99,
+          "word": " un"
+        },
+        {
+          "start": 52.99,
+          "end": 53.43,
+          "word": " nivel"
+        },
+        {
+          "start": 53.43,
+          "end": 54.17,
+          "word": " alto"
+        },
+        {
+          "start": 54.17,
+          "end": 54.85,
+          "word": " y"
+        },
+        {
+          "start": 54.85,
+          "end": 55.37,
+          "word": " superar"
+        },
+        {
+          "start": 55.37,
+          "end": 55.49,
+          "word": " las"
+        },
+        {
+          "start": 55.49,
+          "end": 56.07,
+          "word": " expectativas."
+        }
+      ]
+    },
+    {
+      "start": 56.63,
+      "end": 61.09,
+      "text": "Genial. Bueno, esa era mi próxima pregunta directamente. Ahora que ya tuvimos las charlas, ¿qué",
+      "words": [
+        {
+          "start": 56.63,
+          "end": 57.07,
+          "word": " Genial."
+        },
+        {
+          "start": 57.21,
+          "end": 57.29,
+          "word": " Bueno,"
+        },
+        {
+          "start": 57.35,
+          "end": 57.47,
+          "word": " esa"
+        },
+        {
+          "start": 57.47,
+          "end": 57.63,
+          "word": " era"
+        },
+        {
+          "start": 57.63,
+          "end": 57.71,
+          "word": " mi"
+        },
+        {
+          "start": 57.71,
+          "end": 57.89,
+          "word": " próxima"
+        },
+        {
+          "start": 57.89,
+          "end": 58.23,
+          "word": " pregunta"
+        },
+        {
+          "start": 58.23,
+          "end": 58.49,
+          "word": " directamente."
+        },
+        {
+          "start": 59.21,
+          "end": 59.43,
+          "word": " Ahora"
+        },
+        {
+          "start": 59.43,
+          "end": 59.57,
+          "word": " que"
+        },
+        {
+          "start": 59.57,
+          "end": 59.69,
+          "word": " ya"
+        },
+        {
+          "start": 59.69,
+          "end": 59.91,
+          "word": " tuvimos"
+        },
+        {
+          "start": 59.91,
+          "end": 60.13,
+          "word": " las"
+        },
+        {
+          "start": 60.13,
+          "end": 60.59,
+          "word": " charlas,"
+        },
+        {
+          "start": 61.03,
+          "end": 61.09,
+          "word": " ¿qué"
+        }
+      ]
+    },
+    {
+      "start": 61.09,
+      "end": 64.39,
+      "text": "puede esperar una persona que vaya a una BNB Builder Session? ¿Qué es lo que puede ver?",
+      "words": [
+        {
+          "start": 61.09,
+          "end": 61.25,
+          "word": " puede"
+        },
+        {
+          "start": 61.25,
+          "end": 61.43,
+          "word": " esperar"
+        },
+        {
+          "start": 61.43,
+          "end": 61.59,
+          "word": " una"
+        },
+        {
+          "start": 61.59,
+          "end": 61.81,
+          "word": " persona"
+        },
+        {
+          "start": 61.81,
+          "end": 62.03,
+          "word": " que"
+        },
+        {
+          "start": 62.03,
+          "end": 62.21,
+          "word": " vaya"
+        },
+        {
+          "start": 62.21,
+          "end": 62.45,
+          "word": " a"
+        },
+        {
+          "start": 62.45,
+          "end": 62.47,
+          "word": " una"
+        },
+        {
+          "start": 62.47,
+          "end": 62.83,
+          "word": " BNB"
+        },
+        {
+          "start": 62.83,
+          "end": 63.23,
+          "word": " Builder"
+        },
+        {
+          "start": 63.23,
+          "end": 63.51,
+          "word": " Session?"
+        },
+        {
+          "start": 63.63,
+          "end": 63.71,
+          "word": " ¿Qué"
+        },
+        {
+          "start": 63.71,
+          "end": 63.81,
+          "word": " es"
+        },
+        {
+          "start": 63.81,
+          "end": 63.89,
+          "word": " lo"
+        },
+        {
+          "start": 63.89,
+          "end": 63.97,
+          "word": " que"
+        },
+        {
+          "start": 63.97,
+          "end": 64.21,
+          "word": " puede"
+        },
+        {
+          "start": 64.21,
+          "end": 64.39,
+          "word": " ver?"
+        }
+      ]
+    },
+    {
+      "start": 64.95,
+      "end": 70.27,
+      "text": "Y la verdad que puede ver un montón de gente que tiene mucha gana de construir. También",
+      "words": [
+        {
+          "start": 64.95,
+          "end": 65.23,
+          "word": " Y"
+        },
+        {
+          "start": 65.23,
+          "end": 65.47,
+          "word": " la"
+        },
+        {
+          "start": 65.47,
+          "end": 65.63,
+          "word": " verdad"
+        },
+        {
+          "start": 65.63,
+          "end": 65.75,
+          "word": " que"
+        },
+        {
+          "start": 65.75,
+          "end": 65.89,
+          "word": " puede"
+        },
+        {
+          "start": 65.89,
+          "end": 66.09,
+          "word": " ver"
+        },
+        {
+          "start": 66.09,
+          "end": 66.29,
+          "word": " un"
+        },
+        {
+          "start": 66.29,
+          "end": 66.59,
+          "word": " montón"
+        },
+        {
+          "start": 66.59,
+          "end": 66.81,
+          "word": " de"
+        },
+        {
+          "start": 66.81,
+          "end": 67.29,
+          "word": " gente"
+        },
+        {
+          "start": 67.29,
+          "end": 67.59,
+          "word": " que"
+        },
+        {
+          "start": 67.59,
+          "end": 68.15,
+          "word": " tiene"
+        },
+        {
+          "start": 68.15,
+          "end": 68.39,
+          "word": " mucha"
+        },
+        {
+          "start": 68.39,
+          "end": 68.65,
+          "word": " gana"
+        },
+        {
+          "start": 68.65,
+          "end": 68.77,
+          "word": " de"
+        },
+        {
+          "start": 68.77,
+          "end": 69.17,
+          "word": " construir."
+        },
+        {
+          "start": 69.83,
+          "end": 70.27,
+          "word": " También"
+        }
+      ]
+    },
+    {
+      "start": 70.27,
+      "end": 75.61,
+      "text": "un stack de tecnología, por así hacerlo, muy grande. Hoy, por ejemplo, hablamos",
+      "words": [
+        {
+          "start": 70.27,
+          "end": 70.99,
+          "word": " un"
+        },
+        {
+          "start": 70.99,
+          "end": 71.29,
+          "word": " stack"
+        },
+        {
+          "start": 71.29,
+          "end": 71.47,
+          "word": " de"
+        },
+        {
+          "start": 71.47,
+          "end": 71.87,
+          "word": " tecnología,"
+        },
+        {
+          "start": 72.05,
+          "end": 72.11,
+          "word": " por"
+        },
+        {
+          "start": 72.11,
+          "end": 72.29,
+          "word": " así"
+        },
+        {
+          "start": 72.29,
+          "end": 72.59,
+          "word": " hacerlo,"
+        },
+        {
+          "start": 73.17,
+          "end": 73.51,
+          "word": " muy"
+        },
+        {
+          "start": 73.51,
+          "end": 73.87,
+          "word": " grande."
+        },
+        {
+          "start": 74.67,
+          "end": 74.85,
+          "word": " Hoy,"
+        },
+        {
+          "start": 74.87,
+          "end": 75.01,
+          "word": " por"
+        },
+        {
+          "start": 75.01,
+          "end": 75.25,
+          "word": " ejemplo,"
+        },
+        {
+          "start": 75.35,
+          "end": 75.61,
+          "word": " hablamos"
+        }
+      ]
+    },
+    {
+      "start": 75.61,
+      "end": 81.05,
+      "text": "mucho de agentes on-chain, como implementar estos agentes, como darle, por así hacerlo,",
+      "words": [
+        {
+          "start": 75.61,
+          "end": 75.87,
+          "word": " mucho"
+        },
+        {
+          "start": 75.87,
+          "end": 76.03,
+          "word": " de"
+        },
+        {
+          "start": 76.03,
+          "end": 76.43,
+          "word": " agentes"
+        },
+        {
+          "start": 76.43,
+          "end": 77.13,
+          "word": " on"
+        },
+        {
+          "start": 77.13,
+          "end": 77.41,
+          "word": "-chain,"
+        },
+        {
+          "start": 77.89,
+          "end": 78.07,
+          "word": " como"
+        },
+        {
+          "start": 78.07,
+          "end": 78.51,
+          "word": " implementar"
+        },
+        {
+          "start": 78.51,
+          "end": 78.67,
+          "word": " estos"
+        },
+        {
+          "start": 78.67,
+          "end": 79.17,
+          "word": " agentes,"
+        },
+        {
+          "start": 79.43,
+          "end": 79.55,
+          "word": " como"
+        },
+        {
+          "start": 79.55,
+          "end": 79.77,
+          "word": " darle,"
+        },
+        {
+          "start": 80.19,
+          "end": 80.65,
+          "word": " por"
+        },
+        {
+          "start": 80.65,
+          "end": 80.81,
+          "word": " así"
+        },
+        {
+          "start": 80.81,
+          "end": 81.05,
+          "word": " hacerlo,"
+        }
+      ]
+    },
+    {
+      "start": 81.05,
+      "end": 86.73,
+      "text": "sumar a estos agentes dentro de todo lo que es el mundo on-chain. En este caso le hicimos",
+      "words": [
+        {
+          "start": 81.05,
+          "end": 81.83,
+          "word": " sumar"
+        },
+        {
+          "start": 81.83,
+          "end": 81.83,
+          "word": " a"
+        },
+        {
+          "start": 81.83,
+          "end": 81.83,
+          "word": " estos"
+        },
+        {
+          "start": 81.83,
+          "end": 82.35,
+          "word": " agentes"
+        },
+        {
+          "start": 82.35,
+          "end": 82.65,
+          "word": " dentro"
+        },
+        {
+          "start": 82.65,
+          "end": 82.99,
+          "word": " de"
+        },
+        {
+          "start": 82.99,
+          "end": 83.99,
+          "word": " todo"
+        },
+        {
+          "start": 83.99,
+          "end": 84.13,
+          "word": " lo"
+        },
+        {
+          "start": 84.13,
+          "end": 84.23,
+          "word": " que"
+        },
+        {
+          "start": 84.23,
+          "end": 84.37,
+          "word": " es"
+        },
+        {
+          "start": 84.37,
+          "end": 84.51,
+          "word": " el"
+        },
+        {
+          "start": 84.51,
+          "end": 84.69,
+          "word": " mundo"
+        },
+        {
+          "start": 84.69,
+          "end": 84.99,
+          "word": " on"
+        },
+        {
+          "start": 84.99,
+          "end": 85.17,
+          "word": "-chain."
+        },
+        {
+          "start": 85.61,
+          "end": 85.87,
+          "word": " En"
+        },
+        {
+          "start": 85.87,
+          "end": 86.03,
+          "word": " este"
+        },
+        {
+          "start": 86.03,
+          "end": 86.39,
+          "word": " caso"
+        },
+        {
+          "start": 86.39,
+          "end": 86.55,
+          "word": " le"
+        },
+        {
+          "start": 86.55,
+          "end": 86.73,
+          "word": " hicimos"
+        }
+      ]
+    },
+    {
+      "start": 86.73,
+      "end": 92.97,
+      "text": "en BNB Chain, así que hubo un workshop donde lo dio nuestro compañero Leann y otro workshop",
+      "words": [
+        {
+          "start": 86.73,
+          "end": 86.87,
+          "word": " en"
+        },
+        {
+          "start": 86.87,
+          "end": 87.25,
+          "word": " BNB"
+        },
+        {
+          "start": 87.25,
+          "end": 87.65,
+          "word": " Chain,"
+        },
+        {
+          "start": 87.77,
+          "end": 87.87,
+          "word": " así"
+        },
+        {
+          "start": 87.87,
+          "end": 88.11,
+          "word": " que"
+        },
+        {
+          "start": 88.11,
+          "end": 88.87,
+          "word": " hubo"
+        },
+        {
+          "start": 88.87,
+          "end": 89.03,
+          "word": " un"
+        },
+        {
+          "start": 89.03,
+          "end": 89.33,
+          "word": " workshop"
+        },
+        {
+          "start": 89.33,
+          "end": 89.59,
+          "word": " donde"
+        },
+        {
+          "start": 89.59,
+          "end": 89.77,
+          "word": " lo"
+        },
+        {
+          "start": 89.77,
+          "end": 89.89,
+          "word": " dio"
+        },
+        {
+          "start": 89.89,
+          "end": 90.41,
+          "word": " nuestro"
+        },
+        {
+          "start": 90.41,
+          "end": 90.85,
+          "word": " compañero"
+        },
+        {
+          "start": 90.85,
+          "end": 91.37,
+          "word": " Leann"
+        },
+        {
+          "start": 91.37,
+          "end": 92.11,
+          "word": " y"
+        },
+        {
+          "start": 92.11,
+          "end": 92.39,
+          "word": " otro"
+        },
+        {
+          "start": 92.39,
+          "end": 92.97,
+          "word": " workshop"
+        }
+      ]
+    },
+    {
+      "start": 92.97,
+      "end": 99.67,
+      "text": "que lo dio Javi. Así que la gente se va con una idea mucho mayor de lo que es BNB y",
+      "words": [
+        {
+          "start": 92.97,
+          "end": 93.39,
+          "word": " que"
+        },
+        {
+          "start": 93.39,
+          "end": 93.51,
+          "word": " lo"
+        },
+        {
+          "start": 93.51,
+          "end": 93.61,
+          "word": " dio"
+        },
+        {
+          "start": 93.61,
+          "end": 93.89,
+          "word": " Javi."
+        },
+        {
+          "start": 94.27,
+          "end": 94.27,
+          "word": " Así"
+        },
+        {
+          "start": 94.27,
+          "end": 94.55,
+          "word": " que"
+        },
+        {
+          "start": 94.55,
+          "end": 95.09,
+          "word": " la"
+        },
+        {
+          "start": 95.09,
+          "end": 95.25,
+          "word": " gente"
+        },
+        {
+          "start": 95.25,
+          "end": 95.45,
+          "word": " se"
+        },
+        {
+          "start": 95.45,
+          "end": 95.57,
+          "word": " va"
+        },
+        {
+          "start": 95.57,
+          "end": 95.89,
+          "word": " con"
+        },
+        {
+          "start": 95.89,
+          "end": 96.73,
+          "word": " una"
+        },
+        {
+          "start": 96.73,
+          "end": 97.01,
+          "word": " idea"
+        },
+        {
+          "start": 97.01,
+          "end": 97.47,
+          "word": " mucho"
+        },
+        {
+          "start": 97.47,
+          "end": 97.77,
+          "word": " mayor"
+        },
+        {
+          "start": 97.77,
+          "end": 98.23,
+          "word": " de"
+        },
+        {
+          "start": 98.23,
+          "end": 98.37,
+          "word": " lo"
+        },
+        {
+          "start": 98.37,
+          "end": 98.51,
+          "word": " que"
+        },
+        {
+          "start": 98.51,
+          "end": 98.71,
+          "word": " es"
+        },
+        {
+          "start": 98.71,
+          "end": 99.45,
+          "word": " BNB"
+        },
+        {
+          "start": 99.45,
+          "end": 99.67,
+          "word": " y"
+        }
+      ]
+    },
+    {
+      "start": 99.67,
+      "end": 101.79,
+      "text": "cómo on-chain se está construyendo con agentes.",
+      "words": [
+        {
+          "start": 99.67,
+          "end": 99.85,
+          "word": " cómo"
+        },
+        {
+          "start": 99.85,
+          "end": 99.97,
+          "word": " on"
+        },
+        {
+          "start": 99.97,
+          "end": 99.97,
+          "word": "-chain"
+        },
+        {
+          "start": 99.97,
+          "end": 99.97,
+          "word": " se"
+        },
+        {
+          "start": 99.97,
+          "end": 100.11,
+          "word": " está"
+        },
+        {
+          "start": 100.11,
+          "end": 100.65,
+          "word": " construyendo"
+        },
+        {
+          "start": 100.65,
+          "end": 101.35,
+          "word": " con"
+        },
+        {
+          "start": 101.35,
+          "end": 101.79,
+          "word": " agentes."
+        }
+      ]
+    },
+    {
+      "start": 102.49,
+      "end": 106.27,
+      "text": "Genial. Bueno, a los que quieren sumarse a más eventos de BNB Builder Session,",
+      "words": [
+        {
+          "start": 102.49,
+          "end": 102.79,
+          "word": " Genial."
+        },
+        {
+          "start": 103.21,
+          "end": 103.39,
+          "word": " Bueno,"
+        },
+        {
+          "start": 103.77,
+          "end": 104.07,
+          "word": " a"
+        },
+        {
+          "start": 104.07,
+          "end": 104.17,
+          "word": " los"
+        },
+        {
+          "start": 104.17,
+          "end": 104.25,
+          "word": " que"
+        },
+        {
+          "start": 104.25,
+          "end": 104.39,
+          "word": " quieren"
+        },
+        {
+          "start": 104.39,
+          "end": 104.73,
+          "word": " sumarse"
+        },
+        {
+          "start": 104.73,
+          "end": 104.87,
+          "word": " a"
+        },
+        {
+          "start": 104.87,
+          "end": 104.97,
+          "word": " más"
+        },
+        {
+          "start": 104.97,
+          "end": 105.35,
+          "word": " eventos"
+        },
+        {
+          "start": 105.35,
+          "end": 105.45,
+          "word": " de"
+        },
+        {
+          "start": 105.45,
+          "end": 105.73,
+          "word": " BNB"
+        },
+        {
+          "start": 105.73,
+          "end": 106.05,
+          "word": " Builder"
+        },
+        {
+          "start": 106.05,
+          "end": 106.27,
+          "word": " Session,"
+        }
+      ]
+    },
+    {
+      "start": 106.41,
+      "end": 110.61,
+      "text": "puedes ver el correo que tenemos atrás nosotros, sumarse a la comunidad de BNB. Para",
+      "words": [
+        {
+          "start": 106.41,
+          "end": 106.49,
+          "word": " puedes"
+        },
+        {
+          "start": 106.49,
+          "end": 106.65,
+          "word": " ver"
+        },
+        {
+          "start": 106.65,
+          "end": 106.83,
+          "word": " el"
+        },
+        {
+          "start": 106.83,
+          "end": 106.93,
+          "word": " correo"
+        },
+        {
+          "start": 106.93,
+          "end": 107.23,
+          "word": " que"
+        },
+        {
+          "start": 107.23,
+          "end": 107.45,
+          "word": " tenemos"
+        },
+        {
+          "start": 107.45,
+          "end": 107.69,
+          "word": " atrás"
+        },
+        {
+          "start": 107.69,
+          "end": 108.03,
+          "word": " nosotros,"
+        },
+        {
+          "start": 108.31,
+          "end": 108.57,
+          "word": " sumarse"
+        },
+        {
+          "start": 108.57,
+          "end": 108.73,
+          "word": " a"
+        },
+        {
+          "start": 108.73,
+          "end": 108.75,
+          "word": " la"
+        },
+        {
+          "start": 108.75,
+          "end": 109.05,
+          "word": " comunidad"
+        },
+        {
+          "start": 109.05,
+          "end": 109.29,
+          "word": " de"
+        },
+        {
+          "start": 109.29,
+          "end": 109.71,
+          "word": " BNB."
+        },
+        {
+          "start": 110.17,
+          "end": 110.61,
+          "word": " Para"
+        }
+      ]
+    },
+    {
+      "start": 110.61,
+      "end": 114.57,
+      "text": "los que quieren sumarse a más eventos en Mardel Plata, pueden buscar la comunidad MardelPlata.dev.",
+      "words": [
+        {
+          "start": 110.61,
+          "end": 110.73,
+          "word": " los"
+        },
+        {
+          "start": 110.73,
+          "end": 110.83,
+          "word": " que"
+        },
+        {
+          "start": 110.83,
+          "end": 111.01,
+          "word": " quieren"
+        },
+        {
+          "start": 111.01,
+          "end": 111.35,
+          "word": " sumarse"
+        },
+        {
+          "start": 111.35,
+          "end": 111.47,
+          "word": " a"
+        },
+        {
+          "start": 111.47,
+          "end": 111.61,
+          "word": " más"
+        },
+        {
+          "start": 111.61,
+          "end": 111.91,
+          "word": " eventos"
+        },
+        {
+          "start": 111.91,
+          "end": 112.05,
+          "word": " en"
+        },
+        {
+          "start": 112.05,
+          "end": 112.29,
+          "word": " Mardel"
+        },
+        {
+          "start": 112.29,
+          "end": 112.57,
+          "word": " Plata,"
+        },
+        {
+          "start": 112.79,
+          "end": 112.87,
+          "word": " pueden"
+        },
+        {
+          "start": 112.87,
+          "end": 113.11,
+          "word": " buscar"
+        },
+        {
+          "start": 113.11,
+          "end": 113.25,
+          "word": " la"
+        },
+        {
+          "start": 113.25,
+          "end": 113.47,
+          "word": " comunidad"
+        },
+        {
+          "start": 113.47,
+          "end": 114.23,
+          "word": " MardelPlata"
+        },
+        {
+          "start": 114.23,
+          "end": 114.57,
+          "word": ".dev."
+        }
+      ]
+    },
+    {
+      "start": 115.55,
+      "end": 121.67,
+      "text": "MardelPlata.dev.ar y la gente que quiera buscar a Scaling, que quiere trabajar con Groov y promocionar",
+      "words": [
+        {
+          "start": 115.55,
+          "end": 116.03,
+          "word": " MardelPlata"
+        },
+        {
+          "start": 116.03,
+          "end": 116.51,
+          "word": ".dev"
+        },
+        {
+          "start": 116.51,
+          "end": 117.11,
+          "word": ".ar"
+        },
+        {
+          "start": 117.11,
+          "end": 117.77,
+          "word": " y"
+        },
+        {
+          "start": 117.77,
+          "end": 118.01,
+          "word": " la"
+        },
+        {
+          "start": 118.01,
+          "end": 118.27,
+          "word": " gente"
+        },
+        {
+          "start": 118.27,
+          "end": 118.75,
+          "word": " que"
+        },
+        {
+          "start": 118.75,
+          "end": 119.09,
+          "word": " quiera"
+        },
+        {
+          "start": 119.09,
+          "end": 119.33,
+          "word": " buscar"
+        },
+        {
+          "start": 119.33,
+          "end": 119.53,
+          "word": " a"
+        },
+        {
+          "start": 119.53,
+          "end": 119.91,
+          "word": " Scaling,"
+        },
+        {
+          "start": 120.11,
+          "end": 120.17,
+          "word": " que"
+        },
+        {
+          "start": 120.17,
+          "end": 120.33,
+          "word": " quiere"
+        },
+        {
+          "start": 120.33,
+          "end": 120.57,
+          "word": " trabajar"
+        },
+        {
+          "start": 120.57,
+          "end": 120.79,
+          "word": " con"
+        },
+        {
+          "start": 120.79,
+          "end": 121.15,
+          "word": " Groov"
+        },
+        {
+          "start": 121.15,
+          "end": 121.27,
+          "word": " y"
+        },
+        {
+          "start": 121.27,
+          "end": 121.67,
+          "word": " promocionar"
+        }
+      ]
+    },
+    {
+      "start": 121.67,
+      "end": 126.65,
+      "text": "su marca, ¿dónde te pueden encontrar? Me pueden encontrar en Scaling, arroba o Scaling.com,",
+      "words": [
+        {
+          "start": 121.67,
+          "end": 121.83,
+          "word": " su"
+        },
+        {
+          "start": 121.83,
+          "end": 122.03,
+          "word": " marca,"
+        },
+        {
+          "start": 122.15,
+          "end": 122.27,
+          "word": " ¿dónde"
+        },
+        {
+          "start": 122.27,
+          "end": 122.41,
+          "word": " te"
+        },
+        {
+          "start": 122.41,
+          "end": 122.55,
+          "word": " pueden"
+        },
+        {
+          "start": 122.55,
+          "end": 122.85,
+          "word": " encontrar?"
+        },
+        {
+          "start": 122.99,
+          "end": 123.41,
+          "word": " Me"
+        },
+        {
+          "start": 123.41,
+          "end": 123.61,
+          "word": " pueden"
+        },
+        {
+          "start": 123.61,
+          "end": 123.97,
+          "word": " encontrar"
+        },
+        {
+          "start": 123.97,
+          "end": 124.19,
+          "word": " en"
+        },
+        {
+          "start": 124.19,
+          "end": 124.67,
+          "word": " Scaling,"
+        },
+        {
+          "start": 124.99,
+          "end": 125.55,
+          "word": " arroba"
+        },
+        {
+          "start": 125.55,
+          "end": 125.89,
+          "word": " o"
+        },
+        {
+          "start": 125.89,
+          "end": 126.11,
+          "word": " Scaling"
+        },
+        {
+          "start": 126.11,
+          "end": 126.65,
+          "word": ".com,"
+        }
+      ]
+    },
+    {
+      "start": 126.79,
+      "end": 133.37,
+      "text": "que es la página, o en Twitter, que es Scaling y enbajo, con WN Scaling, WN y enbajo.",
+      "words": [
+        {
+          "start": 126.79,
+          "end": 126.85,
+          "word": " que"
+        },
+        {
+          "start": 126.85,
+          "end": 126.93,
+          "word": " es"
+        },
+        {
+          "start": 126.93,
+          "end": 127.01,
+          "word": " la"
+        },
+        {
+          "start": 127.01,
+          "end": 127.27,
+          "word": " página,"
+        },
+        {
+          "start": 127.67,
+          "end": 127.87,
+          "word": " o"
+        },
+        {
+          "start": 127.87,
+          "end": 128.01,
+          "word": " en"
+        },
+        {
+          "start": 128.01,
+          "end": 128.23,
+          "word": " Twitter,"
+        },
+        {
+          "start": 128.49,
+          "end": 128.55,
+          "word": " que"
+        },
+        {
+          "start": 128.55,
+          "end": 128.67,
+          "word": " es"
+        },
+        {
+          "start": 128.67,
+          "end": 129.03,
+          "word": " Scaling"
+        },
+        {
+          "start": 129.03,
+          "end": 129.33,
+          "word": " y"
+        },
+        {
+          "start": 129.33,
+          "end": 129.83,
+          "word": " enbajo,"
+        },
+        {
+          "start": 130.17,
+          "end": 130.27,
+          "word": " con"
+        },
+        {
+          "start": 130.27,
+          "end": 130.73,
+          "word": " WN"
+        },
+        {
+          "start": 130.73,
+          "end": 131.13,
+          "word": " Scaling,"
+        },
+        {
+          "start": 131.71,
+          "end": 132.43,
+          "word": " WN"
+        },
+        {
+          "start": 132.43,
+          "end": 132.79,
+          "word": " y"
+        },
+        {
+          "start": 132.79,
+          "end": 133.37,
+          "word": " enbajo."
+        }
+      ]
+    },
+    {
+      "start": 133.47,
+      "end": 138.35,
+      "text": "O también me pueden encontrar en Twitter, que subo mucho sobre finanzas on-chain. Hago",
+      "words": [
+        {
+          "start": 133.47,
+          "end": 133.59,
+          "word": " O"
+        },
+        {
+          "start": 133.59,
+          "end": 133.79,
+          "word": " también"
+        },
+        {
+          "start": 133.79,
+          "end": 133.97,
+          "word": " me"
+        },
+        {
+          "start": 133.97,
+          "end": 134.23,
+          "word": " pueden"
+        },
+        {
+          "start": 134.23,
+          "end": 134.53,
+          "word": " encontrar"
+        },
+        {
+          "start": 134.53,
+          "end": 134.73,
+          "word": " en"
+        },
+        {
+          "start": 134.73,
+          "end": 134.97,
+          "word": " Twitter,"
+        },
+        {
+          "start": 135.11,
+          "end": 135.23,
+          "word": " que"
+        },
+        {
+          "start": 135.23,
+          "end": 135.53,
+          "word": " subo"
+        },
+        {
+          "start": 135.53,
+          "end": 135.77,
+          "word": " mucho"
+        },
+        {
+          "start": 135.77,
+          "end": 136.11,
+          "word": " sobre"
+        },
+        {
+          "start": 136.11,
+          "end": 136.59,
+          "word": " finanzas"
+        },
+        {
+          "start": 136.59,
+          "end": 136.79,
+          "word": " on"
+        },
+        {
+          "start": 136.79,
+          "end": 136.99,
+          "word": "-chain."
+        },
+        {
+          "start": 137.91,
+          "end": 138.35,
+          "word": " Hago"
+        }
+      ]
+    },
+    {
+      "start": 138.35,
+      "end": 141.93,
+      "text": "contenido sobre finanzas on-chain, así que me pueden encontrar como NaweelSieri en Twitter.",
+      "words": [
+        {
+          "start": 138.35,
+          "end": 138.71,
+          "word": " contenido"
+        },
+        {
+          "start": 138.71,
+          "end": 138.89,
+          "word": " sobre"
+        },
+        {
+          "start": 138.89,
+          "end": 139.25,
+          "word": " finanzas"
+        },
+        {
+          "start": 139.25,
+          "end": 139.41,
+          "word": " on"
+        },
+        {
+          "start": 139.41,
+          "end": 139.55,
+          "word": "-chain,"
+        },
+        {
+          "start": 139.65,
+          "end": 139.69,
+          "word": " así"
+        },
+        {
+          "start": 139.69,
+          "end": 139.81,
+          "word": " que"
+        },
+        {
+          "start": 139.81,
+          "end": 139.89,
+          "word": " me"
+        },
+        {
+          "start": 139.89,
+          "end": 140.03,
+          "word": " pueden"
+        },
+        {
+          "start": 140.03,
+          "end": 140.29,
+          "word": " encontrar"
+        },
+        {
+          "start": 140.29,
+          "end": 140.51,
+          "word": " como"
+        },
+        {
+          "start": 140.51,
+          "end": 141.41,
+          "word": " NaweelSieri"
+        },
+        {
+          "start": 141.41,
+          "end": 141.71,
+          "word": " en"
+        },
+        {
+          "start": 141.71,
+          "end": 141.93,
+          "word": " Twitter."
+        }
+      ]
+    },
+    {
+      "start": 142.53,
+      "end": 144.73,
+      "text": "Y nada, eso. Muchas gracias. Muchas gracias.",
+      "words": [
+        {
+          "start": 142.53,
+          "end": 142.53,
+          "word": " Y"
+        },
+        {
+          "start": 142.53,
+          "end": 142.67,
+          "word": " nada,"
+        },
+        {
+          "start": 142.85,
+          "end": 142.85,
+          "word": " eso."
+        },
+        {
+          "start": 143.19,
+          "end": 143.41,
+          "word": " Muchas"
+        },
+        {
+          "start": 143.41,
+          "end": 143.81,
+          "word": " gracias."
+        },
+        {
+          "start": 144.25,
+          "end": 144.49,
+          "word": " Muchas"
+        },
+        {
+          "start": 144.49,
+          "end": 144.73,
+          "word": " gracias."
+        }
+      ]
+    }
+  ]
+}
