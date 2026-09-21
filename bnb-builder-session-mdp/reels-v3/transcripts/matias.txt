@@ -1,0 +1,36 @@
+[   1.37 →    5.05] Bueno, estamos acá en la OZIP, en el evento BNB Builder Session.
+[   5.25 →    6.77] Estoy acá con mi amigo Matías Elis.
+[   6.99 →   12.03] Matías, contadme un poquito cuál es tu industria si ya fuiste a un evento cripto antes.
+[  12.51 →   14.55] Bien, te comento un poco, Luigi.
+[  15.07 →   19.29] Yo vengo trabajando hace más o menos dos años en la industria como desarrollador web.
+[  20.25 →   26.27] Sí, básicamente he hecho varios trabajos acá en el Aria de Mar del Plata para la empresa CIA, que se mueve el julio.
+[  26.27 →   29.35] Después una empresa de remolque de autos.
+[  29.77 →   32.11] Y ahora estoy trabajando para una startup de Estados Unidos.
+[  32.69 →   33.03] Genial.
+[  33.23 →   35.05] Y a un evento cripto ya fuiste en el pasado.
+[  35.43 →   41.19] Sí, había ido a la DevConnect, que se hizo en Buenos Aires el año pasado si no estoy mal y también hicimos un global.
+[  41.77 →   42.93] Que había un hackathon.
+[  43.43 →   47.13] Había como 500 mil dólares en premios y por suerte puede ganar mil dólares.
+[  47.45 →   47.89] Ah, genial.
+[  48.57 →   52.13] Y bueno, ¿cuál era tu expectativa hoy del evento BNP Builder Session?
+[  52.13 →   60.33] Hoy mi expectativa era poder desplegar una gente en la BNP Chain, porque yo me había quedado con las ganas.
+[  60.87 →   67.75] En su momento, el año pasado en el hackathon de Ethereum Global, de hacer algo con el protocolo X402 y agentes,
+[  67.95 →   70.01] pero tuvimos que pivotar para otro lado.
+[  70.27 →   70.39] Mira.
+[  70.57 →   71.79] Así me había quedado con esas ganas.
+[  72.07 →   75.79] Bueno, y hoy el evento ya tuvo las charlas, ahora vamos a pasar a las workshops.
+[  76.97 →   81.41] ¿Qué es lo que alguien puede esperar de aprender viniendo un evento BNP Builder Session?
+[  81.41 →   85.05] Lo que alguien puede esperar de, bueno, de vinir un evento de BNP,
+[  85.37 →   89.45] es que los chicos que dan las charlas son gente súper capacitada
+[  89.45 →   94.91] y que realmente te va a servir para básicamente desplegar tu agente en blockchain.
+[  95.61 →   95.97] Genial.
+[  96.61 →  100.11] Bueno, a la gente que quiera participar de más eventos de BNP Builder Session,
+[ 100.25 →  102.75] nos puede seguir acá a la comunidad de BNP en este QR.
+[ 112.85 →  115.55] Mati, ¿dónde la gente te puede encontrar en redes sociales
+[ 115.55 →  117.85] o en una empresa tuya que vos quieras promocionar?
+[ 118.21 →  120.21] Bien, a mí me pueden encontrar como Selicin,
+[ 120.31 →  123.37] yo me bajo en Instagram o Selicin en X o Twitter.
+[ 123.99 →  128.53] Y si no, también yo soy un poco conocido por bondimdp.com.ar,
+[ 128.99 →  132.67] la aplicación que viene a reemplazar a cuando llega acá el mar de plantas.
+[ 132.89 →  133.87] Gracias Mati.
+[ 133.97 →  134.31] Gracias Luigi.

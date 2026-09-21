@@ -1,0 +1,25 @@
+{
+    "programs": [
+
+    ],
+    "streams": [
+        {
+            "codec_name": "h264",
+            "profile": "High",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "sample_aspect_ratio": "1:1",
+            "pix_fmt": "yuv420p"
+        },
+        {
+            "codec_name": "aac",
+            "profile": "LC",
+            "codec_type": "audio"
+        }
+    ],
+    "format": {
+        "duration": "33.833333",
+        "bit_rate": "3167950"
+    }
+}
