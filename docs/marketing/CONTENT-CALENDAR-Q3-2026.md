@@ -39,6 +39,7 @@ Repetir cadencia con temas de:
 - Cobertura Encuentro Cessi (si aplica post-evento)
 - Vuelta a clases — juniors y primer trabajo
 - Spotlight founders locales
+- **Campaña Talento MdP** (historias de postulantes) — assets + copy en `docs/marketing/campaigns/talento-mdp-2026/` (agenda draft; no Buffer hasta OK)
 
 ## Septiembre 2026
 
