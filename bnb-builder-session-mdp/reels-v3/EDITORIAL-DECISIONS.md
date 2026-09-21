@@ -46,7 +46,7 @@ Interviewer on the right (cap) is Luigi.
 
 - Spanish, 2–5 words/line, Inter Bold, white + dark outline.
 - ASS `Alignment=2`, `MarginV=360` on 1920 → text sits ~y=1480–1650 (table).
-- Small name slate on the table for the first ~3s only (`Nahuel Sieri · Scaling`), **below** the faces.
+- No name slate overlay. The on-set banner already IDs the event; extra chrome was cluttering two-line captions.
 - Light cleanup: *on-chain*, *BNB Chain*. We do not rewrite his voice.
 
 ### Audio / grade
@@ -57,7 +57,13 @@ Interviewer on the right (cap) is Luigi.
 
 ### Duration
 
-Follows content (~35s), not forced to 2:30.
+Follows content (**35.1s**), not forced to 2:30.
+
+### QC
+
+- ffprobe: 1080×1920, H.264 **High**, **yuv420p**, SAR 1:1, AAC, `+faststart` (moov before mdat).
+- Independent video review: captions stay on the table; hook is real speech in the first 3s; jump cuts feel human.
+- Stills in `stills/nahuel/` + `stills/nahuel/qc-overlay/`.
 
 ---
 
@@ -65,7 +71,7 @@ Follows content (~35s), not forced to 2:30.
 
 **File:** `export/BNB_FERNANDO_POR-QUE-ASISTIR_REEL_v3.mp4`
 
-Hook is his own line *“te abre mucho más el panorama”*, then why he came (herramientas for a project he is launching), then Nexit as payoff (startup de MdP, energía para pymes).
+Hook is his own line *“te abre mucho más el panorama”*, then why he came (herramientas for a project he is launching), then Nexit as payoff (startup de MdP, energía para pymes). Duration **23.0s**.
 
 ---
 
@@ -73,7 +79,7 @@ Hook is his own line *“te abre mucho más el panorama”*, then why he came (h
 
 **File:** `export/BNB_MATIAS_DESPLEGAR-AGENTE_REEL_v3.mp4`
 
-Hook: *poder desplegar un agente en BNB Chain*. Context: leftover ganas from ETH Global / x402. Value: speakers that actually help you deploy. Close: Bondi (`bondimdp.com.ar`) as “reemplazo de Cuando Llega” in MdP.
+Hook: *poder desplegar un agente en BNB Chain*. Context: leftover ganas from ETH Global / x402. Value: speakers that actually help you deploy. Close: Bondi (`bondimdp.com.ar`) as “reemplazo de Cuando Llega” in MdP. Duration **33.8s**.
 
 Caption “un agente” / “BNB Chain” / “Cuando Llega” are human fixes of Whisper (`una gente`, `BNP`, `mar de plantas`).
 

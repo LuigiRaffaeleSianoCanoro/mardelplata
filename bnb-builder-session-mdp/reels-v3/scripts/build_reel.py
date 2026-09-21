@@ -25,10 +25,10 @@ FONTDIR = "/usr/share/fonts/truetype/macos"
 
 # Instagram-ish safe band: captions sit on the wood table.
 # PlayRes 1080x1920, alignment 2 (bottom-center), MarginV from bottom.
-CAPTION_MARGIN_V = 360
-NAME_MARGIN_V = 470
-FONT_SPEECH = 52
-FONT_NAME = 28
+CAPTION_MARGIN_V = 340
+NAME_MARGIN_V = 455
+FONT_SPEECH = 56
+FONT_NAME = 32
 
 
 @dataclass
@@ -198,35 +198,29 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     path.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
 
 
-def encode_final(concat_mp4: Path, ass: Path | None, dest: Path) -> None:
+def encode_final(
+    concat_mp4: Path, ass: Path | None, dest: Path, *, copy_audio: bool = False
+) -> None:
     vf_parts = []
     if ass is not None:
         vf_parts.append(f"subtitles={ass}:fontsdir={FONTDIR}:charenc=UTF-8")
     vf_parts.append("format=yuv420p")
     vf_parts.append("setsar=1")
     vf = ",".join(vf_parts)
-    run(
-        [
-            "ffmpeg",
-            "-y",
-            "-i",
-            str(concat_mp4),
-            "-vf",
-            vf,
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-i",
+        str(concat_mp4),
+        "-vf",
+        vf,
+    ]
+    if copy_audio:
+        cmd += ["-c:a", "copy"]
+    else:
+        cmd += [
             "-af",
             "loudnorm=I=-14:TP=-1.5:LRA=11",
-            "-c:v",
-            "libx264",
-            "-preset",
-            "slow",
-            "-crf",
-            "18",
-            "-profile:v",
-            "high",
-            "-level",
-            "4.1",
-            "-pix_fmt",
-            "yuv420p",
             "-c:a",
             "aac",
             "-b:a",
@@ -235,13 +229,27 @@ def encode_final(concat_mp4: Path, ass: Path | None, dest: Path) -> None:
             "48000",
             "-ac",
             "2",
-            "-movflags",
-            "+faststart",
-            "-video_track_timescale",
-            "15360",
-            str(dest),
         ]
-    )
+    cmd += [
+        "-c:v",
+        "libx264",
+        "-preset",
+        "slow",
+        "-crf",
+        "18",
+        "-profile:v",
+        "high",
+        "-level",
+        "4.1",
+        "-pix_fmt",
+        "yuv420p",
+        "-movflags",
+        "+faststart",
+        "-video_track_timescale",
+        "15360",
+        str(dest),
+    ]
+    run(cmd)
 
 
 def extract_stills(mp4: Path, times: list[tuple[str, float]], dest_dir: Path) -> None:
@@ -257,6 +265,8 @@ def extract_stills(mp4: Path, times: list[tuple[str, float]], dest_dir: Path) ->
                 "-i",
                 str(mp4),
                 "-frames:v",
+                "1",
+                "-update",
                 "1",
                 "-q:v",
                 "2",
@@ -286,6 +296,8 @@ def qc_overlay(still: Path, dest: Path) -> None:
                 "text='LOWER-THIRD SAFE (table)':x=60:y=1380:fontsize=28:fontcolor=white"
             ),
             "-frames:v",
+            "1",
+            "-update",
             "1",
             "-q:v",
             "3",
@@ -364,8 +376,8 @@ NAHUEL = Reel(
         Cue(31.70, 33.10, ["de lo que es BNB"]),
         Cue(33.10, 34.86, ["y cómo on-chain", "se construye con agentes."]),
     ],
-    name_slate="Nahuel Sieri  ·  Scaling",
-    name_until=3.4,
+    name_slate="",
+    name_until=0,
 )
 
 # Fernando / Nexit — SOURCE FILE is nahuel_proxy.mp4 (label swap)
@@ -396,8 +408,8 @@ FERNANDO = Reel(
         Cue(18.80, 20.00, ["Mar del Plata"]),
         Cue(20.00, 22.81, ["soluciones de energía", "para pymes."]),
     ],
-    name_slate="Fernando  ·  Nexit",
-    name_until=3.2,
+    name_slate="",
+    name_until=0,
 )
 
 # Matías Celis / Bondi
@@ -419,21 +431,22 @@ MATIAS = Reel(
     cues=[
         Cue(0.00, 1.20, ["Poder desplegar"]),
         Cue(1.20, 3.40, ["un agente", "en BNB Chain."]),
-        Cue(3.40, 5.96, ["porque me había", "quedado con las ganas."]),
-        Cue(5.96, 8.20, ["El año pasado,", "en el hackathon"]),
-        Cue(8.20, 9.80, ["de Ethereum Global,"]),
-        Cue(9.80, 12.90, ["quería hacer algo", "con x402 y agentes."]),
-        Cue(12.90, 15.14, ["Tuvimos que", "pivotar."]),
-        Cue(15.14, 16.39, ["Me había quedado", "con esas ganas."]),
-        Cue(16.39, 18.40, ["Los chicos", "de las charlas"]),
-        Cue(18.40, 20.52, ["son gente", "súper capacitada"]),
-        Cue(20.52, 22.40, ["y te va a servir"]),
-        Cue(22.40, 25.97, ["para desplegar", "tu agente en blockchain."]),
-        Cue(25.97, 28.20, ["Me conocen por", "bondimdp.com.ar"]),
-        Cue(28.20, 33.82, ["la app que viene", "a reemplazar a Cuando Llega", "acá en Mar del Plata."]),
+        Cue(3.40, 5.81, ["porque me había", "quedado con las ganas."]),
+        Cue(5.81, 8.10, ["El año pasado,", "en el hackathon"]),
+        Cue(8.10, 9.70, ["de Ethereum Global,"]),
+        Cue(9.70, 12.74, ["quería hacer algo", "con x402 y agentes."]),
+        Cue(12.74, 14.84, ["Tuvimos que", "pivotar."]),
+        Cue(14.84, 16.09, ["Me había quedado", "con esas ganas."]),
+        Cue(16.09, 18.20, ["Los chicos", "de las charlas"]),
+        Cue(18.20, 20.22, ["son gente", "súper capacitada"]),
+        Cue(20.22, 22.30, ["y te va a servir"]),
+        Cue(22.30, 25.67, ["para desplegar", "tu agente en blockchain."]),
+        Cue(25.67, 28.10, ["Me conocen por", "bondimdp.com.ar"]),
+        Cue(28.10, 31.20, ["la app que viene", "a reemplazar"]),
+        Cue(31.20, 33.52, ["a Cuando Llega", "en Mar del Plata."]),
     ],
-    name_slate="Matías Celis  ·  Bondi",
-    name_until=3.4,
+    name_slate="",
+    name_until=0,
 )
 
 

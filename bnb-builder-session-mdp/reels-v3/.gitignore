@@ -1,5 +1,3 @@
-work/clips/
-work/*.wav
-work/src_frames/
+work/
 __pycache__/
 *.pyc
