@@ -1,0 +1,14 @@
+{
+  "id": "meet-team1-mdp-2026",
+  "title": "Meet Team1 x mardelplata.dev",
+  "excerpt": "Meetup con Team1, la comunidad de builders de Avalanche: conocernos, charlar y ver qué se construye en el ecosistema. Para devs, builders, estudiantes y curiosos por Web3 — sin experiencia previa en blockchain.",
+  "date": "2026-10-10T17:00:00-03:00",
+  "endDate": "2026-10-10T20:00:00-03:00",
+  "venue": "UCIP · Av. Pedro Luro 3030",
+  "city": "Mar del Plata",
+  "hosts": ["Luigi Canoro", "Matias Celiz", "Franco Petruccelli"],
+  "lumaUrl": "https://luma.com/ux0x0sjg",
+  "tags": ["meetup", "Web3", "Avalanche"],
+  "tier": "community",
+  "verifiedAt": "2026-09-29"
+}
