@@ -9,7 +9,8 @@ import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/js
 import { ogImageUrl } from "@/lib/seo/site";
 import { cityStatsEn } from "@/content/nomad";
 
-const WHATSAPP_URL = "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs";
+// B2B contact via LinkedIn (no WhatsApp CTA).
+const CONTACT_URL = "https://www.linkedin.com/company/mardelplata-dev";
 const ATICMA_URL = "https://www.aticma.org.ar/";
 
 export const metadata: Metadata = {
@@ -67,7 +68,7 @@ export default function InvestPage() {
                 marginTop: "1.6rem",
               }}
             >
-              <a className="shell-btn-primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <a className="shell-btn-primary" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
                 Let’s talk
               </a>
               <a className="shell-btn-ghost" href={ATICMA_URL} target="_blank" rel="noopener noreferrer">
@@ -154,8 +155,8 @@ export default function InvestPage() {
                 help you land in the ecosystem.
               </p>
               <div style={{ marginTop: "1.4rem" }}>
-                <a className="shell-btn-primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                  Let’s talk on WhatsApp
+                <a className="shell-btn-primary" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
+                  Let’s talk on LinkedIn
                 </a>
               </div>
             </Reveal>

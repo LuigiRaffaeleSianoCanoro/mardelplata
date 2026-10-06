@@ -71,7 +71,7 @@ export default function Footer() {
 
           <div className="footer-x-brand">
             <h3 className="footer-x-brand-name">
-              mardelplata<span>.dev</span>
+              mardelplata<span>.dev.ar</span>
             </h3>
             <p className="footer-x-brand-tag">
               Comunidad IT de Mar del Plata y la costa atlántica
@@ -107,12 +107,11 @@ export default function Footer() {
 
         <div className="footer-x-legal">
           <ul className="footer-x-legal-links">
-            <li><Link href="/#manifiesto">Código de conducta</Link></li>
-            <li><Link href="/reglamento">Reglamento</Link></li>
+            <li><Link href="/reglamento">Código de conducta</Link></li>
             <li><Link href="/prensa">Prensa</Link></li>
           </ul>
           <span className="footer-x-copy">
-            © {new Date().getFullYear()} mardelplata.dev
+            © {new Date().getFullYear()} mardelplata.dev.ar
           </span>
         </div>
       </div>

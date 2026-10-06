@@ -10,8 +10,7 @@ import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import CommandPalette from "./CommandPalette";
-import TrackedOutboundLink from "./TrackedOutboundLink";
-import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
+import { LogoMark } from "@/components/v3/Logo";
 import { MARKETPLACE_NAV_ENABLED } from "@/lib/flags";
 
 type NavLink = { href: string; label: string; match?: (path: string) => boolean };
@@ -162,9 +161,9 @@ export default function Navbar() {
     <header className={`nav-x ${scrolled ? "is-scrolled" : ""}`}>
       <div className="nav-x-pill">
         <Link href="/" className="nav-x-brand" aria-label="Inicio">
-          <span className="nav-x-brand-mark" aria-hidden>&lt;/&gt;</span>
+          <LogoMark className="nav-x-brand-mark size-5" />
           <span className="nav-x-brand-text">
-            mardelplata<span className="nav-x-brand-accent">.dev</span>
+            mardelplata<span className="nav-x-brand-accent">.dev.ar</span>
           </span>
         </Link>
 
@@ -271,15 +270,9 @@ export default function Navbar() {
               Ingresar
             </Link>
           )}
-          <TrackedOutboundLink
-            href={WHATSAPP_COMMUNITY_URL}
-            trackSource="navbar_sumate"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-x-sumate"
-          >
+          <Link href="/auth/registro" className="nav-x-sumate">
             Sumate
-          </TrackedOutboundLink>
+          </Link>
           <button
             className={`nav-x-burger xl:hidden ${menuOpen ? "is-open" : ""}`}
             aria-label="Menú"

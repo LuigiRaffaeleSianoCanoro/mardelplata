@@ -9,7 +9,8 @@ import { breadcrumbSchema, faqPageSchema, type JsonLdObject } from "@/lib/seo/js
 import { ogImageUrl } from "@/lib/seo/site";
 import { cityStats } from "@/content/nomad";
 
-const WHATSAPP_URL = "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs";
+// Contacto B2B por LinkedIn (sin WhatsApp como CTA).
+const CONTACT_URL = "https://www.linkedin.com/company/mardelplata-dev";
 const ATICMA_URL = "https://www.aticma.org.ar/";
 
 export const metadata: Metadata = {
@@ -66,7 +67,7 @@ export default function InvertirPage() {
                 marginTop: "1.6rem",
               }}
             >
-              <a className="shell-btn-primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <a className="shell-btn-primary" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
                 Hablemos
               </a>
               <a className="shell-btn-ghost" href={ATICMA_URL} target="_blank" rel="noopener noreferrer">
@@ -159,8 +160,8 @@ export default function InvertirPage() {
                 aterrizar en el ecosistema.
               </p>
               <div style={{ marginTop: "1.4rem" }}>
-                <a className="shell-btn-primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                  Hablemos por WhatsApp
+                <a className="shell-btn-primary" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
+                  Hablemos por LinkedIn
                 </a>
               </div>
             </Reveal>

@@ -852,7 +852,7 @@ text-xs font-semibold`}</Code>
               <ul className="text-sm text-white/70 space-y-2 list-disc pl-5">
                 <li>Fondo <code className="text-sky-300">#06070d</code></li>
                 <li>Fraunces + JetBrains Mono</li>
-                <li>Wordmark <code className="text-sky-300">mardelplata.dev</code></li>
+                <li>Wordmark <code className="text-sky-300">mardelplata.dev.ar</code></li>
                 <li>Home y secciones editoriales</li>
               </ul>
             </div>

@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Código de Conducta — mardelplata.dev",
+  title: "Código de Conducta",
   description:
     "Reglamento y código de conducta de la comunidad de desarrolladores de Mar del Plata.",
 };
@@ -16,7 +16,7 @@ const sections = [
   },
   {
     title: "Inclusión y diversidad",
-    body: "mardelplata.dev es un espacio abierto para toda persona interesada en tecnología. Valoramos la diversidad de perspectivas y experiencias. Cualquier forma de discriminación o exclusión está prohibida.",
+    body: "mardelplata.dev.ar es un espacio abierto para toda persona interesada en tecnología. Valoramos la diversidad de perspectivas y experiencias. Cualquier forma de discriminación o exclusión está prohibida.",
     glow: "cyan" as const,
   },
   {
@@ -36,7 +36,7 @@ const sections = [
   },
   {
     title: "Espíritu de colaboración",
-    body: "Esta comunidad crece cuando sus miembros comparten conocimiento, ayudan a quienes están aprendiendo y celebran los logros colectivos. Te invitamos a participar con generosidad: compartí recursos, respondé dudas y contribuí a hacer de mardelplata.dev un espacio que nos represente a todos.",
+    body: "Esta comunidad crece cuando sus miembros comparten conocimiento, ayudan a quienes están aprendiendo y celebran los logros colectivos. Te invitamos a participar con generosidad: compartí recursos, respondé dudas y contribuí a hacer de mardelplata.dev.ar un espacio que nos represente a todos.",
     glow: "amber" as const,
   },
   {
@@ -58,7 +58,7 @@ export default function ReglamentoPage() {
               Reglamento de la <em>comunidad.</em>
             </h1>
             <p className="shell-lead" style={{ marginInline: "auto" }}>
-              En mardelplata.dev creemos que la comunidad crece cuando sus miembros se sienten
+              En mardelplata.dev.ar creemos que la comunidad crece cuando sus miembros se sienten
               seguros, respetados e incluidos. Este código define las expectativas de conducta
               para todos.
             </p>
@@ -83,10 +83,10 @@ export default function ReglamentoPage() {
             <div className="shell-card shell-card--cta reglamento-cta">
               <p className="reglamento-cta-text">
                 Si presenciás o experimentás una situación que no cumpla con este código, ponete
-                en contacto con los fundadores a través del grupo de WhatsApp.
+                en contacto con los fundadores por Instagram o LinkedIn.
               </p>
               <a
-                href="https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs"
+                href="https://www.instagram.com/mardelplata.dev.ar/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shell-btn-primary"
@@ -96,7 +96,7 @@ export default function ReglamentoPage() {
             </div>
 
             <p className="reglamento-x-update">
-              Última actualización: mayo 2026 · mardelplata.dev
+              Última actualización: mayo 2026 · mardelplata.dev.ar
             </p>
           </div>
         </section>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { LogoMark } from "@/components/v3/Logo";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -474,10 +474,10 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       <Link
         href="/"
         className="relative z-10 mb-5 mt-1 flex items-center justify-center group"
-        title="mardelplata.dev"
+        title="mardelplata.dev.ar"
       >
         <span className="metal-chip w-10 h-10 rounded-xl group-hover:scale-110 transition-transform duration-300">
-          <Image src="/mdpdev.png" alt="MdPDev" width={22} height={22} className="opacity-95" />
+          <LogoMark className="size-[22px] text-white/95" title="mardelplata.dev.ar" />
         </span>
       </Link>
 

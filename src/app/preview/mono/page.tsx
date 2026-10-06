@@ -31,7 +31,7 @@ function MonoNav() {
             M
           </span>
           <span className="font-display font-semibold text-[0.95rem] tracking-tight">
-            mardelplata<span className="text-zinc-500">.dev</span>
+            mardelplata<span className="text-zinc-500">.dev.ar</span>
           </span>
         </Link>
 
@@ -387,7 +387,7 @@ function MonoFooter() {
                 M
               </span>
               <span className="font-display font-semibold text-base">
-                mardelplata<span className="text-zinc-500">.dev</span>
+                mardelplata<span className="text-zinc-500">.dev.ar</span>
               </span>
             </Link>
             <p className="text-sm text-zinc-500 mt-4 max-w-xs leading-relaxed">
