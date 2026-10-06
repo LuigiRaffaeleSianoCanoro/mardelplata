@@ -43,6 +43,20 @@ export const pressItems: PressItem[] = [
     capturedAt: "2026-09-03",
   },
   {
+    id: "cafe-cursor-novamdp",
+    title:
+      "La ciudad será sede de Café Cursor, un evento gratuito de inteligencia artificial con cupo para 80 personas",
+    outlet: "Nova Mar del Plata",
+    date: "2026-04-23",
+    url: "https://www.novamardelplata.com/nota.asp?id=44150&id_tiponota=11&t=La-ciudad-sera-sede-de-Cafe-Cursor-un-evento-gratuito-de-inteligencia-artificial-con-cupo-para-80-personas",
+    excerpt:
+      "Previa de la primera edición de Café Cursor en el Hotel Konke, impulsada por el Municipio junto a mardelplata.dev.ar: dos turnos, lightning demos y coworking con cupo de 80 personas.",
+    events: ["cafe-cursor"],
+    type: "reportaje",
+    archivePath: "cafe-cursor-novamdp.md",
+    capturedAt: "2026-10-05",
+  },
+  {
     id: "cafe-cursor-mardelmakers",
     title: "Programar con inteligencia artificial desde Mar del Plata: Café Cursor y la comunidad tech",
     outlet: "Mardel Makers",
@@ -140,6 +154,20 @@ export const pressItems: PressItem[] = [
     capturedAt: "2026-09-03",
   },
   {
+    id: "bit-beat-infobrisas-gacetilla",
+    title:
+      "Mar del Plata tendrá un evento que unirá inteligencia artificial, música y tecnología",
+    outlet: "Infobrisas",
+    date: "2026-05-28",
+    url: "https://www.infobrisas.com/noticias/2026/05/28/96580-mar-del-plata-tendra-un-evento-que-unira-inteligencia-artificial-musica-y-tecnologia",
+    excerpt:
+      "Segunda nota de Infobrisas sobre Bit & Beat: el Municipio y Mar del Plata DEV anuncian la jornada del 6 de junio en Independencia 3251, con la charla de Luigi Canoro sobre agentes de IA.",
+    events: ["bit-beat"],
+    type: "reportaje",
+    archivePath: "bit-beat-infobrisas-gacetilla.md",
+    capturedAt: "2026-10-05",
+  },
+  {
     id: "bit-beat-portal-universidad",
     title: "Bit & Beat: un evento que une arte y tecnología",
     outlet: "Portal Universidad (UNMDP)",
@@ -190,6 +218,20 @@ export const pressItems: PressItem[] = [
     type: "reportaje",
     archivePath: "bit-beat-ahora.md",
     capturedAt: "2026-09-03",
+  },
+  {
+    id: "bit-beat-elmarplatense",
+    title:
+      "Innovación y comunidad: más de 150 personas participaron de la jornada Bit & Beat",
+    outlet: "El Marplatense",
+    date: "2026-06-09",
+    url: "https://www.elmarplatense.com/innovacion-y-comunidad-mas-de-150-personas-participaron-de-la-jornada-bit-beat",
+    excerpt:
+      "Cobertura posterior: más de 150 desarrolladores, estudiantes y artistas en la jornada organizada por Mar del Plata Dev con acompañamiento municipal; charlas de IA, jam de programación y música experimental.",
+    events: ["bit-beat"],
+    type: "reportaje",
+    archivePath: "bit-beat-elmarplatense.md",
+    capturedAt: "2026-10-05",
   },
   {
     id: "bit-beat-mardelmakers-post",
