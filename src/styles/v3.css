@@ -824,3 +824,122 @@ html:has(.v3-shell) .dot-amber {
   background: var(--oxido) !important;
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--oxido) 25%, transparent);
 }
+
+/* ── CommandPalette (app ⌘K) → Piedra, alineado al CommandMenu del header ── */
+html:has(.v3-shell) .cmdk-backdrop {
+  background: rgb(0 0 0 / 0.55) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+html:has(.v3-shell) .cmdk-panel {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 24px 64px -24px rgb(0 0 0 / 0.55) !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .cmdk-input-row {
+  border-bottom-color: var(--border) !important;
+}
+html:has(.v3-shell) .cmdk-input {
+  color: var(--foreground) !important;
+  font-weight: 400 !important;
+  font-family: var(--font-sans);
+}
+html:has(.v3-shell) .cmdk-input::placeholder {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .cmdk-group-label {
+  color: var(--muted-foreground) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.06em;
+}
+html:has(.v3-shell) .cmdk-item:hover,
+html:has(.v3-shell) .cmdk-item.is-active {
+  background: var(--muted) !important;
+}
+html:has(.v3-shell) .cmdk-item.is-active::before {
+  background: var(--oxido) !important;
+}
+html:has(.v3-shell) .cmdk-footer {
+  border-top-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .cmdk-kbd {
+  background: var(--muted) !important;
+  border-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  border-radius: 4px !important;
+}
+html:has(.v3-shell) .cmdk-list::-webkit-scrollbar-thumb {
+  background: var(--border) !important;
+}
+
+/* ── Admin + legacy UI chrome ─────────────────────────────────────────── */
+html:has(.v3-shell) .glass-card {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .glass-card::before,
+html:has(.v3-shell) .glass-card::after {
+  display: none !important;
+}
+html:has(.v3-shell) .gradient-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  color: var(--oxido) !important;
+}
+html:has(.v3-shell) .kicker-amber {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .coord-line {
+  color: var(--muted-foreground) !important;
+  font-family: var(--font-mono);
+}
+html:has(.v3-shell) [class*="text-ocean-"] {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .text-ocean-900,
+html:has(.v3-shell) .text-ocean-800 {
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .btn-app-ghost {
+  background: transparent !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .btn-app-danger {
+  background: transparent !important;
+  border: 1px solid color-mix(in oklab, #ef4444 45%, var(--border)) !important;
+  color: #f87171 !important;
+}
+/* Admin tab strip: active = foreground + óxido underline */
+html:has(.v3-shell) [role="tab"][aria-selected="true"] {
+  color: var(--foreground) !important;
+  border-bottom-color: var(--oxido) !important;
+}
+html:has(.v3-shell) [role="tab"][aria-selected="false"] {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) [role="tab"][aria-selected="false"]:hover {
+  color: var(--foreground) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+/* Admin forms / modals under Piedra */
+html:has(.v3-shell) .focus\:ring-ocean-400:focus {
+  --tw-ring-color: var(--ring) !important;
+}
+html:has(.v3-shell) input[type="checkbox"] {
+  accent-color: var(--oxido);
+}

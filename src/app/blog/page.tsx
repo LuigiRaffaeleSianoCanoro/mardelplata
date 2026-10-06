@@ -48,25 +48,23 @@ export default async function BlogPage() {
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 pt-32 sm:pt-32">
       <header className="mb-10 sm:mb-14 max-w-2xl">
-        <p className="kicker text-white/45 mb-3 flex items-center gap-2">
-          <Rss size={11} className="text-[#FFB070]" />
+        <p className="kicker text-muted-foreground mb-3 flex items-center gap-2">
+          <Rss size={11} className="text-[var(--oxido)]" />
           lectura · feed
         </p>
-        <h1 className="display-thin text-white text-4xl sm:text-5xl leading-[1.05] tracking-[-0.01em] mb-4">
+        <h1 className="display-thin text-foreground text-4xl sm:text-5xl leading-[1.05] tracking-[-0.01em] mb-4">
           Lo que la red{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">
-            está leyendo
-          </span>
+          <em className="not-italic text-[var(--oxido)]">está leyendo</em>
           .
         </h1>
-        <p className="text-white/60 font-light leading-relaxed">
+        <p className="text-muted-foreground leading-relaxed">
           Lecturas curadas de la red. Click te lleva al original.
         </p>
       </header>
 
       {items.length === 0 ? (
-        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-10 text-center">
-          <p className="text-white/65 font-light mb-2">
+        <div className="rounded-2xl border border-border bg-card p-10 text-center">
+          <p className="text-muted-foreground mb-2">
             Por ahora no hay lecturas curadas.
           </p>
         </div>
@@ -78,7 +76,7 @@ export default async function BlogPage() {
         </div>
       )}
 
-      <footer className="mt-14 pt-6 border-t border-white/[0.06] flex items-center justify-between gap-4 text-[0.72rem] text-white/45 font-light">
+      <footer className="mt-14 pt-6 border-t border-white/[0.06] flex items-center justify-between gap-4 text-[0.72rem] text-muted-foreground font-light">
         <span>{items.length} lecturas curadas</span>
       </footer>
       </div>

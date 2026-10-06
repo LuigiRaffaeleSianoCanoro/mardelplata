@@ -105,7 +105,7 @@ export default function PlanClient() {
         </div>
       </section>
 
-      <section className="rounded-2xl border-2 border-ocean-200 bg-gradient-to-br from-ocean-50/80 to-white p-6 shadow-sm">
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-display font-bold text-lg text-ocean-900 mb-2">Profundizar: guías mal / bien</h2>
         <p className="text-sm text-slate-600 mb-4 leading-relaxed">
           El checklist es acción por ítem; las guías son patrones concretos (cómo te lee un recruiter, ejemplos y pasos de rewrite).

@@ -952,7 +952,7 @@ function Avatar({ name, url, size = 28 }: { name: string; url: string | null; si
   }
   return (
     <div
-      className="rounded-full bg-gradient-to-br from-[#3B82F6]/30 to-[#FF2DAA]/20 border border-white/[0.08] flex items-center justify-center text-white/85 font-light"
+      className="flex items-center justify-center rounded-full border border-border bg-muted font-medium text-foreground"
       style={{ width: size, height: size, fontSize: size * 0.42 }}
     >
       {initials || "·"}

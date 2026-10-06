@@ -51,7 +51,7 @@ export default function ModulesPage() {
         eyebrow="red · módulos"
         title={
           <>
-            Piezas que <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">se reutilizan</span>.
+            Piezas que <em className="not-italic text-[var(--oxido)]">se reutilizan</em>.
           </>
         }
         description="Componentes, helpers y patterns que la red empaqueta para que cualquier proyecto los use. Sumá los tuyos."
