@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import JsonLd from "@/components/seo/JsonLd";
 import SourceTag from "@/components/nomad/SourceTag";
 import { breadcrumbSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
@@ -71,7 +71,7 @@ export default async function CompanyPage({ params }: PageProps) {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="empresa-x">
         <header className="shell-section shell-section--lg">
@@ -122,6 +122,6 @@ export default async function CompanyPage({ params }: PageProps) {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }

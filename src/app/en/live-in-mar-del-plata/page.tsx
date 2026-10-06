@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import SourceTag from "@/components/nomad/SourceTag";
@@ -43,7 +43,7 @@ export default function LivePage() {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="vivir-x" lang="en">
         <header className="shell-section shell-section--lg">
@@ -186,6 +186,6 @@ export default function LivePage() {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }

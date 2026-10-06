@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { PageFrame } from "@/components/v3/Page";
 
 export const metadata: Metadata = {
   title: "Marketing Kit — MdPDev",
@@ -133,9 +132,9 @@ function PitchFeature({
 
 export default function MarketingKitPage() {
   return (
-    <>
-      <Navbar />
-      <main>
+    <PageFrame>
+      
+      <div>
 
         {/* ── Hero ─────────────────────────────────────────────────── */}
         <section className="relative overflow-hidden pt-32 pb-12">
@@ -669,8 +668,9 @@ MdPDev`}
           </div>
         </Section>
 
-      </main>
-      <Footer />
-    </>
+      </div>
+      
+    </PageFrame>
   );
+
 }

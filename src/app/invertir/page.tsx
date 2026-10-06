@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import StatCard from "@/components/nomad/StatCard";
@@ -41,7 +41,7 @@ export default function InvertirPage() {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="invertir-x">
         <header className="shell-section shell-section--lg">
@@ -168,6 +168,6 @@ export default function InvertirPage() {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }

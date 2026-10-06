@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { PageFrame } from "@/components/v3/Page";
 
 export const metadata: Metadata = {
   title: "Código de Conducta",
@@ -48,9 +47,9 @@ const sections = [
 
 export default function ReglamentoPage() {
   return (
-    <>
-      <Navbar />
-      <main className="reglamento-x">
+    <PageFrame>
+      
+      <div className="reglamento-x">
         <header className="reglamento-x-header shell-section shell-section--lg">
           <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
             <p className="shell-eyebrow">CÓDIGO DE CONDUCTA</p>
@@ -100,8 +99,9 @@ export default function ReglamentoPage() {
             </p>
           </div>
         </section>
-      </main>
-      <Footer />
-    </>
+      </div>
+      
+    </PageFrame>
   );
+
 }

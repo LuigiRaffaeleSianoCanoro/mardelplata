@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import EmpresasClient from "@/components/primer-trabajo/EmpresasClient";
+import { PageFrame } from "@/components/v3/Page";
 
 export const metadata: Metadata = {
   title: "Empresas — Primer Trabajo OS — Mar del Plata Devs",
@@ -12,9 +11,9 @@ export const metadata: Metadata = {
 
 export default function EmpresasPage() {
   return (
-    <>
-      <Navbar />
-      <main className="ocean-tint min-h-screen pt-24 pb-16">
+    <PageFrame>
+      
+      <div className="ocean-tint min-h-screen pt-24 pb-16">
         <div className="max-w-3xl mx-auto px-6">
           <Link href="/primer-trabajo" className="text-sm text-ocean-600 font-medium hover:underline mb-6 inline-block">
             ← Primer Trabajo OS
@@ -25,8 +24,9 @@ export default function EmpresasPage() {
           </p>
           <EmpresasClient />
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+      
+    </PageFrame>
   );
+
 }

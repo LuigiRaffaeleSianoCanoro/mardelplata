@@ -28,7 +28,7 @@ import { useSessionUser, useTheme } from "./hooks";
 export function PiedraRoot({ page = true }: { page?: boolean }) {
   return (
     <div
-      className={cn("v3-shell pointer-events-none fixed inset-0 -z-10", page && "v3-shell--page")}
+      className={cn("v3-shell pointer-events-none !fixed inset-0 -z-10", page && "v3-shell--page")}
       aria-hidden
     >
       <div className="v3-piedra v3-piedra--fixed" />

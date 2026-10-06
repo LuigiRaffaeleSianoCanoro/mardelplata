@@ -400,3 +400,215 @@ html:has(.v3-shell) .prensa-x,
 html:has(.v3-shell) .blog-x {
   background: transparent;
 }
+
+/* PiedraRoot debe quedar fixed aunque .app-canvas > * ponga position:relative. */
+html:has(.v3-shell) .v3-shell.v3-shell--page {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+
+/* ── Cuerpos de páginas legacy bajo tokens Piedra ─────────────────────── */
+html:has(.v3-shell) .shell-eyebrow,
+html:has(.v3-shell) .kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .shell-title,
+html:has(.v3-shell) .shell-title--xl {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  color: var(--foreground);
+  font-size: clamp(32px, 5vw, 48px);
+}
+html:has(.v3-shell) .shell-title em {
+  font-style: normal;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .shell-lead {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .shell-section {
+  background: transparent !important;
+  padding: 0 0 2.5rem;
+}
+html:has(.v3-shell) .shell-section--lg {
+  padding: 0 0 2rem;
+}
+html:has(.v3-shell) .shell-section--soft,
+html:has(.v3-shell) .shell-section--gradient {
+  background: transparent !important;
+}
+html:has(.v3-shell) .shell-inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 0;
+}
+html:has(.v3-shell) .shell-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--muted-foreground);
+  border-radius: 999px;
+  height: 22px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+}
+html:has(.v3-shell) .event-card,
+html:has(.v3-shell) .eventos-x-card {
+  display: flex;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 150ms ease;
+}
+html:has(.v3-shell) .event-card:hover {
+  background: var(--card);
+}
+html:has(.v3-shell) .event-card-date {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+}
+html:has(.v3-shell) .event-card-day {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+html:has(.v3-shell) .event-card-month {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .event-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .event-card-desc,
+html:has(.v3-shell) .event-card-hosts,
+html:has(.v3-shell) .event-card-meta {
+  color: var(--muted-foreground);
+  font-size: 13.5px;
+}
+html:has(.v3-shell) .prensa-x-header,
+html:has(.v3-shell) .prensa-x {
+  background: transparent !important;
+}
+html:has(.v3-shell) .prensa-x-topic-pill,
+html:has(.v3-shell) .prensa-x-topics a {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  color: var(--foreground);
+  border-radius: 999px;
+  font-size: 12.5px;
+}
+html:has(.v3-shell) .prensa-x-group-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .prensa-x-grid > *,
+html:has(.v3-shell) [class*="PressCard"],
+html:has(.v3-shell) .press-card {
+  border-color: var(--border) !important;
+  background: color-mix(in oklab, var(--card) 70%, transparent) !important;
+  border-radius: 12px;
+}
+html:has(.v3-shell) .bolsa-x,
+html:has(.v3-shell) .marketplace-x {
+  background: transparent !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .bolsa-x-empty {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  color: var(--muted-foreground);
+  background: color-mix(in oklab, var(--card) 60%, transparent);
+}
+
+html:has(.v3-shell) .shell-btn-primary,
+html:has(.v3-shell) a.shell-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+html:has(.v3-shell) .shell-btn-ghost,
+html:has(.v3-shell) a.shell-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border-strong);
+}
+html:has(.v3-shell) .display-thin,
+html:has(.v3-shell) .display {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.045em !important;
+  color: var(--foreground) !important;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+}
+html:has(.v3-shell) .text-white { color: var(--foreground) !important; }
+html:has(.v3-shell) .text-white\/45,
+html:has(.v3-shell) .text-white\/60,
+html:has(.v3-shell) .text-white\/70 {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .primer-trabajo-x,
+html:has(.v3-shell) .footer-x,
+html:has(.v3-shell) .nav-x {
+  background: transparent !important;
+}

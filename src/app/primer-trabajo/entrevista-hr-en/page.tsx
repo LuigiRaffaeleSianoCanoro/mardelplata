@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import HrInterviewQuizClient from "@/components/primer-trabajo/HrInterviewQuizClient";
+import { PageFrame } from "@/components/v3/Page";
 
 export const metadata: Metadata = {
   title: "HR Interview Simulator (English) — Primer Trabajo OS — Mar del Plata Devs",
@@ -13,9 +12,9 @@ export const metadata: Metadata = {
 
 export default function EntrevistaHrEnPage() {
   return (
-    <>
-      <Navbar />
-      <main className="ocean-tint min-h-screen pt-24 pb-16">
+    <PageFrame>
+      
+      <div className="ocean-tint min-h-screen pt-24 pb-16">
         <div className="max-w-2xl mx-auto px-6">
           <p className="text-ocean-700 text-sm font-semibold uppercase tracking-widest mb-3">Primer Trabajo OS</p>
           <h1 className="font-display font-bold text-3xl md:text-4xl text-ocean-900 leading-tight mb-3">
@@ -34,8 +33,9 @@ export default function EntrevistaHrEnPage() {
             </Link>
           </p>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+      
+    </PageFrame>
   );
+
 }
