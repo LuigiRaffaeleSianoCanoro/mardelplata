@@ -54,7 +54,7 @@ export default function DiagnosticoClient() {
 
   if (!hydrated) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-600 shadow-sm">
+      <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground">
         Cargando…
       </div>
     );
@@ -65,7 +65,7 @@ export default function DiagnosticoClient() {
       {mode === "summary" && diagnosticResult ? (
         <div className="space-y-6 fade-up">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-slate-600 text-sm">
+            <p className="text-muted-foreground text-sm">
               Último diagnóstico:{" "}
               {new Date(diagnosticResult.completedAt).toLocaleString("es-AR", {
                 dateStyle: "short",
@@ -75,7 +75,7 @@ export default function DiagnosticoClient() {
             <button
               type="button"
               onClick={restart}
-              className="rounded-full border border-ocean-500 text-ocean-700 px-4 py-2 text-sm font-semibold hover:bg-ocean-50 transition-colors"
+              className="rounded-full border border-border text-muted-foreground px-4 py-2 text-sm font-semibold hover:bg-muted transition-colors"
             >
               Repetir diagnóstico
             </button>
@@ -84,13 +84,13 @@ export default function DiagnosticoClient() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/primer-trabajo/plan"
-              className="inline-flex items-center justify-center rounded-full bg-ocean-500 text-white px-6 py-3 font-semibold hover:bg-ocean-600 transition-colors"
+              className="inline-flex items-center justify-center rounded-full bg-foreground text-background px-6 py-3 font-semibold hover:opacity-90 transition-colors"
             >
               Ir al plan de acción
             </Link>
             <Link
               href="/primer-trabajo"
-              className="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+              className="inline-flex items-center justify-center rounded-full border border-border px-6 py-3 font-semibold text-muted-foreground transition-colors hover:bg-muted"
             >
               Volver al inicio
             </Link>
@@ -99,17 +99,17 @@ export default function DiagnosticoClient() {
       ) : (
         <>
           {current && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+            <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm">
               <div className="mb-6">
-                <div className="flex justify-between text-xs font-medium text-slate-500 mb-2">
+                <div className="flex justify-between text-xs font-medium text-muted-foreground mb-2">
                   <span>
                     Pregunta {index + 1} / {total}
                   </span>
                   <span>{progress}%</span>
                 </div>
-                <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+                <div className="h-2 rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full w-full bg-ocean-500 origin-left transition-transform duration-300 rounded-full"
+                    className="h-full w-full bg-foreground origin-left transition-transform duration-300 rounded-full"
                     style={{ transform: `scaleX(${Math.min(1, (index + 1) / total)})` }}
                   />
                 </div>
@@ -118,10 +118,10 @@ export default function DiagnosticoClient() {
               {MISSION_CALLOUTS[current.id] && <MissionCallout {...MISSION_CALLOUTS[current.id]!} />}
 
               {"explanationForUser" in current && current.explanationForUser ? (
-                <p className="text-sm text-slate-600 mb-3 leading-relaxed">{current.explanationForUser}</p>
+                <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{current.explanationForUser}</p>
               ) : null}
 
-              <p className="font-display font-bold text-xl text-ocean-900 mb-6 leading-snug whitespace-pre-line">
+              <p className="font-display font-bold text-xl text-foreground mb-6 leading-snug whitespace-pre-line">
                 {current.prompt}
               </p>
 
@@ -135,13 +135,13 @@ export default function DiagnosticoClient() {
                         onClick={() => select(current.id, opt.id)}
                         className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-colors active:scale-[0.99] ${
                           selected
-                            ? "border-ocean-500 bg-ocean-50 text-ocean-900"
-                            : "border-slate-200 hover:border-ocean-300 bg-white text-slate-800"
+                            ? "border-border bg-muted text-foreground"
+                            : "border-border hover:border-border bg-card text-foreground"
                         }`}
                       >
                         <span className="font-medium">{opt.label}</span>
                         {selected && (
-                          <p className="mt-2 text-sm text-slate-600 border-t border-ocean-200/60 pt-2">{opt.consequence}</p>
+                          <p className="mt-2 text-sm text-muted-foreground border-t border-border/60 pt-2">{opt.consequence}</p>
                         )}
                       </button>
                     </li>
@@ -154,7 +154,7 @@ export default function DiagnosticoClient() {
                   type="button"
                   onClick={back}
                   disabled={index === 0}
-                  className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 disabled:opacity-40 hover:bg-slate-50"
+                  className="rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-muted-foreground disabled:opacity-40 hover:bg-muted"
                 >
                   Atrás
                 </button>
@@ -162,7 +162,7 @@ export default function DiagnosticoClient() {
                   type="button"
                   onClick={next}
                   disabled={!answers[current.id]}
-                  className="rounded-full bg-ocean-500 text-white px-6 py-2.5 text-sm font-semibold disabled:opacity-40 hover:bg-ocean-600"
+                  className="rounded-full bg-foreground text-background px-6 py-2.5 text-sm font-semibold disabled:opacity-40 hover:opacity-90"
                 >
                   {index + 1 >= total ? "Ver resultado" : "Siguiente"}
                 </button>
@@ -224,10 +224,10 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-display font-bold text-lg text-ocean-900 mb-2">Probabilidad de entrevista (estimada)</h2>
-        <p className="text-4xl font-bold text-ocean-600 mb-3">{result.interviewProbability}%</p>
-        <p className="text-slate-700 text-sm leading-relaxed mb-4">{result.interviewProbabilityExplanation}</p>
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <h2 className="font-display font-bold text-lg text-foreground mb-2">Probabilidad de entrevista (estimada)</h2>
+        <p className="text-4xl font-bold text-muted-foreground mb-3">{result.interviewProbability}%</p>
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4">{result.interviewProbabilityExplanation}</p>
         {result.interviewFactors && (result.interviewFactors.lowers.length > 0 || result.interviewFactors.raises.length > 0) ? (
           <div className="grid gap-4 sm:grid-cols-2 text-sm">
             {result.interviewFactors.lowers.length > 0 ? (
@@ -242,8 +242,8 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
             ) : null}
             {result.interviewFactors.raises.length > 0 ? (
               <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-4">
-                <h3 className="font-semibold text-emerald-950 mb-2">Factores que suben la probabilidad</h3>
-                <ul className="list-disc list-inside space-y-1.5 text-emerald-950/90 leading-relaxed">
+                <h3 className="font-semibold text-emerald-100 mb-2">Factores que suben la probabilidad</h3>
+                <ul className="list-disc list-inside space-y-1.5 text-emerald-100 leading-relaxed">
                   {result.interviewFactors.raises.map((line, i) => (
                     <li key={i}>{line}</li>
                   ))}
@@ -254,37 +254,37 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
         ) : null}
       </section>
 
-      <section className="rounded-2xl border-2 border-ocean-200 bg-ocean-50/50 p-5 shadow-sm">
-        <h2 className="font-display font-bold text-base text-ocean-900 mb-2">Siguiente paso: guías</h2>
-        {hint ? <p className="text-sm text-slate-700 mb-3 leading-relaxed">{hint}</p> : null}
+      <section className="rounded-2xl border-2 border-border bg-muted/50 p-5 shadow-sm">
+        <h2 className="font-display font-bold text-base text-foreground mb-2">Siguiente paso: guías</h2>
+        {hint ? <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{hint}</p> : null}
         <div className="flex flex-col sm:flex-row flex-wrap gap-2">
           <Link
             href="/primer-trabajo/guia/cv"
-            className="inline-flex items-center justify-center rounded-full bg-ocean-600 text-white px-4 py-2 text-sm font-semibold hover:bg-ocean-700"
+            className="inline-flex items-center justify-center rounded-full bg-foreground text-background px-4 py-2 text-sm font-semibold hover:opacity-90"
           >
             Guía CV
           </Link>
           <Link
             href="/primer-trabajo/guia/linkedin"
-            className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-400 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-white/90"
+            className="inline-flex items-center justify-center rounded-full bg-card border border-border text-foreground px-4 py-2 text-sm font-semibold hover:bg-card/90"
           >
             Guía LinkedIn
           </Link>
           <Link
             href="/primer-trabajo/entrevista-hr"
-            className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-500 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-ocean-50"
+            className="inline-flex items-center justify-center rounded-full bg-card border border-border text-foreground px-4 py-2 text-sm font-semibold hover:bg-muted"
           >
             Simulador Recursos Humanos
           </Link>
           <Link
             href="/primer-trabajo/entrevista-hr-en"
-            className="inline-flex items-center justify-center rounded-full bg-white border border-ocean-500 text-ocean-800 px-4 py-2 text-sm font-semibold hover:bg-ocean-50"
+            className="inline-flex items-center justify-center rounded-full bg-card border border-border text-foreground px-4 py-2 text-sm font-semibold hover:bg-muted"
           >
             Simulador HR en inglés
           </Link>
           <Link
             href="/primer-trabajo/plan"
-            className="inline-flex items-center justify-center rounded-full bg-white border border-slate-300 text-slate-800 px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+            className="inline-flex items-center justify-center rounded-full bg-card border border-border text-foreground px-4 py-2 text-sm font-semibold hover:bg-muted"
           >
             Plan de acción (checklist)
           </Link>
@@ -298,39 +298,39 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
             {rules.map((r) => (
               <li key={r.id} className="text-sm">
                 <span className="font-semibold text-red-900">{r.title}</span>
-                <p className="text-red-800/90 mt-1">{r.description}</p>
+                <p className="text-red-300/90 mt-1">{r.description}</p>
               </li>
             ))}
           </ul>
         </section>
       )}
 
-      <section className="rounded-2xl border border-slate-800 bg-slate-900 text-white p-6 shadow-sm">
+      <section className="rounded-2xl border border-border bg-muted p-6 text-foreground">
         <h2 className="font-display font-bold text-lg mb-1">Modo recruiter</h2>
-        <p className="text-ocean-200 text-xs mb-4">Búsqueda simulada: &quot;{result.recruiterSimulation.searchQuery}&quot;</p>
-        <ul className="list-disc list-inside space-y-2 text-sm text-slate-200 mb-4">
+        <p className="text-muted-foreground text-xs mb-4">Búsqueda simulada: &quot;{result.recruiterSimulation.searchQuery}&quot;</p>
+        <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground mb-4">
           {result.recruiterSimulation.result.map((line, i) => (
             <li key={i}>{line}</li>
           ))}
         </ul>
-        <p className="font-semibold text-ocean-300 border-t border-slate-700 pt-3">{result.recruiterSimulation.decision}</p>
+        <p className="font-semibold text-muted-foreground border-t border-border pt-3">{result.recruiterSimulation.decision}</p>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-display font-bold text-lg text-ocean-900 mb-4">Señales de empleabilidad</h2>
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <h2 className="font-display font-bold text-lg text-foreground mb-4">Señales de empleabilidad</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {primerTrabajoData.employabilitySignals.map((s) => {
             const v = result.signalStrength[s.id] ?? 0;
             return (
               <div key={s.id}>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="font-medium text-slate-800">{s.label}</span>
-                  <span className="text-slate-500">{v}</span>
+                  <span className="font-medium text-foreground">{s.label}</span>
+                  <span className="text-muted-foreground">{v}</span>
                 </div>
-                <div className="h-2 rounded-full bg-slate-100">
-                  <div className="h-2 rounded-full bg-ocean-500" style={{ width: `${v}%` }} />
+                <div className="h-2 rounded-full bg-muted">
+                  <div className="h-2 rounded-full bg-foreground" style={{ width: `${v}%` }} />
                 </div>
-                <p className="text-[11px] text-slate-500 mt-1 leading-snug" title={s.recruiterLens}>
+                <p className="text-[11px] text-muted-foreground mt-1 leading-snug" title={s.recruiterLens}>
                   {s.recruiterLens.slice(0, 90)}…
                 </p>
               </div>
@@ -339,9 +339,9 @@ function ResultsPanel({ result }: { result: DiagnosticResult }) {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <h3 className="font-semibold text-slate-800 mb-2">Scores por bloque</h3>
-        <ul className="text-sm text-slate-600 space-y-1">
+      <section className="rounded-2xl border border-border bg-muted p-6">
+        <h3 className="font-semibold text-foreground mb-2">Scores por bloque</h3>
+        <ul className="text-sm text-muted-foreground space-y-1">
           {primerTrabajoData.sections.map((sec) => (
             <li key={sec.id}>
               {sec.title}: <strong>{result.sectionScores[sec.id] ?? 0}</strong>

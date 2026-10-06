@@ -18,15 +18,15 @@ export default function GuiaCvPage() {
   return (
     <PageFrame>
       
-      <div className="ocean-tint min-h-screen pt-24 pb-16">
+      <div className="pt-2 pb-8">
         <div className="max-w-3xl mx-auto px-6">
-          <Link href="/primer-trabajo" className="text-sm text-ocean-600 font-medium hover:underline mb-4 inline-block">
+          <Link href="/primer-trabajo" className="mb-4 inline-block text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline">
             ← Primer Trabajo OS
           </Link>
           <GuiaSubnav />
           <PatternGuideList bundle={bundle} />
           <p className="mt-10 text-center">
-            <Link href="/primer-trabajo/diagnostico" className="text-ocean-600 font-semibold text-sm hover:underline">
+            <Link href="/primer-trabajo/diagnostico" className="text-sm font-semibold text-muted-foreground hover:text-foreground hover:underline">
               Hacé el diagnóstico para ver tu probabilidad y reglas activas →
             </Link>
           </p>
