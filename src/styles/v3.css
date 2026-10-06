@@ -1,0 +1,356 @@
+/* ══════════════════════════════════════════════════════════════════════
+   v3 «Piedra & Código» — design tokens + shadcn/ui theme mapping.
+
+   Scope: los tokens solo existen cuando la pantalla monta el shell v3
+   (`.v3-shell`). Usamos `html:has(.v3-shell)` para que también hereden los
+   overlays que Radix/vaul portalean a <body> (Dialog, Sheet, Drawer,
+   Command, Tooltip, Sonner). Las páginas viejas no montan el shell y
+   siguen con su sistema visual intacto.
+
+   Tema: dark por defecto. `html[data-mdp-theme="light"]` (seteado por un
+   script inline en <head> desde localStorage) activa el light.
+   ══════════════════════════════════════════════════════════════════════ */
+
+@custom-variant dark (&:where(html:has(.v3-shell):not([data-mdp-theme="light"]) *));
+/* Alturas chicas: se resigna contenido, nunca se scrollea. */
+@custom-variant short (@media (max-width: 1023.98px) and (max-height: 780px));
+@custom-variant shorter (@media (max-width: 1023.98px) and (max-height: 700px));
+@custom-variant dshort (@media (min-width: 1024px) and (max-height: 820px));
+@custom-variant hover-device (@media (hover: hover) and (pointer: fine));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-oxido: var(--oxido);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+html:has(.v3-shell),
+.v3-shell {
+  /* Dark (default) */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #0f0f0f;
+  --card-foreground: #ededed;
+  --popover: #0a0a0a;
+  --popover-foreground: #ededed;
+  --primary: #ededed;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #ededed;
+  --muted: #1a1a1a;
+  --muted-foreground: #a1a1a1;
+  --subtle: #8f8f8f;
+  /* shadcn "accent" = superficie de hover/selección (neutral). */
+  --accent: #1a1a1a;
+  --accent-foreground: #ededed;
+  /* Óxido: el único acento de color (dot «Próximo», focus ring, toasts). */
+  --oxido: #ff5c26;
+  --destructive: #ff5c26;
+  --border: #1f1f1f;
+  --border-strong: #2e2e2e;
+  --input: #2e2e2e;
+  --ring: #ff5c26;
+  --piedra: url("/v3/piedra-dark-lines.svg");
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Geist reemplaza las fuentes del sitio viejo solo dentro del shell. */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  color-scheme: dark;
+}
+
+html[data-mdp-theme="light"]:has(.v3-shell),
+html[data-mdp-theme="light"] .v3-shell {
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #fafafa;
+  --secondary: #f0f0f0;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f0f0f0;
+  /* #6b6b6b sobre #fafafa = 5.0:1 (AA) */
+  --muted-foreground: #6b6b6b;
+  --subtle: #737373;
+  --accent: #f0f0f0;
+  --accent-foreground: #0a0a0a;
+  --oxido: #e5480f;
+  --destructive: #e5480f;
+  --border: #eaeaea;
+  --border-strong: #d4d4d4;
+  --input: #d4d4d4;
+  --ring: #e5480f;
+  --piedra: url("/v3/piedra-light-lines.svg");
+  color-scheme: light;
+}
+
+/* El documento nunca scrollea mientras el shell está montado. */
+html:has(.v3-shell),
+html:has(.v3-shell) body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Válvula de escape (WCAG 1.4.10): con zoom alto, texto grande o un teléfono
+   apaisado no hay altura para el shell; ahí sí dejamos scrollear antes que
+   esconder CTAs. */
+@media (max-height: 460px) {
+  html:has(.v3-shell),
+  html:has(.v3-shell) body {
+    height: auto;
+    overflow: auto;
+  }
+  .v3-shell {
+    height: auto;
+    min-height: 100dvh;
+  }
+}
+/* vaul escala el wrapper: lo que asoma detrás es negro, como en iOS. */
+html:has(.v3-shell) body:has([data-vaul-drawer][data-state="open"]) {
+  background: #000;
+}
+
+@layer base {
+  .v3-shell *,
+  html:has(.v3-shell) [data-slot] {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 60%, transparent);
+  }
+}
+
+/* Fondo: piedra Mar del Plata (líneas estáticas, enmascaradas). */
+.v3-piedra {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--piedra);
+  background-size: 1200px 800px;
+  background-repeat: repeat;
+  -webkit-mask-image: radial-gradient(150% 75% at 70% 8%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 88%);
+  mask-image: radial-gradient(150% 75% at 70% 8%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 88%);
+}
+@media (min-width: 1024px) {
+  .v3-piedra {
+    -webkit-mask-image: radial-gradient(70% 90% at 22% 55%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+    mask-image: radial-gradient(70% 90% at 22% 55%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  }
+}
+.v3-piedra--top {
+  -webkit-mask-image: linear-gradient(#000, transparent 34%);
+  mask-image: linear-gradient(#000, transparent 34%);
+}
+
+/* Tipografía */
+.v3-display {
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+}
+.v3-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.v3-brand-case {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Dot «Próximo» — único uso decorativo del Óxido. */
+.v3-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--oxido);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--oxido) 25%, transparent);
+  flex: none;
+}
+
+/* Crucecitas de grilla (Basement). */
+.v3-cross {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  color: var(--border-strong);
+  pointer-events: none;
+}
+.v3-cross::before,
+.v3-cross::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.v3-cross::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.v3-cross::after { top: 5px; left: 0; height: 1px; width: 11px; }
+
+.v3-glass {
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* ── Motion (Emil Kowalski / Linear) ─────────────────────────────────── */
+
+/* Press feedback: scale .97 en :active, 160ms. */
+.v3-press {
+  transition: transform 160ms var(--ease-out), background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+.v3-press:active {
+  transform: scale(0.97);
+}
+
+/* Indicador de tabs: translateX + width, 200ms. */
+.v3-tab-indicator {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  border-radius: 7px;
+  background: var(--background);
+  box-shadow: 0 0 0 1px var(--border-strong), 0 1px 2px rgb(0 0 0 / 0.25);
+  transition: transform 200ms var(--ease-out), width 200ms var(--ease-out);
+  will-change: transform, width;
+  pointer-events: none;
+}
+html[data-mdp-theme="light"] .v3-tab-indicator {
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--border-strong), 0 1px 2px rgb(0 0 0 / 0.06);
+}
+.v3-tab-indicator[data-instant="true"] {
+  transition: none;
+}
+
+/* Panel de tab: opacity 0→1 + translateX ±8px según dirección, 180ms. */
+.v3-panel {
+  transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+  opacity: 1;
+  transform: none;
+}
+@starting-style {
+  .v3-panel {
+    opacity: 0;
+    transform: translateX(var(--v3-panel-dx, 8px));
+  }
+}
+
+/* Hero: palabras translateY 100%→0 con clip, stagger 40ms (solo 1ª visita).
+   Por palabra (no por línea) para que el wrap sea natural en cualquier ancho. */
+.v3-word {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.v3-word > span {
+  display: inline-block;
+  animation: v3-line-in 300ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+html.v3-seen .v3-word > span {
+  animation: none;
+}
+@keyframes v3-line-in {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+
+/* Sheet desktop: translateX 24px→0 + opacity, 240ms. */
+html:has(.v3-shell) [data-slot="sheet-content"] {
+  transition: transform 240ms var(--ease-drawer), opacity 240ms var(--ease-drawer);
+}
+html:has(.v3-shell) [data-slot="sheet-content"][data-state="open"] {
+  animation: v3-sheet-in 240ms var(--ease-drawer) both;
+}
+html:has(.v3-shell) [data-slot="sheet-content"][data-state="closed"] {
+  animation: v3-sheet-out 160ms ease-in both;
+}
+@keyframes v3-sheet-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes v3-sheet-out {
+  from { transform: none; opacity: 1; }
+  to { transform: translateX(24px); opacity: 0; }
+}
+
+/* CommandDialog: scale .96→1 + opacity 150ms; salida 100ms ease-in. */
+html:has(.v3-shell) [data-slot="dialog-content"][data-state="open"] {
+  animation: v3-pop-in 150ms var(--ease-out) both;
+}
+html:has(.v3-shell) [data-slot="dialog-content"][data-state="closed"] {
+  animation: v3-pop-out 100ms ease-in both;
+}
+@keyframes v3-pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes v3-pop-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-word > span { animation: none; }
+  .v3-press:active { transform: none; }
+  .v3-tab-indicator { transition: none; }
+  .v3-panel { transition: opacity 120ms linear; }
+  @starting-style {
+    .v3-panel { opacity: 0; transform: none; }
+  }
+  html:has(.v3-shell) [data-slot="sheet-content"][data-state="open"],
+  html:has(.v3-shell) [data-slot="dialog-content"][data-state="open"] {
+    animation: v3-fade-in 150ms linear both;
+  }
+  html:has(.v3-shell) [data-slot="sheet-content"][data-state="closed"],
+  html:has(.v3-shell) [data-slot="dialog-content"][data-state="closed"] {
+    animation: v3-fade-out 100ms linear both;
+  }
+  html:has(.v3-shell) [data-vaul-drawer] {
+    transition: opacity 150ms linear !important;
+  }
+}
+@keyframes v3-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes v3-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+/* Command (⌘K): headings mono como el resto de labels. */
+html:has(.v3-shell) [cmdk-group-heading] {
+  font-family: var(--font-mono);
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+html:has(.v3-shell) [cmdk-item] {
+  font-size: 14px;
+  border-radius: 6px;
+}
