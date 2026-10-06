@@ -123,29 +123,29 @@ export default function IdeaSheet({ slug, onClose }: IdeaSheetProps) {
           className="inline-block w-1.5 h-1.5 rounded-full"
           style={{ background: STATUS_DOT[idea.status], boxShadow: `0 0 8px ${STATUS_DOT[idea.status]}` }}
         />
-        <span className="kicker text-white/55">{STATUS_LABEL[idea.status]}</span>
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">{STATUS_LABEL[idea.status]}</span>
         <span className="text-white/25">·</span>
-        <span className="kicker text-white/45">red / idea</span>
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">red / idea</span>
       </div>
       <div className="flex items-end gap-3 flex-wrap">
-        <h2 className="display-thin text-white text-3xl sm:text-4xl leading-tight tracking-[-0.01em]">
+        <h2 className="font-semibold tracking-[-0.04em] text-foreground text-3xl sm:text-4xl leading-tight tracking-[-0.01em]">
           {idea.title}
         </h2>
-        <Lightbulb size={18} className="text-white/55 mb-2" />
+        <Lightbulb size={18} className="text-muted-foreground mb-2" />
       </div>
       {idea.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {idea.tags.map((t) => (
             <span
               key={t}
-              className="text-[0.65rem] tracking-wide uppercase text-white/65 px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08]"
+              className="text-[0.65rem] tracking-wide uppercase text-muted-foreground px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08]"
             >
               {t}
             </span>
           ))}
         </div>
       )}
-      <div className="flex items-center gap-5 text-white/55 text-[0.78rem]">
+      <div className="flex items-center gap-5 text-muted-foreground text-[0.78rem]">
         <span className="inline-flex items-center gap-1.5">
           <Eye size={12} /> {idea.followers_count} siguen
         </span>
@@ -160,7 +160,7 @@ export default function IdeaSheet({ slug, onClose }: IdeaSheetProps) {
             className={`px-3 py-1.5 rounded-full text-[0.74rem] border transition-colors disabled:opacity-50 ${
               membership.is_follower
                 ? "text-white/85 border-white/[0.16] bg-white/[0.07] hover:bg-white/[0.10]"
-                : "text-white/65 border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06]"
+                : "text-muted-foreground border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06]"
             }`}
           >
             {membership.is_follower ? "Siguiendo" : "Seguir"}
@@ -210,7 +210,7 @@ export default function IdeaSheet({ slug, onClose }: IdeaSheetProps) {
       >
         {showSkeleton && <SheetBodySkeleton />}
         {!loading && !idea && open && (
-          <div className="p-10 text-center text-white/55 font-light">Idea no encontrada.</div>
+          <div className="p-10 text-center text-muted-foreground font-light">Idea no encontrada.</div>
         )}
         {idea && tab === "descripcion" && (
           <div className="p-6 sm:p-8">
@@ -223,8 +223,8 @@ export default function IdeaSheet({ slug, onClose }: IdeaSheetProps) {
           <div className="p-6 sm:p-8 space-y-2">
             {linked.length === 0 ? (
               <div className="py-10 text-center">
-                <GitBranch size={24} className="text-white/35 mx-auto mb-3" />
-                <p className="text-white/55 font-light mb-3">
+                <GitBranch size={24} className="text-muted-foreground mx-auto mb-3" />
+                <p className="text-muted-foreground font-light mb-3">
                   Esta idea no está linkeada a ningún proyecto todavía.
                 </p>
                 <button
@@ -242,7 +242,7 @@ export default function IdeaSheet({ slug, onClose }: IdeaSheetProps) {
                   key={l.project.id}
                   className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
                 >
-                  <GitBranch size={14} className="text-white/55" />
+                  <GitBranch size={14} className="text-muted-foreground" />
                   <div className="flex-1 min-w-0">
                     <p className="text-white/85 text-sm font-light truncate">{l.project.name}</p>
                     <p className="text-white/40 text-[0.72rem]">link: {l.link.link_type}</p>

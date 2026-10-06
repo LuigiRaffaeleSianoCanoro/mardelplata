@@ -43,12 +43,12 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
           handleActivate();
         }
       }}
-      className={`glass-night p-5 block group transition-transform ${
+      className={`rounded-xl border border-border bg-card/70 p-5 block group transition-transform ${
         onOpen ? "cursor-pointer hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[rgba(59,130,246,0.45)]" : ""
       }`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        <p className="kicker text-white/45 flex items-center gap-2">
+        <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground flex items-center gap-2">
           <span
             className="inline-block w-1.5 h-1.5 rounded-full"
             style={{ background: STATUS_DOT[project.status], boxShadow: `0 0 8px ${STATUS_DOT[project.status]}` }}
@@ -61,7 +61,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="text-white/45 hover:text-white transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Repo"
           >
             <GitBranch size={14} />
@@ -69,14 +69,14 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
         )}
       </div>
 
-      <h3 className="display-thin text-white text-xl mb-1 leading-tight">{project.name}</h3>
+      <h3 className="font-semibold tracking-[-0.04em] text-foreground text-xl mb-1 leading-tight">{project.name}</h3>
       {project.description && (
         <p className="text-white/60 text-sm font-light leading-relaxed line-clamp-3 mb-4">
           {project.description}
         </p>
       )}
 
-      <div className="flex items-center gap-4 text-white/45 text-[0.72rem]">
+      <div className="flex items-center gap-4 text-muted-foreground text-[0.72rem]">
         <span className="flex items-center gap-1.5">
           <Users size={12} /> {project.contributors_count}
         </span>
@@ -89,7 +89,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="ml-auto flex items-center gap-1 text-white/55 hover:text-white transition-colors"
+            className="ml-auto flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
           >
             demo <ExternalLink size={11} />
           </a>

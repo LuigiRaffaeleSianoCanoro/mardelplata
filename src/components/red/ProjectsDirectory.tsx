@@ -44,7 +44,7 @@ export default function ProjectsDirectory() {
         eyebrow="red · open source"
         title={
           <>
-            Lo que <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">construye</span> la comunidad.
+            Lo que construye la comunidad.
           </>
         }
         description="Proyectos open-source que viven en la red de Mar del Plata. Sumate a uno, seguilo, o creá el tuyo."
@@ -53,14 +53,14 @@ export default function ProjectsDirectory() {
             <button
               type="button"
               onClick={() => setCreatingOpen(true)}
-              className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
+              className="inline-flex h-9 items-center rounded-lg bg-foreground px-4 text-[13px] font-medium text-background !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
             >
               <Plus size={14} /> Nuevo proyecto
             </button>
           ) : (
             <Link
               href="/auth/login"
-              className="btn-app-primary !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
+              className="inline-flex h-9 items-center rounded-lg bg-foreground px-4 text-[13px] font-medium text-background !text-[0.78rem] !py-2 !px-4 inline-flex items-center gap-2"
             >
               <LogIn size={14} /> Iniciá sesión
             </Link>
@@ -71,12 +71,12 @@ export default function ProjectsDirectory() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="glass-night p-5 h-[200px] animate-pulse opacity-50" />
+            <div key={i} className="rounded-xl border border-border bg-card/70 p-5 h-[200px] animate-pulse opacity-50" />
           ))}
         </div>
       ) : projects.length === 0 ? (
-        <div className="glass-night p-10 text-center">
-          <p className="text-white/65 font-light">Todavía no hay proyectos. Sé el primero en arrancar uno.</p>
+        <div className="rounded-xl border border-border bg-card/70 p-10 text-center">
+          <p className="text-muted-foreground font-light">Todavía no hay proyectos. Sé el primero en arrancar uno.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

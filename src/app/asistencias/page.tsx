@@ -22,17 +22,24 @@ interface AttendanceRow {
   event: AttendanceEvent | AttendanceEvent[] | null;
 }
 
+const TZ = "America/Argentina/Buenos_Aires";
+
 function formatDay(d: string) {
-  return new Date(d).toLocaleDateString("es-AR", { day: "2-digit" });
+  return new Date(d).toLocaleDateString("es-AR", { timeZone: TZ, day: "2-digit" });
 }
 function formatMonth(d: string) {
   return new Date(d)
-    .toLocaleDateString("es-AR", { month: "short" })
+    .toLocaleDateString("es-AR", { timeZone: TZ, month: "short" })
     .replace(".", "")
     .toUpperCase();
 }
 function formatTime(d: string) {
-  return new Date(d).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
+  return new Date(d).toLocaleTimeString("es-AR", {
+    timeZone: TZ,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 }
 function getTagFlavor(tags: string[]): { label: string; flavor: "violet" | "cyan" | "amber" | "rose" } {
   const t = (tags?.[0] ?? "meetup").toLowerCase();
@@ -57,13 +64,13 @@ export default async function AsistenciasPage() {
     return (
       <AppShell>
         <main className="eventos-x">
-          <header className="shell-section shell-section--lg">
-            <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
-              <p className="shell-eyebrow">MIS ASISTENCIAS</p>
-              <h1 className="shell-title shell-title--xl">
+          <header className="pb-6">
+            <div className="max-w-3xl" style={{ textAlign: "center" }}>
+              <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">MIS ASISTENCIAS</p>
+              <h1 className="text-[clamp(28px,4vw,40px)] font-semibold tracking-[-0.04em] text-foreground">
                 Tu <em>bitácora</em> de eventos.
               </h1>
-              <p className="shell-lead" style={{ marginInline: "auto" }}>
+              <p className="text-[15px] text-muted-foreground" style={{ marginInline: "auto" }}>
                 Iniciá sesión para ver los eventos a los que asististe.
               </p>
               <div style={{ marginTop: "1.5rem", display: "flex", justifyContent: "center", gap: "0.75rem" }}>
@@ -101,13 +108,13 @@ export default async function AsistenciasPage() {
   return (
     <AppShell>
       <main className="eventos-x">
-        <header className="shell-section shell-section--lg">
-          <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
-            <p className="shell-eyebrow">MIS ASISTENCIAS</p>
-            <h1 className="shell-title shell-title--xl">
+        <header className="pb-6">
+          <div className="max-w-3xl" style={{ textAlign: "center" }}>
+            <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">MIS ASISTENCIAS</p>
+            <h1 className="text-[clamp(28px,4vw,40px)] font-semibold tracking-[-0.04em] text-foreground">
               Tu <em>bitácora</em> de eventos.
             </h1>
-            <p className="shell-lead" style={{ marginInline: "auto" }}>
+            <p className="text-[15px] text-muted-foreground" style={{ marginInline: "auto" }}>
               {total === 0
                 ? "Todavía no registramos asistencia tuya. Cuando te escaneen el QR en un evento, aparece acá."
                 : total === 1
@@ -117,8 +124,8 @@ export default async function AsistenciasPage() {
           </div>
         </header>
 
-        <section className="shell-section shell-section--soft">
-          <div className="shell-inner">
+        <section className="pb-10">
+          <div className="max-w-5xl">
             {rows.length === 0 ? (
               <p className="bolsa-x-empty">
                 Aún no asististe a ningún evento. <Link href="/eventos" className="text-white underline-offset-4 hover:underline">Mirá la agenda</Link> y sumate al próximo.

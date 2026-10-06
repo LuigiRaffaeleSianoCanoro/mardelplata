@@ -751,3 +751,72 @@ html:has(.v3-shell) .bg-ocean-300 {
 html:has(.v3-shell) .pulse-dot {
   background-color: var(--oxido) !important;
 }
+
+/* ── App area (sidebar + red + perfil leftovers) ─────────────────────── */
+html:has(.v3-shell) .app-sidebar {
+  background: color-mix(in oklab, var(--background) 94%, transparent) !important;
+  border-right: 1px solid var(--border) !important;
+  backdrop-filter: blur(16px);
+}
+html:has(.v3-shell) .app-shell-content {
+  background: transparent;
+  min-height: 100dvh;
+}
+html:has(.v3-shell) .metal-chip {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}
+html:has(.v3-shell) .shell-scan-line { display: none !important; }
+
+/* Red dialogs / inputs */
+html:has(.v3-shell) .red-dialog-panel {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .red-dialog-backdrop {
+  background: rgb(0 0 0 / 0.55) !important;
+}
+html:has(.v3-shell) .red-input {
+  background: var(--background) !important;
+  border: 1px solid var(--border-strong) !important;
+  border-radius: 10px !important;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .red-input:focus {
+  outline: none;
+  border-color: var(--ring) !important;
+}
+
+/* Projects / modules directory cards if they use shell-card already covered */
+
+/* Asistencias / perfil page chrome */
+html:has(.v3-shell) .asistencias-x,
+html:has(.v3-shell) .event-card {
+  /* covered by earlier event-card rules */
+}
+
+html:has(.v3-shell) .btn-app-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: var(--foreground) !important;
+  color: var(--background) !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  font-weight: 500;
+}
+html:has(.v3-shell) .glass-night {
+  background: color-mix(in oklab, var(--card) 70%, transparent) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}

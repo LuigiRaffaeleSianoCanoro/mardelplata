@@ -227,13 +227,13 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
           className="inline-block w-1.5 h-1.5 rounded-full"
           style={{ background: STATUS_DOT[project.status], boxShadow: `0 0 8px ${STATUS_DOT[project.status]}` }}
         />
-        <span className="kicker text-white/55">{STATUS_LABEL[project.status]}</span>
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">{STATUS_LABEL[project.status]}</span>
         <span className="text-white/25">·</span>
-        <span className="kicker text-white/45">red / open source</span>
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">red / open source</span>
       </div>
 
       <div className="flex items-end gap-3 flex-wrap">
-        <h2 className="display-thin text-white text-3xl sm:text-4xl leading-tight tracking-[-0.01em]">
+        <h2 className="font-semibold tracking-[-0.04em] text-foreground text-3xl sm:text-4xl leading-tight tracking-[-0.01em]">
           {project.name}
         </h2>
         {project.repo_url && (
@@ -241,7 +241,7 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
             href={project.repo_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-white/65 hover:text-white text-[0.78rem] mb-1 transition-colors"
+            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground text-[0.78rem] mb-1 transition-colors"
           >
             <GitBranch size={13} /> repo <ExternalLink size={10} />
           </a>
@@ -251,14 +251,14 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
             href={project.demo_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-white/65 hover:text-white text-[0.78rem] mb-1 transition-colors"
+            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground text-[0.78rem] mb-1 transition-colors"
           >
             demo <ExternalLink size={10} />
           </a>
         )}
       </div>
 
-      <div className="flex items-center gap-5 text-white/55 text-[0.78rem]">
+      <div className="flex items-center gap-5 text-muted-foreground text-[0.78rem]">
         <span className="inline-flex items-center gap-1.5">
           <Users size={12} /> {project.contributors_count} contributors
         </span>
@@ -276,7 +276,7 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
             className={`px-3 py-1.5 rounded-full text-[0.74rem] border transition-colors disabled:opacity-50 ${
               membership.is_follower
                 ? "text-white/85 border-white/[0.16] bg-white/[0.07] hover:bg-white/[0.10]"
-                : "text-white/65 border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06]"
+                : "text-muted-foreground border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06]"
             }`}
           >
             {membership.is_follower ? "Siguiendo" : "Seguir"}
@@ -332,7 +332,7 @@ export default function ProjectSheet({ slug, onClose }: ProjectSheetProps) {
       >
         {showSkeleton && <SheetBodySkeleton />}
         {!loading && !project && open && (
-          <div className="p-10 text-center text-white/55 font-light">Proyecto no encontrado.</div>
+          <div className="p-10 text-center text-muted-foreground font-light">Proyecto no encontrado.</div>
         )}
         {project && tab === "overview" && (
           <OverviewTab project={project} contributors={contributors} linkedIdeas={linkedIdeas} />
@@ -414,20 +414,20 @@ function OverviewTab({
     <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="md:col-span-2 space-y-5">
         <div>
-          <p className="kicker text-white/45 mb-2">Sobre el proyecto</p>
+          <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground mb-2">Sobre el proyecto</p>
           <p className="text-white/80 font-light leading-relaxed">
             {project.description ?? "Sin descripción."}
           </p>
         </div>
         {linkedIdeas.length > 0 && (
           <div>
-            <p className="kicker text-white/45 mb-2">Nace de</p>
+            <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground mb-2">Nace de</p>
             <ul className="space-y-1.5">
               {linkedIdeas.map((l) => (
                 <li key={l.idea.id} className="text-white/75 text-sm font-light flex items-center gap-2">
-                  <Lightbulb size={12} className="text-white/45" />
+                  <Lightbulb size={12} className="text-muted-foreground" />
                   <span>{l.idea.title}</span>
-                  <span className="kicker text-white/35">· {l.link.link_type}</span>
+                  <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">· {l.link.link_type}</span>
                 </li>
               ))}
             </ul>
@@ -461,7 +461,7 @@ function OverviewTab({
 function Field({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div>
-      <p className="kicker text-white/40 mb-1">{label}</p>
+      <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/40 mb-1">{label}</p>
       <p className="text-white/80 text-sm font-light">{value}</p>
     </div>
   );
@@ -470,7 +470,7 @@ function Field({ label, value }: { label: string; value: ReactNode }) {
 function ContributorsTab({ contributors }: { contributors: ContributorWithProfile[] }) {
   if (contributors.length === 0) {
     return (
-      <div className="p-10 text-center text-white/55 font-light">
+      <div className="p-10 text-center text-muted-foreground font-light">
         Todavía no hay contributors. Cualquiera de la red puede sumarse.
       </div>
     );
@@ -489,10 +489,10 @@ function ContributorsTab({ contributors }: { contributors: ContributorWithProfil
             </p>
           </div>
           <span
-            className={`kicker px-2 py-0.5 rounded-md ${
+            className={`font-mono text-[11px] tracking-[0.08em] uppercase px-2 py-0.5 rounded-md ${
               c.role === "maintainer"
                 ? "bg-[rgba(59,130,246,0.12)] text-[#9bc1ff] border border-[rgba(59,130,246,0.28)]"
-                : "bg-white/[0.04] text-white/65 border border-white/[0.08]"
+                : "bg-white/[0.04] text-muted-foreground border border-white/[0.08]"
             }`}
           >
             {c.role}
@@ -520,15 +520,15 @@ function ModulesTab({
         <button
           type="button"
           onClick={onImport}
-          className="w-full px-4 py-3 rounded-2xl border border-dashed border-white/[0.12] text-white/65 hover:text-white hover:border-[rgba(59,130,246,0.45)] hover:bg-[rgba(59,130,246,0.06)] text-sm font-light inline-flex items-center justify-center gap-2 transition-colors"
+          className="w-full px-4 py-3 rounded-2xl border border-dashed border-white/[0.12] text-muted-foreground hover:text-foreground hover:border-[rgba(59,130,246,0.45)] hover:bg-[rgba(59,130,246,0.06)] text-sm font-light inline-flex items-center justify-center gap-2 transition-colors"
         >
           <Plus size={14} /> Importar módulo
         </button>
       )}
       {usages.length === 0 ? (
         <div className="py-10 text-center">
-          <Boxes size={24} className="text-white/35 mx-auto mb-3" />
-          <p className="text-white/55 font-light">
+          <Boxes size={24} className="text-muted-foreground mx-auto mb-3" />
+          <p className="text-muted-foreground font-light">
             {canEdit
               ? "Este proyecto no declaró módulos todavía."
               : "Sin módulos declarados todavía."}
@@ -540,7 +540,7 @@ function ModulesTab({
             key={u.module.id}
             className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
           >
-            <Boxes size={14} className="text-white/55" />
+            <Boxes size={14} className="text-muted-foreground" />
             <div className="flex-1 min-w-0">
               <p className="text-white/85 text-sm font-light truncate">{u.module.name}</p>
               <p className="text-white/40 text-[0.72rem] truncate">
@@ -552,7 +552,7 @@ function ModulesTab({
               <button
                 type="button"
                 onClick={() => onRemove(u.module.id)}
-                className="text-white/45 hover:text-[#ff8aa8] text-[0.72rem] transition-colors"
+                className="text-muted-foreground hover:text-[#ff8aa8] text-[0.72rem] transition-colors"
               >
                 quitar
               </button>
@@ -568,8 +568,8 @@ function IdeasTab({ linkedIdeas }: { linkedIdeas: LinkedIdeaSummary[] }) {
   if (linkedIdeas.length === 0) {
     return (
       <div className="p-10 text-center">
-        <Lightbulb size={24} className="text-white/35 mx-auto mb-3" />
-        <p className="text-white/65 font-light mb-3">Sin ideas linkeadas todavía.</p>
+        <Lightbulb size={24} className="text-muted-foreground mx-auto mb-3" />
+        <p className="text-muted-foreground font-light mb-3">Sin ideas linkeadas todavía.</p>
         <p className="text-white/40 text-sm font-light max-w-md mx-auto">
           Las ideas se linkean desde el sheet de la idea. Andá a la pestaña <em>Ideas</em>
           de la red para ver el catálogo.
@@ -584,7 +584,7 @@ function IdeasTab({ linkedIdeas }: { linkedIdeas: LinkedIdeaSummary[] }) {
           key={l.idea.id}
           className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
         >
-          <Lightbulb size={14} className="text-white/55" />
+          <Lightbulb size={14} className="text-muted-foreground" />
           <div className="flex-1 min-w-0">
             <p className="text-white/85 text-sm font-light truncate">{l.idea.title}</p>
             <p className="text-white/40 text-[0.72rem]">link: {l.link.link_type}</p>
@@ -617,13 +617,13 @@ function ChangesTab({
         <button
           type="button"
           onClick={onNewChange}
-          className="w-full px-4 py-3 rounded-2xl border border-dashed border-white/[0.12] text-white/65 hover:text-white hover:border-[rgba(59,130,246,0.45)] hover:bg-[rgba(59,130,246,0.06)] text-sm font-light inline-flex items-center justify-center gap-2 transition-colors"
+          className="w-full px-4 py-3 rounded-2xl border border-dashed border-white/[0.12] text-muted-foreground hover:text-foreground hover:border-[rgba(59,130,246,0.45)] hover:bg-[rgba(59,130,246,0.06)] text-sm font-light inline-flex items-center justify-center gap-2 transition-colors"
         >
           <Plus size={14} /> Anotar un cambio
         </button>
       )}
       {changes.length === 0 ? (
-        <div className="py-10 text-center text-white/55 font-light">Sin cambios todavía.</div>
+        <div className="py-10 text-center text-muted-foreground font-light">Sin cambios todavía.</div>
       ) : (
         changes.map((c) => (
           <div key={c.id} className="px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
@@ -632,20 +632,20 @@ function ChangesTab({
                 className="inline-block w-1.5 h-1.5 rounded-full"
                 style={{ background: KIND_DOT[c.kind], boxShadow: `0 0 6px ${KIND_DOT[c.kind]}` }}
               />
-              <span className="kicker text-white/55">{c.kind}</span>
+              <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">{c.kind}</span>
               <span className="text-white/25">·</span>
-              <span className="text-white/45 text-[0.72rem]">
+              <span className="text-muted-foreground text-[0.72rem]">
                 {new Date(c.created_at).toLocaleDateString("es-AR", { day: "2-digit", month: "short" })}
               </span>
             </div>
             <p className="text-white/90 text-sm font-light">{c.title}</p>
-            {c.body && <p className="text-white/55 text-[0.78rem] font-light mt-1">{c.body}</p>}
+            {c.body && <p className="text-muted-foreground text-[0.78rem] font-light mt-1">{c.body}</p>}
             {c.ref_url && (
               <a
                 href={c.ref_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-white/55 hover:text-white text-[0.72rem] mt-2 transition-colors"
+                className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground text-[0.72rem] mt-2 transition-colors"
               >
                 ver ref <ExternalLink size={10} />
               </a>
@@ -694,8 +694,8 @@ function CommentsTab({
       <div className="flex-1 p-6 sm:p-8 space-y-3">
         {tree.length === 0 ? (
           <div className="py-12 text-center">
-            <MessageCircle size={24} className="text-white/35 mx-auto mb-3" />
-            <p className="text-white/55 font-light">Sin comentarios todavía. Tirá el primero.</p>
+            <MessageCircle size={24} className="text-muted-foreground mx-auto mb-3" />
+            <p className="text-muted-foreground font-light">Sin comentarios todavía. Tirá el primero.</p>
           </div>
         ) : (
           tree.map((node) => (
@@ -713,13 +713,13 @@ function CommentsTab({
 
       <div className="sticky bottom-0 left-0 right-0 border-t border-white/[0.06] bg-[rgba(22,24,31,0.92)] backdrop-blur-md px-4 sm:px-6 py-3">
         {replyTo && (
-          <div className="flex items-center gap-2 mb-2 text-[0.72rem] text-white/55">
+          <div className="flex items-center gap-2 mb-2 text-[0.72rem] text-muted-foreground">
             <CornerDownRight size={11} />
             <span>respondés a {replyTo.author?.full_name ?? "alguien"}</span>
             <button
               type="button"
               onClick={() => setReplyTo(null)}
-              className="ml-auto text-white/45 hover:text-white transition-colors"
+              className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
             >
               cancelar
             </button>
@@ -738,13 +738,13 @@ function CommentsTab({
                 handleSubmit();
               }
             }}
-            className="flex-1 resize-none px-4 py-2.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-white/90 placeholder:text-white/35 text-sm font-light focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors min-h-[42px] max-h-32 disabled:opacity-50"
+            className="flex-1 resize-none px-4 py-2.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-white/90 placeholder:text-muted-foreground text-sm font-light focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors min-h-[42px] max-h-32 disabled:opacity-50"
           />
           <button
             type="button"
             onClick={handleSubmit}
             disabled={!draft.trim() || submitting || !currentUserId}
-            className="px-4 py-2.5 rounded-2xl text-[0.78rem] text-white/95 border border-[rgba(59,130,246,0.45)] bg-[rgba(59,130,246,0.18)] hover:bg-[rgba(59,130,246,0.28)] disabled:opacity-40 inline-flex items-center gap-1.5 transition-colors"
+            className="px-4 py-2.5 rounded-2xl text-[0.78rem] text-foreground border border-border-strong bg-foreground text-background hover:opacity-90 disabled:opacity-40 inline-flex items-center gap-1.5 transition-colors"
           >
             <Send size={13} />
             <span className="hidden sm:inline">Enviar</span>
@@ -828,7 +828,7 @@ function CommentNode({
               <button
                 type="button"
                 onClick={() => onReply(node)}
-                className="text-white/45 hover:text-white text-[0.7rem] transition-colors"
+                className="text-muted-foreground hover:text-foreground text-[0.7rem] transition-colors"
               >
                 responder
               </button>
@@ -838,7 +838,7 @@ function CommentNode({
                 <button
                   type="button"
                   onClick={() => setMenuOpen((v) => !v)}
-                  className="text-white/45 hover:text-white transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Opciones"
                 >
                   <MoreHorizontal size={14} />
@@ -858,7 +858,7 @@ function CommentNode({
                           setEditing(true);
                           setMenuOpen(false);
                         }}
-                        className="w-full text-left px-3 py-2 text-white/80 hover:bg-white/[0.05] text-[0.75rem] inline-flex items-center gap-2"
+                        className="w-full text-left px-3 py-2 text-white/80 hover:bg-card text-[0.75rem] inline-flex items-center gap-2"
                       >
                         <Pencil size={12} /> Editar
                       </button>
@@ -868,7 +868,7 @@ function CommentNode({
                           setMenuOpen(false);
                           await onDelete(node.id);
                         }}
-                        className="w-full text-left px-3 py-2 text-[#ff8aa8] hover:bg-white/[0.05] text-[0.75rem] inline-flex items-center gap-2"
+                        className="w-full text-left px-3 py-2 text-[#ff8aa8] hover:bg-card text-[0.75rem] inline-flex items-center gap-2"
                       >
                         <Trash2 size={12} /> Borrar
                       </button>
@@ -895,14 +895,14 @@ function CommentNode({
                   setEditing(false);
                   setDraft(node.body);
                 }}
-                className="text-white/55 hover:text-white transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 cancelar
               </button>
               <button
                 type="button"
                 onClick={saveEdit}
-                className="px-3 py-1 rounded-full text-white/95 border border-[rgba(59,130,246,0.45)] bg-[rgba(59,130,246,0.18)] hover:bg-[rgba(59,130,246,0.28)] transition-colors"
+                className="px-3 py-1 rounded-full text-foreground border border-border-strong bg-foreground text-background hover:opacity-90 transition-colors"
               >
                 guardar
               </button>
