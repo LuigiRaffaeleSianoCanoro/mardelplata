@@ -10,7 +10,7 @@ import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo/site";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: { absolute: `${SITE_NAME} — Comunidad dev de Mar del Plata` },
+  title: { absolute: `${SITE_NAME} — El Club Tech de Mar del Plata` },
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
 };

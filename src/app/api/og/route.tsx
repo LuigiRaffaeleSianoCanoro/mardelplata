@@ -10,7 +10,7 @@ const RAMBLA =
 
 export function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const title = (searchParams.get("title") ?? "Programamos con viento de costado.").slice(0, 100);
+  const title = (searchParams.get("title") ?? "El Club Tech de Mar del Plata").slice(0, 100);
   const eyebrow = (searchParams.get("eyebrow") ?? "Comunidad dev · Mar del Plata").slice(0, 80);
   const mark = `data:image/svg+xml;utf8,${encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path fill="#ededed" fill-rule="evenodd" d="${RAMBLA}"/></svg>`,

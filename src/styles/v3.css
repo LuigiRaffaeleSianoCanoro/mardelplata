@@ -354,3 +354,49 @@ html:has(.v3-shell) [cmdk-item] {
   font-size: 14px;
   border-radius: 6px;
 }
+
+/* ── Páginas (no-home): mismo look, el documento sí scrollea ─────────── */
+html:has(.v3-shell--page),
+html:has(.v3-shell--page) body {
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
+  overscroll-behavior: auto;
+}
+.v3-shell--page {
+  height: auto;
+  min-height: 100dvh;
+}
+/* Fondo piedra fijo detrás del contenido scrolleable. */
+.v3-piedra--fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* AppShell / canvas: alinear el chrome de la app con Piedra cuando hay tokens. */
+html:has(.v3-shell) .app-canvas {
+  background: var(--background) !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .app-canvas::before,
+html:has(.v3-shell) .app-canvas::after {
+  opacity: 0.35;
+  background-image: none !important;
+}
+html:has(.v3-shell) .app-sidebar {
+  background: color-mix(in oklab, var(--background) 92%, transparent);
+  border-color: var(--border);
+}
+html:has(.v3-shell) .app-shell-content {
+  background: transparent;
+}
+/* Páginas con Navbar sticky: el contenido no necesita el pt-20 del pill viejo,
+   pero lo dejamos; sólo evitamos que el fondo viejo pelee con Piedra. */
+html:has(.v3-shell) .bolsa-x,
+html:has(.v3-shell) .marketplace-x,
+html:has(.v3-shell) .prensa-x,
+html:has(.v3-shell) .blog-x {
+  background: transparent;
+}

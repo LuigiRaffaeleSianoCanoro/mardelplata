@@ -35,7 +35,7 @@ import { TABS, isTabId, type TabId } from "./tabs";
 type Overlay = OverlayState;
 
 const COORDS = "38°00′S 57°33′W";
-const HERO_WORDS = ["Programamos", "con", "viento", "de", "costado."];
+const HERO_WORDS = ["El", "Club", "Tech", "de", "Mar", "del", "Plata"];
 
 function readUrl(): { tab: TabId; overlay: Overlay } {
   const sp = new URLSearchParams(window.location.search);
@@ -391,9 +391,9 @@ export default function Shell({ data }: { data: ShellData }) {
                 <Label>[MDQ] {COORDS}</Label>
                 <Label className="lg:hidden">{COMMUNITY_SIZE_LABEL} personas</Label>
                 <Label className="hidden lg:inline">Comunidad dev</Label>
-                <Label className="hidden xl:inline">Desde Fauno, Olavarría</Label>
+                <Label className="hidden xl:inline">Costa atlántica</Label>
               </div>
-              <h1 className="v3-display mt-3 max-w-[820px] text-[54px] short:text-[44px] shorter:text-[38px] lg:mt-[min(32px,3.5dvh)] lg:text-[min(112px,12.4dvh,7.8vw)]">
+              <h1 className="v3-display mt-3 max-w-[820px] text-[48px] short:text-[40px] shorter:text-[34px] lg:mt-[min(32px,3.5dvh)] lg:text-[min(112px,12.4dvh,7.8vw)]">
                 {HERO_WORDS.map((w, i) => (
                   <span key={w + i}>
                     <span className="v3-word" style={{ ["--i" as string]: i }}>
@@ -404,7 +404,7 @@ export default function Shell({ data }: { data: ShellData }) {
                 ))}
               </h1>
               <p className="mt-3 text-[14.5px] leading-[1.45] text-muted-foreground short:hidden lg:hidden">
-                La comunidad dev de Mar del Plata. Arrancamos en Fauno, Olavarría, y seguimos juntándonos.
+                La comunidad dev de Mar del Plata: meetups, hackathons, empleos y lo que sale en los medios.
               </p>
               <p className="mt-[min(28px,3dvh)] hidden max-w-[560px] text-[18px] leading-[1.5] text-muted-foreground lg:block">
                 {BRAND} junta a la gente que hace software en Mar del Plata: meetups, hackathons, empleos y lo que sale en los medios.
@@ -435,9 +435,9 @@ export default function Shell({ data }: { data: ShellData }) {
                 <div className="text-[13px] text-muted-foreground">personas</div>
               </div>
               <div className="border-l p-5">
-                <Label>Primera juntada</Label>
-                <div className="mt-2 text-[28px] font-semibold tracking-[-0.04em]">Fauno</div>
-                <div className="text-[13px] text-muted-foreground">Olavarría, MdP</div>
+                <Label>Ciudad</Label>
+                <div className="mt-2 text-[28px] font-semibold tracking-[-0.04em]">Mar del Plata</div>
+                <div className="text-[13px] text-muted-foreground">Costa atlántica</div>
               </div>
               {next?.venueName ? (
                 <div className="min-w-0 border-l p-5">

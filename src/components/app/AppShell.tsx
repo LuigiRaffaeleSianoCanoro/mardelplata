@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import AppSidebar, { type AppSidebarUser } from "./AppSidebar";
+import { PiedraRoot, SiteHeader } from "@/components/v3/Chrome";
 import CommandPalette from "./CommandPalette";
 import { createClient } from "@/lib/supabase/client";
 import { IS_MOCK, mockProfile } from "@/lib/devMock";
@@ -109,16 +110,18 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
   }, [userProp]);
 
   return (
-    <div className="min-h-screen app-canvas">
-      {/* Sidebar lives outside the keyed wrapper, so it never re-mounts on
-          route changes — feels like a fixed skeleton with the content panel
-          swapping underneath. */}
+    <div className="app-canvas relative min-h-dvh bg-background text-foreground">
+      <PiedraRoot page />
+      {/* Header Piedra en desktop ancho; sidebar sigue siendo la nav de la app. */}
+      <div className="lg:hidden">
+        <SiteHeader />
+      </div>
       <AppSidebar
         isAdmin={resolvedAdmin}
         user={user}
         onOpenSearch={() => setPaletteOpen(true)}
       />
-      <div key={pathname} className="app-shell-content shell-content-fade">
+      <div key={pathname} className="app-shell-content shell-content-fade relative z-10">
         {children}
       </div>
       {scanning && <div className="shell-scan-line" aria-hidden="true" />}

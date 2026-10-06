@@ -35,7 +35,7 @@ export function CommunityPanel({
       <section className="v3-glass flex shrink-0 flex-col gap-2 rounded-xl border p-4 lg:p-5">
         <div className="flex items-center justify-between gap-2">
           <Label>Comunidad</Label>
-          <Label className="truncate">Desde Fauno, Olavarría</Label>
+          <Label className="truncate">Mar del Plata</Label>
         </div>
         <div className="flex items-end justify-between gap-3">
           <div>
@@ -50,7 +50,7 @@ export function CommunityPanel({
           ) : null}
         </div>
         <p className="text-[13.5px] leading-[1.45] text-muted-foreground short:hidden">
-          Arrancamos en Fauno, Olavarría, y seguimos juntándonos.
+          La gente que hace software en Mar del Plata.
         </p>
       </section>
 

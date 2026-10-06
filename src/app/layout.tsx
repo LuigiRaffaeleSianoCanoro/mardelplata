@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/api/og?title=Programamos%20con%20viento%20de%20costado.",
+        url: "/api/og?title=El%20Club%20Tech%20de%20Mar%20del%20Plata",
         width: 1200,
         height: 630,
         alt: `${SITE_NAME} — Comunidad dev de Mar del Plata`,
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} — Comunidad dev de Mar del Plata`,
     description: SITE_DESCRIPTION,
-    images: ["/api/og?title=Programamos%20con%20viento%20de%20costado."],
+    images: ["/api/og?title=El%20Club%20Tech%20de%20Mar%20del%20Plata"],
   },
 };
 

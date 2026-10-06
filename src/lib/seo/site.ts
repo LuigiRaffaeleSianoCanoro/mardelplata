@@ -10,7 +10,7 @@ export const SITE_NAME = "mardelplata.dev.ar";
 export const SITE_LEGAL_NAME = "mardelplata.dev.ar — Comunidad dev de Mar del Plata";
 
 export const SITE_DESCRIPTION =
-  "La comunidad dev de Mar del Plata: meetups, hackathons, empleos y lo que sale en los medios. Arrancamos en Fauno, Olavarría, y seguimos juntándonos.";
+  "El Club Tech de Mar del Plata: meetups, hackathons, empleos y lo que sale en los medios.";
 
 export const SITE_LOCALE = "es_AR";
 
