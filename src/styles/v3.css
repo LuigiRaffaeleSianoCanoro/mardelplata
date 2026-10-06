@@ -724,3 +724,30 @@ html:has(.v3-shell) .bolsa-x-filter {
 html:has(.v3-shell) .shell-grid {
   gap: 0.75rem;
 }
+
+/* Brand book / marketing kit: legacy ocean utilities → Piedra neutrals */
+html:has(.v3-shell) .bg-ocean-600,
+html:has(.v3-shell) .bg-ocean-700,
+html:has(.v3-shell) .bg-ocean-400,
+html:has(.v3-shell) .bg-ocean-300,
+html:has(.v3-shell) .bg-ocean-600\/40,
+html:has(.v3-shell) [class*="bg-ocean-"] {
+  background-image: none !important;
+}
+html:has(.v3-shell) .bg-ocean-600,
+html:has(.v3-shell) .hover\:bg-ocean-700:hover {
+  background-color: var(--foreground) !important;
+  color: var(--background) !important;
+}
+html:has(.v3-shell) .bg-ocean-600\/40 {
+  background-color: var(--muted) !important;
+}
+html:has(.v3-shell) .border-ocean-600\/30 {
+  border-color: var(--border) !important;
+}
+html:has(.v3-shell) .bg-ocean-300 {
+  background-color: var(--oxido) !important;
+}
+html:has(.v3-shell) .pulse-dot {
+  background-color: var(--oxido) !important;
+}
