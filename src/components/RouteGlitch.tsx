@@ -69,6 +69,9 @@ export default function RouteGlitch() {
       // Con reduced-motion activo el overlay (glitch + delay de 720ms) se
       // salta por completo: navegacion nativa inmediata.
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      // Desde el shell v3 (home sin scroll) la navegación es nativa: su
+      // sistema de motion (Emil Kowalski / Linear) no usa el glitch.
+      if (document.querySelector(".v3-shell")) return;
       firstNavSeen = true;
 
       e.preventDefault();

@@ -20,4 +20,10 @@ export interface CuratedEvent {
   tier: EventTier;
   /** Fecha en que se verificó la página pública de Luma (YYYY-MM-DD). */
   verifiedAt: string;
+  /** Opcional (v3): precio tal cual figura en Luma, ej. «Gratis». */
+  price?: string;
+  /** Opcional (v3): cupo publicado en Luma. */
+  capacity?: number;
+  /** Opcional (v3): puntos de agenda confirmados (sin horarios inventados). */
+  agenda?: string[];
 }
