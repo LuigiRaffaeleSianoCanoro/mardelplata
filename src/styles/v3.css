@@ -612,3 +612,115 @@ html:has(.v3-shell) .footer-x,
 html:has(.v3-shell) .nav-x {
   background: transparent !important;
 }
+
+/* ── Filtros / cards (empresas, bolsa, marketplace) bajo Piedra ───────── */
+html:has(.v3-shell) .bolsa-x-pill {
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  border: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  box-shadow: none;
+}
+html:has(.v3-shell) .bolsa-x-pill:hover {
+  background: var(--card);
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+html:has(.v3-shell) .bolsa-x-pill.is-active {
+  background: var(--foreground);
+  border-color: transparent;
+  color: var(--background);
+  box-shadow: none;
+}
+html:has(.v3-shell) input.bolsa-x-pill {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border-strong);
+}
+html:has(.v3-shell) input.bolsa-x-pill:hover,
+html:has(.v3-shell) input.bolsa-x-pill:focus {
+  background: var(--background);
+  color: var(--foreground);
+  outline: none;
+  border-color: var(--ring);
+}
+
+html:has(.v3-shell) .shell-card,
+html:has(.v3-shell) a.shell-card,
+html:has(.v3-shell) .marketplace-card,
+html:has(.v3-shell) .classified-card {
+  background: color-mix(in oklab, var(--card) 70%, transparent) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+html:has(.v3-shell) .shell-card:hover,
+html:has(.v3-shell) a.shell-card:hover,
+html:has(.v3-shell) .marketplace-card:hover,
+html:has(.v3-shell) .classified-card:hover {
+  background: var(--card) !important;
+  border-color: var(--border-strong) !important;
+  transform: none !important;
+}
+html:has(.v3-shell) .shell-card__title,
+html:has(.v3-shell) .classified-card-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .shell-card__desc,
+html:has(.v3-shell) .shell-card__meta,
+html:has(.v3-shell) .classified-card-desc,
+html:has(.v3-shell) .classified-card-author,
+html:has(.v3-shell) .classified-card-kind {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .classified-card-new {
+  background: transparent;
+  border: 1px solid color-mix(in oklab, var(--oxido) 50%, var(--border));
+  color: var(--oxido);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  box-shadow: none;
+}
+html:has(.v3-shell) .classified-card-tag,
+html:has(.v3-shell) .marketplace-chip,
+html:has(.v3-shell) .shell-tag,
+html:has(.v3-shell) .shell-tag--violet,
+html:has(.v3-shell) .shell-tag--emerald,
+html:has(.v3-shell) .shell-tag--cyan,
+html:has(.v3-shell) .shell-tag--amber,
+html:has(.v3-shell) .shell-tag--rose {
+  background: transparent !important;
+  border: 1px solid var(--border-strong) !important;
+  color: var(--muted-foreground) !important;
+  box-shadow: none !important;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+}
+html:has(.v3-shell) .marketplace-avatar {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+html:has(.v3-shell) .marketplace-chip--deck {
+  border-color: color-mix(in oklab, var(--oxido) 40%, var(--border)) !important;
+  color: var(--oxido) !important;
+}
+html:has(.v3-shell) .bolsa-x-filter {
+  gap: 0.4rem;
+}
+html:has(.v3-shell) .shell-grid {
+  gap: 0.75rem;
+}

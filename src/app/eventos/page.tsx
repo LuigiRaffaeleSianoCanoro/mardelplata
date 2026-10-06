@@ -17,7 +17,7 @@ import {
 import {
   formatEventDay,
   formatEventMonth,
-  formatEventTime,
+  formatEventTimeRange,
   getTagFlavor,
   isOnlineEvent,
 } from "@/lib/events/format";
@@ -132,7 +132,7 @@ function EventoCard({
 }) {
   const day = formatEventDay(event.date);
   const month = formatEventMonth(event.date);
-  const time = formatEventTime(event.date);
+  const time = formatEventTimeRange(event.date, event.end_date);
   const tag = getTagFlavor(event.tags);
   const isMystery = event.is_mystery;
   const hostsLine = event.hosts.length > 0 ? event.hosts.join(" · ") : null;
