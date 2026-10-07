@@ -7,6 +7,7 @@ export type { CuratedEvent, EventTier } from "./types";
 export const LUMA_EXCLUDE_SLUGS = new Set([
   "fktjzk1y", // Grok Bot Meetup — privado hasta que Luigi publique
   "b8qc0zng", // Inauguración PSICOCONECTA Castelli
+  "ot4itlsp", // MdP Data Challenge (16 oct 2026) — cancelado
 ]);
 
 /** Títulos o hosts que indican evento fuera de scope (case-insensitive). */

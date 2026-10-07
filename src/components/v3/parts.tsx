@@ -159,7 +159,7 @@ export function NextEventCard({
   );
 }
 
-/** Fila compacta de evento (Data Challenge, calendario). */
+/** Fila compacta de evento (calendario). */
 export function EventRow({
   event,
   onOpen,

@@ -10,6 +10,7 @@ const LUMA_DISCOVER_API = "https://api2.luma.com/discover/get-paginated-events";
 export const LUMA_EXCLUDE_SLUGS = new Set([
   "fktjzk1y",
   "b8qc0zng",
+  "ot4itlsp", // MdP Data Challenge (16 oct 2026) — cancelado, página Luma eliminada
 ]);
 
 export const EVENT_EXCLUDE_PATTERNS = [
@@ -114,6 +115,11 @@ export async function fetchLumaBySlug(slug) {
   const res = await fetch(url, {
     headers: { Accept: "application/json" },
   });
+  // 404 = evento borrado/cancelado en Luma: devolver null para que el caller
+  // lo reporte como SKIP (warning) en vez de cortar el sync con exit 1.
+  if (res.status === 404) {
+    return null;
+  }
   if (!res.ok) {
     throw new Error(`Luma URL API ${res.status} for slug ${slug}`);
   }

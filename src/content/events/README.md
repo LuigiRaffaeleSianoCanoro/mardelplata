@@ -50,7 +50,9 @@ Shape mínimo:
 
 ## Exclusiones
 
-En `index.ts`: slugs privados (`fktjzk1y`, `b8qc0zng`) y patrones Pavla, PsicoConecta, Disro, Builders OFF The Record. El script de sync replica estas reglas.
+En `index.ts`: slugs privados o cancelados (`fktjzk1y`, `b8qc0zng`, `ot4itlsp`) y patrones Pavla, PsicoConecta, Disro, Builders OFF The Record. El script de sync replica estas reglas.
+
+Si un evento se cancela y su página de Luma devuelve 404, el refresh lo reporta como `SKIP (not found on Luma)` sin fallar el workflow. Para sacarlo del sitio, borrar su JSON de `items/` (y sumar el slug a las exclusiones si no debe volver por `--discover`).
 
 ## Fuentes Luma
 
