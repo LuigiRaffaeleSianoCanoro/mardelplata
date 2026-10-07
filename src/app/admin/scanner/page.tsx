@@ -363,27 +363,27 @@ export default function ScannerPage() {
 
   return (
     <div className="min-h-screen app-canvas">
-      <header className="border-b border-ocean-300/10 backdrop-blur-md bg-ocean-900/40 sticky top-0 z-30">
+      <header className="border-b border-border backdrop-blur-md bg-background/80 sticky top-0 z-30">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/admin" className="inline-flex items-center gap-2 text-ocean-300/80 hover:text-white transition-colors text-sm">
+          <Link href="/admin" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             Volver al admin
           </Link>
-          <span className="font-display font-semibold text-white text-[0.95rem] tracking-tight">
-            Escáner <span className="text-ocean-300">QR</span>
+          <span className="font-display font-semibold text-foreground text-[0.95rem] tracking-tight">
+            Escáner <span className="text-muted-foreground">QR</span>
           </span>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-6">
         <div className="mb-6 fade-up">
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70 mb-2">/ Evento activo</p>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground/70 mb-2">/ Evento activo</p>
           <select
             value={selectedEvent}
             onChange={(e) => setSelectedEvent(e.target.value)}
-            className="w-full px-4 py-3 bg-ocean-900/50 border border-ocean-300/15 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+            className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
           >
             {events.map((event) => (
               <option key={event.id} value={event.id}>
@@ -395,14 +395,14 @@ export default function ScannerPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <GlassCard className="p-6 fade-up" style={{ animationDelay: "120ms" }}>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70 mb-3">/ 01 · Cámara</p>
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground/70 mb-3">/ 01 · Cámara</p>
             {availableCameras.length > 1 && (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-ocean-200 mb-2">Camara</label>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Camara</label>
                 <select
                   value={selectedCameraId}
                   onChange={(e) => setSelectedCameraId(e.target.value)}
-                  className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 >
                   <option value="">Auto (preferir trasera)</option>
                   {availableCameras.map((camera) => (
@@ -414,7 +414,7 @@ export default function ScannerPage() {
               </div>
             )}
             
-            <div className="relative aspect-square bg-ocean-900 rounded-xl overflow-hidden mb-4">
+            <div className="relative aspect-square bg-background rounded-xl overflow-hidden mb-4">
               {scanning ? (
                 <video
                   ref={videoRef}
@@ -424,7 +424,7 @@ export default function ScannerPage() {
                   muted
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-ocean-500">
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                     <circle cx="12" cy="13" r="4"/>
@@ -433,11 +433,11 @@ export default function ScannerPage() {
               )}
               {scanning && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-48 h-48 border-2 border-ocean-400 rounded-xl animate-pulse" />
+                  <div className="w-48 h-48 border-2 border-[var(--oxido)] rounded-xl animate-pulse" />
                 </div>
               )}
               {isStartingCamera && (
-                <div className="absolute inset-0 bg-ocean-900/80 flex items-center justify-center text-ocean-200 text-sm">
+                <div className="absolute inset-0 bg-background/80 flex items-center justify-center text-muted-foreground text-sm">
                   Iniciando camara...
                 </div>
               )}
@@ -463,14 +463,14 @@ export default function ScannerPage() {
             </div>
 
             {/* Manual input */}
-            <div className="mt-4 pt-4 border-t border-ocean-700/30">
+            <div className="mt-4 pt-4 border-t border-border">
               <form onSubmit={handleManualSubmit} className="flex gap-2">
                 <input
                   type="text"
                   value={manualCode}
                   onChange={(e) => setManualCode(e.target.value)}
                   placeholder="Código manual (MDP-XXXX)"
-                  className="flex-1 px-4 py-2 bg-ocean-900/50 border border-ocean-300/15 rounded-xl text-white text-sm placeholder:text-ocean-500 focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                  className="flex-1 px-4 py-2 bg-background border border-border rounded-xl text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 />
                 <Button type="submit" variant="ghost" size="sm">
                   Buscar
@@ -503,19 +503,19 @@ export default function ScannerPage() {
           <GlassCard className="p-6 fade-up" style={{ animationDelay: "240ms" }}>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 02 · Asistencia</p>
-                <h2 className="text-lg font-display font-bold text-white mt-1">En vivo</h2>
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground/70">/ 02 · Asistencia</p>
+                <h2 className="text-lg font-display font-bold text-foreground mt-1">En vivo</h2>
               </div>
-              <span className="text-ocean-300/70 text-xs font-mono">{scannedMembers.length} registrados</span>
+              <span className="text-muted-foreground/70 text-xs font-mono">{scannedMembers.length} registrados</span>
             </div>
 
             <div className="space-y-2 max-h-[500px] overflow-y-auto">
               {scannedMembers.map((member) => (
                 <div
                   key={member.id + member.scanned_at}
-                  className="flex items-center gap-3 bg-ocean-900/50 rounded-xl p-3"
+                  className="flex items-center gap-3 bg-background rounded-xl p-3"
                 >
-                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-ocean-700/50 flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-muted flex-shrink-0">
                     <img
                       src={resolveAvatarDisplayUrl(member.avatar_url, member.full_name || member.id)}
                       alt=""
@@ -523,20 +523,20 @@ export default function ScannerPage() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-white truncate">
+                    <div className="font-medium text-foreground truncate">
                       {member.full_name || "Sin nombre"}
                     </div>
-                    <div className="text-ocean-400 text-xs">
+                    <div className="text-muted-foreground text-xs">
                       {new Date(member.scanned_at).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}
                     </div>
                   </div>
-                  <div className="flex-shrink-0 text-ocean-500 text-xs font-mono max-w-[90px] sm:max-w-[110px] truncate">
+                  <div className="flex-shrink-0 text-muted-foreground text-xs font-mono max-w-[90px] sm:max-w-[110px] truncate">
                     {member.qr_code}
                   </div>
                 </div>
               ))}
               {scannedMembers.length === 0 && (
-                <div className="text-center py-8 text-ocean-500">
+                <div className="text-center py-8 text-muted-foreground">
                   No hay asistentes registrados.
                 </div>
               )}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import CafeDirectory from "@/components/cafes/CafeDirectory";
@@ -41,7 +41,7 @@ export default async function TrabajarPage() {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="trabajar-x">
         <header className="shell-section shell-section--lg">
@@ -88,6 +88,6 @@ export default async function TrabajarPage() {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }

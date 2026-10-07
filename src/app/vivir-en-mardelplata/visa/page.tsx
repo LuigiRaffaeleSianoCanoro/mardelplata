@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import Faq from "@/components/nomad/Faq";
@@ -33,7 +33,7 @@ export default function VisaPage() {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="visa-x">
         <header className="shell-section shell-section--lg">
@@ -127,6 +127,6 @@ export default function VisaPage() {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }

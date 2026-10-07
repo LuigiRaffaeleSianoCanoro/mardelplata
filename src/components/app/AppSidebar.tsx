@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { LogoMark } from "@/components/v3/Logo";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -57,8 +57,8 @@ function SidebarTooltip({
           show ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-1 scale-95"
         } ${
           active
-            ? "bg-[rgba(28,31,39,0.95)] border border-[rgba(59,130,246,0.32)] text-[#3B82F6] shadow-lg"
-            : "bg-[rgba(20,22,28,0.95)] border border-white/[0.08] text-white/80 shadow-lg"
+            ? "border border-border-strong bg-card text-foreground shadow-lg"
+            : "border border-border bg-card/95 text-muted-foreground shadow-lg"
         }`}
       >
         <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ function Shimmer({ hovered }: { hovered: boolean }) {
         transform: hovered ? "translateX(100%)" : "translateX(-100%)",
         transition: hovered ? "transform 500ms var(--ease-out-soft)" : "none",
       }}
-      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-xl pointer-events-none"
+      className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-foreground/5 to-transparent"
     />
   );
 }
@@ -129,7 +129,7 @@ function PillarButton({
 
   const className = `relative w-11 h-11 flex items-center justify-center rounded-xl transition-[scale,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
     hovered && !isActive ? "scale-105" : ""
-  } ${isActive ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""}`;
+  } ${isActive ? "bg-card ring-1 ring-border" : ""}`;
   const style: React.CSSProperties = {
     animation: `sidebar-tab-in 240ms var(--ease-out-soft) ${index * 40}ms both`,
     ...(isActive
@@ -191,7 +191,7 @@ function PillarButton({
 /*  Tab button (bottom — for active pillar)                             */
 /* ------------------------------------------------------------------ */
 
-const TAB_HOVER_PALETTE = ["#C0D4E8", "#F2D0C8", "#C8E0D0", "#F5E0C0", "#D0C8E8"];
+const TAB_HOVER_PALETTE = ["#ededed", "#ff5c26", "#a1a1a1", "#ededed", "#ff5c26"];
 
 function TabButton({
   tab,
@@ -210,7 +210,7 @@ function TabButton({
 
   const className = `relative w-10 h-10 flex items-center justify-center rounded-xl transition-[scale,box-shadow,background-color] duration-200 overflow-hidden active:scale-95 ${
     hovered && !isActive ? "scale-105" : ""
-  } ${isActive ? "bg-[rgba(35,39,50,0.92)]" : ""}`;
+  } ${isActive ? "bg-card" : ""}`;
   const style: React.CSSProperties = {
     animation: `sidebar-tab-in 240ms var(--ease-out-soft) ${index * 40}ms both`,
     ...(hovered && !isActive ? { boxShadow: `0 0 8px ${hoverColor}40` } : {}),
@@ -285,7 +285,7 @@ function FooterButton({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`relative w-10 h-10 flex items-center justify-center rounded-xl transition-[scale,box-shadow,background-color] duration-200 overflow-hidden cursor-pointer active:scale-95 ${
-        active ? "bg-[rgba(35,39,50,0.92)] ring-1 ring-white/[0.10]" : ""
+        active ? "bg-card ring-1 ring-border" : ""
       }`}
     >
       <Icon
@@ -351,7 +351,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       label: "Inicio",
       icon: Home,
       basePath: "/",
-      accent: "#3B82F6",
+      accent: "#ededed",
       tabs: [],
       navigate: true,
     },
@@ -360,7 +360,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       label: "Yo",
       icon: User,
       basePath: "/perfil",
-      accent: "#3B82F6",
+      accent: "#ededed",
       tabs: [
         { href: "/perfil", label: "Mi perfil", icon: UserCircle2 },
         { label: "Mi QR", icon: QrCode, action: "qr" },
@@ -373,7 +373,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       label: "Red",
       icon: Network,
       basePath: "/red",
-      accent: "#FF2DAA",
+      accent: "#ff5c26",
       tabs: [
         { href: "/red", label: "Open source", icon: GitBranch },
         { href: "/red/mis-proyectos", label: "Mis proyectos", icon: Bookmark, matchPrefix: "/red/mis-proyectos" },
@@ -388,7 +388,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
             label: "Admin",
             icon: Shield,
             basePath: "/admin",
-            accent: "#FFB070",
+            accent: "#a1a1a1",
             tabs: [
               { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
               { href: "/admin/scanner", label: "Scanner", icon: ScanLine, matchPrefix: "/admin/scanner" },
@@ -468,20 +468,20 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
       aria-label="Navegación principal"
       data-mobile-mode={mobileShowingTabs ? "tabs" : "pillars"}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(59,130,246,0.04)] to-transparent pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-foreground/[0.03] to-transparent" />
 
       {/* Logo */}
       <Link
         href="/"
         className="relative z-10 mb-5 mt-1 flex items-center justify-center group"
-        title="mardelplata.dev"
+        title="mardelplata.dev.ar"
       >
-        <span className="metal-chip w-10 h-10 rounded-xl group-hover:scale-110 transition-transform duration-300">
-          <Image src="/mdpdev.png" alt="MdPDev" width={22} height={22} className="opacity-95" />
+        <span className="flex size-10 items-center justify-center rounded-xl border border-border bg-card transition-transform duration-300 group-hover:scale-105">
+          <LogoMark className="size-[22px] text-foreground" title="mardelplata.dev.ar" />
         </span>
       </Link>
 
-      <div className="relative z-10 w-8 h-px bg-white/[0.06] mb-4 mx-auto" />
+      <div className="relative z-10 w-8 h-px bg-border mb-4 mx-auto" />
 
       {/* Pillars — siempre en DOM. En mobile la visibilidad la decide
           el data-mobile-mode del <aside> via CSS (mas robusto que
@@ -507,7 +507,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
         ))}
       </nav>
 
-      <div className="relative z-10 w-8 h-px bg-white/[0.06] mb-3 mx-auto" />
+      <div className="relative z-10 w-8 h-px bg-border mb-3 mx-auto" />
 
       {/* Tabs for active pillar — siempre en DOM (ver nota arriba). */}
       <nav
@@ -521,7 +521,7 @@ export default function AppSidebar({ isAdmin, user, onOpenSearch }: AppSidebarPr
           type="button"
           onClick={() => setMobileShowingTabs(false)}
           aria-label="Volver al menú principal"
-          className="app-sidebar-back-chip relative w-10 h-10 flex items-center justify-center rounded-xl transition-[scale,color] duration-200 active:scale-95 text-white/55 hover:text-white"
+          className="app-sidebar-back-chip relative w-10 h-10 flex items-center justify-center rounded-xl transition-[scale,color] duration-200 active:scale-95 text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft size={18} strokeWidth={1.6} />
         </button>

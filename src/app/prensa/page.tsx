@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Link from "next/link";
+import { PageFrame, PageHero, PageSection } from "@/components/v3/Page";
 import PressCard from "@/components/prensa/PressCard";
 import ArchiveNotice from "@/components/prensa/ArchiveNotice";
 import JsonLd from "@/components/seo/JsonLd";
@@ -40,61 +40,49 @@ export default function PrensaPage() {
   ];
 
   return (
-    <>
-      <Navbar />
+    <PageFrame>
       <JsonLd schema={schemas} />
-      <main className="prensa-x">
-        <header className="prensa-x-header shell-section shell-section--lg">
-          <div className="shell-inner shell-inner--narrow" style={{ textAlign: "center" }}>
-            <p className="shell-eyebrow">PRENSA · HISTÓRICO</p>
-            <h1 className="shell-title shell-title--xl">
-              Lo que dicen los <em>medios.</em>
-            </h1>
-            <p className="shell-lead" style={{ marginInline: "auto" }}>
-              Archivo público de notas sobre la comunidad Mar del Plata Dev. Cada
-              clipping enlaza al original y guarda una copia por si el medio la
-              saca del aire.
-            </p>
-          </div>
-        </header>
+      <PageHero
+        eyebrow="Prensa · Histórico"
+        title="Lo que dicen los medios"
+        description="Archivo público de notas sobre la comunidad. Cada clipping enlaza al original y guarda una copia por si el medio la saca del aire."
+      />
 
-        <section className="shell-section shell-section--soft">
-          <div className="shell-inner">
-            <ArchiveNotice />
+      <ArchiveNotice />
 
-            <div className="prensa-x-topics" aria-label="Temas">
-              {topics.map(({ tag, label, count }) => (
-                <a key={tag} href={`#tema-${tag}`} className="prensa-x-topic-pill">
-                  {label}
-                  <span className="prensa-x-topic-count">{count}</span>
-                </a>
+      <div className="mb-8 flex flex-wrap gap-2" aria-label="Temas">
+        {topics.map(({ tag, label, count }) => (
+          <a
+            key={tag}
+            href={`#tema-${tag}`}
+            className="inline-flex h-8 items-center gap-2 rounded-full border bg-card/70 px-3 font-mono text-[11px] tracking-[0.04em] text-foreground hover:bg-card"
+          >
+            {label}
+            <span className="text-muted-foreground">{count}</span>
+          </a>
+        ))}
+      </div>
+
+      {topics.map(({ tag, label }) => {
+        const group = items.filter((item) => item.events.includes(tag));
+        if (group.length === 0) return null;
+        return (
+          <PageSection key={tag} title={label} className="scroll-mt-20" >
+            <div id={`tema-${tag}`} className="grid gap-3 sm:grid-cols-2">
+              {group.map((item) => (
+                <PressCard key={item.id} item={item} />
               ))}
             </div>
+          </PageSection>
+        );
+      })}
 
-            {topics.map(({ tag, label }) => {
-              const group = items.filter((item) => item.events.includes(tag));
-              if (group.length === 0) return null;
-              return (
-                <section key={tag} id={`tema-${tag}`} className="prensa-x-group">
-                  <h2 className="prensa-x-group-title">{label}</h2>
-                  <div className="prensa-x-grid">
-                    {group.map((item) => (
-                      <PressCard key={item.id} item={item} />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-
-            <footer className="prensa-x-stats">
-              <span>
-                {items.length} clippings · {archivedCount} con archivo en el sitio
-              </span>
-            </footer>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+      <p className="font-mono text-[11px] tracking-[0.06em] text-muted-foreground uppercase">
+        {items.length} clippings · {archivedCount} con archivo en el sitio ·{" "}
+        <Link href="/" className="normal-case tracking-normal hover:text-foreground">
+          Volver al inicio
+        </Link>
+      </p>
+    </PageFrame>
   );
 }

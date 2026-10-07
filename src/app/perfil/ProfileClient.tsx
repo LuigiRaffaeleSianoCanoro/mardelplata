@@ -220,7 +220,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
             eyebrow="/ Mi perfil"
             title={
               <>
-                Hola, <span className="gradient-text">{currentProfile?.full_name?.split(" ")[0] || "comunidad"}</span>.
+                Hola, <span className="text-foreground">{currentProfile?.full_name?.split(" ")[0] || "comunidad"}</span>.
               </>
             }
             description="Gestioná tu información, avatar y QR de miembro. Tu QR se mantiene estable aunque edites el resto."
@@ -240,10 +240,10 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Profile Card */}
-          <div className="glass-night lg:col-span-2 p-7 sm:p-8 fade-up" style={{ animationDelay: "120ms" }}>
+          <div className="rounded-xl border border-border bg-card/70 lg:col-span-2 p-7 sm:p-8 fade-up" style={{ animationDelay: "120ms" }}>
               <div className="mb-6 flex items-center justify-between gap-3">
-                <p className="kicker text-white/40 flex items-center gap-2">
-                  <span className="dot-amber" /> / 01 · Datos
+                <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground flex items-center gap-2">
+                  <span className="v3-dot" /> / 01 · Datos
                 </p>
               </div>
 
@@ -251,7 +251,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                 {/* Avatar */}
                 <div className="flex-shrink-0">
                   <div className="relative group">
-                    <div className="w-32 h-32 rounded-2xl overflow-hidden bg-ocean-700/50 border-2 border-ocean-500/30">
+                    <div className="w-32 h-32 rounded-xl overflow-hidden bg-muted border-2 border-border">
                       {resolvedAvatar ? (
                         <img
                           src={resolvedAvatar}
@@ -259,7 +259,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-ocean-300">
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                             <circle cx="12" cy="8" r="4"/>
                             <path d="M20 21a8 8 0 1 0-16 0"/>
@@ -267,7 +267,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                         </div>
                       )}
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 bg-ocean-900/75 text-ocean-100 text-xs text-center py-1.5 rounded-b-2xl whitespace-nowrap leading-none overflow-hidden">
+                    <div className="absolute inset-x-0 bottom-0 bg-background/80 text-muted-foreground text-xs text-center py-1.5 rounded-b-2xl whitespace-nowrap leading-none overflow-hidden">
                       {photoAuthorized ? "Foto verificada" : "Avatar tech"}
                     </div>
                   </div>
@@ -278,27 +278,27 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                   {isEditing ? (
                     <>
                       <div>
-                        <label className="block text-sm font-medium text-ocean-200 mb-1">Nombre</label>
+                        <label className="block text-sm font-medium text-muted-foreground mb-1">Nombre</label>
                         <input
                           type="text"
                           value={formData.full_name}
                           onChange={(e) => setFormData(f => ({ ...f, full_name: e.target.value }))}
-                          className="w-full px-4 py-2.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
+                          className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:bg-card transition-colors"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-ocean-200 mb-1">Bio</label>
+                        <label className="block text-sm font-medium text-muted-foreground mb-1">Bio</label>
                         <textarea
                           value={formData.bio}
                           onChange={(e) => setFormData(f => ({ ...f, bio: e.target.value }))}
                           rows={3}
-                          className="w-full px-4 py-2.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors resize-none"
+                          className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:bg-card transition-colors resize-none"
                           placeholder="Contanos sobre vos..."
                         />
                       </div>
                       {!photoAuthorized && (
                         <div>
-                          <p className="block text-sm font-medium text-ocean-200 mb-2">Avatares disponibles</p>
+                          <p className="block text-sm font-medium text-muted-foreground mb-2">Avatares disponibles</p>
                           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
                             {FLATICON_AVATARS.map((avatar) => {
                               const isActive = selectedAvatar === avatar;
@@ -307,7 +307,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                                   key={avatar}
                                   type="button"
                                   onClick={() => setSelectedAvatar(avatar)}
-                                  className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-[border-color,box-shadow] active:scale-[0.97] ${isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500"}`}
+                                  className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-[border-color,box-shadow] active:scale-[0.97] ${isActive ? "border-foreground shadow-lg shadow-none" : "border-border hover:border-border-strong"}`}
                                   aria-label="Seleccionar avatar"
                                 >
                                   <img src={avatar} alt="Avatar preset" className="w-full h-full object-cover" />
@@ -315,18 +315,18 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                               );
                             })}
                           </div>
-                          <p className="text-ocean-300 text-xs mt-2">
+                          <p className="text-muted-foreground text-xs mt-2">
                             Elegí uno de los avatares de la costa para tu perfil.
                           </p>
                         </div>
                       )}
                       {!photoAuthorized && (
                         <div>
-                          <p className="block text-sm font-medium text-ocean-200 mb-2">Coming soon: desbloqueables por asistencia</p>
+                          <p className="block text-sm font-medium text-muted-foreground mb-2">Coming soon: desbloqueables por asistencia</p>
                           <div className="mb-3 bg-ocean-900/40 border border-ocean-700/40 rounded-xl p-3">
-                            <div className="flex items-center justify-between text-xs text-ocean-300 mb-2">
+                            <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
                               <span>Progreso de desbloqueo</span>
-                              <span className="font-medium text-ocean-200">{Math.min(attendanceCount, 5)}/5 eventos</span>
+                              <span className="font-medium text-muted-foreground">{Math.min(attendanceCount, 5)}/5 eventos</span>
                             </div>
                             <div className="h-2 rounded-full bg-ocean-950/80 overflow-hidden">
                               <div
@@ -360,14 +360,14 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                                     }}
                                     className={`aspect-square w-full rounded-xl overflow-hidden border-2 transition-[border-color,box-shadow,opacity] active:scale-[0.97] ${
                                       unlocked
-                                        ? (isActive ? "border-ocean-300 shadow-lg shadow-ocean-400/20" : "border-ocean-700/50 hover:border-ocean-500")
+                                        ? (isActive ? "border-foreground shadow-lg shadow-none" : "border-border hover:border-border-strong")
                                         : "border-ocean-700/40 opacity-60"
                                     }`}
                                     aria-label={unlocked ? "Seleccionar avatar desbloqueado" : "Avatar bloqueado"}
                                   >
                                     <img src={avatar} alt="Avatar desbloqueable" className="w-full h-full object-cover" />
                                     {!unlocked && (
-                                      <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-ocean-950/65 text-[10px] font-semibold tracking-wide text-ocean-100">
+                                      <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-ocean-950/65 text-[10px] font-semibold tracking-wide text-muted-foreground">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                           <rect x="3" y="11" width="18" height="10" rx="2" />
                                           <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -377,7 +377,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                                     )}
                                   </button>
                                   {!unlocked && activeLockedHint === idx && (
-                                    <div className="absolute z-10 left-1/2 -translate-x-1/2 mt-2 w-40 rounded-lg bg-ocean-950 text-ocean-100 text-[11px] p-2 border border-ocean-700/50 shadow-xl">
+                                    <div className="absolute z-10 left-1/2 -translate-x-1/2 mt-2 w-40 rounded-lg bg-ocean-950 text-muted-foreground text-[11px] p-2 border border-border shadow-xl">
                                       {hint}
                                     </div>
                                   )}
@@ -385,50 +385,50 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                               );
                             })}
                           </div>
-                          <p className="text-ocean-300 text-xs mt-2">
+                          <p className="text-muted-foreground text-xs mt-2">
                             Se desbloquea 1 avatar por cada evento donde firmes presencia.
                           </p>
                         </div>
                       )}
                       {photoAuthorized && (
-                        <p className="text-ocean-300 text-xs">
+                        <p className="text-muted-foreground text-xs">
                           Tu foto de perfil está protegida y no se puede reemplazar.
                         </p>
                       )}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <div>
-                          <label className="block text-sm font-medium text-ocean-200 mb-1">GitHub</label>
+                          <label className="block text-sm font-medium text-muted-foreground mb-1">GitHub</label>
                           <input
                             type="url"
                             value={formData.github_url}
                             onChange={(e) => setFormData(f => ({ ...f, github_url: e.target.value }))}
-                            className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
+                            className="w-full px-3.5 py-2 bg-background border border-border rounded-xl text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:bg-card transition-colors"
                             placeholder="URL de GitHub"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-ocean-200 mb-1">LinkedIn</label>
+                          <label className="block text-sm font-medium text-muted-foreground mb-1">LinkedIn</label>
                           <input
                             type="url"
                             value={formData.linkedin_url}
                             onChange={(e) => setFormData(f => ({ ...f, linkedin_url: e.target.value }))}
-                            className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
+                            className="w-full px-3.5 py-2 bg-background border border-border rounded-xl text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:bg-card transition-colors"
                             placeholder="URL de LinkedIn"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-ocean-200 mb-1">Twitter</label>
+                          <label className="block text-sm font-medium text-muted-foreground mb-1">Twitter</label>
                           <input
                             type="url"
                             value={formData.twitter_url}
                             onChange={(e) => setFormData(f => ({ ...f, twitter_url: e.target.value }))}
-                            className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
+                            className="w-full px-3.5 py-2 bg-background border border-border rounded-xl text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:bg-card transition-colors"
                             placeholder="URL de Twitter"
                           />
                         </div>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-ocean-200 mb-1 flex items-center gap-2">
+                        <label className="block text-sm font-medium text-muted-foreground mb-1 flex items-center gap-2">
                           huevsite
                           <span className="text-[10px] uppercase tracking-wide text-ocean-400/80 bg-ocean-500/10 border border-ocean-500/20 rounded-full px-2 py-0.5">
                             Nuevo
@@ -438,12 +438,12 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           type="text"
                           value={formData.huevsite_username}
                           onChange={(e) => setFormData(f => ({ ...f, huevsite_username: e.target.value }))}
-                          className="w-full px-3.5 py-2 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[rgba(59,130,246,0.45)] focus:bg-white/[0.05] transition-colors"
+                          className="w-full px-3.5 py-2 bg-background border border-border rounded-xl text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:bg-card transition-colors"
                           placeholder="tu-usuario o https://huevsite.io/tu-usuario"
                         />
-                        <p className="text-ocean-300 text-xs mt-1.5">
+                        <p className="text-muted-foreground text-xs mt-1.5">
                           Conectá tu{" "}
-                          <a href="https://huevsite.io" target="_blank" rel="noopener noreferrer" className="text-ocean-200 underline underline-offset-2 hover:text-white">
+                          <a href="https://huevsite.io" target="_blank" rel="noopener noreferrer" className="text-muted-foreground underline underline-offset-2 hover:text-foreground">
                             huevsite
                           </a>{" "}
                           y tu card aparece en la home de la comunidad.
@@ -469,31 +469,31 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                   ) : (
                     <>
                       <div>
-                        <h2 className="text-xl font-bold text-white">
+                        <h2 className="text-xl font-bold text-foreground">
                           {currentProfile?.full_name || "Sin nombre"}
                         </h2>
-                        <p className="text-ocean-300 text-sm">{currentProfile?.email || user.email}</p>
+                        <p className="text-muted-foreground text-sm">{currentProfile?.email || user.email}</p>
                       </div>
                       {currentProfile?.bio && (
-                        <p className="text-ocean-200">{currentProfile.bio}</p>
+                        <p className="text-muted-foreground">{currentProfile.bio}</p>
                       )}
                       <div className="flex gap-3">
                         {currentProfile?.github_url && (
-                          <a href={currentProfile.github_url} target="_blank" rel="noopener noreferrer" className="text-ocean-400 hover:text-white transition-colors">
+                          <a href={currentProfile.github_url} target="_blank" rel="noopener noreferrer" className="text-ocean-400 hover:text-foreground transition-colors">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                             </svg>
                           </a>
                         )}
                         {currentProfile?.linkedin_url && (
-                          <a href={currentProfile.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-ocean-400 hover:text-white transition-colors">
+                          <a href={currentProfile.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-ocean-400 hover:text-foreground transition-colors">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                             </svg>
                           </a>
                         )}
                         {currentProfile?.twitter_url && (
-                          <a href={currentProfile.twitter_url} target="_blank" rel="noopener noreferrer" className="text-ocean-400 hover:text-white transition-colors">
+                          <a href={currentProfile.twitter_url} target="_blank" rel="noopener noreferrer" className="text-ocean-400 hover:text-foreground transition-colors">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                             </svg>
@@ -505,7 +505,7 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
                           href={huevsiteProfileUrl(currentProfile.huevsite_username)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-ocean-500/15 border border-ocean-400/30 text-ocean-100 text-sm font-medium hover:bg-ocean-500/25 hover:border-ocean-400/50 transition-colors"
+                          className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-ocean-500/15 border border-ocean-400/30 text-muted-foreground text-sm font-medium hover:bg-ocean-500/25 hover:border-ocean-400/50 transition-colors"
                         >
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -522,33 +522,33 @@ export default function ProfileClient({ user, profile, onRefresh }: ProfileClien
 
           {/* Stats column */}
           <div className="space-y-6">
-            <div className="glass-night p-6 fade-up" style={{ animationDelay: "240ms" }}>
-              <p className="kicker text-white/40 mb-4 flex items-center gap-2">
-                <span className="dot-amber" /> / 02 · Estadísticas
+            <div className="rounded-xl border border-border bg-card/70 p-6 fade-up" style={{ animationDelay: "240ms" }}>
+              <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground mb-4 flex items-center gap-2">
+                <span className="v3-dot" /> / 02 · Estadísticas
               </p>
               <StaggerReveal animation="count-up" baseDelay={420} stagger={90}>
                 <div className="flex justify-between items-baseline border-b border-white/[0.06] pb-3">
                   <span className="text-white/55 text-sm font-light">Miembro desde</span>
-                  <span className="text-white display-thin">
+                  <span className="text-foreground display-thin">
                     {currentProfile?.created_at ? new Date(currentProfile.created_at).toLocaleDateString("es-AR", { month: "short", year: "numeric" }) : "-"}
                   </span>
                 </div>
                 <div className="flex justify-between items-baseline pt-3">
                   <span className="text-white/55 text-sm font-light">Eventos asistidos</span>
-                  <span className="text-white display-thin text-2xl">{attendanceCount}</span>
+                  <span className="text-foreground display-thin text-2xl">{attendanceCount}</span>
                 </div>
               </StaggerReveal>
             </div>
 
-            <div className="glass-night p-6 fade-up" style={{ animationDelay: "320ms" }}>
-              <p className="kicker text-white/40 mb-3 flex items-center gap-2">
-                <span className="dot-amber" /> / 03 · Carnet
+            <div className="rounded-xl border border-border bg-card/70 p-6 fade-up" style={{ animationDelay: "320ms" }}>
+              <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground mb-3 flex items-center gap-2">
+                <span className="v3-dot" /> / 03 · Carnet
               </p>
               <p className="text-white/65 text-sm font-light leading-relaxed mb-4">
-                Tu QR de miembro está disponible desde el sidebar — botón <span className="text-white">Mi QR</span>.
+                Tu QR de miembro está disponible desde el sidebar — botón <span className="text-foreground">Mi QR</span>.
                 Se mantiene estable aunque edites el resto del perfil.
               </p>
-              <p className="coord-line text-white/40">
+              <p className="coord-line text-muted-foreground">
                 CARNET <span className="sep">·</span> <span className="num">{currentProfile?.qr_code ? "ACTIVO" : "PENDIENTE"}</span>
               </p>
             </div>

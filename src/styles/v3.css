@@ -1,0 +1,945 @@
+/* ══════════════════════════════════════════════════════════════════════
+   v3 «Piedra & Código» — design tokens + shadcn/ui theme mapping.
+
+   Scope: los tokens solo existen cuando la pantalla monta el shell v3
+   (`.v3-shell`). Usamos `html:has(.v3-shell)` para que también hereden los
+   overlays que Radix/vaul portalean a <body> (Dialog, Sheet, Drawer,
+   Command, Tooltip, Sonner). Las páginas viejas no montan el shell y
+   siguen con su sistema visual intacto.
+
+   Tema: dark por defecto. `html[data-mdp-theme="light"]` (seteado por un
+   script inline en <head> desde localStorage) activa el light.
+   ══════════════════════════════════════════════════════════════════════ */
+
+@custom-variant dark (&:where(html:has(.v3-shell):not([data-mdp-theme="light"]) *));
+/* Alturas chicas: se resigna contenido, nunca se scrollea. */
+@custom-variant short (@media (max-width: 1023.98px) and (max-height: 780px));
+@custom-variant shorter (@media (max-width: 1023.98px) and (max-height: 700px));
+@custom-variant dshort (@media (min-width: 1024px) and (max-height: 820px));
+@custom-variant hover-device (@media (hover: hover) and (pointer: fine));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-oxido: var(--oxido);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+html:has(.v3-shell),
+.v3-shell {
+  /* Dark (default) */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #0f0f0f;
+  --card-foreground: #ededed;
+  --popover: #0a0a0a;
+  --popover-foreground: #ededed;
+  --primary: #ededed;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #ededed;
+  --muted: #1a1a1a;
+  --muted-foreground: #a1a1a1;
+  --subtle: #8f8f8f;
+  /* shadcn "accent" = superficie de hover/selección (neutral). */
+  --accent: #1a1a1a;
+  --accent-foreground: #ededed;
+  /* Óxido: el único acento de color (dot «Próximo», focus ring, toasts). */
+  --oxido: #ff5c26;
+  --destructive: #ff5c26;
+  --border: #1f1f1f;
+  --border-strong: #2e2e2e;
+  --input: #2e2e2e;
+  --ring: #ff5c26;
+  --piedra: url("/v3/piedra-dark-lines.svg");
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Geist reemplaza las fuentes del sitio viejo solo dentro del shell. */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  color-scheme: dark;
+}
+
+html[data-mdp-theme="light"]:has(.v3-shell),
+html[data-mdp-theme="light"] .v3-shell {
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #fafafa;
+  --secondary: #f0f0f0;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f0f0f0;
+  /* #6b6b6b sobre #fafafa = 5.0:1 (AA) */
+  --muted-foreground: #6b6b6b;
+  --subtle: #737373;
+  --accent: #f0f0f0;
+  --accent-foreground: #0a0a0a;
+  --oxido: #e5480f;
+  --destructive: #e5480f;
+  --border: #eaeaea;
+  --border-strong: #d4d4d4;
+  --input: #d4d4d4;
+  --ring: #e5480f;
+  --piedra: url("/v3/piedra-light-lines.svg");
+  color-scheme: light;
+}
+
+/* El documento nunca scrollea mientras el shell está montado. */
+html:has(.v3-shell),
+html:has(.v3-shell) body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Válvula de escape (WCAG 1.4.10): con zoom alto, texto grande o un teléfono
+   apaisado no hay altura para el shell; ahí sí dejamos scrollear antes que
+   esconder CTAs. */
+@media (max-height: 460px) {
+  html:has(.v3-shell),
+  html:has(.v3-shell) body {
+    height: auto;
+    overflow: auto;
+  }
+  .v3-shell {
+    height: auto;
+    min-height: 100dvh;
+  }
+}
+/* vaul escala el wrapper: lo que asoma detrás es negro, como en iOS. */
+html:has(.v3-shell) body:has([data-vaul-drawer][data-state="open"]) {
+  background: #000;
+}
+
+@layer base {
+  .v3-shell *,
+  html:has(.v3-shell) [data-slot] {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 60%, transparent);
+  }
+}
+
+/* Fondo: piedra Mar del Plata (líneas estáticas, enmascaradas). */
+.v3-piedra {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--piedra);
+  background-size: 1200px 800px;
+  background-repeat: repeat;
+  -webkit-mask-image: radial-gradient(150% 75% at 70% 8%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 88%);
+  mask-image: radial-gradient(150% 75% at 70% 8%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 88%);
+}
+@media (min-width: 1024px) {
+  .v3-piedra {
+    -webkit-mask-image: radial-gradient(70% 90% at 22% 55%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+    mask-image: radial-gradient(70% 90% at 22% 55%, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  }
+}
+.v3-piedra--top {
+  -webkit-mask-image: linear-gradient(#000, transparent 34%);
+  mask-image: linear-gradient(#000, transparent 34%);
+}
+
+/* Tipografía */
+.v3-display {
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+}
+.v3-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.v3-brand-case {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Dot «Próximo» — único uso decorativo del Óxido. */
+.v3-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--oxido);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--oxido) 25%, transparent);
+  flex: none;
+}
+
+/* Crucecitas de grilla (Basement). */
+.v3-cross {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  color: var(--border-strong);
+  pointer-events: none;
+}
+.v3-cross::before,
+.v3-cross::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.v3-cross::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.v3-cross::after { top: 5px; left: 0; height: 1px; width: 11px; }
+
+.v3-glass {
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* ── Motion (Emil Kowalski / Linear) ─────────────────────────────────── */
+
+/* Press feedback: scale .97 en :active, 160ms. */
+.v3-press {
+  transition: transform 160ms var(--ease-out), background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+.v3-press:active {
+  transform: scale(0.97);
+}
+
+/* Indicador de tabs: translateX + width, 200ms. */
+.v3-tab-indicator {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  border-radius: 7px;
+  background: var(--background);
+  box-shadow: 0 0 0 1px var(--border-strong), 0 1px 2px rgb(0 0 0 / 0.25);
+  transition: transform 200ms var(--ease-out), width 200ms var(--ease-out);
+  will-change: transform, width;
+  pointer-events: none;
+}
+html[data-mdp-theme="light"] .v3-tab-indicator {
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--border-strong), 0 1px 2px rgb(0 0 0 / 0.06);
+}
+.v3-tab-indicator[data-instant="true"] {
+  transition: none;
+}
+
+/* Panel de tab: opacity 0→1 + translateX ±8px según dirección, 180ms. */
+.v3-panel {
+  transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+  opacity: 1;
+  transform: none;
+}
+@starting-style {
+  .v3-panel {
+    opacity: 0;
+    transform: translateX(var(--v3-panel-dx, 8px));
+  }
+}
+
+/* Hero: palabras translateY 100%→0 con clip, stagger 40ms (solo 1ª visita).
+   Por palabra (no por línea) para que el wrap sea natural en cualquier ancho. */
+.v3-word {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.v3-word > span {
+  display: inline-block;
+  animation: v3-line-in 300ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+html.v3-seen .v3-word > span {
+  animation: none;
+}
+@keyframes v3-line-in {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+
+/* Sheet desktop: translateX 24px→0 + opacity, 240ms. */
+html:has(.v3-shell) [data-slot="sheet-content"] {
+  transition: transform 240ms var(--ease-drawer), opacity 240ms var(--ease-drawer);
+}
+html:has(.v3-shell) [data-slot="sheet-content"][data-state="open"] {
+  animation: v3-sheet-in 240ms var(--ease-drawer) both;
+}
+html:has(.v3-shell) [data-slot="sheet-content"][data-state="closed"] {
+  animation: v3-sheet-out 160ms ease-in both;
+}
+@keyframes v3-sheet-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes v3-sheet-out {
+  from { transform: none; opacity: 1; }
+  to { transform: translateX(24px); opacity: 0; }
+}
+
+/* CommandDialog: scale .96→1 + opacity 150ms; salida 100ms ease-in. */
+html:has(.v3-shell) [data-slot="dialog-content"][data-state="open"] {
+  animation: v3-pop-in 150ms var(--ease-out) both;
+}
+html:has(.v3-shell) [data-slot="dialog-content"][data-state="closed"] {
+  animation: v3-pop-out 100ms ease-in both;
+}
+@keyframes v3-pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes v3-pop-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-word > span { animation: none; }
+  .v3-press:active { transform: none; }
+  .v3-tab-indicator { transition: none; }
+  .v3-panel { transition: opacity 120ms linear; }
+  @starting-style {
+    .v3-panel { opacity: 0; transform: none; }
+  }
+  html:has(.v3-shell) [data-slot="sheet-content"][data-state="open"],
+  html:has(.v3-shell) [data-slot="dialog-content"][data-state="open"] {
+    animation: v3-fade-in 150ms linear both;
+  }
+  html:has(.v3-shell) [data-slot="sheet-content"][data-state="closed"],
+  html:has(.v3-shell) [data-slot="dialog-content"][data-state="closed"] {
+    animation: v3-fade-out 100ms linear both;
+  }
+  html:has(.v3-shell) [data-vaul-drawer] {
+    transition: opacity 150ms linear !important;
+  }
+}
+@keyframes v3-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes v3-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+/* Command (⌘K): headings mono como el resto de labels. */
+html:has(.v3-shell) [cmdk-group-heading] {
+  font-family: var(--font-mono);
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+html:has(.v3-shell) [cmdk-item] {
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+/* ── Páginas (no-home): mismo look, el documento sí scrollea ─────────── */
+html:has(.v3-shell--page),
+html:has(.v3-shell--page) body {
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
+  overscroll-behavior: auto;
+}
+.v3-shell--page {
+  height: auto;
+  min-height: 100dvh;
+}
+/* Fondo piedra fijo detrás del contenido scrolleable. */
+.v3-piedra--fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* AppShell / canvas: alinear el chrome de la app con Piedra cuando hay tokens. */
+html:has(.v3-shell) .app-canvas {
+  background: var(--background) !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .app-canvas::before,
+html:has(.v3-shell) .app-canvas::after {
+  opacity: 0.35;
+  background-image: none !important;
+}
+html:has(.v3-shell) .app-sidebar {
+  background: color-mix(in oklab, var(--background) 92%, transparent);
+  border-color: var(--border);
+}
+html:has(.v3-shell) .app-shell-content {
+  background: transparent;
+}
+/* Páginas con Navbar sticky: el contenido no necesita el pt-20 del pill viejo,
+   pero lo dejamos; sólo evitamos que el fondo viejo pelee con Piedra. */
+html:has(.v3-shell) .bolsa-x,
+html:has(.v3-shell) .marketplace-x,
+html:has(.v3-shell) .prensa-x,
+html:has(.v3-shell) .blog-x {
+  background: transparent;
+}
+
+/* PiedraRoot debe quedar fixed aunque .app-canvas > * ponga position:relative. */
+html:has(.v3-shell) .v3-shell.v3-shell--page {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+
+/* ── Cuerpos de páginas legacy bajo tokens Piedra ─────────────────────── */
+html:has(.v3-shell) .shell-eyebrow,
+html:has(.v3-shell) .kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .shell-title,
+html:has(.v3-shell) .shell-title--xl {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  color: var(--foreground);
+  font-size: clamp(32px, 5vw, 48px);
+}
+html:has(.v3-shell) .shell-title em {
+  font-style: normal;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .shell-lead {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .shell-section {
+  background: transparent !important;
+  padding: 0 0 2.5rem;
+}
+html:has(.v3-shell) .shell-section--lg {
+  padding: 0 0 2rem;
+}
+html:has(.v3-shell) .shell-section--soft,
+html:has(.v3-shell) .shell-section--gradient {
+  background: transparent !important;
+}
+html:has(.v3-shell) .shell-inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 0;
+}
+html:has(.v3-shell) .shell-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--muted-foreground);
+  border-radius: 999px;
+  height: 22px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+}
+html:has(.v3-shell) .event-card,
+html:has(.v3-shell) .eventos-x-card {
+  display: flex;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 150ms ease;
+}
+html:has(.v3-shell) .event-card:hover {
+  background: var(--card);
+}
+html:has(.v3-shell) .event-card-date {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+}
+html:has(.v3-shell) .event-card-day {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+html:has(.v3-shell) .event-card-month {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .event-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .event-card-desc,
+html:has(.v3-shell) .event-card-hosts,
+html:has(.v3-shell) .event-card-meta {
+  color: var(--muted-foreground);
+  font-size: 13.5px;
+}
+html:has(.v3-shell) .prensa-x-header,
+html:has(.v3-shell) .prensa-x {
+  background: transparent !important;
+}
+html:has(.v3-shell) .prensa-x-topic-pill,
+html:has(.v3-shell) .prensa-x-topics a {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  color: var(--foreground);
+  border-radius: 999px;
+  font-size: 12.5px;
+}
+html:has(.v3-shell) .prensa-x-group-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+html:has(.v3-shell) .prensa-x-grid > *,
+html:has(.v3-shell) [class*="PressCard"],
+html:has(.v3-shell) .press-card {
+  border-color: var(--border) !important;
+  background: color-mix(in oklab, var(--card) 70%, transparent) !important;
+  border-radius: 12px;
+}
+html:has(.v3-shell) .bolsa-x,
+html:has(.v3-shell) .marketplace-x {
+  background: transparent !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .bolsa-x-empty {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  color: var(--muted-foreground);
+  background: color-mix(in oklab, var(--card) 60%, transparent);
+}
+
+html:has(.v3-shell) .shell-btn-primary,
+html:has(.v3-shell) a.shell-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+html:has(.v3-shell) .shell-btn-ghost,
+html:has(.v3-shell) a.shell-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border-strong);
+}
+html:has(.v3-shell) .display-thin,
+html:has(.v3-shell) .display {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.045em !important;
+  color: var(--foreground) !important;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+}
+html:has(.v3-shell) .text-white { color: var(--foreground) !important; }
+html:has(.v3-shell) .text-white\/45,
+html:has(.v3-shell) .text-white\/60,
+html:has(.v3-shell) .text-white\/70 {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .primer-trabajo-x,
+html:has(.v3-shell) .footer-x,
+html:has(.v3-shell) .nav-x {
+  background: transparent !important;
+}
+
+/* ── Filtros / cards (empresas, bolsa, marketplace) bajo Piedra ───────── */
+html:has(.v3-shell) .bolsa-x-pill {
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  border: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  box-shadow: none;
+}
+html:has(.v3-shell) .bolsa-x-pill:hover {
+  background: var(--card);
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+html:has(.v3-shell) .bolsa-x-pill.is-active {
+  background: var(--foreground);
+  border-color: transparent;
+  color: var(--background);
+  box-shadow: none;
+}
+html:has(.v3-shell) input.bolsa-x-pill {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border-strong);
+}
+html:has(.v3-shell) input.bolsa-x-pill:hover,
+html:has(.v3-shell) input.bolsa-x-pill:focus {
+  background: var(--background);
+  color: var(--foreground);
+  outline: none;
+  border-color: var(--ring);
+}
+
+html:has(.v3-shell) .shell-card,
+html:has(.v3-shell) a.shell-card,
+html:has(.v3-shell) .marketplace-card,
+html:has(.v3-shell) .classified-card {
+  background: color-mix(in oklab, var(--card) 70%, transparent) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+html:has(.v3-shell) .shell-card:hover,
+html:has(.v3-shell) a.shell-card:hover,
+html:has(.v3-shell) .marketplace-card:hover,
+html:has(.v3-shell) .classified-card:hover {
+  background: var(--card) !important;
+  border-color: var(--border-strong) !important;
+  transform: none !important;
+}
+html:has(.v3-shell) .shell-card__title,
+html:has(.v3-shell) .classified-card-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .shell-card__desc,
+html:has(.v3-shell) .shell-card__meta,
+html:has(.v3-shell) .classified-card-desc,
+html:has(.v3-shell) .classified-card-author,
+html:has(.v3-shell) .classified-card-kind {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .classified-card-new {
+  background: transparent;
+  border: 1px solid color-mix(in oklab, var(--oxido) 50%, var(--border));
+  color: var(--oxido);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  box-shadow: none;
+}
+html:has(.v3-shell) .classified-card-tag,
+html:has(.v3-shell) .marketplace-chip,
+html:has(.v3-shell) .shell-tag,
+html:has(.v3-shell) .shell-tag--violet,
+html:has(.v3-shell) .shell-tag--emerald,
+html:has(.v3-shell) .shell-tag--cyan,
+html:has(.v3-shell) .shell-tag--amber,
+html:has(.v3-shell) .shell-tag--rose {
+  background: transparent !important;
+  border: 1px solid var(--border-strong) !important;
+  color: var(--muted-foreground) !important;
+  box-shadow: none !important;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+}
+html:has(.v3-shell) .marketplace-avatar {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+html:has(.v3-shell) .marketplace-chip--deck {
+  border-color: color-mix(in oklab, var(--oxido) 40%, var(--border)) !important;
+  color: var(--oxido) !important;
+}
+html:has(.v3-shell) .bolsa-x-filter {
+  gap: 0.4rem;
+}
+html:has(.v3-shell) .shell-grid {
+  gap: 0.75rem;
+}
+
+/* Brand book / marketing kit: legacy ocean utilities → Piedra neutrals */
+html:has(.v3-shell) .bg-ocean-600,
+html:has(.v3-shell) .bg-ocean-700,
+html:has(.v3-shell) .bg-ocean-400,
+html:has(.v3-shell) .bg-ocean-300,
+html:has(.v3-shell) .bg-ocean-600\/40,
+html:has(.v3-shell) [class*="bg-ocean-"] {
+  background-image: none !important;
+}
+html:has(.v3-shell) .bg-ocean-600,
+html:has(.v3-shell) .hover\:bg-ocean-700:hover {
+  background-color: var(--foreground) !important;
+  color: var(--background) !important;
+}
+html:has(.v3-shell) .bg-ocean-600\/40 {
+  background-color: var(--muted) !important;
+}
+html:has(.v3-shell) .border-ocean-600\/30 {
+  border-color: var(--border) !important;
+}
+html:has(.v3-shell) .bg-ocean-300 {
+  background-color: var(--oxido) !important;
+}
+html:has(.v3-shell) .pulse-dot {
+  background-color: var(--oxido) !important;
+}
+
+/* ── App area (sidebar + red + perfil leftovers) ─────────────────────── */
+html:has(.v3-shell) .app-sidebar {
+  background: color-mix(in oklab, var(--background) 94%, transparent) !important;
+  border-right: 1px solid var(--border) !important;
+  backdrop-filter: blur(16px);
+}
+html:has(.v3-shell) .app-shell-content {
+  background: transparent;
+  min-height: 100dvh;
+}
+html:has(.v3-shell) .metal-chip {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}
+html:has(.v3-shell) .shell-scan-line { display: none !important; }
+
+/* Red dialogs / inputs */
+html:has(.v3-shell) .red-dialog-panel {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .red-dialog-backdrop {
+  background: rgb(0 0 0 / 0.55) !important;
+}
+html:has(.v3-shell) .red-input {
+  background: var(--background) !important;
+  border: 1px solid var(--border-strong) !important;
+  border-radius: 10px !important;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .red-input:focus {
+  outline: none;
+  border-color: var(--ring) !important;
+}
+
+/* Projects / modules directory cards if they use shell-card already covered */
+
+/* Asistencias / perfil page chrome */
+html:has(.v3-shell) .asistencias-x,
+html:has(.v3-shell) .event-card {
+  /* covered by earlier event-card rules */
+}
+
+html:has(.v3-shell) .btn-app-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: var(--foreground) !important;
+  color: var(--background) !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  font-weight: 500;
+}
+html:has(.v3-shell) .glass-night {
+  background: color-mix(in oklab, var(--card) 70%, transparent) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+html:has(.v3-shell) .dot-amber {
+  background: var(--oxido) !important;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--oxido) 25%, transparent);
+}
+
+/* ── CommandPalette (app ⌘K) → Piedra, alineado al CommandMenu del header ── */
+html:has(.v3-shell) .cmdk-backdrop {
+  background: rgb(0 0 0 / 0.55) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+html:has(.v3-shell) .cmdk-panel {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 24px 64px -24px rgb(0 0 0 / 0.55) !important;
+  color: var(--foreground);
+}
+html:has(.v3-shell) .cmdk-input-row {
+  border-bottom-color: var(--border) !important;
+}
+html:has(.v3-shell) .cmdk-input {
+  color: var(--foreground) !important;
+  font-weight: 400 !important;
+  font-family: var(--font-sans);
+}
+html:has(.v3-shell) .cmdk-input::placeholder {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .cmdk-group-label {
+  color: var(--muted-foreground) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.06em;
+}
+html:has(.v3-shell) .cmdk-item:hover,
+html:has(.v3-shell) .cmdk-item.is-active {
+  background: var(--muted) !important;
+}
+html:has(.v3-shell) .cmdk-item.is-active::before {
+  background: var(--oxido) !important;
+}
+html:has(.v3-shell) .cmdk-footer {
+  border-top-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .cmdk-kbd {
+  background: var(--muted) !important;
+  border-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  border-radius: 4px !important;
+}
+html:has(.v3-shell) .cmdk-list::-webkit-scrollbar-thumb {
+  background: var(--border) !important;
+}
+
+/* ── Admin + legacy UI chrome ─────────────────────────────────────────── */
+html:has(.v3-shell) .glass-card {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .glass-card::before,
+html:has(.v3-shell) .glass-card::after {
+  display: none !important;
+}
+html:has(.v3-shell) .gradient-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  color: var(--oxido) !important;
+}
+html:has(.v3-shell) .kicker-amber {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .coord-line {
+  color: var(--muted-foreground) !important;
+  font-family: var(--font-mono);
+}
+html:has(.v3-shell) [class*="text-ocean-"] {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) .text-ocean-900,
+html:has(.v3-shell) .text-ocean-800 {
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .btn-app-ghost {
+  background: transparent !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+}
+html:has(.v3-shell) .btn-app-danger {
+  background: transparent !important;
+  border: 1px solid color-mix(in oklab, #ef4444 45%, var(--border)) !important;
+  color: #f87171 !important;
+}
+/* Admin tab strip: active = foreground + óxido underline */
+html:has(.v3-shell) [role="tab"][aria-selected="true"] {
+  color: var(--foreground) !important;
+  border-bottom-color: var(--oxido) !important;
+}
+html:has(.v3-shell) [role="tab"][aria-selected="false"] {
+  color: var(--muted-foreground) !important;
+}
+html:has(.v3-shell) [role="tab"][aria-selected="false"]:hover {
+  color: var(--foreground) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+/* Admin forms / modals under Piedra */
+html:has(.v3-shell) .focus\:ring-ocean-400:focus {
+  --tw-ring-color: var(--ring) !important;
+}
+html:has(.v3-shell) input[type="checkbox"] {
+  accent-color: var(--oxido);
+}

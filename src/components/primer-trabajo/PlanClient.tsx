@@ -40,22 +40,22 @@ export default function PlanClient() {
   }, [diagnosticResult, checklistPct]);
 
   if (!hydrated) {
-    return <p className="text-slate-600">Cargando…</p>;
+    return <p className="text-muted-foreground">Cargando…</p>;
   }
 
   return (
     <div className="space-y-10">
-      <section className="rounded-2xl border border-ocean-200 bg-white p-6 shadow-sm">
-        <h2 className="font-display font-bold text-lg text-ocean-900 mb-2">Estás {readiness}% en camino</h2>
-        <p className="text-sm text-slate-600 mb-4">
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <h2 className="font-display font-bold text-lg text-foreground mb-2">Estás {readiness}% en camino</h2>
+        <p className="text-sm text-muted-foreground mb-4">
           Combinamos tu última probabilidad de entrevista ({diagnosticResult?.interviewProbability ?? "—"}%) con el progreso del
           checklist ({checklistPct}%).
         </p>
-        <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
-          <div className="h-full w-full bg-ocean-500 rounded-full origin-left transition-transform duration-300" style={{ transform: `scaleX(${readiness / 100})` }} />
+        <div className="h-3 overflow-hidden rounded-full bg-muted">
+          <div className="h-full w-full origin-left rounded-full bg-[var(--oxido)] transition-transform duration-300" style={{ transform: `scaleX(${readiness / 100})` }} />
         </div>
         {!diagnosticResult && (
-          <p className="mt-3 text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
+          <p className="mt-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">
             Hacé el{" "}
             <Link href="/primer-trabajo/diagnostico" className="font-semibold underline">
               diagnóstico
@@ -65,11 +65,11 @@ export default function PlanClient() {
         )}
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-display font-bold text-lg text-ocean-900 mb-1">Esta semana (mínimo)</h2>
-        <p className="text-xs text-slate-500 mb-4">Sin esto estás perdiendo tiempo frente a otros candidatos que sí cierran entregables.</p>
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <h2 className="font-display font-bold text-lg text-foreground mb-1">Esta semana (mínimo)</h2>
+        <p className="text-xs text-muted-foreground mb-4">Sin esto estás perdiendo tiempo frente a otros candidatos que sí cierran entregables.</p>
         {diagnosticResult?.derivedTags?.some((t) => t === "silver_skipped" || t === "silver_grade_low") && (
-          <div className="mb-4 rounded-xl border-2 border-amber-400 bg-amber-50 p-4 text-sm text-amber-950 space-y-2">
+          <div className="mb-4 space-y-2 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-100">
             <p className="font-semibold">Semana 1: CV con Silver Dev antes de aplicar en masa</p>
             <p className="leading-relaxed">
               Tu último diagnóstico marca que no validaste el CV con el resume checker o tenés grade C o menos. Pará las tandas grandes: pasá el PDF por Silver Dev, corregí hasta{" "}
@@ -79,15 +79,15 @@ export default function PlanClient() {
               href={SILVER_DEV_RESUME_CHECKER_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block font-semibold text-ocean-800 underline underline-offset-2 hover:text-ocean-950"
+              className="inline-block font-semibold text-[var(--oxido)] underline underline-offset-2 hover:text-foreground"
             >
               Abrir resume checker (silver.dev/resume)
             </a>
           </div>
         )}
-        <div className="space-y-6 text-sm text-slate-700">
+        <div className="space-y-6 text-sm text-muted-foreground">
           <div>
-            <h3 className="font-display font-bold text-ocean-900 text-base mb-2">Semana 1 — Fundamentos y señal mínima</h3>
+            <h3 className="font-display font-bold text-foreground text-base mb-2">Semana 1 — Fundamentos y señal mínima</h3>
             <ol className="list-decimal list-inside space-y-2">
               {primerTrabajoData.weekPlan.week1.map((line, i) => (
                 <li key={i}>{line}</li>
@@ -95,7 +95,7 @@ export default function PlanClient() {
             </ol>
           </div>
           <div>
-            <h3 className="font-display font-bold text-ocean-900 text-base mb-2">Semana 2 — Publicación, contacto y entrevista</h3>
+            <h3 className="font-display font-bold text-foreground text-base mb-2">Semana 2 — Publicación, contacto y entrevista</h3>
             <ol className="list-decimal list-inside space-y-2">
               {primerTrabajoData.weekPlan.week2.map((line, i) => (
                 <li key={i}>{line}</li>
@@ -105,22 +105,22 @@ export default function PlanClient() {
         </div>
       </section>
 
-      <section className="rounded-2xl border-2 border-ocean-200 bg-gradient-to-br from-ocean-50/80 to-white p-6 shadow-sm">
-        <h2 className="font-display font-bold text-lg text-ocean-900 mb-2">Profundizar: guías mal / bien</h2>
-        <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <h2 className="font-display font-bold text-lg text-foreground mb-2">Profundizar: guías mal / bien</h2>
+        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
           El checklist es acción por ítem; las guías son patrones concretos (cómo te lee un recruiter, ejemplos y pasos de rewrite).
           Ideal para cerrar los módulos <strong>CV</strong> y <strong>LinkedIn</strong>.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/primer-trabajo/guia/cv"
-            className="flex-1 inline-flex items-center justify-center rounded-xl bg-ocean-600 text-white px-5 py-3 text-sm font-semibold hover:bg-ocean-700 transition-colors"
+            className="flex-1 inline-flex items-center justify-center rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
           >
             Guía CV →
           </Link>
           <Link
             href="/primer-trabajo/guia/linkedin"
-            className="flex-1 inline-flex items-center justify-center rounded-xl bg-white border-2 border-ocean-500 text-ocean-800 px-5 py-3 text-sm font-semibold hover:bg-ocean-50 transition-colors"
+            className="flex-1 inline-flex items-center justify-center rounded-xl border border-border bg-transparent px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
           >
             Guía LinkedIn →
           </Link>
@@ -129,19 +129,19 @@ export default function PlanClient() {
 
       <div className="space-y-6">
         {modules.map((mod) => (
-          <section key={mod.id} className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-            <div className="bg-ocean-800/5 border-b border-slate-100 px-5 py-4 flex flex-wrap items-center gap-3">
+          <section key={mod.id} className="rounded-2xl border border-border bg-card overflow-hidden">
+            <div className="border-b border-border bg-muted/40 px-5 py-4 flex flex-wrap items-center gap-3">
               <span className="text-2xl" aria-hidden>
                 {mod.emoji}
               </span>
-              <h3 className="font-display font-bold text-ocean-900 flex-1">{mod.title}</h3>
+              <h3 className="font-display font-bold text-foreground flex-1">{mod.title}</h3>
               <span
                 className={`text-xs font-bold uppercase tracking-wide px-2 py-1 rounded-full ${
                   mod.priority === "alta"
-                    ? "bg-red-100 text-red-800"
+                    ? "bg-red-500/15 text-red-300"
                     : mod.priority === "media"
-                      ? "bg-amber-100 text-amber-900"
-                      : "bg-slate-100 text-slate-700"
+                      ? "bg-amber-500/15 text-amber-200"
+                      : "bg-muted text-muted-foreground"
                 }`}
               >
                 {mod.priority}
@@ -149,24 +149,24 @@ export default function PlanClient() {
               {moduleGuideHref[mod.id] && (
                 <Link
                   href={moduleGuideHref[mod.id]!}
-                  className="text-sm font-semibold text-ocean-700 hover:text-ocean-900 underline underline-offset-2 shrink-0"
+                  className="shrink-0 text-sm font-semibold text-muted-foreground underline underline-offset-2 hover:text-foreground"
                 >
                   {mod.id === "cv" ? "Guía CV con patrones" : "Guía LinkedIn con patrones"}
                 </Link>
               )}
             </div>
-            <ul className="divide-y divide-slate-100">
+            <ul className="divide-y divide-border">
               {mod.items.map((item) => {
                 const checked = checklistCheckedIds.includes(item.id);
                 const open = openId === item.id;
                 return (
-                  <li key={item.id} className="bg-white">
+                  <li key={item.id} className="bg-card">
                     <div className="flex items-start gap-3 px-5 py-4">
                       <input
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleChecklistItem(item.id)}
-                        className="mt-1 h-4 w-4 rounded border-slate-300 text-ocean-600 focus:ring-ocean-500"
+                        className="mt-1 h-4 w-4 rounded border-border text-[var(--oxido)] focus:ring-[var(--ring)]"
                         aria-labelledby={`label-${item.id}`}
                       />
                       <div className="flex-1 min-w-0">
@@ -174,33 +174,33 @@ export default function PlanClient() {
                           type="button"
                           id={`label-${item.id}`}
                           onClick={() => setOpenId(open ? null : item.id)}
-                          className="text-left font-semibold text-slate-900 hover:text-ocean-700 w-full"
+                          className="w-full text-left font-semibold text-foreground hover:text-[var(--oxido)]"
                         >
                           {item.title}
                         </button>
                         {open && (
-                          <div className="mt-3 space-y-3 text-sm text-slate-700">
+                          <div className="mt-3 space-y-3 text-sm text-muted-foreground">
                             <p>
-                              <span className="font-medium text-red-700">Mal:</span> {item.badExample}
+                              <span className="font-medium text-red-400">Mal:</span> {item.badExample}
                             </p>
                             <p>
-                              <span className="font-medium text-emerald-700">Bien:</span> {item.goodExample}
+                              <span className="font-medium text-emerald-400">Bien:</span> {item.goodExample}
                             </p>
                             <p>
-                              <span className="font-medium text-slate-900">Por qué está mal:</span> {item.whyWrong}
+                              <span className="font-medium text-foreground">Por qué está mal:</span> {item.whyWrong}
                             </p>
                             <p>
-                              <span className="font-medium text-ocean-800">Acción:</span> {item.action}
+                              <span className="font-medium text-foreground">Acción:</span> {item.action}
                             </p>
                             {item.suggestedRewrite !== "N/A" && (
-                              <p className="bg-slate-50 rounded-lg p-3 border border-slate-100">
-                                <span className="font-medium text-slate-900">Rewrite sugerido:</span> {item.suggestedRewrite}
+                              <p className="rounded-lg border border-border bg-muted/50 p-3">
+                                <span className="font-medium text-foreground">Rewrite sugerido:</span> {item.suggestedRewrite}
                               </p>
                             )}
                             {item.antiPatterns && item.antiPatterns.length > 0 && (
-                              <div className="rounded-lg border border-slate-200 bg-slate-900 text-slate-100 p-3">
-                                <p className="font-medium text-ocean-200 text-xs uppercase tracking-wide mb-2">Anti-patrones (te descartan)</p>
-                                <ul className="list-disc list-inside space-y-1 text-sm text-slate-200">
+                              <div className="rounded-lg border border-border bg-muted p-3 text-foreground">
+                                <p className="font-medium text-muted-foreground text-xs uppercase tracking-wide mb-2">Anti-patrones (te descartan)</p>
+                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                                   {item.antiPatterns.map((ap, i) => (
                                     <li key={i}>{ap}</li>
                                   ))}

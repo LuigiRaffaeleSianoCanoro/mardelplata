@@ -4,6 +4,7 @@ import {
   type CuratedEvent,
 } from "@/content/events";
 import { loadCuratedEvents } from "./load-curated";
+import { brandify } from "@/lib/v3/brand";
 
 /** Evento unificado para UI pública (Luma curado + opcional Supabase). */
 export interface PublicEvent {
@@ -43,12 +44,14 @@ interface SupabaseEventRow {
   is_published: boolean;
 }
 
+// La marca visible es siempre «mardelplata.dev.ar»: los títulos de Luma a veces
+// traen el dominio corto; se normaliza al leer (los JSON fuente no se tocan).
 function curatedToPublic(e: CuratedEvent): PublicEvent {
   return {
     id: `luma-${e.id}`,
-    title: e.title,
-    subtitle: e.excerpt,
-    description: e.excerpt,
+    title: brandify(e.title),
+    subtitle: brandify(e.excerpt),
+    description: brandify(e.excerpt),
     date: e.date,
     end_date: e.endDate ?? null,
     location: e.venue,
@@ -68,9 +71,9 @@ function curatedToPublic(e: CuratedEvent): PublicEvent {
 function supabaseToPublic(row: SupabaseEventRow): PublicEvent {
   return {
     id: row.id,
-    title: row.title,
-    subtitle: row.subtitle,
-    description: row.description,
+    title: brandify(row.title),
+    subtitle: brandify(row.subtitle),
+    description: brandify(row.description),
     date: row.date,
     end_date: row.end_date,
     location: row.location,

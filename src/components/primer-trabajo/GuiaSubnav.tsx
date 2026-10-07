@@ -21,8 +21,8 @@ export default function GuiaSubnav() {
             href={l.href}
             className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
               active
-                ? "bg-ocean-600 text-white shadow-sm"
-                : "bg-white text-ocean-800 border border-slate-200 hover:border-ocean-300 hover:bg-ocean-50"
+                ? "bg-foreground text-background"
+                : "border border-border bg-card text-muted-foreground hover:border-border-strong hover:bg-muted hover:text-foreground"
             }`}
           >
             {l.label}
