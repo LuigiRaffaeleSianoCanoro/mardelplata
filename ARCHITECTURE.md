@@ -67,7 +67,7 @@ Definir en `.env.local` (no se commitea — `.gitignore` cubre `.env*.local`):
 Sin estas variables:
 - La home renderiza pero los queries fallan en silencio y los datos quedan en `[]`.
 - Auth, perfil, admin, scanner y bolsa **no funcionan**.
-- `/primer-trabajo`, `/reglamento`, `/brand`, `/marketing-kit` siguen funcionando porque son estáticos.
+- `/primer-trabajo`, `/reglamento`, `/codigo-de-conducta`, `/brand`, `/marketing-kit` siguen funcionando porque son estáticos.
 
 ---
 
@@ -80,7 +80,8 @@ mardelplata/
 │   │   ├── globals.css                     # tema Tailwind v4 + utilidades + animaciones
 │   │   ├── layout.tsx                      # root layout (metadata, fuentes)
 │   │   ├── page.tsx                        # home (/) — server component, Supabase
-│   │   ├── reglamento/page.tsx             # código de conducta
+│   │   ├── reglamento/page.tsx             # reglamento interno (cards)
+│   │   ├── codigo-de-conducta/page.tsx     # código de conducta (CC BY 4.0)
 │   │   ├── prensa/
 │   │   │   ├── page.tsx                    # listado por tema
 │   │   │   └── [id]/page.tsx               # ficha + snapshot archivado
@@ -163,6 +164,9 @@ mardelplata/
 │   │   │   ├── types.ts
 │   │   │   ├── index.ts                    # loaders (readArchive, etc.)
 │   │   │   └── archives/*.md               # copias de respaldo por clipping
+│   │   ├── codigo-de-conducta/
+│   │   │   ├── codigo-de-conducta.md       # texto fuente del código de conducta
+│   │   │   └── index.ts
 │   │   └── primer-trabajo/                 # bundles JSON + index TS
 │   │       ├── bundle-base.json
 │   │       ├── bundle-sections.json
@@ -227,6 +231,7 @@ mardelplata/
 |---|---|---|
 | `/` | Static + ISR (revalidate 5m) | Luma curado (`content/events`) + merge Supabase `events`, `profiles_public`, jobs |
 | `/reglamento` | Static | — |
+| `/codigo-de-conducta` | Static | Markdown `content/codigo-de-conducta/codigo-de-conducta.md` |
 | `/brand` | Static | — |
 | `/marketing-kit` | Static | — |
 | `/prensa` | Static (RSC) | JSON `content/prensa/items.ts` + markdown `archives/` |
