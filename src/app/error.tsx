@@ -16,7 +16,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
       // Solo en dev, para no spamear consola en producción.
-      console.error("[mardelplata.dev] route error:", error);
+      console.error("[mardelplata.dev.ar] route error:", error);
     }
   }, [error]);
 

@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import AppSidebar, { type AppSidebarUser } from "./AppSidebar";
+import { PiedraRoot } from "@/components/v3/Chrome";
 import CommandPalette from "./CommandPalette";
 import { createClient } from "@/lib/supabase/client";
 import { IS_MOCK, mockProfile } from "@/lib/devMock";
@@ -20,7 +21,6 @@ interface AppShellProps {
 export default function AppShell({ isAdmin, user: userProp, children }: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [scanning, setScanning] = useState(true);
   const [user, setUser] = useState<AppSidebarUser | null>(userProp ?? null);
   const [resolvedAdmin, setResolvedAdmin] = useState<boolean>(Boolean(isAdmin));
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -35,11 +35,6 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  useEffect(() => {
-    const t = window.setTimeout(() => setScanning(false), 1100);
-    return () => window.clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -65,15 +60,7 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
         if (!authUser) {
           // Rutas públicas que se renderizan dentro del AppShell sin auth.
           const publicPrefixes = [
-            "/red",
-            "/eventos",
-            "/invertir",
-            "/estudiar",
-            "/que-hacer",
-            "/vivir-en-mardelplata",
-            "/empresas",
-            "/trabajar",
-            "/en",
+            "/red", // directorio open-source es browsable sin login
           ];
           const isPublic = publicPrefixes.some((p) =>
             pathname === p || pathname.startsWith(p + "/"),
@@ -109,19 +96,17 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
   }, [userProp]);
 
   return (
-    <div className="min-h-screen app-canvas">
-      {/* Sidebar lives outside the keyed wrapper, so it never re-mounts on
-          route changes — feels like a fixed skeleton with the content panel
-          swapping underneath. */}
+    <div className="app-canvas relative min-h-dvh bg-background text-foreground">
+      <PiedraRoot page />
       <AppSidebar
         isAdmin={resolvedAdmin}
         user={user}
         onOpenSearch={() => setPaletteOpen(true)}
       />
-      <div key={pathname} className="app-shell-content shell-content-fade">
+      <div key={pathname} className="app-shell-content shell-content-fade relative z-10">
         {children}
       </div>
-      {scanning && <div className="shell-scan-line" aria-hidden="true" />}
+      {/* scan line legacy removido — no aporta en Piedra */}
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
     </div>
   );

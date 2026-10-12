@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "../styles/v3.css";
 
 @theme {
   /* Ocean palette */
@@ -1954,7 +1956,7 @@ html.lenis, html.lenis body { height: auto; }
   }
   .app-sidebar::-webkit-scrollbar { display: none; }
   /* Logo + dividers fuera de la barra mobile */
-  .app-sidebar > a[title="mardelplata.dev"],
+  .app-sidebar > a[title="mardelplata.dev.ar"],
   .app-sidebar > div.w-8 {
     display: none;
   }

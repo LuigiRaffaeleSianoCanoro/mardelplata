@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { PageFrame, PageHero } from "@/components/v3/Page";
+import { BRAND } from "@/lib/v3/brand";
 
 export const metadata: Metadata = {
-  title: "Brand Book — MdPDev",
-  description: "Guía de identidad visual y tono de la comunidad MdPDev.",
+  title: "Brand Book",
+  description: "Guía de identidad visual y tono de mardelplata.dev.ar.",
 };
 
 // ── Sea Lion icon (same as Navbar/Footer) ──────────────────────────────────
@@ -28,8 +28,8 @@ function SeaLionIcon({ size = 22, color = "white" }: { size?: number; color?: st
 // ── Section label (pill above headings) ───────────────────────────────────
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="kicker text-white/45 mb-3 flex items-center justify-center gap-2">
-      <span className="w-1.5 h-1.5 rounded-full bg-[#FFB070]" />
+    <p className="mb-3 flex items-center justify-center gap-2 font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
+      <span className="v3-dot" aria-hidden />
       {children}
     </p>
   );
@@ -46,8 +46,8 @@ function Section({
   className?: string;
 }) {
   return (
-    <section id={id} className={`py-20 px-6 ${className}`}>
-      <div className="max-w-5xl mx-auto">{children}</div>
+    <section id={id} className={`scroll-mt-20 border-t border-border py-12 lg:py-14 ${className}`}>
+      <div className="mx-auto max-w-5xl">{children}</div>
     </section>
   );
 }
@@ -55,7 +55,7 @@ function Section({
 // ── Code snippet ──────────────────────────────────────────────────────────
 function Code({ children }: { children: string }) {
   return (
-    <code className="block bg-white/[0.04] text-white/65 text-xs font-mono rounded-xl px-5 py-4 leading-relaxed whitespace-pre-wrap mt-3">
+    <code className="mt-3 block whitespace-pre-wrap rounded-xl border border-border bg-card/60 px-4 py-3 font-mono text-[12px] leading-relaxed text-muted-foreground">
       {children}
     </code>
   );
@@ -72,14 +72,14 @@ function RuleCard({
   const isDo = type === "do";
   return (
     <div
-      className={`rounded-2xl border p-6 ${
+      className={`rounded-xl border p-6 ${
         isDo
-          ? "bg-emerald-500/10 border-emerald-400/30"
-          : "bg-red-500/10 border-red-400/30"
+          ? "border-border bg-card/70"
+          : "border-border bg-card/40"
       }`}
     >
       <p
-        className={`font-display font-bold text-lg mb-4 ${
+        className={`font-sans font-bold text-lg mb-4 ${
           isDo ? "text-emerald-300" : "text-rose-300"
         }`}
       >
@@ -117,14 +117,14 @@ function Swatch({
   return (
     <div className="flex flex-col gap-1.5">
       <div
-        className="h-14 rounded-xl shadow-sm border border-white/10"
+        className="h-14 rounded-xl shadow-sm border border-border"
         style={{ backgroundColor: hex }}
       />
-      <p className={`text-xs font-semibold ${dark ? "text-white/90" : "text-white/85"}`}>
+      <p className={`text-xs font-semibold ${dark ? "text-foreground" : "text-foreground"}`}>
         {token}
       </p>
-      <p className="text-xs text-white/60 font-mono">{hex}</p>
-      <p className="text-xs text-white/65 leading-tight">{label}</p>
+      <p className="text-xs text-muted-foreground font-mono">{hex}</p>
+      <p className="text-xs text-muted-foreground leading-tight">{label}</p>
     </div>
   );
 }
@@ -133,33 +133,19 @@ function Swatch({
 
 export default function BrandPage() {
   return (
-    <>
-      <Navbar />
-      <main>
+    <PageFrame>
+      
+      <div>
 
         {/* ── Hero ─────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden pt-32 pb-16">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <p className="kicker text-white/65 mb-3 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB070]" />
-              identidad visual
-            </p>
-            <h1 className="display-thin text-white text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-[-0.01em] mb-4">
-              Brand Book{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B82F6] via-white/95 to-[#FF2DAA]">
-                MdPDev
-              </span>
-              .
-            </h1>
-            <p className="text-white/60 font-light leading-relaxed text-lg max-w-2xl">
-              Guía completa de identidad: logo, colores, tipografía, voz y componentes UI
-              de la comunidad tech de la costa atlántica.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Identidad visual"
+          title={<>Brand Book {BRAND}</>}
+          description="Guía de identidad: logo, colores, tipografía, voz y componentes UI de la comunidad tech de Mar del Plata."
+        />
 
         {/* ── Índice ───────────────────────────────────────────────── */}
-        <Section id="indice" className="bg-transparent border-b border-white/10">
+        <Section id="indice" className="bg-transparent border-b border-border">
           <div className="flex flex-wrap gap-3">
             {[
               ["#logo",        "1. Logo"],
@@ -172,7 +158,7 @@ export default function BrandPage() {
               <a
                 key={href}
                 href={href}
-                className="inline-flex items-center bg-white/5 hover:bg-white/5 border border-white/12 hover:border-sky-400/30 text-white/85 hover:text-sky-300 rounded-full px-4 py-2 text-sm font-medium transition-colors"
+                className="inline-flex h-8 items-center rounded-full border border-border bg-card/70 px-3 font-mono text-[11px] tracking-[0.04em] text-foreground hover:bg-card"
               >
                 {label}
               </a>
@@ -184,54 +170,54 @@ export default function BrandPage() {
         <Section id="logo">
           <div className="text-center mb-12">
             <SectionLabel>01 — Logo</SectionLabel>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90">
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-foreground">
               Logo y variantes
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Sobre oscuro */}
-            <div className="rounded-2xl overflow-hidden border border-white/10">
+            <div className="rounded-xl overflow-hidden border border-border">
               <div className="bg-transparent p-10 flex flex-col items-center justify-center gap-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-700/40">
+                  <div className="w-14 h-14 rounded-xl bg-muted border border-border flex items-center justify-center ">
                     <SeaLionIcon size={30} />
                   </div>
-                  <span className="font-display font-bold text-3xl text-white tracking-tight">MdPDev</span>
+                  <span className="font-sans font-bold text-3xl text-foreground tracking-tight">MdPDev</span>
                 </div>
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-700/40">
+                <div className="w-14 h-14 rounded-xl bg-muted border border-border flex items-center justify-center ">
                   <SeaLionIcon size={30} />
                 </div>
               </div>
-              <div className="bg-white/5 px-6 py-4 border-t border-white/10">
-                <p className="text-sm font-semibold text-white/85">Sobre fondo oscuro</p>
-                <p className="text-xs text-white/60 mt-0.5">Hero, Navbar, Footer</p>
+              <div className="bg-card/70 px-6 py-4 border-t border-border">
+                <p className="text-sm font-semibold text-foreground">Sobre fondo oscuro</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Hero, Navbar, Footer</p>
               </div>
             </div>
 
             {/* Sobre claro */}
-            <div className="rounded-2xl overflow-hidden border border-white/10">
-              <div className="bg-transparent p-10 flex flex-col items-center justify-center gap-6 border-b border-white/10">
+            <div className="rounded-xl overflow-hidden border border-border">
+              <div className="bg-transparent p-10 flex flex-col items-center justify-center gap-6 border-b border-border">
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-400/30">
+                  <div className="w-14 h-14 rounded-xl bg-muted border border-border flex items-center justify-center ">
                     <SeaLionIcon size={30} />
                   </div>
-                  <span className="font-display font-bold text-3xl text-white/90 tracking-tight">MdPDev</span>
+                  <span className="font-sans font-bold text-3xl text-foreground tracking-tight">MdPDev</span>
                 </div>
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-lg shadow-ocean-400/30">
+                <div className="w-14 h-14 rounded-xl bg-muted border border-border flex items-center justify-center ">
                   <SeaLionIcon size={30} />
                 </div>
               </div>
-              <div className="bg-white/5 px-6 py-4">
-                <p className="text-sm font-semibold text-white/85">Sobre fondo claro</p>
-                <p className="text-xs text-white/60 mt-0.5">Secciones internas, documentos</p>
+              <div className="bg-card/70 px-6 py-4">
+                <p className="text-sm font-semibold text-foreground">Sobre fondo claro</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Secciones internas, documentos</p>
               </div>
             </div>
           </div>
 
           {/* Tamaños */}
-          <div className="bg-white/5 rounded-2xl p-8 mb-8">
-            <h3 className="font-display font-bold text-lg text-white/90 mb-6">Escala de tamaños</h3>
+          <div className="bg-card/70 rounded-xl p-8 mb-8">
+            <h3 className="font-sans font-bold text-lg text-foreground mb-6">Escala de tamaños</h3>
             <div className="flex items-end gap-8 flex-wrap">
               {[
                 { size: 48, label: "48px — Normal" },
@@ -241,19 +227,19 @@ export default function BrandPage() {
                 <div key={size} className="flex flex-col items-center gap-3">
                   <div
                     style={{ width: size, height: size }}
-                    className="rounded-xl bg-gradient-to-br from-ocean-300 to-ocean-700 flex items-center justify-center shadow-md"
+                    className="rounded-xl bg-muted border border-border flex items-center justify-center shadow-md"
                   >
                     <SeaLionIcon size={Math.round(size * 0.55)} />
                   </div>
-                  <p className="text-xs text-white/65 text-center">{label}</p>
+                  <p className="text-xs text-muted-foreground text-center">{label}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Anatomía */}
-          <div className="bg-white/[0.04] rounded-2xl p-8">
-            <h3 className="font-display font-bold text-lg text-white mb-4">Anatomía del ícono SVG</h3>
+          <div className="bg-card/60 rounded-xl p-8">
+            <h3 className="font-sans font-bold text-lg text-foreground mb-4">Anatomía del ícono SVG</h3>
             <Code>{`viewBox="0 0 24 24"  fill="none"  stroke="white"
 
 Cabeza     ellipse  cx="8"   cy="7.5"  rx="4"  ry="3.5"
@@ -273,22 +259,22 @@ Aletas tr  path     M17.5 17 C19.5 16 21 17.5 19.5 19
         <Section id="colores" className="bg-transparent">
           <div className="text-center mb-12">
             <SectionLabel>02 — Colores</SectionLabel>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90">
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-foreground">
               Paleta de colores
             </h2>
           </div>
 
           {/* Ocean */}
-          <div className="bg-white/[0.03] rounded-2xl p-8 mb-6 border border-white/10">
+          <div className="bg-card/60 rounded-xl p-8 mb-6 border border-border">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-display font-bold text-xl text-white/90">Ocean — Primaria</h3>
-              <span className="text-xs bg-sky-500/15 text-sky-300 rounded-full px-3 py-1 font-semibold">Principal</span>
+              <h3 className="font-sans font-bold text-xl text-foreground">Ocean — Primaria</h3>
+              <span className="text-xs bg-muted text-muted-foreground rounded-full px-3 py-1 font-semibold">Principal</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
               <Swatch hex="#020030" token="ocean-900" label="Hero, footer" />
               <Swatch hex="#03045E" token="ocean-800" label="Navbar scrolled" />
               <Swatch hex="#023E8A" token="ocean-700" label="Gradientes" />
-              <Swatch hex="#0077B6" token="ocean-600" label="Botón WhatsApp" />
+              <Swatch hex="#0077B6" token="ocean-600" label="Ocean (legacy)" />
               <Swatch hex="#0096C7" token="ocean-500" label="Íconos, bordes" />
               <Swatch hex="#00B4D8" token="ocean-400" label="CTA primario" />
               <Swatch hex="#48CAE4" token="ocean-300" label="Gradient-text" />
@@ -299,9 +285,9 @@ Aletas tr  path     M17.5 17 C19.5 16 21 17.5 19.5 19
           </div>
 
           {/* Sand */}
-          <div className="bg-white/[0.03] rounded-2xl p-8 mb-6 border border-white/10">
+          <div className="bg-card/60 rounded-xl p-8 mb-6 border border-border">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-display font-bold text-xl text-white/90">Sand — Acento cálido</h3>
+              <h3 className="font-sans font-bold text-xl text-foreground">Sand — Acento cálido</h3>
               <span className="text-xs bg-sand-200 text-sand-500 rounded-full px-3 py-1 font-semibold border border-sand-300">Solo acento</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
@@ -314,30 +300,30 @@ Aletas tr  path     M17.5 17 C19.5 16 21 17.5 19.5 19
           </div>
 
           {/* Usos especiales */}
-          <div className="bg-white/[0.03] rounded-2xl p-8 border border-white/10">
-            <h3 className="font-display font-bold text-xl text-white/90 mb-6">Gradientes y efectos especiales</h3>
+          <div className="bg-card/60 rounded-xl p-8 border border-border">
+            <h3 className="font-sans font-bold text-xl text-foreground mb-6">Gradientes y efectos especiales</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="rounded-xl overflow-hidden">
                 <div className="bg-transparent h-20" />
-                <div className="bg-white/5 p-3 border border-white/10 border-t-0 rounded-b-xl">
-                  <p className="text-xs font-semibold text-white/85">.bg-transparent</p>
-                  <p className="text-xs text-white/60 font-mono mt-0.5">145deg: #020030 → #0077B6</p>
+                <div className="bg-card/70 p-3 border border-border border-t-0 rounded-b-xl">
+                  <p className="text-xs font-semibold text-foreground">.bg-transparent</p>
+                  <p className="text-xs text-muted-foreground font-mono mt-0.5">145deg: #020030 → #0077B6</p>
                 </div>
               </div>
               <div className="rounded-xl overflow-hidden">
                 <div className=" h-20" />
-                <div className="bg-white/5 p-3 border border-white/10 border-t-0 rounded-b-xl">
-                  <p className="text-xs font-semibold text-white/85">.bg-transparent</p>
-                  <p className="text-xs text-white/60 font-mono mt-0.5">180deg: #f0f9ff → #e0f4fb</p>
+                <div className="bg-card/70 p-3 border border-border border-t-0 rounded-b-xl">
+                  <p className="text-xs font-semibold text-foreground">.bg-transparent</p>
+                  <p className="text-xs text-muted-foreground font-mono mt-0.5">180deg: #f0f9ff → #e0f4fb</p>
                 </div>
               </div>
-              <div className="rounded-xl overflow-hidden border border-white/10">
+              <div className="rounded-xl overflow-hidden border border-border">
                 <div className="h-20 bg-transparent flex items-center justify-center">
-                  <span className="gradient-text font-display font-bold text-3xl">MdPDev</span>
+                  <span className="text-foreground font-sans font-bold text-3xl">MdPDev</span>
                 </div>
-                <div className="bg-white/5 p-3 border-t border-white/10 rounded-b-xl">
-                  <p className="text-xs font-semibold text-white/85">.gradient-text</p>
-                  <p className="text-xs text-white/60 font-mono mt-0.5">135deg: #48CAE4 → #023E8A</p>
+                <div className="bg-card/70 p-3 border-t border-border rounded-b-xl">
+                  <p className="text-xs font-semibold text-foreground">.text-foreground</p>
+                  <p className="text-xs text-muted-foreground font-mono mt-0.5">135deg: #48CAE4 → #023E8A</p>
                 </div>
               </div>
             </div>
@@ -348,83 +334,83 @@ Aletas tr  path     M17.5 17 C19.5 16 21 17.5 19.5 19
         <Section id="tipografia">
           <div className="text-center mb-12">
             <SectionLabel>03 — Tipografía</SectionLabel>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90">
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-foreground">
               Sistema tipográfico
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             {/* Space Grotesk */}
-            <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
+            <div className="bg-card/70 rounded-xl p-8 border border-border">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-xs text-sky-300 font-semibold uppercase tracking-widest mb-1">Display</p>
-                  <h3 className="font-display font-bold text-2xl text-white/90">Space Grotesk</h3>
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-widest mb-1">Display</p>
+                  <h3 className="font-sans font-bold text-2xl text-foreground">Space Grotesk</h3>
                 </div>
-                <span className="text-xs bg-sky-500/15 text-sky-300 rounded-full px-3 py-1 font-semibold">Títulos</span>
+                <span className="text-xs bg-muted text-muted-foreground rounded-full px-3 py-1 font-semibold">Títulos</span>
               </div>
               <div className="space-y-4">
                 <div>
-                  <p className="font-display font-bold text-5xl text-white/90 leading-[1.1]">H1 — 5xl</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">font-display font-bold text-5xl</p>
+                  <p className="font-sans font-bold text-5xl text-foreground leading-[1.1]">H1 — 5xl</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">font-sans font-bold text-5xl</p>
                 </div>
                 <div>
-                  <p className="font-display font-bold text-4xl text-white/90">H2 — 4xl</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">font-display font-bold text-4xl</p>
+                  <p className="font-sans font-bold text-4xl text-foreground">H2 — 4xl</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">font-sans font-bold text-4xl</p>
                 </div>
                 <div>
-                  <p className="font-display font-bold text-2xl text-white/90">H3 — 2xl</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">font-display font-bold text-2xl</p>
+                  <p className="font-sans font-bold text-2xl text-foreground">H3 — 2xl</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">font-sans font-bold text-2xl</p>
                 </div>
                 <div>
-                  <p className="font-display font-semibold text-lg text-white/90">H4 — lg</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">font-display font-semibold text-lg</p>
+                  <p className="font-sans font-semibold text-lg text-foreground">H4 — lg</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">font-sans font-semibold text-lg</p>
                 </div>
                 <div>
-                  <p className="font-display font-semibold text-xs uppercase tracking-widest text-sky-300">Label uppercase</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">font-display text-xs tracking-widest uppercase</p>
+                  <p className="font-sans font-semibold text-xs uppercase tracking-widest text-muted-foreground">Label uppercase</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">font-sans text-xs tracking-widest uppercase</p>
                 </div>
               </div>
             </div>
 
             {/* Inter */}
-            <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
+            <div className="bg-card/70 rounded-xl p-8 border border-border">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-xs text-sky-300 font-semibold uppercase tracking-widest mb-1">Body</p>
-                  <h3 className="font-display font-bold text-2xl text-white/90">Inter</h3>
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-widest mb-1">Body</p>
+                  <h3 className="font-sans font-bold text-2xl text-foreground">Inter</h3>
                 </div>
-                <span className="text-xs bg-sky-500/15 text-sky-300 rounded-full px-3 py-1 font-semibold">Cuerpo</span>
+                <span className="text-xs bg-muted text-muted-foreground rounded-full px-3 py-1 font-semibold">Cuerpo</span>
               </div>
               <div className="space-y-5">
                 <div>
-                  <p className="text-2xl text-white/85 leading-relaxed">Subtítulo — 2xl</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">text-2xl leading-relaxed</p>
+                  <p className="text-2xl text-foreground leading-relaxed">Subtítulo — 2xl</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">text-2xl leading-relaxed</p>
                 </div>
                 <div>
-                  <p className="text-lg text-white/65 leading-relaxed">Copy de sección — lg. Conectamos desarrolladores, diseñadores y emprendedores.</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">text-lg leading-relaxed</p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">Copy de sección — lg. Conectamos desarrolladores, diseñadores y emprendedores.</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">text-lg leading-relaxed</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white/85">Texto de card y nav — sm medium</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">text-sm font-medium</p>
+                  <p className="text-sm font-medium text-foreground">Texto de card y nav — sm medium</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">text-sm font-medium</p>
                 </div>
                 <div>
-                  <p className="text-xs text-white/65">Texto secundario y metadatos — xs</p>
-                  <p className="text-xs text-white/60 mt-1 font-mono">text-xs text-white/65</p>
+                  <p className="text-xs text-muted-foreground">Texto secundario y metadatos — xs</p>
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">text-xs text-muted-foreground</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white/[0.04] rounded-2xl p-8">
-            <h3 className="font-display font-bold text-lg text-white mb-4">Variables CSS de fuente</h3>
+          <div className="bg-card/60 rounded-xl p-8">
+            <h3 className="font-sans font-bold text-lg text-foreground mb-4">Variables CSS de fuente</h3>
             <Code>{`--font-sans:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
---font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+--font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
 
 /* Aplicación en Tailwind */
 font-sans     → Inter    (body por defecto)
-font-display  → Space Grotesk (headings, wordmark)`}</Code>
+font-sans  → Space Grotesk (headings, wordmark)`}</Code>
           </div>
         </Section>
 
@@ -432,7 +418,7 @@ font-display  → Space Grotesk (headings, wordmark)`}</Code>
         <Section id="voz" className="bg-transparent">
           <div className="text-center mb-12">
             <SectionLabel>04 — Voz y tono</SectionLabel>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90">
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-foreground">
               Cómo habla MdPDev
             </h2>
           </div>
@@ -471,18 +457,18 @@ font-display  → Space Grotesk (headings, wordmark)`}</Code>
                 desc: "No somos corporativos, no somos fríos, no somos genéricos ni excluyentes.",
               },
             ].map((p) => (
-              <div key={p.title} className="bg-white/[0.03] rounded-2xl p-6 border border-white/10 shadow-sm">
+              <div key={p.title} className="bg-card/60 rounded-xl p-6 border border-border shadow-sm">
                 <span className="text-2xl mb-3 block">{p.icon}</span>
-                <h3 className="font-display font-bold text-base text-white/90 mb-2">{p.title}</h3>
-                <p className="text-sm text-white/65 leading-relaxed">{p.desc}</p>
+                <h3 className="font-sans font-bold text-base text-foreground mb-2">{p.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Ejemplos */}
-          <div className="bg-white/[0.03] rounded-2xl border border-white/10 overflow-hidden">
-            <div className="px-8 py-5 border-b border-white/10">
-              <h3 className="font-display font-bold text-lg text-white/90">Ejemplos de copy</h3>
+          <div className="bg-card/60 rounded-xl border border-border overflow-hidden">
+            <div className="px-8 py-5 border-b border-border">
+              <h3 className="font-sans font-bold text-lg text-foreground">Ejemplos de copy</h3>
             </div>
             <div className="divide-y divide-white/10">
               {[
@@ -508,16 +494,16 @@ font-display  → Space Grotesk (headings, wordmark)`}</Code>
                 },
               ].map((row) => (
                 <div key={row.context} className="grid grid-cols-1 sm:grid-cols-3 gap-0">
-                  <div className="px-8 py-4 bg-white/5 flex items-center border-b sm:border-b-0 sm:border-r border-white/10">
-                    <p className="text-xs font-semibold text-white/65 uppercase tracking-wider">{row.context}</p>
+                  <div className="px-8 py-4 bg-card/70 flex items-center border-b sm:border-b-0 sm:border-r border-border">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{row.context}</p>
                   </div>
-                  <div className="px-8 py-4 border-b sm:border-b-0 sm:border-r border-white/10 flex items-center gap-2">
+                  <div className="px-8 py-4 border-b sm:border-b-0 sm:border-r border-border flex items-center gap-2">
                     <span className="text-emerald-500 flex-shrink-0">✓</span>
-                    <p className="text-sm text-white/90">{row.good}</p>
+                    <p className="text-sm text-foreground">{row.good}</p>
                   </div>
                   <div className="px-8 py-4 flex items-center gap-2">
                     <span className="text-red-400 flex-shrink-0">✕</span>
-                    <p className="text-sm text-white/60 line-through">{row.bad}</p>
+                    <p className="text-sm text-muted-foreground line-through">{row.bad}</p>
                   </div>
                 </div>
               ))}
@@ -529,19 +515,19 @@ font-display  → Space Grotesk (headings, wordmark)`}</Code>
         <Section id="componentes">
           <div className="text-center mb-12">
             <SectionLabel>05 — Componentes</SectionLabel>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90">
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-foreground">
               Componentes UI
             </h2>
           </div>
 
           {/* Botones */}
           <div className="mb-10">
-            <h3 className="font-display font-bold text-xl text-white/90 mb-6">Botones</h3>
+            <h3 className="font-sans font-bold text-xl text-foreground mb-6">Botones</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Primario */}
-              <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+              <div className="bg-card/70 rounded-xl border border-border overflow-hidden">
                 <div className="bg-transparent p-8 flex items-center justify-center">
-                  <a className="inline-flex items-center gap-2.5 bg-ocean-400 hover:bg-ocean-300 text-white px-8 py-4 rounded-full font-semibold text-lg transition-[background-color,box-shadow,translate] hover:shadow-2xl hover:shadow-ocean-400/40 hover:-translate-y-1 cursor-pointer">
+                  <a className="inline-flex h-11 cursor-pointer items-center gap-2.5 rounded-[10px] border border-border-strong bg-transparent px-5 text-[14px] font-medium text-foreground">
                     Unirse a la comunidad
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                       <path d="M5 12h14M12 5l7 7-7 7" />
@@ -549,19 +535,19 @@ font-display  → Space Grotesk (headings, wordmark)`}</Code>
                   </a>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-white/85 mb-2">Primario — CTA principal</p>
+                  <p className="text-sm font-semibold text-foreground mb-2">Primario — CTA principal</p>
                   <Code>{`bg-ocean-400 hover:bg-ocean-300
-text-white px-8 py-4 rounded-full
+text-foreground px-8 py-4 rounded-full
 font-semibold text-lg
-hover:shadow-2xl hover:shadow-ocean-400/40
-hover:-translate-y-1`}</Code>
+ 
+`}</Code>
                 </div>
               </div>
 
               {/* Secundario */}
-              <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+              <div className="bg-card/70 rounded-xl border border-border overflow-hidden">
                 <div className="bg-transparent p-8 flex items-center justify-center">
-                  <a className="inline-flex items-center gap-2.5 border border-white/12 text-white/65 hover:bg-white/[0.05] hover:text-white hover:border-white/30 px-8 py-4 rounded-full font-semibold text-lg transition-[background-color,border-color,color,translate] hover:-translate-y-1 backdrop-blur-sm cursor-pointer">
+                  <a className="inline-flex items-center gap-2.5 border border-border text-muted-foreground hover:bg-card/70 hover:text-foreground hover:border-border-strong px-8 py-4 rounded-full font-semibold text-lg transition-[background-color,border-color,color,translate]  backdrop-blur-sm cursor-pointer">
                     Ver Eventos
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                       <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -572,39 +558,37 @@ hover:-translate-y-1`}</Code>
                   </a>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-white/85 mb-2">Secundario — outline (sobre oscuro)</p>
-                  <Code>{`border border-white/12 text-white/65
-hover:bg-white/[0.05] hover:text-white
-hover:border-white/30
+                  <p className="text-sm font-semibold text-foreground mb-2">Secundario — outline (sobre oscuro)</p>
+                  <Code>{`border border-border text-muted-foreground
+hover:bg-card/70 hover:text-foreground
+hover:border-border-strong
 px-8 py-4 rounded-full font-semibold
-backdrop-blur-sm hover:-translate-y-1`}</Code>
+backdrop-blur-sm `}</Code>
                 </div>
               </div>
 
-              {/* WhatsApp */}
-              <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
-                <div className="bg-transparent p-8 flex items-center justify-center border-b border-white/10">
-                  <a className="inline-flex items-center gap-2.5 bg-ocean-600 hover:bg-ocean-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-[background-color,box-shadow,translate] hover:shadow-xl hover:shadow-ocean-600/30 hover:-translate-y-0.5 cursor-pointer">
+              {/* CTA primario */}
+              <div className="bg-card/70 rounded-xl border border-border overflow-hidden">
+                <div className="bg-transparent p-8 flex items-center justify-center border-b border-border">
+                  <a className="inline-flex h-11 cursor-pointer items-center gap-2.5 rounded-[10px] bg-foreground px-5 text-[14px] font-medium text-background">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
                     </svg>
-                    Hablemos por WhatsApp
+                    Sumate a la comunidad
                   </a>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-white/85 mb-2">WhatsApp — botón de contacto</p>
-                  <Code>{`bg-ocean-600 hover:bg-ocean-700 text-white
-px-8 py-4 rounded-full font-semibold text-lg
-hover:shadow-xl hover:shadow-ocean-600/30
-hover:-translate-y-0.5
-+ SVG WhatsApp inline (fill="currentColor")`}</Code>
+                  <p className="text-sm font-semibold text-foreground mb-2">CTA primario — botón de contacto</p>
+                  <Code>{`bg-foreground text-background
+h-11 px-5 rounded-[10px] font-medium text-sm
+(CTA primario Piedra)`}</Code>
                 </div>
               </div>
 
               {/* Navbar compacto */}
-              <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+              <div className="bg-card/70 rounded-xl border border-border overflow-hidden">
                 <div className="bg-transparent p-8 flex items-center justify-center">
-                  <a className="inline-flex items-center gap-2 bg-ocean-400 hover:bg-ocean-300 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-[background-color,box-shadow] hover:shadow-lg hover:shadow-ocean-400/40 cursor-pointer">
+                  <a className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-lg border border-border-strong bg-transparent px-4 text-[13px] font-medium text-foreground">
                     Unirse a la comunidad
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                       <path d="M5 12h14M12 5l7 7-7 7" />
@@ -612,11 +596,10 @@ hover:-translate-y-0.5
                   </a>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-white/85 mb-2">Compacto — Navbar</p>
-                  <Code>{`bg-ocean-400 hover:bg-ocean-300 text-white
-px-5 py-2.5 rounded-full
-text-sm font-semibold
-hover:shadow-lg hover:shadow-ocean-400/40`}</Code>
+                  <p className="text-sm font-semibold text-foreground mb-2">Compacto — Navbar</p>
+                  <Code>{`bg-foreground text-background
+px-5 py-2.5 rounded-lg
+text-sm font-semibold`}</Code>
                 </div>
               </div>
             </div>
@@ -624,75 +607,75 @@ hover:shadow-lg hover:shadow-ocean-400/40`}</Code>
 
           {/* Cards */}
           <div className="mb-10">
-            <h3 className="font-display font-bold text-xl text-white/90 mb-6">Cards</h3>
+            <h3 className="font-sans font-bold text-xl text-foreground mb-6">Cards</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Card oscura */}
-              <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+              <div className="bg-card/70 rounded-xl border border-border overflow-hidden">
                 <div className="bg-transparent p-8 flex justify-center">
-                  <div className="bg-white/[0.05] backdrop-blur-sm border border-ocean-600/30 rounded-2xl p-5 text-center w-full max-w-[180px]">
+                  <div className="bg-card/70 backdrop-blur-sm border border-ocean-600/30 rounded-xl p-5 text-center w-full max-w-[180px]">
                     <div className="w-12 h-12 bg-ocean-600/40 rounded-xl flex items-center justify-center mx-auto mb-3">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#48CAE4" strokeWidth="2" strokeLinecap="round">
                         <rect x="2" y="7" width="20" height="14" rx="2" />
                         <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
                       </svg>
                     </div>
-                    <p className="text-white/55 text-xs font-semibold uppercase tracking-widest mb-1">EMPLEOS</p>
-                    <p className="text-white font-medium text-sm">Compartimos ofertas laborales</p>
+                    <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest mb-1">EMPLEOS</p>
+                    <p className="text-foreground font-medium text-sm">Compartimos ofertas laborales</p>
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-white/85 mb-2">Card oscura (hero features)</p>
-                  <Code>{`bg-white/[0.05] backdrop-blur-sm
+                  <p className="text-sm font-semibold text-foreground mb-2">Card oscura (hero features)</p>
+                  <Code>{`bg-card/70 backdrop-blur-sm
 border border-ocean-600/30
-rounded-2xl p-5`}</Code>
+rounded-xl p-5`}</Code>
                 </div>
               </div>
 
               {/* Card clara */}
-              <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
-                <div className="bg-transparent p-8 flex justify-center border-b border-white/10">
-                  <div className="bg-white/5 border border-white/10 rounded-2xl p-7 text-center w-full max-w-[180px] hover:-translate-y-1 transition-[translate,box-shadow] hover:shadow-lg hover:shadow-ocean-600/10">
-                    <div className="w-14 h-14 bg-sky-500/15 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="bg-card/70 rounded-xl border border-border overflow-hidden">
+                <div className="bg-transparent p-8 flex justify-center border-b border-border">
+                  <div className="bg-card/70 border border-border rounded-xl p-7 text-center w-full max-w-[180px]  transition-[translate,box-shadow]  ">
+                    <div className="w-14 h-14 bg-muted rounded-xl flex items-center justify-center mx-auto mb-4">
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0096C7" strokeWidth="2" strokeLinecap="round">
                         <circle cx="12" cy="12" r="10" />
                         <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
                         <path d="M2 12h20" />
                       </svg>
                     </div>
-                    <h3 className="font-display font-bold text-base text-white/90 mb-1">Visibilidad</h3>
-                    <p className="text-white/65 text-xs leading-relaxed">Tu org frente a la comunidad</p>
+                    <h3 className="font-sans font-bold text-base text-foreground mb-1">Visibilidad</h3>
+                    <p className="text-muted-foreground text-xs leading-relaxed">Tu org frente a la comunidad</p>
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-white/85 mb-2">Card clara (colaboradores)</p>
-                  <Code>{`bg-white/5 border border-white/10
-rounded-2xl p-7
-hover:-translate-y-1
-hover:shadow-lg hover:shadow-ocean-600/10
+                  <p className="text-sm font-semibold text-foreground mb-2">Card clara (colaboradores)</p>
+                  <Code>{`bg-card/70 border border-border
+rounded-xl p-7
+
+ 
 transition-all duration-300`}</Code>
                 </div>
               </div>
 
               {/* Card team */}
-              <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
-                <div className=" p-8 flex justify-center border-b border-white/10">
-                  <div className="bg-transparent rounded-3xl border border-white/10 shadow-sm p-7 text-center w-full max-w-[180px] hover:-translate-y-1.5 transition-[translate,box-shadow] hover:shadow-xl hover:shadow-ocean-600/10">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-ocean-400 to-ocean-800 flex items-center justify-center mx-auto mb-3 text-white text-xl font-bold font-display shadow-lg shadow-ocean-600/30">
+              <div className="bg-card/70 rounded-xl border border-border overflow-hidden">
+                <div className=" p-8 flex justify-center border-b border-border">
+                  <div className="bg-transparent rounded-xl border border-border shadow-sm p-7 text-center w-full max-w-[180px] .5 transition-[translate,box-shadow]  ">
+                    <div className="w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center mx-auto mb-3 text-foreground text-xl font-bold font-sans ">
                       FP
                     </div>
-                    <span className="inline-flex items-center gap-1 bg-sky-500/15 text-sky-300 rounded-full px-3 py-1 text-xs font-semibold mb-2">
+                    <span className="inline-flex items-center gap-1 bg-muted text-muted-foreground rounded-full px-3 py-1 text-xs font-semibold mb-2">
                       ⭐ Co-fundador
                     </span>
-                    <h3 className="font-display font-bold text-sm text-white/90">Franco Petruccelli</h3>
-                    <p className="text-sky-300 text-xs">QA Engineer</p>
+                    <h3 className="font-sans font-bold text-sm text-foreground">Franco Petruccelli</h3>
+                    <p className="text-muted-foreground text-xs">QA Engineer</p>
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-white/85 mb-2">Card de equipo</p>
-                  <Code>{`bg-transparent rounded-3xl
-border border-white/10 shadow-sm p-7
-hover:-translate-y-1.5
-hover:shadow-xl hover:shadow-ocean-600/10
+                  <p className="text-sm font-semibold text-foreground mb-2">Card de equipo</p>
+                  <Code>{`bg-transparent rounded-xl
+border border-border shadow-sm p-7
+.5
+ 
 transition-all duration-300`}</Code>
                 </div>
               </div>
@@ -701,34 +684,34 @@ transition-all duration-300`}</Code>
 
           {/* Badges */}
           <div>
-            <h3 className="font-display font-bold text-xl text-white/90 mb-6">Badges</h3>
-            <div className="bg-white/5 rounded-2xl border border-white/10 p-8">
+            <h3 className="font-sans font-bold text-xl text-foreground mb-6">Badges</h3>
+            <div className="bg-card/70 rounded-xl border border-border p-8">
               <div className="flex flex-wrap gap-6 items-start">
                 <div className="flex flex-col gap-2 items-start">
-                  <div className="inline-flex items-center gap-2 bg-white/5 text-sky-300 rounded-full px-4 py-2 text-sm font-semibold">
+                  <div className="inline-flex items-center gap-2 bg-card/70 text-muted-foreground rounded-full px-4 py-2 text-sm font-semibold">
                     🤝 Colaboradores
                   </div>
-                  <p className="text-xs text-white/60 font-mono">Badge de sección (sobre H2)</p>
-                  <Code>{`bg-white/5 text-sky-300
+                  <p className="text-xs text-muted-foreground font-mono">Badge de sección (sobre H2)</p>
+                  <Code>{`bg-card/70 text-muted-foreground
 rounded-full px-4 py-2
 text-sm font-semibold`}</Code>
                 </div>
                 <div className="flex flex-col gap-2 items-start">
-                  <div className="inline-flex items-center gap-2.5 bg-white/[0.05] border border-white/10 backdrop-blur-sm rounded-full px-5 py-2 text-white/65 text-sm font-medium">
+                  <div className="inline-flex items-center gap-2.5 bg-card/70 border border-border backdrop-blur-sm rounded-full px-5 py-2 text-muted-foreground text-sm font-medium">
                     <span className="w-2.5 h-2.5 rounded-full bg-ocean-300 pulse-dot flex-shrink-0" />
                     Comunidad marplatense
                   </div>
-                  <p className="text-xs text-white/60 font-mono">Badge hero (sobre oscuro)</p>
-                  <Code>{`bg-white/[0.05] border border-white/10
+                  <p className="text-xs text-muted-foreground font-mono">Badge hero (sobre oscuro)</p>
+                  <Code>{`bg-card/70 border border-border
 backdrop-blur-sm rounded-full
-px-5 py-2 text-white/65 text-sm`}</Code>
+px-5 py-2 text-muted-foreground text-sm`}</Code>
                 </div>
                 <div className="flex flex-col gap-2 items-start">
-                  <span className="inline-flex items-center gap-1 bg-sky-500/15 text-sky-300 rounded-full px-3 py-1 text-xs font-semibold">
+                  <span className="inline-flex items-center gap-1 bg-muted text-muted-foreground rounded-full px-3 py-1 text-xs font-semibold">
                     ⭐ Co-fundador
                   </span>
-                  <p className="text-xs text-white/60 font-mono">Badge inline (en card)</p>
-                  <Code>{`bg-sky-500/15 text-sky-300
+                  <p className="text-xs text-muted-foreground font-mono">Badge inline (en card)</p>
+                  <Code>{`bg-muted text-muted-foreground
 rounded-full px-3 py-1
 text-xs font-semibold`}</Code>
                 </div>
@@ -741,7 +724,7 @@ text-xs font-semibold`}</Code>
         <Section id="reglas" className="bg-transparent">
           <div className="text-center mb-12">
             <SectionLabel>06 — Reglas</SectionLabel>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90">
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-foreground">
               {"Do's & Don'ts"}
             </h2>
           </div>
@@ -767,13 +750,13 @@ text-xs font-semibold`}</Code>
                 title: "Color",
                 dos: [
                   "Texto blanco sobre ocean-700 o más oscuro",
-                  ".gradient-text solo sobre fondos blancos o muy claros",
+                  ".text-foreground solo sobre fondos blancos o muy claros",
                   ".bg-transparent únicamente en la sección hero y navbar",
                   "Sand como acento puntual, nunca como color principal",
                 ],
                 donts: [
                   "No usar texto blanco sobre ocean-400 o más claro",
-                  "No aplicar .gradient-text sobre fondos oscuros",
+                  "No aplicar .text-foreground sobre fondos oscuros",
                   "No reutilizar .bg-transparent en secciones internas",
                   "No usar sand como fondo de una sección completa",
                 ],
@@ -790,7 +773,7 @@ text-xs font-semibold`}</Code>
                   "No mezclar ambas fuentes en el mismo bloque de texto",
                   "No usar labels uppercase sin tracking extra",
                   "No usar leading-normal en títulos grandes (queda muy espaciado)",
-                  "No usar font-display en párrafos de texto corrido",
+                  "No usar font-sans en párrafos de texto corrido",
                 ],
               },
               {
@@ -810,7 +793,7 @@ text-xs font-semibold`}</Code>
               },
             ].map((group) => (
               <div key={group.title}>
-                <h3 className="font-display font-bold text-xl text-white/90 mb-4">{group.title}</h3>
+                <h3 className="font-sans font-bold text-xl text-foreground mb-4">{group.title}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <RuleCard type="do" items={group.dos} />
                   <RuleCard type="dont" items={group.donts} />
@@ -824,18 +807,18 @@ text-xs font-semibold`}</Code>
         <Section id="identidad-v2" className="bg-transparent">
           <div className="text-center mb-12">
             <SectionLabel>07 — Identidad v2</SectionLabel>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white/90 mb-4">
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-foreground mb-4">
               Dos capas, una comunidad
             </h2>
-            <p className="text-white/65 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Brand Core (ocean) para comunicación externa. Editorial Shell para la
               experiencia web inmersiva.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
-              <h3 className="font-display font-bold text-lg text-white/90 mb-3">
+            <div className="bg-card/70 rounded-xl border border-border p-6">
+              <h3 className="font-sans font-bold text-lg text-foreground mb-3">
                 Capa 1 — Brand Core
               </h3>
               <ul className="text-sm text-white/70 space-y-2 list-disc pl-5">
@@ -845,41 +828,41 @@ text-xs font-semibold`}</Code>
                 <li>Posts, press, sponsors, marketing kit</li>
               </ul>
             </div>
-            <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
-              <h3 className="font-display font-bold text-lg text-white/90 mb-3">
+            <div className="bg-card/70 rounded-xl border border-border p-6">
+              <h3 className="font-sans font-bold text-lg text-foreground mb-3">
                 Capa 2 — Editorial Shell
               </h3>
               <ul className="text-sm text-white/70 space-y-2 list-disc pl-5">
-                <li>Fondo <code className="text-sky-300">#06070d</code></li>
+                <li>Fondo <code className="text-muted-foreground">#06070d</code></li>
                 <li>Fraunces + JetBrains Mono</li>
-                <li>Wordmark <code className="text-sky-300">mardelplata.dev</code></li>
+                <li>Wordmark <code className="text-muted-foreground">mardelplata.dev.ar</code></li>
                 <li>Home y secciones editoriales</li>
               </ul>
             </div>
           </div>
 
-          <div className="bg-white/5 rounded-2xl border border-white/10 p-6 mb-6">
-            <h3 className="font-display font-bold text-lg text-white/90 mb-3">
+          <div className="bg-card/70 rounded-xl border border-border p-6 mb-6">
+            <h3 className="font-sans font-bold text-lg text-foreground mb-3">
               Posicionamiento
             </h3>
             <p className="text-sm text-white/70 leading-relaxed">
               Comunidad independiente y grassroots de Mar del Plata y la costa
               atlántica. Aliados estratégicos de ATICMA — no competidores.
-              WhatsApp-first, bolsa de trabajo, Primer Trabajo OS y Red OSS.
+              Comunidad, bolsa de trabajo, Primer Trabajo OS y Red OSS.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3 justify-center text-sm">
             <a
               href="https://github.com/LuigiRaffaeleSianoCanoro/mardelplata/blob/main/BRAND.md"
-              className="text-sky-300 hover:text-sky-200 underline"
+              className="text-muted-foreground hover:text-sky-200 underline"
               target="_blank"
               rel="noopener noreferrer"
             >
               BRAND.md
             </a>
             <span className="text-white/30">·</span>
-            <a href="/marketing-kit" className="text-sky-300 hover:text-sky-200 underline">
+            <a href="/marketing-kit" className="text-muted-foreground hover:text-sky-200 underline">
               Marketing Kit
             </a>
             <span className="text-white/30">·</span>
@@ -887,8 +870,9 @@ text-xs font-semibold`}</Code>
           </div>
         </Section>
 
-      </main>
-      <Footer />
-    </>
+      </div>
+      
+    </PageFrame>
   );
+
 }

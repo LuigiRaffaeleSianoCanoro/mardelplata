@@ -45,7 +45,7 @@ export default function IdeasPage() {
         eyebrow="red · ideas"
         title={
           <>
-            Posibles <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFB070] via-white/95 to-[#FF2DAA]">próximos pasos</span>.
+            Posibles <em className="not-italic text-[var(--oxido)]">próximos pasos</em>.
           </>
         }
         description="Tablero de ideas que la comunidad puede transformar en proyectos. Seguí las que te llaman, linkealas si ya las estás construyendo."

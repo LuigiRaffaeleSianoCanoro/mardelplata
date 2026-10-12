@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import JsonLd from "@/components/seo/JsonLd";
 import CafeVote from "@/components/cafes/CafeVote";
 import { breadcrumbSchema, type JsonLdObject } from "@/lib/seo/jsonLd";
@@ -95,7 +95,7 @@ export default async function CafePage({ params }: PageProps) {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="work-spot-x">
         <header className="shell-section shell-section--lg">
@@ -146,6 +146,6 @@ export default async function CafePage({ params }: PageProps) {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }

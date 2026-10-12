@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { PageFrame } from "@/components/v3/Page";
 
 const TOOLS = [
   {
@@ -58,12 +57,12 @@ const TOOLS = [
 
 export default function PrimerTrabajoPage() {
   return (
-    <>
-      <Navbar />
-      <main className="primer-trabajo-x">
+    <PageFrame>
+      
+      <div className="primer-trabajo-x">
         <div className="shell-section shell-section--lg">
           <div className="shell-inner shell-inner--narrow">
-            <p className="shell-eyebrow">HERRAMIENTA · MARDELPLATA.DEV</p>
+            <p className="shell-eyebrow">HERRAMIENTA · MARDELPLATA.DEV.AR</p>
             <h1 className="shell-title shell-title--xl">
               Primer Trabajo <em>OS.</em>
             </h1>
@@ -96,8 +95,9 @@ export default function PrimerTrabajoPage() {
             </p>
           </div>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+      
+    </PageFrame>
   );
+
 }

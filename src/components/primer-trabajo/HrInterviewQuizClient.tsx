@@ -140,25 +140,25 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
 
   if (!hydrated) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-600 shadow-sm">{t.loading}</div>
+      <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground">{t.loading}</div>
     );
   }
 
   if (mode === "summary" && savedResult) {
     return (
       <div className="space-y-8 fade-up">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm space-y-4">
-          <h2 className="font-display font-bold text-xl text-ocean-900">{t.summaryTitle}</h2>
-          <p className="text-3xl font-bold text-ocean-600">{savedResult.score}%</p>
-          <p className="text-sm text-slate-600 leading-relaxed">
+        <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm space-y-4">
+          <h2 className="font-display font-bold text-xl text-foreground">{t.summaryTitle}</h2>
+          <p className="text-3xl font-bold text-muted-foreground">{savedResult.score}%</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
             {t.summaryBlurb}{" "}
-            <Link href="/primer-trabajo/diagnostico" className="text-ocean-700 font-semibold underline">
+            <Link href="/primer-trabajo/diagnostico" className="text-muted-foreground font-semibold underline">
               {t.diagnostic}
             </Link>
             {` `}
             {t.summaryBlurbEnd}
           </p>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-muted-foreground">
             {t.completed}{" "}
             {new Date(savedResult.completedAt).toLocaleString(locale, { dateStyle: "short", timeStyle: "short" })}
           </p>
@@ -166,19 +166,19 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
             <button
               type="button"
               onClick={restart}
-              className="rounded-full border border-ocean-500 text-ocean-700 px-5 py-2.5 text-sm font-semibold hover:bg-ocean-50"
+              className="rounded-full border border-border text-muted-foreground px-5 py-2.5 text-sm font-semibold hover:bg-muted"
             >
               {t.restart}
             </button>
             <Link
               href="/primer-trabajo/diagnostico"
-              className="inline-flex items-center justify-center rounded-full bg-ocean-500 text-white px-6 py-2.5 text-sm font-semibold hover:bg-ocean-600"
+              className="inline-flex items-center justify-center rounded-full bg-foreground text-background px-6 py-2.5 text-sm font-semibold hover:opacity-90"
             >
               {t.goDiagnostic}
             </Link>
             <Link
               href="/primer-trabajo"
-              className="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              className="inline-flex items-center justify-center rounded-full border border-border px-6 py-2.5 text-sm font-semibold text-muted-foreground hover:bg-muted"
             >
               {t.backHome}
             </Link>
@@ -204,16 +204,16 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
                       <span className="font-medium">{t.rewrite}</span> {opt.rewriteHint}
                     </p>
                     {item.spokenModels ? (
-                      <div className="mt-3 space-y-2 rounded-xl border border-amber-300 bg-white p-3">
+                      <div className="mt-3 space-y-2 rounded-xl border border-amber-300 bg-card p-3">
                         <p className="text-xs font-semibold uppercase tracking-wide text-amber-950">{t.spokenTitle}</p>
-                        <p className="text-slate-900 leading-relaxed">
-                          <span className="font-semibold text-ocean-800">{t.levelA2}:</span> {item.spokenModels.a2}
+                        <p className="text-foreground leading-relaxed">
+                          <span className="font-semibold text-foreground">{t.levelA2}:</span> {item.spokenModels.a2}
                         </p>
-                        <p className="text-slate-900 leading-relaxed">
-                          <span className="font-semibold text-ocean-800">{t.levelB1}:</span> {item.spokenModels.b1}
+                        <p className="text-foreground leading-relaxed">
+                          <span className="font-semibold text-foreground">{t.levelB1}:</span> {item.spokenModels.b1}
                         </p>
-                        <p className="text-slate-900 leading-relaxed">
-                          <span className="font-semibold text-ocean-800">{t.levelB2}:</span> {item.spokenModels.b2}
+                        <p className="text-foreground leading-relaxed">
+                          <span className="font-semibold text-foreground">{t.levelB2}:</span> {item.spokenModels.b2}
                         </p>
                       </div>
                     ) : null}
@@ -224,15 +224,15 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
           </div>
         )}
 
-        <p className="text-sm text-slate-600 text-center">
+        <p className="text-sm text-muted-foreground text-center">
           {t.practiceIntro}{" "}
-          <a href="https://www.pramp.com/" className="text-ocean-700 font-medium underline" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.pramp.com/" className="text-muted-foreground font-medium underline" target="_blank" rel="noopener noreferrer">
             Pramp
           </a>
           {`, `}
           <a
             href="https://interviewing.io/"
-            className="text-ocean-700 font-medium underline"
+            className="text-muted-foreground font-medium underline"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -245,25 +245,25 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+    <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm">
       {current && (
         <>
           <div className="mb-6">
-            <div className="flex justify-between text-xs font-medium text-slate-500 mb-2">
+            <div className="flex justify-between text-xs font-medium text-muted-foreground mb-2">
               <span>
                 {t.question} {index + 1} / {total}
               </span>
               <span>{progress}%</span>
             </div>
-            <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+            <div className="h-2 rounded-full bg-muted overflow-hidden">
               <div
-                className="h-full w-full bg-ocean-500 origin-left transition-transform duration-300 rounded-full"
+                className="h-full w-full bg-foreground origin-left transition-transform duration-300 rounded-full"
                 style={{ transform: `scaleX(${Math.min(1, (index + 1) / total)})` }}
               />
             </div>
           </div>
 
-          <p className="font-display font-bold text-xl text-ocean-900 mb-6 leading-snug">{current.prompt}</p>
+          <p className="font-display font-bold text-xl text-foreground mb-6 leading-snug">{current.prompt}</p>
 
           <ul className="space-y-3">
             {current.options.map((opt) => {
@@ -275,8 +275,8 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
                     onClick={() => setSelected((s) => ({ ...s, [current.id]: opt.id }))}
                     className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-colors active:scale-[0.99] ${
                       isSelected
-                        ? "border-ocean-500 bg-ocean-50 text-ocean-900"
-                        : "border-slate-200 hover:border-ocean-300 bg-white text-slate-800"
+                        ? "border-border bg-muted text-foreground"
+                        : "border-border hover:border-border bg-card text-foreground"
                     }`}
                   >
                     <span className="font-medium">{opt.label}</span>
@@ -298,22 +298,22 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
           ) : null}
 
           {showSpokenModels && current.spokenModels ? (
-            <div className="mt-6 rounded-xl border border-ocean-300 bg-white p-4 space-y-3 text-sm">
-              <p className="font-semibold text-ocean-900">{t.spokenTitle}</p>
-              <p className="text-slate-900 leading-relaxed">
-                <span className="inline-flex items-center rounded-full bg-ocean-100 px-2.5 py-0.5 text-xs font-bold text-ocean-900 mr-2 align-middle">
+            <div className="mt-6 rounded-xl border border-border bg-card p-4 space-y-3 text-sm">
+              <p className="font-semibold text-foreground">{t.spokenTitle}</p>
+              <p className="text-foreground leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-bold text-foreground mr-2 align-middle">
                   {t.levelA2}
                 </span>
                 {current.spokenModels.a2}
               </p>
-              <p className="text-slate-900 leading-relaxed">
-                <span className="inline-flex items-center rounded-full bg-ocean-200 px-2.5 py-0.5 text-xs font-bold text-ocean-950 mr-2 align-middle">
+              <p className="text-foreground leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-bold text-foreground mr-2 align-middle">
                   {t.levelB1}
                 </span>
                 {current.spokenModels.b1}
               </p>
-              <p className="text-slate-900 leading-relaxed">
-                <span className="inline-flex items-center rounded-full bg-ocean-600 px-2.5 py-0.5 text-xs font-bold text-white mr-2 align-middle">
+              <p className="text-foreground leading-relaxed">
+                <span className="inline-flex items-center rounded-full bg-foreground px-2.5 py-0.5 text-xs font-bold text-background mr-2 align-middle">
                   {t.levelB2}
                 </span>
                 {current.spokenModels.b2}
@@ -327,7 +327,7 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
               type="button"
               onClick={back}
               disabled={index === 0}
-              className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 disabled:opacity-40 hover:bg-slate-50"
+              className="rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-muted-foreground disabled:opacity-40 hover:bg-muted"
             >
               {t.back}
             </button>
@@ -335,7 +335,7 @@ export default function HrInterviewQuizClient({ variant = "es", bundle }: Props)
               type="button"
               onClick={next}
               disabled={!selected[current.id]}
-              className="rounded-full bg-ocean-500 text-white px-6 py-2.5 text-sm font-semibold disabled:opacity-40 hover:bg-ocean-600"
+              className="rounded-full bg-foreground text-background px-6 py-2.5 text-sm font-semibold disabled:opacity-40 hover:opacity-90"
             >
               {index + 1 >= total ? t.finish : t.next}
             </button>

@@ -43,12 +43,12 @@ export default function ModuleCard({ module: mod, onOpen }: ModuleCardProps) {
           handleActivate();
         }
       }}
-      className={`glass-night p-5 block group transition-transform ${
+      className={`rounded-xl border border-border bg-card/70 p-5 block group transition-transform ${
         onOpen ? "cursor-pointer hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[rgba(59,130,246,0.45)]" : ""
       }`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        <p className="kicker text-white/45 flex items-center gap-2">
+        <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground flex items-center gap-2">
           <span
             className="inline-block w-1.5 h-1.5 rounded-full"
             style={{ background: KIND_ACCENT[mod.kind], boxShadow: `0 0 8px ${KIND_ACCENT[mod.kind]}` }}
@@ -61,7 +61,7 @@ export default function ModuleCard({ module: mod, onOpen }: ModuleCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="text-white/45 hover:text-white transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Source"
           >
             <ExternalLink size={13} />
@@ -69,23 +69,23 @@ export default function ModuleCard({ module: mod, onOpen }: ModuleCardProps) {
         )}
       </div>
 
-      <h3 className="display-thin text-white text-xl mb-1 leading-tight">{mod.name}</h3>
+      <h3 className="font-semibold tracking-[-0.04em] text-foreground text-xl mb-1 leading-tight">{mod.name}</h3>
       {mod.description && (
         <p className="text-white/60 text-sm font-light leading-relaxed line-clamp-3 mb-4">
           {mod.description}
         </p>
       )}
 
-      <div className="flex items-center gap-4 text-white/45 text-[0.72rem]">
+      <div className="flex items-center gap-4 text-muted-foreground text-[0.72rem]">
         <span className="flex items-center gap-1.5">
           <GitBranch size={12} /> {mod.usages_count} {mod.usages_count === 1 ? "proyecto" : "proyectos"}
         </span>
         {mod.version && (
-          <span className="text-white/55 font-mono text-[0.68rem]">v{mod.version}</span>
+          <span className="text-muted-foreground font-mono text-[0.68rem]">v{mod.version}</span>
         )}
-        {mod.license && <span className="ml-auto text-white/45">{mod.license}</span>}
+        {mod.license && <span className="ml-auto text-muted-foreground">{mod.license}</span>}
         {!mod.license && (
-          <Boxes size={12} className="ml-auto text-white/35" />
+          <Boxes size={12} className="ml-auto text-muted-foreground" />
         )}
       </div>
     </article>

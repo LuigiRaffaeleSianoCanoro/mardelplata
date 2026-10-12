@@ -6,8 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 import { huevsiteProfileUrl, normalizeHuevsiteUsername } from "@/lib/huevsite";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { PageFrame } from "@/components/v3/Page";
 
 interface Profile {
   full_name: string | null;
@@ -191,8 +190,8 @@ function MemberContent() {
 
 export default function MiembroPage() {
   return (
-    <>
-      <Navbar />
+    <PageFrame>
+      
       <Suspense
         fallback={
           <div className="min-h-screen hero-bg flex items-center justify-center">
@@ -202,7 +201,8 @@ export default function MiembroPage() {
       >
         <MemberContent />
       </Suspense>
-      <Footer />
-    </>
+      
+    </PageFrame>
   );
+
 }

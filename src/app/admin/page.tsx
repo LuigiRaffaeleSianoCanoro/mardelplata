@@ -85,7 +85,7 @@ export default function AdminPage() {
   if (loading) {
     return (
       <div className="min-h-screen hero-bg flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border-4 border-ocean-500 border-t-transparent animate-spin" />
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-border border-t-[var(--oxido)]" />
       </div>
     );
   }

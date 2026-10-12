@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 // Community — "Nuestra comunidad". Grid de 5 miembros + 1 CTA card
 // "Sumate vos también". Cada miembro: avatar, nombre, rol, ubicación,
 // y links sociales (GitHub / LinkedIn / Twitter) si los declaró en el
@@ -8,8 +10,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import TrackedOutboundLink from "@/components/TrackedOutboundLink";
-import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
+import { COMMUNITY_SIZE_LABEL } from "@/lib/v3/brand";
 import { resolveAvatarDisplayUrl } from "@/lib/avatarPresets";
 
 interface CommunityMember {
@@ -106,7 +107,7 @@ export default function Community({
         <header className="community-x-header">
           <h2 className="community-x-title">Nuestra comunidad</h2>
           <span className="community-x-pill">
-            {members.length >= 100 ? members.length + "+" : "1200+"} miembros
+            {COMMUNITY_SIZE_LABEL} personas
           </span>
         </header>
 
@@ -164,13 +165,7 @@ export default function Community({
             );
           })}
 
-          <TrackedOutboundLink
-            className="member-card member-card--cta"
-            href={WHATSAPP_COMMUNITY_URL}
-            trackSource="community_cta"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link className="member-card member-card--cta" href="/auth/registro">
             <h3 className="member-card-cta-title">¡Sumate vos también!</h3>
             <p className="member-card-cta-desc">
               Sé parte de una red de talento y amistad.
@@ -178,7 +173,7 @@ export default function Community({
             <span className="member-card-cta-btn">
               Unirme a la comunidad <span aria-hidden>→</span>
             </span>
-          </TrackedOutboundLink>
+          </Link>
         </div>
       </div>
     </section>

@@ -66,18 +66,18 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
     <div>
       {/* Header propio removido — el AppShell ya provee logo / perfil /
           logout via el sidebar (mobile bottom bar). Antes habia un
-          header sticky con mardelplata.dev + Mi perfil + Salir que
+          header sticky con mardelplata.dev.ar + Mi perfil + Salir que
           duplicaba esa funcionalidad. */}
 
       <div className="max-w-7xl mx-auto px-4 pt-10">
         <PageHeader
           eyebrow="/ Panel admin"
-          title={<>Centro de <span className="gradient-text">control</span></>}
+          title={<>Centro de control</>}
           description="Eventos, miembros, escáner QR, newsletter y cola del Marketplace."
         />
       </div>
 
-      <div className="border-b border-ocean-300/10">
+      <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex gap-1 overflow-x-auto whitespace-nowrap" role="tablist">
             {[
@@ -94,8 +94,8 @@ export default function AdminDashboard({ events, profiles, subscribers, currentU
                 aria-selected={activeTab === tab.id}
                 className={`flex flex-shrink-0 items-center gap-2 px-3 sm:px-5 py-3 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === tab.id
-                    ? "text-white border-ocean-300"
-                    : "text-ocean-300/60 border-transparent hover:text-white hover:border-ocean-400/30"
+                    ? "text-foreground border-[var(--oxido)]"
+                    : "text-muted-foreground border-transparent hover:text-foreground hover:border-border"
                 }`}
               >
                 <tab.icon />
@@ -184,8 +184,8 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
     <div className="fade-up">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 01 · Eventos</p>
-          <h2 className="text-xl font-display font-bold text-white mt-1">Gestión de eventos</h2>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">/ 01 · Eventos</p>
+          <h2 className="text-xl font-display font-bold text-foreground mt-1">Gestión de eventos</h2>
         </div>
         <Button onClick={onNew} variant="primary" size="sm">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -198,34 +198,34 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
       <GlassCard className="overflow-x-auto">
         <table className="w-full min-w-[760px]">
           <thead>
-            <tr className="border-b border-ocean-700/30">
-              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Evento</th>
-              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Fecha</th>
-              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Estado</th>
-              <th className="text-right px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Acciones</th>
+            <tr className="border-b border-border">
+              <th className="text-left px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Evento</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Fecha</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Estado</th>
+              <th className="text-right px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {events.map((event) => (
-              <tr key={event.id} className="border-b border-ocean-700/20 last:border-0">
+              <tr key={event.id} className="border-b border-border last:border-0">
                 <td className="px-4 sm:px-6 py-4">
                   <div>
-                    <div className="font-medium text-white truncate max-w-[240px] sm:max-w-none">{event.title}</div>
+                    <div className="font-medium text-foreground truncate max-w-[240px] sm:max-w-none">{event.title}</div>
                     {event.subtitle && (
-                      <div className="text-ocean-400 text-sm truncate max-w-[240px] sm:max-w-none">
+                      <div className="text-muted-foreground text-sm truncate max-w-[240px] sm:max-w-none">
                         {event.subtitle}
                       </div>
                     )}
                     <div className="flex flex-wrap gap-1 mt-1">
                       {event.tags?.map((tag) => (
-                        <span key={tag} className="text-xs bg-ocean-700/50 text-ocean-300 px-2 py-0.5 rounded-full">
+                        <span key={tag} className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full">
                           {tag}
                         </span>
                       ))}
                     </div>
                   </div>
                 </td>
-                <td className="px-4 sm:px-6 py-4 text-ocean-200 text-sm">
+                <td className="px-4 sm:px-6 py-4 text-muted-foreground text-sm">
                   {new Date(event.date).toLocaleDateString("es-AR", { day: "2-digit", month: "short", year: "numeric" })}
                 </td>
                 <td className="px-4 sm:px-6 py-4">
@@ -244,7 +244,7 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
                   <div className="flex items-center justify-end gap-2">
                     <button
                       onClick={() => onEdit(event)}
-                      className="text-ocean-400 hover:text-white transition-colors p-2"
+                      className="text-muted-foreground hover:text-foreground transition-colors p-2"
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
@@ -265,7 +265,7 @@ function EventsTab({ events, onEdit, onNew }: { events: Event[]; onEdit: (e: Eve
             ))}
             {events.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 sm:px-6 py-12 text-center text-ocean-400">
+                <td colSpan={4} className="px-4 sm:px-6 py-12 text-center text-muted-foreground">
                   No hay eventos. Creá el primero.
                 </td>
               </tr>
@@ -304,29 +304,29 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
     <div className="fade-up">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 02 · Comunidad</p>
-          <h2 className="text-xl font-display font-bold text-white mt-1">Gestión de usuarios</h2>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">/ 02 · Comunidad</p>
+          <h2 className="text-xl font-display font-bold text-foreground mt-1">Gestión de usuarios</h2>
         </div>
-        <div className="text-ocean-300/70 text-xs font-mono">{profiles.length} registrados</div>
+        <div className="text-muted-foreground text-xs font-mono">{profiles.length} registrados</div>
       </div>
 
       <GlassCard className="overflow-x-auto">
         <table className="w-full min-w-[900px]">
           <thead>
-            <tr className="border-b border-ocean-700/30">
-              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Usuario</th>
-              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">QR Code</th>
-              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Registrado</th>
-              <th className="text-left px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Rol</th>
-              <th className="text-right px-4 sm:px-6 py-4 text-ocean-300 font-medium text-sm">Acciones</th>
+            <tr className="border-b border-border">
+              <th className="text-left px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Usuario</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">QR Code</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Registrado</th>
+              <th className="text-left px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Rol</th>
+              <th className="text-right px-4 sm:px-6 py-4 text-muted-foreground font-medium text-sm">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {profiles.map((profile) => (
-              <tr key={profile.id} className="border-b border-ocean-700/20 last:border-0">
+              <tr key={profile.id} className="border-b border-border last:border-0">
                 <td className="px-4 sm:px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl overflow-hidden bg-ocean-700/50">
+                    <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted">
                       <img
                         src={resolveAvatarDisplayUrl(profile.avatar_url, profile.full_name || profile.id)}
                         alt=""
@@ -334,19 +334,19 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
                       />
                     </div>
                     <div>
-                      <div className="font-medium text-white truncate max-w-[160px] sm:max-w-none">
+                      <div className="font-medium text-foreground truncate max-w-[160px] sm:max-w-none">
                         {profile.full_name || "Sin nombre"}
                       </div>
-                      <div className="text-ocean-400 text-sm truncate max-w-[160px]">{profile.email}</div>
+                      <div className="text-muted-foreground text-sm truncate max-w-[160px]">{profile.email}</div>
                     </div>
                   </div>
                 </td>
                 <td className="px-4 sm:px-6 py-4 min-w-0">
-                  <span className="block font-mono text-ocean-300 text-xs max-w-[140px] sm:max-w-[220px] truncate">
+                  <span className="block font-mono text-muted-foreground text-xs max-w-[140px] sm:max-w-[220px] truncate">
                     {profile.qr_code}
                   </span>
                 </td>
-                <td className="px-4 sm:px-6 py-4 text-ocean-200 text-sm">
+                <td className="px-4 sm:px-6 py-4 text-muted-foreground text-sm">
                   {new Date(profile.created_at).toLocaleDateString("es-AR")}
                 </td>
                 <td className="px-4 sm:px-6 py-4">
@@ -356,7 +356,7 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
                     className={`text-xs px-3 py-1 rounded-full font-medium ${
                       profile.is_admin
                         ? "bg-purple-500/20 text-purple-400"
-                        : "bg-ocean-700/50 text-ocean-400"
+                        : "bg-muted text-muted-foreground"
                     } ${profile.id === currentUserId ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:opacity-80"}`}
                   >
                     {profile.is_admin ? "Admin" : "Miembro"}
@@ -366,7 +366,7 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
                   <div className="flex items-center justify-end gap-2">
                     <button
                       onClick={() => onEdit(profile)}
-                      className="text-ocean-400 hover:text-white transition-colors p-2"
+                      className="text-muted-foreground hover:text-foreground transition-colors p-2"
                       title="Editar usuario"
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -398,12 +398,12 @@ function UsersTab({ profiles, currentUserId, onEdit }: { profiles: Profile[]; cu
 function ScannerTab() {
   return (
     <GlassCard className="text-center py-14 fade-up">
-      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-ocean-700/40 border border-ocean-300/15 flex items-center justify-center">
+      <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-muted border border-border flex items-center justify-center">
         <QrIcon size={40} />
       </div>
-      <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ocean-300/70">/ 03 · Presencia</p>
-      <h2 className="text-xl font-display font-bold text-white mt-1 mb-2">Escáner QR</h2>
-      <p className="text-ocean-300/80 text-sm mb-6 max-w-md mx-auto">
+      <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">/ 03 · Presencia</p>
+      <h2 className="text-xl font-display font-bold text-foreground mt-1 mb-2">Escáner QR</h2>
+      <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
         Escaneá los QR de los miembros para registrar asistencia en eventos.
       </p>
       <Link
@@ -468,12 +468,12 @@ function EventModal({ event, onClose, onSave }: { event: Event | null; onClose: 
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-ocean-800 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-ocean-700/50">
+      <div className="bg-card rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-border">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-display font-bold text-white">
+          <h2 className="text-xl font-display font-bold text-foreground">
             {event ? "Editar Evento" : "Nuevo Evento"}
           </h2>
-          <button onClick={onClose} className="text-ocean-400 hover:text-white transition-colors">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground transition-colors">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M18 6 6 18M6 6l12 12"/>
             </svg>
@@ -483,105 +483,105 @@ function EventModal({ event, onClose, onSave }: { event: Event | null; onClose: 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-ocean-200 mb-1">Título *</label>
+              <label className="block text-sm font-medium text-muted-foreground mb-1">Título *</label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData((f) => ({ ...f, title: e.target.value }))}
-                className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 required
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-ocean-200 mb-1">Subtítulo</label>
+              <label className="block text-sm font-medium text-muted-foreground mb-1">Subtítulo</label>
               <input
                 type="text"
                 value={formData.subtitle}
                 onChange={(e) => setFormData((f) => ({ ...f, subtitle: e.target.value }))}
-                className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-ocean-200 mb-1">Fecha y hora *</label>
+              <label className="block text-sm font-medium text-muted-foreground mb-1">Fecha y hora *</label>
               <input
                 type="datetime-local"
                 value={formData.date}
                 onChange={(e) => setFormData((f) => ({ ...f, date: e.target.value }))}
-                className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-ocean-200 mb-1">Ubicación</label>
+              <label className="block text-sm font-medium text-muted-foreground mb-1">Ubicación</label>
               <input
                 type="text"
                 value={formData.location}
                 onChange={(e) => setFormData((f) => ({ ...f, location: e.target.value }))}
-                className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 placeholder="Ej: Costa Coffee, Mar del Plata"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-ocean-200 mb-1">Descripción</label>
+              <label className="block text-sm font-medium text-muted-foreground mb-1">Descripción</label>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData((f) => ({ ...f, description: e.target.value }))}
                 rows={3}
-                className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400 resize-none"
+                className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-ocean-200 mb-1">Tags (separados por coma)</label>
+              <label className="block text-sm font-medium text-muted-foreground mb-1">Tags (separados por coma)</label>
               <input
                 type="text"
                 value={formData.tags}
                 onChange={(e) => setFormData((f) => ({ ...f, tags: e.target.value }))}
-                className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 placeholder="meetup, networking, talks"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-ocean-200 mb-1">URL de registro</label>
+              <label className="block text-sm font-medium text-muted-foreground mb-1">URL de registro</label>
               <input
                 type="url"
                 value={formData.registration_url}
                 onChange={(e) => setFormData((f) => ({ ...f, registration_url: e.target.value }))}
-                className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               />
             </div>
           </div>
 
-          <div className="border-t border-ocean-700/30 pt-4 mt-4">
+          <div className="border-t border-border pt-4 mt-4">
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={formData.is_mystery}
                 onChange={(e) => setFormData((f) => ({ ...f, is_mystery: e.target.checked }))}
-                className="w-5 h-5 rounded border-ocean-600 bg-ocean-900 text-ocean-400 focus:ring-ocean-400"
+                className="w-5 h-5 rounded border-border bg-background text-muted-foreground focus:ring-[var(--ring)]"
               />
-              <span className="text-ocean-200">Es un evento misterio</span>
+              <span className="text-muted-foreground">Es un evento misterio</span>
             </label>
           </div>
 
           {formData.is_mystery && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-ocean-900/30 p-4 rounded-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/40 p-4 rounded-xl">
               <div>
-                <label className="block text-sm font-medium text-ocean-200 mb-1">Nombre clave</label>
+                <label className="block text-sm font-medium text-muted-foreground mb-1">Nombre clave</label>
                 <input
                   type="text"
                   value={formData.codename}
                   onChange={(e) => setFormData((f) => ({ ...f, codename: e.target.value }))}
-                  className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                   placeholder="Operación: ???"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-ocean-200 mb-1">Teaser</label>
+                <label className="block text-sm font-medium text-muted-foreground mb-1">Teaser</label>
                 <input
                   type="text"
                   value={formData.teaser}
                   onChange={(e) => setFormData((f) => ({ ...f, teaser: e.target.value }))}
-                  className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+                  className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                   placeholder="Algo épico se viene..."
                 />
               </div>
@@ -594,9 +594,9 @@ function EventModal({ event, onClose, onSave }: { event: Event | null; onClose: 
                 type="checkbox"
                 checked={formData.is_published}
                 onChange={(e) => setFormData((f) => ({ ...f, is_published: e.target.checked }))}
-                className="w-5 h-5 rounded border-ocean-600 bg-ocean-900 text-ocean-400 focus:ring-ocean-400"
+                className="w-5 h-5 rounded border-border bg-background text-muted-foreground focus:ring-[var(--ring)]"
               />
-              <span className="text-ocean-200">Publicar evento</span>
+              <span className="text-muted-foreground">Publicar evento</span>
             </label>
             <div className="flex gap-3">
               <Button type="button" onClick={onClose} variant="ghost" size="sm">
@@ -639,10 +639,10 @@ function UserModal({ user, onClose, onSave }: { user: Profile; onClose: () => vo
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-ocean-800 rounded-2xl p-6 w-full max-w-md border border-ocean-700/50">
+      <div className="bg-card rounded-2xl p-6 w-full max-w-md border border-border">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-display font-bold text-white">Editar Usuario</h2>
-          <button onClick={onClose} className="text-ocean-400 hover:text-white transition-colors">
+          <h2 className="text-xl font-display font-bold text-foreground">Editar Usuario</h2>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground transition-colors">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M18 6 6 18M6 6l12 12"/>
             </svg>
@@ -651,21 +651,21 @@ function UserModal({ user, onClose, onSave }: { user: Profile; onClose: () => vo
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-ocean-200 mb-1">Nombre</label>
+            <label className="block text-sm font-medium text-muted-foreground mb-1">Nombre</label>
             <input
               type="text"
               value={formData.full_name}
               onChange={(e) => setFormData((f) => ({ ...f, full_name: e.target.value }))}
-              className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400"
+              className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-ocean-200 mb-1">Bio</label>
+            <label className="block text-sm font-medium text-muted-foreground mb-1">Bio</label>
             <textarea
               value={formData.bio}
               onChange={(e) => setFormData((f) => ({ ...f, bio: e.target.value }))}
               rows={3}
-              className="w-full px-4 py-2 bg-ocean-900/50 border border-ocean-600/40 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-ocean-400 resize-none"
+              className="w-full px-4 py-2 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
             />
           </div>
           <div>
@@ -674,9 +674,9 @@ function UserModal({ user, onClose, onSave }: { user: Profile; onClose: () => vo
                 type="checkbox"
                 checked={formData.is_admin}
                 onChange={(e) => setFormData((f) => ({ ...f, is_admin: e.target.checked }))}
-                className="w-5 h-5 rounded border-ocean-600 bg-ocean-900 text-ocean-400 focus:ring-ocean-400"
+                className="w-5 h-5 rounded border-border bg-background text-muted-foreground focus:ring-[var(--ring)]"
               />
-              <span className="text-ocean-200">Es administrador</span>
+              <span className="text-muted-foreground">Es administrador</span>
             </label>
           </div>
           <div className="flex justify-end gap-3 pt-4">
@@ -799,8 +799,8 @@ function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] })
     <GlassCard tone="default" className="p-5">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div>
-          <h2 className="text-xl font-bold text-white">Suscriptores</h2>
-          <p className="text-ocean-300/60 text-sm font-light">
+          <h2 className="text-xl font-bold text-foreground">Suscriptores</h2>
+          <p className="text-muted-foreground/60 text-sm font-light">
             {list.length} {list.length === 1 ? "persona" : "personas"} en la lista.
           </p>
         </div>
@@ -810,7 +810,7 @@ function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] })
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             placeholder="Filtrar por email o fuente"
-            className="bg-ocean-950/40 border border-ocean-300/10 rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-ocean-300/35 focus:outline-none focus:border-ocean-400/40"
+            className="bg-background border border-border rounded-lg px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-border"
           />
           <Button onClick={handleExport} variant="ghost" size="sm" disabled={list.length === 0}>
             Exportar CSV
@@ -819,13 +819,13 @@ function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] })
       </div>
 
       {list.length === 0 ? (
-        <p className="text-ocean-300/60 text-sm font-light py-8 text-center">
+        <p className="text-muted-foreground/60 text-sm font-light py-8 text-center">
           Todavía no hay suscriptores. Cuando alguien complete el formulario del footer aparece acá.
         </p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="text-left text-ocean-300/55 text-xs uppercase tracking-wider border-b border-ocean-300/10">
+            <thead className="text-left text-muted-foreground/55 text-xs uppercase tracking-wider border-b border-border">
               <tr>
                 <th className="py-2 pr-4 font-medium">Email</th>
                 <th className="py-2 pr-4 font-medium">Fuente</th>
@@ -834,11 +834,11 @@ function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] })
                 <th className="py-2 pr-4 font-medium text-right">·</th>
               </tr>
             </thead>
-            <tbody className="text-white/85">
+            <tbody className="text-foreground/85">
               {filtered.map((s) => (
-                <tr key={s.id} className="border-b border-ocean-300/5 hover:bg-ocean-900/30">
+                <tr key={s.id} className="border-b border-border hover:bg-muted/40">
                   <td className="py-2 pr-4 font-mono text-[0.78rem]">{s.email}</td>
-                  <td className="py-2 pr-4 text-ocean-300/70">{s.source ?? "—"}</td>
+                  <td className="py-2 pr-4 text-muted-foreground">{s.source ?? "—"}</td>
                   <td className="py-2 pr-4">
                     <span
                       className={
@@ -852,7 +852,7 @@ function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] })
                       {s.status}
                     </span>
                   </td>
-                  <td className="py-2 pr-4 text-ocean-300/70 text-[0.78rem]">
+                  <td className="py-2 pr-4 text-muted-foreground text-[0.78rem]">
                     {new Date(s.created_at).toLocaleDateString("es-AR", {
                       day: "2-digit",
                       month: "short",
@@ -874,7 +874,7 @@ function NewsletterTab({ subscribers }: { subscribers: NewsletterSubscriber[] })
             </tbody>
           </table>
           {filtered.length === 0 && (
-            <p className="text-ocean-300/55 text-sm font-light py-6 text-center">
+            <p className="text-muted-foreground/55 text-sm font-light py-6 text-center">
               No hay coincidencias para “{filter}”.
             </p>
           )}

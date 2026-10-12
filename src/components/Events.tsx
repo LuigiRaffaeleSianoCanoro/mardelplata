@@ -8,7 +8,7 @@ import type { PublicEvent } from "@/lib/events";
 import {
   formatEventDay,
   formatEventMonth,
-  formatEventTime,
+  formatEventTimeRange,
   getTagFlavor,
 } from "@/lib/events/format";
 
@@ -60,7 +60,7 @@ export default function Events({ events }: EventsProps) {
 function EventCard({ event }: { event: PublicEvent }) {
   const day = formatEventDay(event.date);
   const month = formatEventMonth(event.date);
-  const time = formatEventTime(event.date);
+  const time = formatEventTimeRange(event.date, event.end_date);
   const tag = getTagFlavor(event.tags);
   const isMystery = event.is_mystery;
 

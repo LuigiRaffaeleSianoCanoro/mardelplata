@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import HrInterviewQuizClient from "@/components/primer-trabajo/HrInterviewQuizClient";
+import { PageFrame } from "@/components/v3/Page";
 
 export const metadata: Metadata = {
   title: "Simulador Recursos Humanos — Primer Trabajo OS — Mar del Plata Devs",
@@ -12,25 +11,26 @@ export const metadata: Metadata = {
 
 export default function EntrevistaHrPage() {
   return (
-    <>
-      <Navbar />
-      <main className="ocean-tint min-h-screen pt-24 pb-16">
+    <PageFrame>
+      
+      <div className="pt-2 pb-8">
         <div className="max-w-2xl mx-auto px-6">
-          <p className="text-ocean-700 text-sm font-semibold uppercase tracking-widest mb-3">Primer Trabajo OS</p>
-          <h1 className="font-display font-bold text-3xl md:text-4xl text-ocean-900 leading-tight mb-3">Simulador Recursos Humanos</h1>
-          <p className="text-slate-600 text-base leading-relaxed mb-8">
+          <p className="mb-3 font-mono text-[10.5px] font-medium uppercase tracking-[0.08em] text-muted-foreground">Primer Trabajo OS</p>
+          <h1 className="font-display font-bold text-3xl md:text-4xl text-foreground leading-tight mb-3">Simulador Recursos Humanos</h1>
+          <p className="text-muted-foreground text-base leading-relaxed mb-8">
             Preguntas tipo screening con feedback inmediato. El puntaje se guarda en el navegador y actualiza la señal de entrevista en el
             diagnóstico principal.
           </p>
           <HrInterviewQuizClient />
-          <p className="mt-10 text-center text-slate-500 text-sm">
-            <Link href="/primer-trabajo" className="text-ocean-600 font-medium hover:underline">
+          <p className="mt-10 text-center text-muted-foreground text-sm">
+            <Link href="/primer-trabajo" className="font-medium text-muted-foreground hover:text-foreground hover:underline">
               ← Volver a Primer trabajo
             </Link>
           </p>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+      
+    </PageFrame>
   );
+
 }

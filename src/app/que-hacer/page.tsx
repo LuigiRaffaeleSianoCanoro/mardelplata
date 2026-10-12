@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import Faq from "@/components/nomad/Faq";
@@ -45,7 +45,7 @@ export default function QueHacerPage() {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="que-hacer-x">
         <header className="shell-section shell-section--lg">
@@ -92,6 +92,6 @@ export default function QueHacerPage() {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }

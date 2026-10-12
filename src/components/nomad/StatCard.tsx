@@ -23,7 +23,7 @@ export default function StatCard({
   return (
     <div className="shell-card">
       <span
-        className="gradient-text"
+        className="text-[var(--oxido)]"
         style={{
           fontFamily: "var(--shell-font-display, var(--font-space-grotesk))",
           fontSize: "2.4rem",

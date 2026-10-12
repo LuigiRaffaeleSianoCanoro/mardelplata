@@ -24,7 +24,7 @@ export default function PageHeader({ eyebrow, title, description, actions, coord
           </p>
         )}
         <h1
-          className="display-thin text-white text-[clamp(2rem,5vw,3.4rem)] leading-[1.02]"
+          className="display-thin text-[clamp(2rem,5vw,3.4rem)] leading-[1.02] text-foreground"
         >
           {title}
         </h1>
@@ -32,7 +32,7 @@ export default function PageHeader({ eyebrow, title, description, actions, coord
           <p className="coord-line mt-3">{coords}</p>
         )}
         {description && (
-          <p className="mt-4 text-white/55 text-base max-w-2xl leading-relaxed font-light">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
             {description}
           </p>
         )}

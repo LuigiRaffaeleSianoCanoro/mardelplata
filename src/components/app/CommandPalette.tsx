@@ -160,7 +160,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
       />
       <div className="cmdk-panel">
         <div className="cmdk-input-row">
-          <Search size={16} className="text-white/45 shrink-0" />
+          <Search size={16} className="shrink-0 text-muted-foreground" />
           <input
             ref={inputRef}
             value={query}
@@ -177,7 +177,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="text-white/55 hover:text-white p-1 rounded-md hover:bg-white/[0.05] transition-colors sm:hidden"
+            className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-card hover:text-foreground sm:hidden"
           >
             <X size={16} />
           </button>
@@ -185,7 +185,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
 
         <div ref={listRef} className="cmdk-list">
           {results.length === 0 ? (
-            <div className="px-4 py-8 text-center text-white/45 font-light text-sm">
+            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
               Sin resultados.
             </div>
           ) : (
@@ -214,14 +214,14 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
                         className={`cmdk-item ${active ? "is-active" : ""}`}
                       >
                         <Icon size={14} className="shrink-0 opacity-80" />
-                        <span className="text-white/90 text-sm font-light truncate flex-1 text-left">
+                        <span className="flex-1 truncate text-left text-sm text-foreground">
                           {r.title}
                         </span>
-                        <span className="text-white/40 text-[0.72rem] truncate hidden sm:inline">
+                        <span className="hidden truncate font-mono text-[11px] text-muted-foreground sm:inline">
                           {r.hint}
                         </span>
                         {active && (
-                          <CornerDownLeft size={11} className="text-white/55 shrink-0 hidden sm:inline" />
+                          <CornerDownLeft size={11} className="hidden shrink-0 text-muted-foreground sm:inline" />
                         )}
                       </button>
                     );
@@ -244,7 +244,7 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
               abrir
             </span>
           </div>
-          <span className="text-white/35">red · mar del plata</span>
+          <span className="font-mono text-[10.5px] tracking-[0.06em] text-muted-foreground uppercase">mardelplata.dev.ar</span>
         </div>
       </div>
     </div>,

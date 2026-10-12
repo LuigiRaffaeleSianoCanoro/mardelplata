@@ -88,29 +88,29 @@ export default function ModuleSheet({ slug, onClose }: ModuleSheetProps) {
           className="inline-block w-1.5 h-1.5 rounded-full"
           style={{ background: KIND_ACCENT[mod.kind], boxShadow: `0 0 8px ${KIND_ACCENT[mod.kind]}` }}
         />
-        <span className="kicker text-white/55">{KIND_LABEL[mod.kind]}</span>
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">{KIND_LABEL[mod.kind]}</span>
         <span className="text-white/25">·</span>
-        <span className="kicker text-white/45">red / módulo</span>
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">red / módulo</span>
       </div>
       <div className="flex items-end gap-3 flex-wrap">
-        <h2 className="display-thin text-white text-3xl sm:text-4xl leading-tight tracking-[-0.01em]">
+        <h2 className="font-semibold tracking-[-0.04em] text-foreground text-3xl sm:text-4xl leading-tight tracking-[-0.01em]">
           {mod.name}
         </h2>
         {mod.version && (
-          <span className="text-white/65 font-mono text-[0.78rem] mb-1">v{mod.version}</span>
+          <span className="text-muted-foreground font-mono text-[0.78rem] mb-1">v{mod.version}</span>
         )}
         {mod.source_url && (
           <a
             href={mod.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-white/65 hover:text-white text-[0.78rem] mb-1 transition-colors"
+            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground text-[0.78rem] mb-1 transition-colors"
           >
             source <ExternalLink size={10} />
           </a>
         )}
       </div>
-      <div className="flex items-center gap-5 text-white/55 text-[0.78rem]">
+      <div className="flex items-center gap-5 text-muted-foreground text-[0.78rem]">
         <span className="inline-flex items-center gap-1.5">
           <GitBranch size={12} /> {mod.usages_count} {mod.usages_count === 1 ? "proyecto lo usa" : "proyectos lo usan"}
         </span>
@@ -154,12 +154,12 @@ export default function ModuleSheet({ slug, onClose }: ModuleSheetProps) {
     >
       {showSkeleton && <SheetBodySkeleton />}
       {!loading && !mod && open && (
-        <div className="p-10 text-center text-white/55 font-light">Módulo no encontrado.</div>
+        <div className="p-10 text-center text-muted-foreground font-light">Módulo no encontrado.</div>
       )}
       {mod && tab === "overview" && (
         <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-3">
-            <p className="kicker text-white/45">Sobre el módulo</p>
+            <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">Sobre el módulo</p>
             <p className="text-white/80 font-light leading-relaxed whitespace-pre-wrap">
               {mod.description ?? "Sin descripción."}
             </p>
@@ -183,8 +183,8 @@ export default function ModuleSheet({ slug, onClose }: ModuleSheetProps) {
         <div className="p-6 sm:p-8 space-y-2">
           {usages.length === 0 ? (
             <div className="py-10 text-center">
-              <GitBranch size={24} className="text-white/35 mx-auto mb-3" />
-              <p className="text-white/55 font-light">Ningún proyecto declaró que lo usa todavía.</p>
+              <GitBranch size={24} className="text-muted-foreground mx-auto mb-3" />
+              <p className="text-muted-foreground font-light">Ningún proyecto declaró que lo usa todavía.</p>
             </div>
           ) : (
             usages.map((u) => (
@@ -192,14 +192,14 @@ export default function ModuleSheet({ slug, onClose }: ModuleSheetProps) {
                 key={u.project.id}
                 className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
               >
-                <GitBranch size={14} className="text-white/55" />
+                <GitBranch size={14} className="text-muted-foreground" />
                 <div className="flex-1 min-w-0">
                   <p className="text-white/85 text-sm font-light truncate">{u.project.name}</p>
                   {u.usage.note && (
-                    <p className="text-white/45 text-[0.72rem] truncate">“{u.usage.note}”</p>
+                    <p className="text-muted-foreground text-[0.72rem] truncate">“{u.usage.note}”</p>
                   )}
                 </div>
-                <span className="kicker text-white/45">
+                <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">
                   {new Date(u.usage.declared_at).toLocaleDateString("es-AR", {
                     day: "2-digit",
                     month: "short",
@@ -217,7 +217,7 @@ export default function ModuleSheet({ slug, onClose }: ModuleSheetProps) {
 function Field({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div>
-      <p className="kicker text-white/40 mb-1">{label}</p>
+      <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/40 mb-1">{label}</p>
       <p className="text-white/80 text-sm font-light">{value}</p>
     </div>
   );

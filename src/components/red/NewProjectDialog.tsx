@@ -85,14 +85,14 @@ export default function NewProjectDialog({ open, onClose, userId, onCreated }: N
       <div className="red-dialog-panel" role="dialog" aria-modal="true" aria-label="Nuevo proyecto">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="kicker text-white/45 mb-1">red · proyecto</p>
-            <h3 className="display-thin text-white text-2xl leading-tight">Crear un proyecto</h3>
+            <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground mb-1">red · proyecto</p>
+            <h3 className="font-semibold tracking-[-0.04em] text-foreground text-2xl leading-tight">Crear un proyecto</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="text-white/55 hover:text-white p-1 rounded-md hover:bg-white/[0.05] transition-colors"
+            className="text-muted-foreground hover:text-foreground p-1 rounded-md hover:bg-card transition-colors"
           >
             <X size={16} />
           </button>
@@ -158,7 +158,7 @@ export default function NewProjectDialog({ open, onClose, userId, onCreated }: N
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1.5 rounded-full text-[0.78rem] text-white/65 hover:text-white transition-colors"
+            className="px-3 py-1.5 rounded-full text-[0.78rem] text-muted-foreground hover:text-foreground transition-colors"
           >
             Cancelar
           </button>
@@ -166,7 +166,7 @@ export default function NewProjectDialog({ open, onClose, userId, onCreated }: N
             type="button"
             onClick={handleSubmit}
             disabled={!name.trim() || !slug.trim() || submitting || !userId}
-            className="px-4 py-1.5 rounded-full text-[0.78rem] text-white/95 border border-[rgba(59,130,246,0.45)] bg-[rgba(59,130,246,0.18)] hover:bg-[rgba(59,130,246,0.28)] disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
+            className="px-4 py-1.5 rounded-full text-[0.78rem] text-foreground border border-border-strong bg-foreground text-background hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
           >
             <Plus size={13} /> Crear
           </button>
@@ -181,8 +181,8 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
-        <label className="kicker text-white/45">{label}</label>
-        {hint && <span className="text-white/35 text-[0.7rem] font-light">{hint}</span>}
+        <label className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground">{label}</label>
+        {hint && <span className="text-muted-foreground text-[0.7rem] font-light">{hint}</span>}
       </div>
       {children}
     </div>

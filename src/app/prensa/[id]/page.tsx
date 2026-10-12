@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { PageFrame, PageHero } from "@/components/v3/Page";
 import ArchiveNotice from "@/components/prensa/ArchiveNotice";
 import JsonLd from "@/components/seo/JsonLd";
 import { markdownToHtml } from "@/lib/prensa/markdown";
@@ -72,10 +71,9 @@ export default async function PrensaDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <>
-      <Navbar />
+    <PageFrame>
       <JsonLd schema={schemas} />
-      <main className="prensa-x prensa-x--detail">
+      <div className="prensa-x prensa-x--detail">
         <article className="shell-section shell-section--lg">
           <div className="shell-inner shell-inner--narrow">
             <nav className="prensa-x-breadcrumb" aria-label="Miga de pan">
@@ -198,8 +196,7 @@ export default async function PrensaDetailPage({ params }: PageProps) {
             </footer>
           </div>
         </article>
-      </main>
-      <Footer />
-    </>
+      </div>
+      </PageFrame>
   );
 }

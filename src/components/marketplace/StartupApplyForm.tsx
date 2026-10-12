@@ -123,7 +123,7 @@ export default function StartupApplyForm() {
   return (
     <form className="marketplace-form" onSubmit={submit}>
       <p className="shell-card__meta">
-        Campos con * van a la ficha pública (después del OK de admin). Email, WhatsApp
+        Campos con * van a la ficha pública (después del OK de admin). Email, teléfono
         y deck no se publican.
       </p>
 
@@ -332,7 +332,7 @@ export default function StartupApplyForm() {
       </label>
 
       <label className="marketplace-field" htmlFor="st-phone">
-        Tel / WhatsApp (privado)
+        Teléfono (privado)
         <input
           id="st-phone"
           className="bolsa-x-pill"

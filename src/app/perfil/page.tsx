@@ -77,7 +77,7 @@ export default function PerfilPage() {
 
   if (loading || !user) {
     return (
-      <div className="min-h-screen app-canvas flex flex-col items-center justify-center gap-5">
+      <div className="relative flex min-h-dvh flex-col items-center justify-center gap-5 bg-background text-foreground">
         <div className="sonar-loader">
           <span className="grid" />
           <span className="sweep" />

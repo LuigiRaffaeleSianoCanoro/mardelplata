@@ -45,7 +45,7 @@ function MotionNav() {
         <Link href="/" className="flex items-center gap-2.5 pl-1">
           <span className="w-7 h-7 rounded-full bg-gradient-to-br from-ocean-300 to-ocean-700 shadow-md hue-shift" />
           <span className="font-display font-bold text-white text-[0.95rem] tracking-tight">
-            mardelplata<span className="text-ocean-300">.dev</span>
+            mardelplata<span className="text-ocean-300">.dev.ar</span>
           </span>
         </Link>
 
@@ -422,14 +422,14 @@ function MotionFooter() {
             className="font-display font-black text-white/90 text-[clamp(3rem,9vw,7rem)] pr-12"
             style={{ letterSpacing: "-0.05em" }}
           >
-            mardelplata.dev · mardelplata.dev · mardelplata.dev ·
+            mardelplata.dev.ar · mardelplata.dev.ar · mardelplata.dev.ar ·
           </span>
           <span
             aria-hidden
             className="font-display font-black text-white/90 text-[clamp(3rem,9vw,7rem)] pr-12"
             style={{ letterSpacing: "-0.05em" }}
           >
-            mardelplata.dev · mardelplata.dev · mardelplata.dev ·
+            mardelplata.dev.ar · mardelplata.dev.ar · mardelplata.dev.ar ·
           </span>
         </div>
       </div>

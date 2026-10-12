@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AppShell from "@/components/app/AppShell";
+import { PageFrame } from "@/components/v3/Page";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/seo/JsonLd";
 import SourceTag from "@/components/nomad/SourceTag";
@@ -8,7 +8,8 @@ import { breadcrumbSchema, itemListSchema, type JsonLdObject } from "@/lib/seo/j
 import { ogImageUrl } from "@/lib/seo/site";
 import { companies, companySectors } from "@/content/nomad";
 
-const WHATSAPP_URL = "https://chat.whatsapp.com/LZEZd0oV7mD50PuESX4ybs";
+// Contacto B2B por LinkedIn (sin WhatsApp como CTA).
+const CONTACT_URL = "https://www.linkedin.com/company/mardelplata-dev";
 
 export const metadata: Metadata = {
   title: "Empresas de tecnología en Mar del Plata",
@@ -38,7 +39,7 @@ export default function EmpresasPage() {
   ];
 
   return (
-    <AppShell>
+    <PageFrame>
       <JsonLd schema={schemas} />
       <main className="empresas-x">
         <header className="shell-section shell-section--lg">
@@ -76,7 +77,7 @@ export default function EmpresasPage() {
                 Plata, sumala y aparecé en el mapa del ecosistema.
               </p>
               <div style={{ marginTop: "1.2rem" }}>
-                <a className="shell-btn-primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <a className="shell-btn-primary" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
                   Sumar mi empresa
                 </a>
               </div>
@@ -84,6 +85,6 @@ export default function EmpresasPage() {
           </div>
         </section>
       </main>
-    </AppShell>
+    </PageFrame>
   );
 }
