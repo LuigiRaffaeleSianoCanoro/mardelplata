@@ -11,6 +11,7 @@ export const LUMA_EXCLUDE_SLUGS = new Set([
   "fktjzk1y",
   "b8qc0zng",
   "ot4itlsp", // MdP Data Challenge (16 oct 2026) — cancelado, página Luma eliminada
+  "ux0x0sjg", // Meet Team1 — URL vieja eliminada; ahora luma.com/ggrzeglh
 ]);
 
 export const EVENT_EXCLUDE_PATTERNS = [
