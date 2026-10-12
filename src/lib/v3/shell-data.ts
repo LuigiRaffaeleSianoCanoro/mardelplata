@@ -171,7 +171,7 @@ function shellLinks(): ShellLink[] {
     { href: "/red", label: "Red", description: "Ideas, módulos y proyectos", group: "comunidad" },
     { href: "/bolsa", label: "Bolsa de empleos", description: "Búsquedas y clasificados", group: "comunidad" },
     { href: "/blog", label: "Lectura", description: "Lo que la red está leyendo", group: "comunidad" },
-    { href: "/reglamento", label: "Código de conducta", group: "comunidad" },
+    { href: "/codigo-de-conducta", label: "Código de conducta", group: "comunidad" },
     { href: "/primer-trabajo", label: "Primer trabajo", description: "Guía para tu primer empleo IT", group: "aprender" },
     { href: "/primer-trabajo/entrevista-hr", label: "Entrevista con HR", description: "Práctica de entrevista", group: "aprender" },
     { href: "/primer-trabajo/entrevista-hr-en", label: "HR interview (EN)", group: "aprender" },

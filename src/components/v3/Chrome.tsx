@@ -47,7 +47,7 @@ const MORE: { href: string; label: string; group: string }[] = [
   { href: "/proyectos", label: "Proyectos", group: "Comunidad" },
   { href: "/red", label: "Red", group: "Comunidad" },
   { href: "/blog", label: "Lectura", group: "Comunidad" },
-  { href: "/reglamento", label: "Código de conducta", group: "Comunidad" },
+  { href: "/codigo-de-conducta", label: "Código de conducta", group: "Comunidad" },
   { href: "/primer-trabajo", label: "Primer trabajo", group: "Aprender" },
   { href: "/primer-trabajo/entrevista-hr", label: "Entrevista con HR", group: "Aprender" },
   { href: "/estudiar", label: "Estudiar", group: "Aprender" },
@@ -288,6 +288,9 @@ export function SiteFooter() {
           </Link>
           <Link href="/bolsa" className="text-muted-foreground hover:text-foreground">
             Empleos
+          </Link>
+          <Link href="/codigo-de-conducta" className="text-muted-foreground hover:text-foreground">
+            Código de conducta
           </Link>
           <Link href="/reglamento" className="text-muted-foreground hover:text-foreground">
             Reglamento

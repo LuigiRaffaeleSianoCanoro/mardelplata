@@ -68,6 +68,7 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: "/primer-trabajo/guia/cv", changeFrequency: "monthly", priority: 0.5 },
   { path: "/primer-trabajo/guia/linkedin", changeFrequency: "monthly", priority: 0.5 },
   { path: "/reglamento", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/codigo-de-conducta", changeFrequency: "yearly", priority: 0.4 },
   { path: "/brand", changeFrequency: "yearly", priority: 0.3 },
   { path: "/marketing-kit", changeFrequency: "yearly", priority: 0.3 },
 ];
