@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Inter, Oswald, Space_Grotesk, Fraunces, JetBrains_Mono } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -13,8 +13,14 @@ import { THEME_BOOT_SCRIPT } from "@/lib/v3/theme-boot";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  // v3: la home usa Geist; estas quedan para las subpáginas sin precargar.
-  preload: false,
+  // v3 (design refresh): Inter es el cuerpo del shell, se precarga.
+});
+
+// Display condensada del shell v3 (design refresh): titulares en Oswald.
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
+  weight: ["500", "600", "700"],
 });
 
 const spaceGrotesk = Space_Grotesk({
@@ -92,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${inter.variable} ${oswald.variable} ${spaceGrotesk.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${GeistSans.variable} ${GeistMono.variable}`}
       suppressHydrationWarning
     >
       <head>

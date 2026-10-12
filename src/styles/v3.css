@@ -72,8 +72,16 @@ html:has(.v3-shell),
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
-  /* Geist reemplaza las fuentes del sitio viejo solo dentro del shell. */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Design refresh (gusto Albert AI): display condensada Oswald + cuerpo
+     Inter. Geist Mono se queda para labels/metadata (identidad v3). */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-oswald), "Arial Narrow", ui-sans-serif, sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.005em;
+  --display-leading: 0.95;
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 600ms;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   color-scheme: dark;
 }
@@ -169,9 +177,46 @@ html:has(.v3-shell) body:has([data-vaul-drawer][data-state="open"]) {
 
 /* Tipografía */
 .v3-display {
-  font-weight: 600;
-  letter-spacing: -0.055em;
-  line-height: 0.92;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  line-height: var(--display-leading);
+  text-transform: uppercase;
+}
+
+/* Hero photo: una sola imagen con presencia, enmascarada contra el fondo.
+   Decorativa (alt=""), sin gente ni texto. Reveal corto eased-out. */
+.v3-hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 62%, transparent 100%);
+}
+.v3-hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 50%;
+  opacity: 0.55;
+}
+@media (min-width: 1024px) {
+  .v3-hero-photo {
+    -webkit-mask-image: radial-gradient(85% 80% at 72% 58%, #000 0%, rgba(0, 0, 0, 0.55) 55%, transparent 100%);
+    mask-image: radial-gradient(85% 80% at 72% 58%, #000 0%, rgba(0, 0, 0, 0.55) 55%, transparent 100%);
+  }
+  .v3-hero-photo img { opacity: 0.68; }
+}
+html[data-mdp-theme="light"] .v3-hero-photo img { opacity: 0.22; filter: grayscale(0.4); }
+@media (prefers-reduced-motion: no-preference) {
+  .v3-hero-photo img {
+    animation: v3-photo-in var(--dur-slow, 600ms) var(--ease-out) both;
+  }
+}
+@keyframes v3-photo-in {
+  from { opacity: 0; transform: scale(1.04); }
 }
 .v3-label {
   font-family: var(--font-mono);
@@ -240,6 +285,17 @@ html:has(.v3-shell) body:has([data-vaul-drawer][data-state="open"]) {
   transition: transform 200ms var(--ease-out), width 200ms var(--ease-out);
   will-change: transform, width;
   pointer-events: none;
+}
+/* Design refresh: el tab activo lleva el acento Óxido (una línea de 2px). */
+.v3-tab-indicator::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--oxido);
 }
 html[data-mdp-theme="light"] .v3-tab-indicator {
   background: #fff;

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -383,7 +384,10 @@ export default function Shell({ data }: { data: ShellData }) {
 
         {/* ── Main ── */}
         <main className="relative z-10 flex min-h-0 flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_clamp(400px,36vw,520px)]">
-          <section className="relative shrink-0 px-4 pt-5 pb-4 shorter:pt-3 shorter:pb-2.5 lg:flex lg:min-w-0 lg:flex-col lg:justify-between lg:gap-6 lg:border-r lg:px-[min(56px,4vw)] lg:pt-[min(48px,5dvh)] lg:pb-[min(40px,4.4dvh)]">
+          <section className="relative isolate shrink-0 px-4 pt-5 pb-4 shorter:pt-3 shorter:pb-2.5 lg:flex lg:min-w-0 lg:flex-col lg:justify-between lg:gap-6 lg:border-r lg:px-[min(56px,4vw)] lg:pt-[min(48px,5dvh)] lg:pb-[min(40px,4.4dvh)]">
+            <div className="v3-hero-photo" aria-hidden>
+              <Image src="/v3/photos/mdp-hero-costa.jpg" alt="" fill priority sizes="(min-width: 1024px) 64vw, 100vw" />
+            </div>
             <span className="v3-cross hidden lg:block" style={{ left: -6, top: -6 }} aria-hidden />
             <span className="v3-cross hidden lg:block" style={{ right: -6, top: -6 }} aria-hidden />
             <div>
