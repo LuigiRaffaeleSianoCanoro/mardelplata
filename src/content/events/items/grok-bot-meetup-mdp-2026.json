@@ -1,0 +1,14 @@
+{
+  "id": "grok-bot-meetup-mdp-2026",
+  "title": "Grok Bot Mar del Plata Meetup",
+  "excerpt": "Nos juntamos en la UTN para conocer Grok Bot: networking y café, workshop introductorio, manos a la obra con casos de uso reales, Q&A y créditos para probarlo. Traé tu compu cargada. La inscripción requiere aprobación.",
+  "date": "2026-11-13T18:00:00-03:00",
+  "endDate": "2026-11-13T21:00:00-03:00",
+  "venue": "UTN FRMdP · Av. Dorrego 281",
+  "city": "Mar del Plata",
+  "hosts": ["Luigi Canoro", "Franco Petruccelli"],
+  "lumaUrl": "https://luma.com/fktjzk1y",
+  "tags": ["meetup", "IA", "taller"],
+  "tier": "community",
+  "verifiedAt": "2026-10-16"
+}

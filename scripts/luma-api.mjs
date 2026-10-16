@@ -8,8 +8,9 @@ const LUMA_DISCOVER_API = "https://api2.luma.com/discover/get-paginated-events";
 
 /** Slugs y patrones — mantener alineado con src/content/events/index.ts */
 export const LUMA_EXCLUDE_SLUGS = new Set([
-  "fktjzk1y",
   "b8qc0zng",
+  "ehqd3ps1", // Martes de Atenea — fuera de scope
+  "uj5tsf5b", // Forward Watch Party (Basement MDP) — no aprobado para publicar
   "ot4itlsp", // MdP Data Challenge (16 oct 2026) — cancelado, página Luma eliminada
   "ux0x0sjg", // Meet Team1 — URL vieja eliminada; ahora luma.com/ggrzeglh
 ]);
