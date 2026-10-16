@@ -7,6 +7,7 @@ export type { CuratedEvent, EventTier } from "./types";
 export const LUMA_EXCLUDE_SLUGS = new Set([
   "b8qc0zng", // Inauguración PSICOCONECTA Castelli
   "ehqd3ps1", // Martes de Atenea — fuera de scope
+  "uj5tsf5b", // Forward Watch Party (Basement MDP) — no aprobado para publicar
   "ot4itlsp", // MdP Data Challenge (16 oct 2026) — cancelado
   "ux0x0sjg", // Meet Team1 — URL vieja eliminada; ahora luma.com/ggrzeglh
 ]);
