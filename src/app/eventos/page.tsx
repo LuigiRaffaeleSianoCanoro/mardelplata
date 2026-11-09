@@ -165,7 +165,8 @@ function EventoCard({
         </p>
         {event.registration_url ? (
           <span className="mt-3 inline-flex items-center gap-1 text-[12.5px] text-foreground">
-            Ver en Luma <ArrowUpRight className="size-3.5" strokeWidth={1.75} aria-hidden />
+            {event.registration_url.includes("luma.com") ? "Ver en Luma" : "Inscripción"}{" "}
+            <ArrowUpRight className="size-3.5" strokeWidth={1.75} aria-hidden />
           </span>
         ) : null}
       </div>
