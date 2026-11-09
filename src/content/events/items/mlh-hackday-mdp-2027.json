@@ -1,0 +1,25 @@
+{
+  "id": "mlh-hackday-mdp-2027",
+  "title": "mardelplata.dev.ar Hack Day",
+  "excerpt": "Mini hackathon presencial con MLH: formás equipo, prototipás y cerrás con demos el mismo día. Sábado 16 de enero en UCIP. Inscripción por OrganizerHQ (URL pendiente de publish).",
+  "date": "2027-01-16T10:00:00-03:00",
+  "endDate": "2027-01-16T16:00:00-03:00",
+  "venue": "UCIP · Av. Pedro Luro 3030",
+  "city": "Mar del Plata",
+  "hosts": ["Luigi Canoro", "Major League Hacking"],
+  "lumaUrl": null,
+  "tags": ["hackathon", "MLH", "IA"],
+  "tier": "community",
+  "verifiedAt": "2026-11-09",
+  "price": "Gratis",
+  "agenda": [
+    "10:00 Doors open y check-in OrganizerHQ",
+    "10:15 Welcome, video MLH, Code of Conduct y partner challenge",
+    "10:30 Build time",
+    "12:45 Comida durante el build",
+    "14:45 Submissions en OrganizerHQ",
+    "15:15 Demos y judging",
+    "15:45 Cierre y foto",
+    "16:00 Fin"
+  ]
+}

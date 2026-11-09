@@ -14,7 +14,11 @@ export interface CuratedEvent {
   venue: string;
   city: string;
   hosts: string[];
-  lumaUrl: string;
+  /**
+   * URL de inscripción pública (Luma u OrganizerHQ/MLH).
+   * Vacío/null = card visible sin botón de registro (útil en draft hasta publicar).
+   */
+  lumaUrl?: string | null;
   tags: string[];
   /** `community` = MdPDev / Luigi / Franco; `city` = ecosistema local tercero. */
   tier: EventTier;
