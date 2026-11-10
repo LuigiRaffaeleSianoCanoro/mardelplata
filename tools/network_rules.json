@@ -1,0 +1,56 @@
+{
+  "_comment": "Tunable per-network limits for prepublish_check.py (accounts on FREE plans). Edit values per project; the checker reads this file on every run. 'warn_*' values only print WARN, everything else FAILS.",
+  "x": {
+    "max_chars": 280,
+    "warn_target_chars": 240,
+    "url_weight": 23,
+    "allow_url_in_main_post": false,
+    "max_hashtags": 1,
+    "max_emojis": 1,
+    "max_thread_posts": 3
+  },
+  "ig": {
+    "max_chars": 2200,
+    "warn_target_chars": 1000,
+    "allow_url_in_caption": false,
+    "hook_chars": 125,
+    "max_hashtags": 3,
+    "max_hashtags_spotlight": 0,
+    "hashtags_only_at_end": true,
+    "max_emojis": 3,
+    "emoji_in_first_line": false,
+    "max_consecutive_emoji_lines": 2,
+    "carousel": {
+      "max_slides": 10,
+      "allowed_sizes": [
+        "1080x1350",
+        "1080x1080",
+        "1440x1440"
+      ],
+      "alt_text_required": true
+    }
+  },
+  "both": {
+    "max_all_caps_line_letters": 4,
+    "max_ctas": 1,
+    "cta_patterns": [
+      "\\binscribite\\b",
+      "\\banotate\\b",
+      "\\bregistrate\\b",
+      "\\bsumate\\b",
+      "link en (la )?bio",
+      "\\bentra(a)? (a|en)\\b",
+      "\\bcompra(a)? tu\\b"
+    ],
+    "engagement_bait_patterns": [
+      "comenta\\s+[\"'“]?(si|yes|🔥)",
+      "etiqueta\\s+a",
+      "dale\\s+like",
+      "compartilo\\s+si",
+      "comenta\\s+si",
+      "guarda(lo)?\\s+para",
+      "doble\\s+tap",
+      "like\\s+si"
+    ]
+  }
+}

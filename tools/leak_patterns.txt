@@ -1,0 +1,67 @@
+# leak_patterns.txt — pre-publish leak / trope patterns used by prepublish_check.py
+# Format: CATEGORY<TAB>FLAGS<TAB>REGEX   (Python re syntax)
+# Matching is done on text normalized with NFKD, accents stripped. FLAGS: i = case-insensitive, m = multiline, - = none.
+# Add per-project brand patterns at the end (e.g. wrong spellings of the project name).
+placeholder	-	\[[^\]\n]*\]
+placeholder	i	\[\s*(tbd|foto|pendiente)
+placeholder	-	\bTODO\b
+placeholder	i	\bxxx+\b
+placeholder	i	\blorem\b
+placeholder	-	\{\{|\}\}
+placeholder	-	[<>]
+draft	i	\bborrador\b
+draft	i	\bdrafts?\b
+draft	i	\bversion\s*\d+\b
+draft	i	\bv\d+\b
+draft	i	\bopcion\s+[a-d]\b
+draft	i	\balt[\s-]*text\s*:
+draft	i	\bcaption\s*:
+draft	i	\bslide\s*[1-9]\b
+draft	i	\bcopy\s*:
+prodnote	i	\bse\s+sube\s+como\b
+prodnote	i	\b(carrusel|carousel)\s+(en|de)\s+\d+\s+(historias|stories|slides)\b
+prodnote	i	\bnota\s+(interna|de\s+produccion)\b
+prodnote	i	\bno\s+publicar\b
+prodnote	i	\bnot\s+for\s+publication\b
+prodnote	i	\b(placa|plate|overlay|b-roll|broll)\s*:
+meta	i	\baprobad[oa]s?\b
+meta	i	\baprobar\b
+meta	i	\blo\s+publico\b
+meta	i	\bpuedo\s+publicar
+meta	i	\bpublicarlo\b
+meta	i	\bte\s+paso\b
+meta	i	\baca\s+va\b
+meta	i	\baqui\s+esta\b
+meta	i	\bhere\s+is\b
+meta	i	\bhere'?s\b
+meta	i	\blet\s+me\s+know\b
+meta	i	\bavisame\b
+meta	i	\bte\s+parece\b
+meta	i	\bdecime\b
+meta	i	\b(soy|como) (un |una )?(agente|ia|asistente)\b
+meta	i	\bas\s+an\s+ai\b
+meta	i	\bcomo\s+(una\s+)?ia\b
+meta	i	\bsure\s*!
+meta	i	\bclaro\s*!
+meta	i	^\s*listo[\s,.!:]
+meta	i	\brevisa\b
+meta	i	\b(tu|dame|te pido|algun) feedback\b
+markdown	-	\*\*
+markdown	-	##
+markdown	m	^\s*-\s
+markdown	-	```
+trope	i	\bbitacora\b
+trope	i	\bno\s+es\s+[^.\n!?]{1,60}?[,:;]\s*es\b
+trope	i	\bno\s+(es|son|era|fue)\s+solo\b
+trope	i	\bno\s+[^.\n!?]{1,40}?,\s*sino\b
+trope	i	\bit'?s\s+not\s+(just\s+)?[^.\n]{1,40}?[.,;:]\s*it'?s\b
+trope	i	\ben\s+un\s+mundo\s+donde\b
+trope	i	\bimaginate\s+esto\b
+trope	i	\bsin\s+mas\s+preambulos\b
+trope	i	\bno\s+te\s+lo\s+pierdas\b
+trope	i	\b(este|un|al|vamos\s+a\s+un)\s+corte\b|\bcorte\s+comercial\b
+trope	-	\u2014
+brand	i	spacex\s*ai\b|spacexai
+brand	i	\b(official|oficial)\s+(spacexsi|spacex)\b|\b(spacexsi|spacex)\s+ambassador\b
+brand	i	mar\s?del\s?plata[._-]?dev(?!\.ar\b)
+contact	i	[\w.+-]+@[\w-]+\.[\w.-]+
