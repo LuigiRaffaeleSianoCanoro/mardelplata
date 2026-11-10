@@ -6,9 +6,15 @@
   "endDate": "2026-09-16T23:00:00-03:00",
   "venue": "BASEMENT · Martín Miguel de Güemes 4870",
   "city": "Mar del Plata",
-  "hosts": ["SLA", "SLA Live"],
+  "hosts": [
+    "SLA"
+  ],
   "lumaUrl": "https://luma.com/2u2bi8x2",
-  "tags": ["charla", "tech", "comunidad"],
+  "tags": [
+    "charla",
+    "tech",
+    "comunidad"
+  ],
   "tier": "city",
-  "verifiedAt": "2026-09-11"
+  "verifiedAt": "2026-11-10"
 }

@@ -6,9 +6,20 @@
   "endDate": "2026-06-06T20:00:00-03:00",
   "venue": "Espacio Núcleo · Av. Independencia 3251",
   "city": "Mar del Plata",
-  "hosts": ["Tomás Sisterna", "Luigi Canoro", "Franco Petruccelli", "Mar del Plata Dev"],
+  "hosts": [
+    "Tomás Sisterna",
+    "Luigi Canoro",
+    "Mardevplata",
+    "Nicolas E. Giménez",
+    "Franco Petruccelli",
+    "Nahuel Sigismondi"
+  ],
   "lumaUrl": "https://luma.com/dafe55xv",
-  "tags": ["meetup", "música", "comunidad"],
+  "tags": [
+    "meetup",
+    "música",
+    "comunidad"
+  ],
   "tier": "community",
-  "verifiedAt": "2026-09-03"
+  "verifiedAt": "2026-11-10"
 }

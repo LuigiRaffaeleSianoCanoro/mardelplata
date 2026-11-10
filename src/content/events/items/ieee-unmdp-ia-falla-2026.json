@@ -6,9 +6,16 @@
   "endDate": "2026-09-07T20:00:00-03:00",
   "venue": "Aula Magna · Facultad de Ingeniería UNMDP · Av. Juan B. Justo 4302",
   "city": "Mar del Plata",
-  "hosts": ["IEEE - UNMDP", "Demian N. Mozo"],
+  "hosts": [
+    "Demian N. Mozo",
+    "IEEE UNMDP Student Branch"
+  ],
   "lumaUrl": "https://luma.com/zgtd8bt5",
-  "tags": ["charla", "IA", "universidad"],
+  "tags": [
+    "charla",
+    "IA",
+    "universidad"
+  ],
   "tier": "city",
-  "verifiedAt": "2026-09-04"
+  "verifiedAt": "2026-11-10"
 }

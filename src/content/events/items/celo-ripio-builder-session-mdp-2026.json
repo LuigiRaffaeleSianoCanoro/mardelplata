@@ -6,9 +6,18 @@
   "endDate": "2026-10-17T20:00:00-03:00",
   "venue": "Mila Oficinas · Santiago del Estero 2151",
   "city": "Mar del Plata",
-  "hosts": ["Celo Core Co.", "Arturo Grande", "Matias Celiz", "Luigi Canoro"],
+  "hosts": [
+    "Arturo Grande",
+    "Celo Core Co.",
+    "Matias Celiz",
+    "Luigi Canoro"
+  ],
   "lumaUrl": "https://luma.com/w66t9ko7",
-  "tags": ["taller", "Web3", "IA"],
+  "tags": [
+    "taller",
+    "Web3",
+    "IA"
+  ],
   "tier": "city",
-  "verifiedAt": "2026-10-12"
+  "verifiedAt": "2026-11-10"
 }

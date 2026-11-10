@@ -6,9 +6,20 @@
   "endDate": "2026-10-10T20:00:00-03:00",
   "venue": "UCIP · Av. Pedro Luro 3030",
   "city": "Mar del Plata",
-  "hosts": ["Team1", "Sofia Team1", "Luigi Canoro", "Matias Celiz", "Julian del Alamo", "Karot"],
+  "hosts": [
+    "Sofia Team1",
+    "Luigi Canoro",
+    "Julian del Alamo",
+    "Karot",
+    "Team1",
+    "Matias Celiz"
+  ],
   "lumaUrl": "https://luma.com/ggrzeglh",
-  "tags": ["meetup", "Web3", "Avalanche"],
+  "tags": [
+    "meetup",
+    "Web3",
+    "Avalanche"
+  ],
   "tier": "community",
-  "verifiedAt": "2026-10-12"
+  "verifiedAt": "2026-11-10"
 }

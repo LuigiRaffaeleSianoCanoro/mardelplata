@@ -1,0 +1,18 @@
+{
+  "id": "happy-hour-de-fin-de-ano-mardelplata-dev-ar-2026",
+  "title": "Happy Hour de Fin De Año Mardelplata.Dev.Ar",
+  "excerpt": "¡Hola a todos! Se viene la fiesta de cierre de año de la comunidad Mar del Plata Dev. ¡No se la pierdan!",
+  "date": "2026-12-19T19:00:00-03:00",
+  "endDate": "2026-12-19T23:55:00-03:00",
+  "venue": "Mar del Plata",
+  "city": "Mar del Plata",
+  "hosts": [
+    "Luigi Canoro"
+  ],
+  "lumaUrl": "https://luma.com/dcnmv5a2",
+  "tags": [
+    "comunidad"
+  ],
+  "tier": "community",
+  "verifiedAt": "2026-11-10"
+}
