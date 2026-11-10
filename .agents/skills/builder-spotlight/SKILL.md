@@ -7,9 +7,9 @@ description: "Builder Spotlight de mardelplata.dev.ar: elegir un builder local c
 Campaña que muestra talento tech de Mar del Plata. Solo marca mardelplata.dev.ar.
 
 ## Fuentes
-- El roster de candidatos y las respuestas del formulario "Historias tech" (v1 y v2) de la comunidad. La ubicación de las planillas está en el `PROJECT_CONTENT_RULES.md` del repo de la comunidad; si no la tenés, pedila. **Nunca copies las planillas, teléfonos ni mails a este repo ni a un prompt.**
+- El roster de candidatos y las respuestas del formulario "Historias tech" (v1 y v2) de la comunidad. Procedimiento y consentimiento: `PROJECT_CONTENT_RULES.md` § Consent and featured people (acceso solo lectura vía Luigi; **nunca** copiar planillas al repo). **Nunca copies las planillas, teléfonos ni mails a este repo ni a un prompt.**
 - La planilla v2 tiene foto, links, descripción y consentimiento obligatorios, y una pestaña "Elegibilidad" que marca PUBLICABLE / NO PUBLICAR.
-- Guía de estilo de los posts ya publicados (STYLE.md del repo de la comunidad) para matchear tono e imágenes.
+- Guía de tono e imágenes: `docs/marketing/skills/mdpdev-marketing-voice/SKILL.md`, `docs/marketing/campaigns/talento-mdp-2026/COPY.md`, `docs/marketing/VISUAL-TEMPLATES.md`.
 - Mapa de columnas típico del formulario: "¿Cómo querés que aparezca tu nombre?" → nombre · "Rol principal" → rol · "¿Estás construyendo algo…?" + "Describilo en una sola frase" → proyecto · "Link del proyecto" → web · "Linkedin" / "Twitter / X" / "Instagram" → redes · "Completá esta frase" y "Contanos un momento…" → citas textuales · "¿Nos das permiso…?" → usar solo si dice "Sí, autorizo". No hay columna de GitHub: buscarlo solo si aparece en sus links verificados.
 
 ## Política de perfiles completos (desde 12/10/2026, no negociable)
@@ -49,7 +49,7 @@ Eso nos dijo [Nombre] cuando le preguntamos. [1 frase puente].
 
 El próximo spotlight podés ser vos → link en la bio
 ```
-Apertura alternativa: "Seguimos mostrando el talento tech de Mar del Plata. Hoy: [Nombre / @usuario]". Sin hashtags (`--style spotlight`). @mencionar solo si el builder dio su IG. Verificar el tono contra STYLE.md. Los corchetes son de plantilla: el texto final no puede tener ninguno.
+Apertura alternativa: "Seguimos mostrando el talento tech de Mar del Plata. Hoy: [Nombre / @usuario]". Sin hashtags (`--style spotlight`). @mencionar solo si el builder dio su IG. Verificar el tono contra `mdpdev-marketing-voice` y COPY de Talento. Los corchetes son de plantilla: el texto final no puede tener ninguno.
 
 ## Reglas propias
 - Nunca copiar teléfonos, emails ni la foto de Drive en los textos; usar el nombre como pidió aparecer.
