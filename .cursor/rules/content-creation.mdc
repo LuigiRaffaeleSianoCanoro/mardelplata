@@ -1,0 +1,15 @@
+---
+description: Content creation for Luigi Canoro (video editing, reels, shorts, Builder en la Bahía, talk clips, thumbnails, social posts, captions, scripts, decks). Read AGENTS.md (hard rules + skills index) and the matching .agents/skills/<name>/SKILL.md before producing or reviewing content.
+globs:
+alwaysApply: false
+---
+# Content creation
+
+Before any content task (video/reel/short editing, thumbnails, plates, social copy, scripts, VO, decks, event or blog drafts):
+
+1. Read `AGENTS.md` at the repo root: **HARD RULES**, skills index, model routing. Then the repo's `PROJECT_CONTENT_RULES.md` if it exists.
+2. Open the matching skill in `.agents/skills/<name>/SKILL.md`. Any video = `reel-production-complete-edit` + `video-review-package` + the specific editorial skill.
+3. Use `docs/ffmpeg-cookbook.md` (tested recipes) and the scripts in `tools/`.
+4. Before delivering: watch the full export, run `docs/qa-checklist.md`, `tools/preflight_deliver.sh` and (for post text) `tools/prepublish_check.py`.
+
+Key hard rules (full list in AGENTS.md): complete edit on every reel (jump cuts, audio cleanup, transitions/SFX, integrated plates); never slideshow videos; watch the whole export; Bahía keeps Luigi's original audio when he talks (VO only intro/closing/silent bridges); Instagram graphics never logo+URL top-left; Pavla current brand only (rebrand POC not approved); ambassador naming "part of the SpaceXSI Community" (never "SpaceXAI"); nothing published without Luigi's explicit OK and production notes never in post text; AI voice autonomous; two versions per new video (Claude Opus + Gemini); first-person rioplatense voice without LLM tropes; never mix projects; no secrets or patient data anywhere.
