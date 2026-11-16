@@ -58,12 +58,12 @@ function curatedToPublic(e: CuratedEvent): PublicEvent {
     city: e.city,
     hosts: e.hosts,
     tags: e.tags,
-    registration_url: e.lumaUrl,
+    registration_url: e.lumaUrl?.trim() ? e.lumaUrl.trim() : null,
     is_mystery: false,
     codename: null,
     teaser: null,
     is_published: true,
-    source: "luma",
+    source: e.lumaUrl?.includes("luma.com") ? "luma" : "luma",
     tier: e.tier,
   };
 }
