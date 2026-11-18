@@ -13,7 +13,8 @@
     "verify:prensa": "node scripts/verify-prensa.mjs",
     "sync:events": "node scripts/sync-luma-events.mjs --refresh",
     "sync:events:discover": "node scripts/sync-luma-events.mjs --refresh --discover",
-    "verify:events": "node scripts/verify-events.mjs"
+    "verify:events": "node scripts/verify-events.mjs",
+    "test:middleware": "node --experimental-strip-types --test scripts/middleware-scope.test.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",

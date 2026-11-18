@@ -1,11 +1,10 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-
-const DEFAULT_PROTECTED_PREFIXES = ["/protected"];
+import { PROTECTED_PATH_PREFIXES } from './middleware-config'
 
 export async function updateSession(
   request: NextRequest,
-  options?: { protectedPrefixes?: string[] },
+  options?: { protectedPrefixes?: readonly string[] },
 ) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -46,9 +45,8 @@ export async function updateSession(
     data: { user },
   } = await supabase.auth.getUser()
 
-  const protectedPrefixes =
-    options?.protectedPrefixes ?? DEFAULT_PROTECTED_PREFIXES;
   const pathname = request.nextUrl.pathname;
+  const protectedPrefixes = options?.protectedPrefixes ?? PROTECTED_PATH_PREFIXES;
   const isProtected = protectedPrefixes.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );

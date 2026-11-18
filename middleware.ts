@@ -1,17 +1,16 @@
-import { NextResponse, type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
-
-const PROTECTED_PREFIXES = ["/admin", "/perfil", "/asistencias"];
+import {
+  PROTECTED_PATH_PREFIXES,
+  SESSION_MIDDLEWARE_MATCHER,
+} from "@/lib/supabase/middleware-config";
 
 export async function middleware(request: NextRequest) {
-  return updateSession(request, { protectedPrefixes: PROTECTED_PREFIXES });
+  return updateSession(request, {
+    protectedPrefixes: [...PROTECTED_PATH_PREFIXES],
+  });
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except static files and images.
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: [...SESSION_MIDDLEWARE_MATCHER],
 };
