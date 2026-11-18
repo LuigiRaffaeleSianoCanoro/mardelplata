@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageFrame, PageHero, PageSection } from "@/components/v3/Page";
 import { Badge } from "@/components/shadcn/badge";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   breadcrumbSchema,
@@ -30,8 +30,11 @@ export const metadata = {
   alternates: { canonical: "/eventos" },
 };
 
+// ISR: mismos datos públicos que la home (sin cookies de sesión).
+export const revalidate = 300;
+
 export default async function EventosPage() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: supabaseEvents } = await supabase
     .from("events")
     .select("*")

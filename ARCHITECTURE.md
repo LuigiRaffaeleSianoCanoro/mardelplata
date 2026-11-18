@@ -309,7 +309,8 @@ Tres puntos de entrada en `src/lib/supabase/`:
 
 - **`client.ts`** — `createBrowserClient` para componentes `"use client"`.
 - **`server.ts`** — `createServerClient` con cookies de Next, para RSC y server actions. El proyecto usa Fluid Compute → instanciar uno por request, nunca compartirlo.
-- **`middleware.ts`** — `updateSession(request)` refresca cookies en cada request. Hoy está disponible pero **no hay un `middleware.ts` raíz** activo; si se agrega, debe redirigir `/protected/*` a `/auth/login`.
+- **`middleware.ts` (lib)** — `updateSession(request)` refresca cookies y redirige a login en rutas protegidas.
+- **`middleware.ts` (raíz)** — matcher acotado (`middleware-config.ts`): solo `/admin`, `/perfil`, `/asistencias`, `/auth` y `/api`. El resto del tráfico (home, marketplace, blog, etc.) no pasa por edge middleware → menos invocaciones Fluid en Vercel. Sesión en páginas públicas sigue en el cliente (`client.ts`); el refresh server-side ocurre al entrar a auth, API o rutas protegidas.
 
 ### 7.2 Esquema (migraciones en `scripts/`)
 
