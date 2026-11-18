@@ -22,6 +22,8 @@ import {
   isOnlineEvent,
 } from "@/lib/events/format";
 import { cn } from "@/lib/utils";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
+import TrackedOutboundLink from "@/components/TrackedOutboundLink";
 
 export const metadata = {
   title: "Eventos",
@@ -72,6 +74,21 @@ export default async function EventosPage() {
         title="Eventos en Mar del Plata"
         description="Meetups, workshops, charlas y hackatones para aprender, enseñar y conectar en persona. Agenda sincronizada con Luma."
       />
+
+      <div className="mb-6 flex flex-col gap-3 rounded-xl border bg-card/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[14px] leading-snug text-muted-foreground">
+          ¿Venís a un meetup? Sumate al grupo de WhatsApp de mardelplata.dev.ar para enterarte antes.
+        </p>
+        <TrackedOutboundLink
+          href={WHATSAPP_COMMUNITY_URL}
+          trackSource="eventos_whatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-foreground px-4 text-[13px] font-medium text-background lg:h-9"
+        >
+          Sumate al WhatsApp
+        </TrackedOutboundLink>
+      </div>
 
       <PageSection title={upcoming.length > 0 ? `Próximos · ${upcoming.length}` : "Próximos"}>
         {upcoming.length > 0 ? (

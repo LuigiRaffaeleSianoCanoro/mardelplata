@@ -19,6 +19,8 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/shadcn/tooltip";
 import { BRAND } from "@/lib/v3/brand";
 import { MARKETPLACE_NAV_ENABLED } from "@/lib/flags";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
+import TrackedOutboundLink from "@/components/TrackedOutboundLink";
 import { Lockup } from "./Logo";
 import { ICON_STROKE } from "./parts";
 import { UserMenu } from "./user-menu";
@@ -295,9 +297,15 @@ export function SiteFooter() {
           <Link href="/reglamento" className="text-muted-foreground hover:text-foreground">
             Reglamento
           </Link>
-          <Link href="/auth/registro" className="text-muted-foreground hover:text-foreground">
-            Sumate
-          </Link>
+          <TrackedOutboundLink
+            href={WHATSAPP_COMMUNITY_URL}
+            trackSource="footer_sumate"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            WhatsApp
+          </TrackedOutboundLink>
         </div>
       </div>
       <div className="border-t">

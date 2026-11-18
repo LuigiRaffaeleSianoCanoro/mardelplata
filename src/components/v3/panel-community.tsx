@@ -12,6 +12,8 @@ import {
   CarouselPrevious,
 } from "@/components/shadcn/carousel";
 import { COMMUNITY_SIZE_LABEL } from "@/lib/v3/brand";
+import { WHATSAPP_COMMUNITY_URL } from "@/lib/community";
+import TrackedOutboundLink from "@/components/TrackedOutboundLink";
 import { ICON_STROKE, Label, TextLink } from "./parts";
 import type { MemberVM, ProjectVM } from "@/lib/v3/types";
 
@@ -105,8 +107,18 @@ export function CommunityPanel({
         )}
       </section>
 
-      <div className="mt-auto flex shrink-0 gap-2 pb-3 lg:pb-0">
-        <Button className="h-11 flex-1 lg:h-10" onClick={onJoin}>
+      <div className="mt-auto flex shrink-0 flex-col gap-2 pb-3 lg:pb-0">
+        <Button asChild className="h-11 w-full lg:h-10">
+          <TrackedOutboundLink
+            href={WHATSAPP_COMMUNITY_URL}
+            trackSource="home_comunidad_whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Sumate al WhatsApp
+          </TrackedOutboundLink>
+        </Button>
+        <Button variant="outline" className="h-11 w-full lg:h-10" onClick={onJoin}>
           Sumá tu proyecto
         </Button>
       </div>
