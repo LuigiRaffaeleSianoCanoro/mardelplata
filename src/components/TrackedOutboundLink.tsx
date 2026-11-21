@@ -4,7 +4,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { trackWhatsappClick } from "@/lib/analytics";
 
 type TrackedOutboundLinkProps = ComponentPropsWithoutRef<"a"> & {
-  children: ReactNode;
+  children?: ReactNode;
   trackSource: string;
 };
 
