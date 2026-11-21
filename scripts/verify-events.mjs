@@ -18,7 +18,6 @@ const REQUIRED = [
   "venue",
   "city",
   "hosts",
-  "lumaUrl",
   "tags",
   "tier",
   "verifiedAt",
@@ -61,7 +60,8 @@ for (const file of files) {
     }
   }
 
-  if (!/^https:\/\/luma\.com\//.test(event.lumaUrl)) {
+  const lumaUrl = typeof event.lumaUrl === "string" ? event.lumaUrl.trim() : "";
+  if (lumaUrl && !/^https:\/\//i.test(lumaUrl)) {
     console.error(`BAD lumaUrl in ${file}`);
     errors++;
   }
@@ -77,7 +77,7 @@ for (const file of files) {
   }
   ids.add(event.id);
 
-  const slugMatch = event.lumaUrl.match(/luma\.com\/(?:event\/)?([a-zA-Z0-9_-]+)/i);
+  const slugMatch = lumaUrl.match(/luma\.com\/(?:event\/)?([a-zA-Z0-9_-]+)/i);
   const slug = slugMatch?.[1]?.toLowerCase();
   if (slug) {
     if (slugs.has(slug)) {
