@@ -1,0 +1,15 @@
+{
+  "id": "mlh-hackday-mdp-2027",
+  "title": "mardelplata.dev.ar Hack Day",
+  "excerpt": "Encuentro presencial y gratuito de mardelplata.dev.ar dentro del programa Hack Days de MLH. Sábado 16 de enero en UCIP.",
+  "date": "2027-01-16T10:00:00-03:00",
+  "endDate": "2027-01-16T16:00:00-03:00",
+  "venue": "UCIP · Av. Pedro Luro 3030",
+  "city": "Mar del Plata",
+  "hosts": ["Luigi Canoro", "Major League Hacking"],
+  "lumaUrl": "https://mlh.link/mardelplata-dev-ar-hack-day",
+  "tags": ["hackathon", "MLH", "IA"],
+  "tier": "community",
+  "verifiedAt": "2026-11-21",
+  "price": "Gratis"
+}
