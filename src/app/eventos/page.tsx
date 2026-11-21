@@ -78,7 +78,7 @@ export default async function EventosPage() {
 
       <PageSection title={upcoming.length > 0 ? `Próximos · ${upcoming.length}` : "Próximos"}>
         {upcoming.length > 0 ? (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid min-w-0 gap-3 sm:grid-cols-2">
             {upcoming.map((e) => (
               <EventoCard key={e.id} event={e} past={false} />
             ))}
@@ -96,7 +96,7 @@ export default async function EventosPage() {
 
       {pastCommunity.length > 0 ? (
         <PageSection title="Histórico — comunidad" muted>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid min-w-0 gap-3 sm:grid-cols-2">
             {pastCommunity.map((e) => (
               <EventoCard key={e.id} event={e} past />
             ))}
@@ -109,7 +109,7 @@ export default async function EventosPage() {
           <p className="mb-4 text-[13.5px] text-muted-foreground">
             Encuentros del ecosistema tech local que sumamos a la agenda.
           </p>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid min-w-0 gap-3 sm:grid-cols-2">
             {pastCity.map((e) => (
               <EventoCard key={e.id} event={e} past cityTone />
             ))}
@@ -176,7 +176,7 @@ function EventoCard({
   );
 
   const cls = cn(
-    "v3-press flex gap-4 rounded-xl border bg-card/70 p-4 transition-colors hover:bg-card",
+    "v3-press flex min-w-0 gap-4 overflow-hidden rounded-xl border bg-card/70 p-4 transition-colors hover-device:hover:bg-card",
     past && "opacity-80",
   );
 

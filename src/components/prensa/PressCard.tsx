@@ -17,8 +17,8 @@ export default function PressCard({ item }: { item: PressItem }) {
   const archived = hasArchive(item);
 
   return (
-    <article className="flex flex-col gap-2 rounded-xl border bg-card/70 p-4 transition-colors hover:bg-card">
-      <div className="flex items-center justify-between gap-3 font-mono text-[11px] tracking-[0.04em] text-muted-foreground">
+    <article className="flex min-w-0 flex-col gap-2 overflow-hidden rounded-xl border bg-card/70 p-4 transition-colors hover-device:hover:bg-card">
+      <div className="flex min-w-0 items-center justify-between gap-3 font-mono text-[11px] tracking-[0.04em] text-muted-foreground">
         <span className="truncate uppercase">{item.outlet}</span>
         <time dateTime={item.date} className="shrink-0">
           {formatDate(item.date)}

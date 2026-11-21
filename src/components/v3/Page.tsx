@@ -14,7 +14,7 @@ export function PageFrame({
   return (
     <>
       <Navbar />
-      <main className={cn("relative z-10 mx-auto w-full max-w-[1100px] flex-1 px-4 pb-16 pt-10 lg:px-6 lg:pb-24 lg:pt-14", className)}>
+      <main className={cn("relative z-10 mx-auto w-full min-w-0 max-w-[1100px] flex-1 overflow-x-clip px-4 pb-16 pt-10 lg:px-6 lg:pb-24 lg:pt-14", className)}>
         {children}
       </main>
       <Footer />

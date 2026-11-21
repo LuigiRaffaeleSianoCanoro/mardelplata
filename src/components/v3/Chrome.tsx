@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/shadcn/button";
+import { Button } from "@/components/piedra/button";
 import { Kbd } from "@/components/shadcn/kbd";
 import {
   CommandDialog,
@@ -115,8 +115,8 @@ export function SiteHeader() {
     <TooltipProvider delayDuration={400}>
       <PiedraRoot page />
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-sm">
-        <div className="relative z-10 mx-auto flex h-14 max-w-[1200px] items-center justify-between gap-2 px-4 lg:px-6">
-          <Link href="/" className="flex min-h-11 items-center rounded-lg" aria-label={`${BRAND} — inicio`}>
+        <div className="relative z-10 mx-auto flex h-14 min-w-0 max-w-[1200px] items-center justify-between gap-2 px-3 sm:px-4 lg:px-6">
+          <Link href="/" className="flex min-h-11 min-w-0 items-center rounded-lg" aria-label={`${BRAND} — inicio`}>
             <Lockup textClassName="lg:text-[16px]" />
           </Link>
 
@@ -128,10 +128,10 @@ export function SiteHeader() {
                   key={l.href}
                   variant={active ? "secondary" : "ghost"}
                   size="sm"
-                  asChild
+                  render={<Link href={l.href} />}
                   className={cn("h-9 rounded-lg px-3 text-[13px]", active && "bg-muted")}
                 >
-                  <Link href={l.href}>{l.label}</Link>
+                  {l.label}
                 </Button>
               );
             })}
@@ -141,7 +141,7 @@ export function SiteHeader() {
             <Button
               variant="ghost"
               size="icon"
-              className="size-11 md:hidden"
+              className="size-10 shrink-0 md:hidden sm:size-11"
               aria-label="Buscar"
               onClick={() => setCmdOpen(true)}
             >
@@ -149,17 +149,19 @@ export function SiteHeader() {
             </Button>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  onClick={() => setCmdOpen(true)}
-                  className="hidden h-9 w-[min(200px,14vw)] justify-between pr-1.5 pl-3 text-[13px] font-normal text-muted-foreground md:inline-flex"
-                >
-                  <span className="flex items-center gap-2">
-                    <Search className="size-4" strokeWidth={ICON_STROKE} aria-hidden />
-                    Buscar…
-                  </span>
-                  <Kbd>{modKey}K</Kbd>
-                </Button>
+                <span className="hidden md:inline-flex">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCmdOpen(true)}
+                    className="h-9 w-[min(200px,14vw)] justify-between pr-1.5 pl-3 text-[13px] font-normal text-muted-foreground"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Search className="size-4" strokeWidth={ICON_STROKE} aria-hidden />
+                      Buscar…
+                    </span>
+                    <Kbd>{modKey}K</Kbd>
+                  </Button>
+                </span>
               </TooltipTrigger>
               <TooltipContent>Ir a cualquier sección</TooltipContent>
             </Tooltip>
@@ -172,15 +174,15 @@ export function SiteHeader() {
                 onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
               />
             ) : (
-              <Button variant="outline" asChild className="h-11 px-4 text-[13px] lg:h-9 lg:px-3.5">
-                <Link href="/auth/login">Entrar</Link>
+              <Button variant="outline" href="/auth/login" className="h-10 shrink-0 px-3 text-[13px] sm:h-11 sm:px-4 lg:h-9 lg:px-3.5">
+                Entrar
               </Button>
             )}
 
             <Button
               variant="ghost"
               size="icon"
-              className="size-11 md:hidden"
+              className="size-10 shrink-0 md:hidden sm:size-11"
               aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
@@ -271,7 +273,7 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-10 mt-auto border-t bg-background/70">
+    <footer className="relative z-10 mt-auto min-w-0 overflow-x-clip border-t bg-background/70">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-6">
         <div>
           <Lockup />
@@ -301,7 +303,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t">
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-3 font-mono text-[10.5px] tracking-[0.06em] text-muted-foreground uppercase lg:px-6">
+        <div className="mx-auto flex min-w-0 max-w-[1200px] items-center justify-between gap-3 px-4 py-3 font-mono text-[10.5px] tracking-[0.06em] text-muted-foreground uppercase lg:px-6">
           <span>Fondo: piedra Mar del Plata</span>
           <span>© {BRAND}</span>
         </div>

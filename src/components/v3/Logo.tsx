@@ -54,11 +54,11 @@ export function Lockup({
   variant?: MarkVariant;
 }) {
   return (
-    <span className={cn("flex items-center gap-2 select-none", className)} aria-label={BRAND} role="img">
+    <span className={cn("flex min-w-0 items-center gap-2 select-none", className)} aria-label={BRAND} role="img">
       <LogoMark variant={variant} className={markClassName} />
-      <span aria-hidden className={cn("text-[15px] font-semibold tracking-[-0.035em] text-foreground", textClassName)}>
+      <span aria-hidden className={cn("min-w-0 text-[15px] font-semibold tracking-[-0.035em] text-foreground", textClassName)}>
         {BRAND_NAME}
-        <span className="font-mono font-normal tracking-[-0.04em] text-muted-foreground">{BRAND_TLD}</span>
+        <span className="hidden font-mono font-normal tracking-[-0.04em] text-muted-foreground min-[360px]:inline">{BRAND_TLD}</span>
       </span>
     </span>
   );

@@ -96,14 +96,14 @@ export default function AppShell({ isAdmin, user: userProp, children }: AppShell
   }, [userProp]);
 
   return (
-    <div className="app-canvas relative min-h-dvh bg-background text-foreground">
+    <div className="app-canvas relative min-h-dvh min-w-0 max-w-full overflow-x-clip bg-background text-foreground">
       <PiedraRoot page />
       <AppSidebar
         isAdmin={resolvedAdmin}
         user={user}
         onOpenSearch={() => setPaletteOpen(true)}
       />
-      <div key={pathname} className="app-shell-content shell-content-fade relative z-10">
+      <div key={pathname} className="app-shell-content shell-content-fade relative z-10 min-w-0 max-w-full overflow-x-clip">
         {children}
       </div>
       {/* scan line legacy removido — no aporta en Piedra */}
