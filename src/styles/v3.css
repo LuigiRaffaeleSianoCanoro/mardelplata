@@ -70,6 +70,7 @@ html:has(.v3-shell),
   --ring: #ff5c26;
   --piedra: url("/v3/piedra-dark-lines.svg");
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
   /* Design refresh (gusto Albert AI): display condensada Oswald + cuerpo
@@ -118,13 +119,16 @@ html[data-mdp-theme="light"] .v3-shell {
 html:has(.v3-shell),
 html:has(.v3-shell) body {
   height: 100%;
+  max-width: 100%;
   overflow: hidden;
+  overflow-x: clip;
   overscroll-behavior: none;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 /* Válvula de escape (WCAG 1.4.10): con zoom alto, texto grande o un teléfono
    apaisado no hay altura para el shell; ahí sí dejamos scrollear antes que
@@ -273,18 +277,28 @@ html[data-mdp-theme="light"] .v3-hero-photo img { opacity: 0.22; filter: graysca
   transform: scale(0.97);
 }
 
-/* Indicador de tabs: translateX + width, 200ms. */
-.v3-tab-indicator {
+/* Indicador de tabs: se posiciona con las variables de UI SDK.
+   En mobile las columnas son iguales, así que sólo se anima transform
+   (200ms ease-out). No animamos width/left (layout). */
+.v3-tab-indicator,
+[data-slot="tabs-indicator"] {
   position: absolute;
-  top: 3px;
-  bottom: 3px;
+  top: var(--active-tab-top, 3px);
   left: 0;
+  width: var(--active-tab-width, 0);
+  height: var(--active-tab-height, auto);
   border-radius: 7px;
   background: var(--background);
   box-shadow: 0 0 0 1px var(--border-strong), 0 1px 2px rgb(0 0 0 / 0.25);
-  transition: transform 200ms var(--ease-out), width 200ms var(--ease-out);
-  will-change: transform, width;
+  transform: translateX(var(--active-tab-left, 0px));
+  transition: transform 200ms var(--ease-out);
   pointer-events: none;
+}
+.v3-tab-indicator[data-activation-direction="none"],
+[data-slot="tabs-indicator"][data-activation-direction="none"],
+[data-instant="true"] .v3-tab-indicator,
+[data-instant="true"] [data-slot="tabs-indicator"] {
+  transition: none;
 }
 /* Design refresh: el tab activo lleva el acento Óxido (una línea de 2px). */
 .v3-tab-indicator::after {
@@ -305,11 +319,24 @@ html[data-mdp-theme="light"] .v3-tab-indicator {
   transition: none;
 }
 
-/* Panel de tab: opacity 0→1 + translateX ±8px según dirección, 180ms. */
+/* Panel de tab: opacity + translateX ±8px según dirección, 180ms ease-out.
+   UI SDK expone data-starting-style / data-ending-style y data-activation-direction. */
 .v3-panel {
   transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
   opacity: 1;
   transform: none;
+}
+.v3-panel[data-starting-style],
+.v3-panel[data-ending-style] {
+  opacity: 0;
+}
+.v3-panel[data-starting-style][data-activation-direction="right"],
+.v3-panel[data-ending-style][data-activation-direction="left"] {
+  transform: translateX(8px);
+}
+.v3-panel[data-starting-style][data-activation-direction="left"],
+.v3-panel[data-ending-style][data-activation-direction="right"] {
+  transform: translateX(-8px);
 }
 @starting-style {
   .v3-panel {
@@ -348,7 +375,7 @@ html:has(.v3-shell) [data-slot="sheet-content"][data-state="open"] {
   animation: v3-sheet-in 240ms var(--ease-drawer) both;
 }
 html:has(.v3-shell) [data-slot="sheet-content"][data-state="closed"] {
-  animation: v3-sheet-out 160ms ease-in both;
+  animation: v3-sheet-out 160ms var(--ease-out) both;
 }
 @keyframes v3-sheet-in {
   from { transform: translateX(24px); opacity: 0; }
@@ -359,12 +386,12 @@ html:has(.v3-shell) [data-slot="sheet-content"][data-state="closed"] {
   to { transform: translateX(24px); opacity: 0; }
 }
 
-/* CommandDialog: scale .96→1 + opacity 150ms; salida 100ms ease-in. */
+/* CommandDialog: scale .96→1 + opacity 150ms; salida 100ms ease-out. */
 html:has(.v3-shell) [data-slot="dialog-content"][data-state="open"] {
   animation: v3-pop-in 150ms var(--ease-out) both;
 }
 html:has(.v3-shell) [data-slot="dialog-content"][data-state="closed"] {
-  animation: v3-pop-out 100ms ease-in both;
+  animation: v3-pop-out 100ms var(--ease-out) both;
 }
 @keyframes v3-pop-in {
   from { opacity: 0; transform: scale(0.96); }
@@ -416,7 +443,9 @@ html:has(.v3-shell--page),
 html:has(.v3-shell--page) body {
   height: auto;
   min-height: 100%;
+  max-width: 100%;
   overflow: auto;
+  overflow-x: clip;
   overscroll-behavior: auto;
 }
 .v3-shell--page {
@@ -998,4 +1027,23 @@ html:has(.v3-shell) .focus\:ring-ocean-400:focus {
 }
 html:has(.v3-shell) input[type="checkbox"] {
   accent-color: var(--oxido);
+}
+
+
+/* Touch: sin flash gris al tap, sin seleccionar texto de controles. */
+.v3-shell button,
+.v3-shell [role="button"],
+.v3-shell [data-slot="button"],
+.v3-shell [data-slot="tabs-tab"],
+html:has(.v3-shell) button,
+html:has(.v3-shell) [role="button"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Inputs ≥16px: evita que iOS haga zoom al enfocar. */
+html:has(.v3-shell) input,
+html:has(.v3-shell) select,
+html:has(.v3-shell) textarea {
+  font-size: max(16px, 1em);
 }

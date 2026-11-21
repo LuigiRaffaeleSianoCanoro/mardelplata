@@ -68,7 +68,7 @@ export default function PrensaPage() {
         if (group.length === 0) return null;
         return (
           <PageSection key={tag} title={label} className="scroll-mt-20" >
-            <div id={`tema-${tag}`} className="grid gap-3 sm:grid-cols-2">
+            <div id={`tema-${tag}`} className="grid min-w-0 gap-3 sm:grid-cols-2">
               {group.map((item) => (
                 <PressCard key={item.id} item={item} />
               ))}

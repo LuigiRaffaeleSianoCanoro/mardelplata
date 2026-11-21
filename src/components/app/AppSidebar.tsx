@@ -53,8 +53,8 @@ function SidebarTooltip({
     >
       {children}
       <div
-        className={`absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-lg whitespace-nowrap text-[12px] font-medium pointer-events-none z-[60] origin-left transition-[opacity,translate,scale] duration-150 ${
-          show ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-1 scale-95"
+        className={`absolute left-full ml-3 top-1/2 z-[60] hidden origin-left -translate-y-1/2 whitespace-nowrap rounded-lg px-3 py-2 text-[12px] font-medium pointer-events-none transition-[opacity,transform] duration-150 hover-device:block ${
+          show ? "opacity-100 translate-x-0 scale-100" : "pointer-events-none hidden opacity-0"
         } ${
           active
             ? "border border-border-strong bg-card text-foreground shadow-lg"

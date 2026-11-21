@@ -8,9 +8,9 @@ import { PiedraRoot } from "./Chrome";
 
 export function AuthChrome({ children }: { children: ReactNode }) {
   return (
-    <div className="relative flex min-h-dvh flex-col bg-background text-foreground">
+    <div className="relative flex min-h-dvh min-w-0 flex-col overflow-x-clip bg-background text-foreground">
       <PiedraRoot page />
-      <header className="relative z-10 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm">
+      <header className="relative z-10 flex h-14 min-w-0 items-center justify-between gap-2 border-b bg-background/80 px-3 backdrop-blur-sm sm:px-4">
         <Link href="/" className="flex min-h-11 items-center rounded-lg" aria-label={`${BRAND} — inicio`}>
           <Lockup />
         </Link>

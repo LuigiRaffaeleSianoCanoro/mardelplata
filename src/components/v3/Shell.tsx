@@ -1,20 +1,22 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Search, Share } from "lucide-react";
+import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/tabs";
-import { Button } from "@/components/shadcn/button";
+import { Button } from "@/components/piedra/button";
+import { Tabs, SegmentedTabList, SegmentedTab, TabPanel } from "@/components/piedra/tabs";
+import { HomeHero } from "@/components/piedra/hero";
+import { MobileDock } from "@/components/piedra/dock";
+import { Label } from "@/components/piedra/label";
+import { ICON_STROKE } from "@/components/piedra/event-card";
 import { Kbd } from "@/components/shadcn/kbd";
 import { Separator } from "@/components/shadcn/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/shadcn/tooltip";
-import { BRAND, COMMUNITY_SIZE_LABEL } from "@/lib/v3/brand";
+import { BRAND } from "@/lib/v3/brand";
 import type { ShellData } from "@/lib/v3/types";
 import { Lockup } from "./Logo";
-import { ICON_STROKE, Label } from "./parts";
 import { EventsPanel, JobsPanel, PressPanel } from "./panels";
 import type { OverlayState } from "./overlays";
 import { shareLink } from "./actions";
@@ -34,9 +36,6 @@ import { DESKTOP_QUERY, useFitChildren, useIsoLayoutEffect, useSessionUser, useT
 import { TABS, isTabId, type TabId } from "./tabs";
 
 type Overlay = OverlayState;
-
-const COORDS = "38°00′S 57°33′W";
-const HERO_WORDS = ["El", "Club", "Tech", "de", "Mar", "del", "Plata"];
 
 function readUrl(): { tab: TabId; overlay: Overlay } {
   const sp = new URLSearchParams(window.location.search);
@@ -63,7 +62,6 @@ function buildUrl(tab: TabId, overlay: Overlay): string {
   return `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`;
 }
 
-/** Tabs segmentadas con indicador deslizante (translateX + width, 200ms). */
 function SegmentedTabs({
   value,
   instant,
@@ -75,64 +73,14 @@ function SegmentedTabs({
   className?: string;
   triggerClassName?: string;
 }) {
-  const listRef = useRef<HTMLDivElement>(null);
-  const [ind, setInd] = useState<{ x: number; w: number } | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useIsoLayoutEffect(() => {
-    const list = listRef.current;
-    if (!list) return;
-    const measure = () => {
-      const el = list.querySelector<HTMLElement>(`[data-tab="${value}"]`);
-      if (el && el.offsetWidth > 0) setInd({ x: el.offsetLeft, w: el.offsetWidth });
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(list);
-    return () => ro.disconnect();
-  }, [value]);
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setReady(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
-
   return (
-    <TabsList
-      ref={listRef}
-      aria-label="Secciones"
-      className={cn(
-        "relative grid h-auto rounded-[10px] border bg-muted/70 p-[3px] text-muted-foreground group-data-[orientation=horizontal]/tabs:h-auto",
-        className,
-      )}
-    >
-      <span
-        aria-hidden
-        className="v3-tab-indicator"
-        data-instant={!ready || instant ? "true" : "false"}
-        style={{
-          transform: `translateX(${ind?.x ?? 3}px)`,
-          width: ind?.w ?? 0,
-          opacity: ind ? 1 : 0,
-        }}
-      />
-      {TABS.map((t) => (
-        <TabsTrigger
-          key={t.id}
-          value={t.id}
-          data-tab={t.id}
-          className={cn(
-            "relative z-[1] h-11 rounded-[7px] border-0 px-2 text-[13.5px] font-medium text-muted-foreground shadow-none transition-colors duration-150 lg:h-[34px] lg:px-4",
-            "data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none",
-            "dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-transparent",
-            "hover-device:hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60",
-            triggerClassName,
-          )}
-        >
-          {t.label}
-        </TabsTrigger>
+    <SegmentedTabList aria-label="Secciones" instant={instant} className={className}>
+      {TABS.map((tab) => (
+        <SegmentedTab key={tab.id} value={tab.id} data-tab={tab.id} className={triggerClassName}>
+          {tab.label}
+        </SegmentedTab>
       ))}
-    </TabsList>
+    </SegmentedTabList>
   );
 }
 
@@ -316,13 +264,13 @@ export default function Shell({ data }: { data: ShellData }) {
       <Tabs
         value={tab}
         onValueChange={(v) => isTabId(v) && setTab(v)}
-        className="v3-shell relative grid h-dvh w-full gap-0 overflow-hidden bg-background font-sans text-foreground grid-rows-[56px_minmax(0,1fr)_auto] lg:grid-rows-[56px_minmax(0,1fr)_32px]"
+        className="v3-shell relative grid h-dvh w-full min-w-0 max-w-full grid-cols-[minmax(0,1fr)] gap-0 overflow-hidden bg-background font-sans text-foreground grid-rows-[56px_minmax(0,1fr)_auto] lg:grid-rows-[56px_minmax(0,1fr)_32px]"
         vaul-drawer-wrapper=""
       >
         <div className="v3-piedra" aria-hidden />
 
         {/* ── Header ── */}
-        <header className="relative z-10 flex items-center justify-between gap-2 border-b bg-background/70 px-4 backdrop-blur-sm lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-6">
+        <header className="relative z-10 flex min-w-0 items-center justify-between gap-2 border-b bg-background/70 px-3 backdrop-blur-sm sm:px-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:px-6">
           <Link
             href="/"
             onClick={(e) => {
@@ -331,7 +279,7 @@ export default function Shell({ data }: { data: ShellData }) {
               if (overlayRef.current) closeOverlay({ replace: true });
               setTab("eventos");
             }}
-            className="flex min-h-11 items-center rounded-lg"
+            className="flex min-h-11 min-w-0 items-center rounded-lg"
             aria-label={`${BRAND} — inicio`}
           >
             <Lockup textClassName="lg:text-[16px]" />
@@ -339,7 +287,7 @@ export default function Shell({ data }: { data: ShellData }) {
 
           {layout !== "mobile" ? (
             <nav className="hidden lg:block" aria-label="Secciones">
-              <SegmentedTabs value={tab} instant={instant} className="grid-cols-[repeat(4,auto)]" />
+              <SegmentedTabs value={tab} instant={instant} className="w-auto grid-cols-[repeat(4,auto)]" />
             </nav>
           ) : (
             <span className="hidden lg:block" aria-hidden />
@@ -349,7 +297,7 @@ export default function Shell({ data }: { data: ShellData }) {
             <Button
               variant="ghost"
               size="icon"
-              className="size-11 lg:hidden"
+              className="size-10 shrink-0 sm:size-11 lg:hidden"
               aria-label="Buscar"
               onClick={() => setCmdOpen(true)}
             >
@@ -357,17 +305,19 @@ export default function Shell({ data }: { data: ShellData }) {
             </Button>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  onClick={() => setCmdOpen(true)}
-                  className="hidden h-9 w-[min(220px,15vw)] justify-between pr-1.5 pl-3 text-[13px] font-normal text-muted-foreground lg:inline-flex"
-                >
-                  <span className="flex items-center gap-2">
-                    <Search className="size-4" strokeWidth={ICON_STROKE} aria-hidden />
-                    Buscar…
-                  </span>
-                  <Kbd>{modKey}K</Kbd>
-                </Button>
+                <span className="hidden lg:inline-flex">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCmdOpen(true)}
+                    className="h-9 w-[min(220px,15vw)] justify-between pr-1.5 pl-3 text-[13px] font-normal text-muted-foreground"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Search className="size-4" strokeWidth={ICON_STROKE} aria-hidden />
+                      Buscar…
+                    </span>
+                    <Kbd>{modKey}K</Kbd>
+                  </Button>
+                </span>
               </TooltipTrigger>
               <TooltipContent>Eventos, secciones y acciones</TooltipContent>
             </Tooltip>
@@ -375,96 +325,37 @@ export default function Shell({ data }: { data: ShellData }) {
             {user ? (
               <UserMenu name={userName} avatarUrl={userAvatar} theme={theme} onToggleTheme={toggleTheme} />
             ) : (
-              <Button variant="outline" asChild className="h-11 px-4 text-[13px] lg:h-9 lg:px-3.5">
-                <Link href="/auth/login">Entrar</Link>
+              <Button variant="outline" href="/auth/login" className="h-10 shrink-0 px-3 text-[13px] sm:h-11 sm:px-4 lg:h-9 lg:px-3.5">
+                Entrar
               </Button>
             )}
           </div>
         </header>
 
         {/* ── Main ── */}
-        <main className="relative z-10 flex min-h-0 flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_clamp(400px,36vw,520px)]">
-          <section className="relative isolate shrink-0 px-4 pt-5 pb-4 shorter:pt-3 shorter:pb-2.5 lg:flex lg:min-w-0 lg:flex-col lg:justify-between lg:gap-6 lg:border-r lg:px-[min(56px,4vw)] lg:pt-[min(48px,5dvh)] lg:pb-[min(40px,4.4dvh)]">
-            <div className="v3-hero-photo" aria-hidden>
-              <Image src="/v3/photos/mdp-hero-costa.jpg" alt="" fill priority sizes="(min-width: 1024px) 64vw, 100vw" />
-            </div>
-            <span className="v3-cross hidden lg:block" style={{ left: -6, top: -6 }} aria-hidden />
-            <span className="v3-cross hidden lg:block" style={{ right: -6, top: -6 }} aria-hidden />
-            <div>
-              <div className="flex items-center justify-between gap-6 lg:justify-start">
-                <Label>[MDQ] {COORDS}</Label>
-                <Label className="lg:hidden">{COMMUNITY_SIZE_LABEL} personas</Label>
-                <Label className="hidden lg:inline">Comunidad dev</Label>
-                <Label className="hidden xl:inline">Costa atlántica</Label>
-              </div>
-              <h1 className="v3-display mt-3 max-w-[820px] text-[48px] short:text-[40px] shorter:text-[34px] lg:mt-[min(32px,3.5dvh)] lg:text-[min(112px,12.4dvh,7.8vw)]">
-                {HERO_WORDS.map((w, i) => (
-                  <span key={w + i}>
-                    <span className="v3-word" style={{ ["--i" as string]: i }}>
-                      <span>{w}</span>
-                    </span>
-                    {i < HERO_WORDS.length - 1 ? " " : null}
-                  </span>
-                ))}
-              </h1>
-              <p className="mt-3 text-[14.5px] leading-[1.45] text-muted-foreground short:hidden lg:hidden">
-                La comunidad dev de Mar del Plata: meetups, hackathons, empleos y lo que sale en los medios.
-              </p>
-              <p className="mt-[min(28px,3dvh)] hidden max-w-[560px] text-[18px] leading-[1.5] text-muted-foreground lg:block">
-                {BRAND} junta a la gente que hace software en Mar del Plata: meetups, hackathons, empleos y lo que sale en los medios.
-              </p>
-              <div className="mt-8 hidden items-center gap-3 lg:flex dshort:mt-6">
-                {next?.registrationUrl ? (
-                  <Button asChild size="xl">
-                    <a href={next.registrationUrl} target="_blank" rel="noopener noreferrer">
-                      Anotarme al próximo
-                      <ArrowUpRight className="size-4" strokeWidth={ICON_STROKE} aria-hidden />
-                    </a>
-                  </Button>
-                ) : null}
-                <Button variant="outline" size="xl" className="gap-3 px-4" onClick={() => setCmdOpen(true)}>
-                  Explorar <Kbd>{modKey}K</Kbd>
-                </Button>
-              </div>
-            </div>
-            <div
-              className={cn(
-                "hidden overflow-hidden rounded-xl border bg-background/80 lg:grid",
-                next?.venueName ? "grid-cols-3" : "grid-cols-2",
-              )}
-            >
-              <div className="p-5">
-                <Label>Comunidad</Label>
-                <div className="mt-2 text-[28px] font-semibold tracking-[-0.04em]">{COMMUNITY_SIZE_LABEL}</div>
-                <div className="text-[13px] text-muted-foreground">personas</div>
-              </div>
-              <div className="border-l p-5">
-                <Label>Ciudad</Label>
-                <div className="mt-2 text-[28px] font-semibold tracking-[-0.04em]">Mar del Plata</div>
-                <div className="text-[13px] text-muted-foreground">Costa atlántica</div>
-              </div>
-              {next?.venueName ? (
-                <div className="min-w-0 border-l p-5">
-                  <Label>Próxima sede</Label>
-                  <div className="mt-2 truncate text-[28px] font-semibold tracking-[-0.04em]">{next.venueName}</div>
-                  <div className="truncate text-[13px] text-muted-foreground">{next.venueAddress ?? next.city}</div>
-                </div>
-              ) : null}
-            </div>
-          </section>
+        <main className="relative z-10 flex min-h-0 min-w-0 flex-col overflow-x-clip lg:grid lg:grid-cols-[minmax(0,1fr)_clamp(400px,36vw,520px)]">
+          <HomeHero
+            brand={BRAND}
+            nextUrl={next?.registrationUrl}
+            onExplore={() => setCmdOpen(true)}
+            modKey={modKey}
+            venueName={next?.venueName}
+            venueAddress={next?.venueAddress}
+            city={next?.city}
+          />
 
           {layout !== "desktop" ? (
-            <nav className="relative shrink-0 px-4 pb-3 lg:hidden" aria-label="Secciones">
+            <nav className="relative min-w-0 shrink-0 px-3 pb-3 sm:px-4 lg:hidden" aria-label="Secciones">
               <SegmentedTabs value={tab} instant={instant} className="w-full grid-cols-4" />
             </nav>
           ) : null}
 
           <aside
             ref={asideRef}
-            className="relative min-h-0 flex-1 overflow-hidden px-4 pb-3 lg:bg-background/80 lg:p-6"
+            className="relative min-h-0 min-w-0 flex-1 overflow-hidden px-3 pb-3 sm:px-4 lg:bg-background/80 lg:p-6"
             style={{ ["--v3-panel-dx" as string]: `${dx}px` }}
           >
-            <TabsContent value="eventos" className="v3-panel h-full">
+            <TabPanel value="eventos" className="v3-panel h-full">
               <EventsPanel
                 upcoming={upcoming}
                 past={past}
@@ -479,47 +370,36 @@ export default function Shell({ data }: { data: ShellData }) {
                 onPublish={() => setDialog("publicar")}
                 onJobs={() => setTab("empleos")}
               />
-            </TabsContent>
-            <TabsContent value="comunidad" className="v3-panel h-full">
+            </TabPanel>
+            <TabPanel value="comunidad" className="v3-panel h-full">
               <CommunityPanel
                 projects={projects}
                 members={members}
                 onMembers={() => openOverlay({ kind: "miembros" })}
                 onJoin={() => setDialog("proyecto")}
               />
-            </TabsContent>
-            <TabsContent value="prensa" className="v3-panel h-full">
+            </TabPanel>
+            <TabPanel value="prensa" className="v3-panel h-full">
               <PressPanel press={press} onPress={openPress} onPressAll={() => openOverlay({ kind: "prensa" })} />
-            </TabsContent>
-            <TabsContent value="empleos" className="v3-panel h-full">
+            </TabPanel>
+            <TabPanel value="empleos" className="v3-panel h-full">
               <JobsPanel jobs={jobs} onPublish={() => setDialog("publicar")} />
-            </TabsContent>
+            </TabPanel>
           </aside>
         </main>
 
         {/* ── Dock (mobile) / Status bar (desktop) ── */}
-        <footer className="relative z-10">
-          <div className="grid grid-cols-[1fr_auto] gap-2 border-t bg-background/85 px-4 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] backdrop-blur-sm lg:hidden">
-            {next?.registrationUrl ? (
-              <Button asChild size="xl" className="w-full">
-                <a href={next.registrationUrl} target="_blank" rel="noopener noreferrer">
-                  Anotarme al próximo
-                </a>
-              </Button>
-            ) : (
-              <Button size="xl" className="w-full" onClick={() => openOverlay({ kind: "calendario" })}>
-                Ver calendario
-              </Button>
-            )}
-            <Button variant="outline" size="icon-xl" aria-label="Compartir" onClick={() => shareLink({ title: BRAND })}>
-              <Share className="size-[18px]" strokeWidth={ICON_STROKE} aria-hidden />
-            </Button>
-          </div>
+        <footer className="relative z-10 min-w-0">
+          <MobileDock
+            nextUrl={next?.registrationUrl}
+            onCalendar={() => openOverlay({ kind: "calendario" })}
+            onShare={() => shareLink({ title: BRAND })}
+          />
           <div className="hidden h-8 items-center justify-between border-t bg-background px-6 lg:flex">
             <span className="flex items-center gap-4">
               <Label className="flex items-center gap-2 !text-[10.5px]">
                 <span className="v3-dot !size-[5px]" aria-hidden />
-                MDQ · {COORDS}
+                MDQ · 38°00′S 57°33′W
               </Label>
               <Label className="!text-[10.5px]">Fondo: piedra Mar del Plata</Label>
             </span>

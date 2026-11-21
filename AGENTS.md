@@ -22,6 +22,8 @@ El proyecto tiene una estructura de agentes en `.cursor/`:
 
 **QA mínimo:** `npm run lint` + `npm run build`. Si hay SQL/RLS: `npm run security:verify`.
 
+**UI SDK:** before using `@ui-sdk/react` / `@ui-sdk/core`, follow the ui-sdk skill if it is installed, and read `node_modules/@ui-sdk/react/docs/llms.txt`. To build a new component, also search `node_modules/@ui-sdk/react/docs/core.md` by heading, and read `rendering.md` next to it. Style with the Piedra tokens in `src/styles/v3.css` (`src/components/piedra/`). Do not introduce a parallel visual system.
+
 ### Common commands
 
 | Task | Command |
