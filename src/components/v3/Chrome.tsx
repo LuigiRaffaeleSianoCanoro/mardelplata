@@ -56,6 +56,7 @@ const MORE: { href: string; label: string; group: string }[] = [
   { href: "/vivir-en-mardelplata", label: "Vivir en Mar del Plata", group: "Ciudad" },
   { href: "/trabajar", label: "Cafés y coworkings", group: "Ciudad" },
   { href: "/que-hacer", label: "Qué hacer", group: "Ciudad" },
+  { href: "/guia", label: "Guía tech", group: "Ecosistema" },
   { href: "/empresas", label: "Empresas", group: "Ecosistema" },
   { href: "/invertir", label: "Invertir", group: "Ecosistema" },
   ...(MARKETPLACE_NAV_ENABLED

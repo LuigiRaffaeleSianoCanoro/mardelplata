@@ -180,6 +180,7 @@ function shellLinks(): ShellLink[] {
     { href: "/trabajar", label: "Cafés y coworkings", description: "Lugares work-friendly", group: "ciudad" },
     { href: "/que-hacer", label: "Qué hacer", description: "Playas, naturaleza y cultura", group: "ciudad" },
     { href: "/en/live-in-mar-del-plata", label: "Live in Mar del Plata (EN)", group: "ciudad" },
+    { href: "/guia", label: "Guía tech", description: "El mapa del ecosistema de la ciudad", group: "ecosistema" },
     { href: "/empresas", label: "Empresas", description: "Directorio del ecosistema tech", group: "ecosistema" },
     { href: "/invertir", label: "Invertir", description: "El polo tech para empresas IT", group: "ecosistema" },
   ];
