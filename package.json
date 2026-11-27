@@ -14,7 +14,8 @@
     "sync:events": "node scripts/sync-luma-events.mjs --refresh",
     "sync:events:discover": "node scripts/sync-luma-events.mjs --refresh --discover",
     "verify:events": "node scripts/verify-events.mjs",
-    "test:middleware": "node --experimental-strip-types --test scripts/middleware-scope.test.ts"
+    "test:middleware": "node --experimental-strip-types --test scripts/middleware-scope.test.ts",
+    "qa:home-tabs": "node scripts/qa/home-hero-tabs.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
@@ -50,6 +51,7 @@
     "eslint": "^9",
     "eslint-config-next": "^15",
     "pg": "^8.16.0",
+    "playwright": "^1.51.1",
     "postcss": "^8",
     "tailwindcss": "^4",
     "typescript": "^5"

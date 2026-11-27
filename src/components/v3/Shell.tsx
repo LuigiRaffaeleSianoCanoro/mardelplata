@@ -352,7 +352,7 @@ export default function Shell({ data }: { data: ShellData }) {
 
           <aside
             ref={asideRef}
-            className="relative min-h-0 min-w-0 flex-1 overflow-hidden px-3 pb-3 sm:px-4 lg:bg-background/80 lg:p-6"
+            className="relative min-h-0 min-w-0 max-w-full flex-1 overflow-x-clip overflow-y-hidden px-3 pb-3 sm:px-4 lg:bg-background/80 lg:p-6"
             style={{ ["--v3-panel-dx" as string]: `${dx}px` }}
           >
             <TabPanel value="eventos" className="v3-panel h-full">
