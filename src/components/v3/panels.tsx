@@ -16,7 +16,7 @@ import {
 import { EventRow, ICON_STROKE, Label, NextEventCard, PressRow, PressTeaser, TextLink } from "./parts";
 import type { EventVM, JobVM, PressVM } from "@/lib/v3/types";
 
-export const panelCls = "flex h-full min-h-0 flex-col gap-3 lg:gap-4";
+export const panelCls = "flex h-full min-h-0 min-w-0 max-w-full flex-col gap-3 lg:gap-4";
 
 /* ── Eventos ─────────────────────────────────────────────────────────── */
 

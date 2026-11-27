@@ -304,13 +304,68 @@ export async function getShellData(): Promise<ShellData> {
       avatarUrl: httpUrl(m.avatar_url),
     }));
 
+  const qaFixtures = process.env.HOME_QA_FIXTURES === "1";
+  const projectsOut =
+    projects.length > 0
+      ? projects
+      : qaFixtures
+        ? [
+            {
+              id: "qa-calendario",
+              slug: "calendario",
+              name: "Calendario de eventos",
+              description: "Calendario unificado de nuestros eventos",
+              status: "active",
+              repoUrl: null,
+              demoUrl: "https://mardelplata.dev.ar/eventos",
+            },
+            {
+              id: "qa-red",
+              slug: "red-oss",
+              name: "Red OSS Mar del Plata",
+              description: "Directorio de proyectos abiertos de la comunidad",
+              status: "active",
+              repoUrl: "https://github.com/LuigiRaffaeleSianoCanoro/mardelplata",
+              demoUrl: null,
+            },
+            {
+              id: "qa-bolsa",
+              slug: "bolsa",
+              name: "Bolsa de trabajo",
+              description: "Búsquedas abiertas publicadas por la comunidad",
+              status: "paused",
+              repoUrl: null,
+              demoUrl: "https://mardelplata.dev.ar/bolsa",
+            },
+            {
+              id: "qa-market",
+              slug: "marketplace",
+              name: "Marketplace builders",
+              description: "Pedidos y startups de la escena local",
+              status: "active",
+              repoUrl: null,
+              demoUrl: "https://mardelplata.dev.ar/marketplace",
+            },
+          ]
+        : projects;
+
+  const membersOut =
+    members.length > 0
+      ? members
+      : qaFixtures
+        ? [
+            { id: "qa-m1", name: "Ana Builder", initials: "AB", avatarUrl: null },
+            { id: "qa-m2", name: "Nico Barbarosch", initials: "NB", avatarUrl: null },
+          ]
+        : members;
+
   return {
     upcoming: upcoming.map((e) => toEventVM(e, extras, avatars)),
     past: past.map((e) => toEventVM(e, extras, avatars)),
     press: getAllPressItems().map(toPressVM),
     jobs,
-    projects,
-    members,
+    projects: projectsOut,
+    members: membersOut,
     links: shellLinks(),
   };
 }
